@@ -12,40 +12,57 @@ struct Equation {
 	unsigned maxSolutions;
 	int multiplier;
 
+	/*
+	//todo
+	1: n(	x																					  -a	)
+	2: n(	x^2		+x(-1)(a+b)																	 +ab	)
+	3: n(	x^3		+x^2(a+b+c)			+x(ab+bc+ac)											-abc	)
+	4: n(	x^4		+x^3(-1)(a+b+c+d)	+x^2(ab+ac+cd+bc+bd+cd)		+x(-1)(abc+acd+abd+bcd)	   +abcd	)
+	*/
+
 	std::string toString() {
 		//todo no kurde brzydko
 		size_t size = solutions.size();
 		int n = multiplier;
 
+		int sum, product;//OBSERWACJE
+
 		if (size == 1) { 
 			int a = solutions[0];
-			return std::to_string(n) + "x -" + std::to_string(n*a);
+			product = a;
+			return std::to_string(n) + "x -" + std::to_string(n*product);
 		}
 
 		if (size == 2) { 
 			int a = solutions[0];
 			int b = solutions[1];
-			return std::to_string(n) + "x^2 " + std::to_string((-a - b) * n) + "x +" + std::to_string(n * a * b);
+			sum = a + b;
+			product = a*b;
+			return std::to_string(n) + "x^2 " + std::to_string(-sum * n) + "x +" + std::to_string(n * product);
 		}
 		if (size == 3) {
 			int a = solutions[0];
 			int b = solutions[1];
 			int c = solutions[2];
+			sum = a + b + c;
+			product = a * b * c;
 			return std::to_string(n) + "x^3 -" +
-				std::to_string((a + b + c)*n) + " x^2 +" +
+				std::to_string(sum*n) + " x^2 +" +
 				std::to_string(n*(a * b + b * c + a * c)) + "x -" +
-				std::to_string((n)*a * b * c);
+				std::to_string(n*product);
 		}
 		if (size == 4) {
 			int a = solutions[0];
 			int b = solutions[1];
 			int c = solutions[2];
 			int d = solutions[3];
+			sum = a + b + c + d;
+			product = a * b * c *d;
 			return std::to_string(n) + "x^4 " +
-				std::to_string(n*(-a - b - c - d)) + "x^3 +" +
+				std::to_string(-sum*n)) + "x^3 +" +
 				std::to_string(n*(a*b+a*c+a*d+c*b+c*d+d*b))+ "x^2 " +
 				std::to_string(-n*(a*c*d+b*c*d+a*b*c+a*b*d))+ "x +" +
-				std::to_string((n)*a * b * c * d);
+				std::to_string((n)*product);
 		}
 		return "nie";
 	}
