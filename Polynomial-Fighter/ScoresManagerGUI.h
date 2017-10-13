@@ -17,16 +17,16 @@ private:
 	std::vector<sf::Text> scoresTexts;
 
 	int dots = 9;
-	unsigned capacity;
+	unsigned int capacity = 0;
 public:
-	ScoreManagerGUI() {}
+	ScoreManagerGUI() = default;
 	ScoreManagerGUI(sf::Vector2f position, unsigned capacity, float scaleX = 1);
 
 	void updateScores(std::vector<int> &scores);
 
-	unsigned getCapacity();
+	unsigned int getCapacity() const;
 
-	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+	virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 
 private:
 	sf::Color color_backgroundFill = sf::Color::Black;

@@ -12,7 +12,7 @@ public:
     {
         for (; *text != '\0'; text++) {
             if (*text == '%') {
-                std::cout << toString(value);
+                std::cout << std::to_string(value);
                 PrintFormatted(text + 1, RecArgs...);
                 return;
             }
@@ -20,14 +20,14 @@ public:
         }
     }
 
-    static void PrintErrorFormatted(const char* format);
+    static void PrintErrorFormatted(const std::string &format);
 
 	template<typename T, typename... Args>
 	static void PrintFormatted(const char* text, T value, Args... RecArgs)
 	{
 		for (; *text != '\0'; text++) {
 			if (*text == '%') {
-				std::cout << toString(value);
+				std::cout << value;
 				PrintFormatted(text + 1, RecArgs...);
 				return;
 			}
@@ -35,7 +35,7 @@ public:
 		}
 	}
 
-    static void PrintFormatted(const char* format);
+    static void PrintFormatted(const std::string &format);
 };
 
 #endif

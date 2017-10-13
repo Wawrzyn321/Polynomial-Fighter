@@ -1,11 +1,11 @@
 #include "PoolManager.h"
 #include "ParticleSystem.h"
 
-PoolManager *PoolManager::sInstance = NULL;
+PoolManager *PoolManager::sInstance = nullptr;
 
 PoolManager * PoolManager::instance()
 {
-	if (sInstance == NULL) {
+	if (sInstance == nullptr) {
 		sInstance = new PoolManager();
 		sInstance->entityManager = EntityManager::instance();
 	}

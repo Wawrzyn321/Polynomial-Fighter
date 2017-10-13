@@ -3,7 +3,7 @@
 
 #include "GameData.h"
 #include "Asset Manager.h"
-#include <SFML\Graphics.hpp>
+#include <SFML/Graphics.hpp>
 #include "Debug.h"
 #include "IDamageable.h"
 #include <sstream>
@@ -12,7 +12,7 @@ const float pi = 3.1415926535f;
 
 unsigned intLenght(int number);
 
-void centerTextOrigin(sf::Text & textShape);
+void centerTextOrigin(sf::Text &textShape);
 
 void setAlpha(sf::Shape &shape, float alpha);
 
@@ -27,14 +27,6 @@ sf::FloatRect getCenteredFloatRect(float width, float height, float xShift = 0, 
 int getLastCharacterPosition(std::string text, char c);
 
 #pragma region Template functions
-
-//todo jest ju¿ funkcja
-template <typename T>
-std::string toString(T x) {
-	std::ostringstream temp;
-	temp << x;
-	return temp.str();
-}
 
 template <typename T, typename R>
 float squaredDistance(sf::Vector2<T> a, sf::Vector2<R> b) {

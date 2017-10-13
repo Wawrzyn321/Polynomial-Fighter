@@ -6,10 +6,12 @@
 #include <algorithm>
 #include <vector>
 
-class EntityManager {
+class EntityManager
+{
 	friend class PoolManager;
 private:
-	EntityManager() {}
+	EntityManager() = default;
+
     static EntityManager *sInstance;
     std::vector<Entity*> entities;
 

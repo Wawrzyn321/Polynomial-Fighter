@@ -1,11 +1,10 @@
 #include "SoundManager.h"
 
-#include <iostream>
 using namespace std;
 
-SoundManager *SoundManager::sInstance = NULL;
+SoundManager *SoundManager::sInstance = nullptr;
 
-void SoundManager::play(sf::Sound * sound, sf::SoundBuffer *buffer)
+void SoundManager::play(std::shared_ptr<sf::Sound> sound, std::shared_ptr<sf::SoundBuffer> buffer)
 {
 	sound->setBuffer(*buffer);
 	sound->play();
@@ -13,33 +12,38 @@ void SoundManager::play(sf::Sound * sound, sf::SoundBuffer *buffer)
 
 SoundManager * SoundManager::instance()
 {
-	if (sInstance == NULL) {
-		sInstance = new SoundManager();
-		sInstance->assetManagerInstance = AssetManager::instance();
-	}
-	return sInstance;
+    if (sInstance == nullptr)
+    {
+        sInstance = new SoundManager();
+        sInstance->assetManagerInstance = AssetManager::instance();
+    }
+
+    return sInstance;
 }
 
-void SoundManager::playSound(std::string bufferName)
+void SoundManager::playSound(const std::string &bufferName)
 {
 	if (!isOn) return;
 
-	sf::SoundBuffer *buffer = assetManagerInstance->getSound(bufferName);
+	auto buffer = assetManagerInstance->getSound(bufferName);
 
-	for (unsigned i = 0; i < players.size(); i++) {
-		if (players[i].getStatus() != sf::SoundSource::Status::Playing) {
-			play(&players[i], buffer);
+	for (auto &player : players)
+	{
+		if ((*player).getStatus() != sf::SoundSource::Status::Playing)
+		{
+			play(player, buffer);
 			return;
 		}
 	}
-	sf::Sound s;
+
+	std::shared_ptr<sf::Sound> s = std::make_shared<sf::Sound>();
 	players.push_back(s);
-	play(&players.back(), buffer);
+	play(players.back(), buffer);
 }
 
 void SoundManager::setPitch(float timeScale)
 {
-	for (unsigned i = 0; i < players.size(); i++) {
-		players[i].setPitch(timeScale);
+	for (auto &player : players) {
+        (*player).setPitch(timeScale);
 	}
 }

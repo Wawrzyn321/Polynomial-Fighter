@@ -7,7 +7,7 @@ Equation EquationProvider::getEquation(std::vector<int> coefficients, int multip
 	return Equation { coefficients, (unsigned)coefficients.size(), multiplier };
 }
 
-//todo krzywa rozk≥adu øeby potem wspÛ≥czynniki nie by≥y za duøe
+//todo krzywa rozk≈Çadu ≈ºeby potem wsp√≥≈Çczynniki nie by≈Çy za du≈ºe
 std::vector<int> EquationProvider::getRandomSolutions(unsigned number)
 {
 	std::vector<int> v;
