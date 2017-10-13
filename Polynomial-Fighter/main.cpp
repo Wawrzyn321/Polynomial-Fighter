@@ -5,13 +5,14 @@
 using namespace std;
 
 void showVector(vector<int> v) {
-	for (const auto &i : v) { //todo ³adne
+	for (const auto &i : v) { //todo Å‚adne
 		cout << i << " ";
 	}
 	cout << endl;
 }
 
-int main() {
+int main()
+{
 	srand((unsigned)time(NULL));
 
 //#ifdef  _WIN32
@@ -21,7 +22,7 @@ int main() {
 
 	EquationProvider ep = EquationProvider();
 
-	const int stopnie = 4; //dzia³a dla 4 stopnia, dalej...
+	const int stopnie = 4; //dziaÅ‚a dla 4 stopnia, dalej...
 	const int probki = 8;
 	const int multi = 3;
 

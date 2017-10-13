@@ -2,10 +2,10 @@
 
 namespace Time {
 
-    Timer *Timer::sInstance = NULL;
+    Timer *Timer::sInstance = nullptr;
 
     Timer* Time::Timer::instance() {
-        if (sInstance == NULL) {
+        if (sInstance == nullptr) {
             sInstance = new Timer();
             sInstance->deltaTimeTimer = new sf::Clock();
             sInstance->timer = new sf::Clock();
@@ -13,19 +13,22 @@ namespace Time {
         return sInstance;
     }
 
-    sf::Uint64 Timer::getDeltaTime() {
+    sf::Uint64 Timer::getDeltaTime() const
+    {
         return sInstance->deltaTimeTimer->restart().asMicroseconds();
     }
 
-    sf::Uint64 Timer::getElapsedTime() {
+    sf::Uint64 Timer::getElapsedTime() const
+    {
         return sInstance->timer->getElapsedTime().asMicroseconds();
     }
 
-    float Timer::getTimeScale() {
+    float Timer::getTimeScale() const
+    {
         return timeScale;
     }
 
-    TimeData Timer::getTimeData()
+    TimeData Timer::getTimeData() const
     {
         return {
 			sInstance->deltaTimeTimer->restart(),
@@ -34,14 +37,17 @@ namespace Time {
 		};
     }
 
-    void Timer::setTimeScale(float timeScale) {
+    void Timer::setTimeScale(float timeScale)
+    {
         this->timeScale = timeScale;
-        if (this->timeScale < 0) {
+        if (this->timeScale < 0)
+        {
             this->timeScale = 0;
         }
     }
 
-	void Timer::reset() {
+	void Timer::reset()
+    {
 		sInstance->deltaTimeTimer = new sf::Clock();
 		sInstance->timer = new sf::Clock();
 	}
