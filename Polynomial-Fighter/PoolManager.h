@@ -11,7 +11,7 @@ private:
 	PoolManager() {}
 	static PoolManager*sInstance;
 
-	EntityManager *entityManager = NULL;
+	EntityManager *entityManager = nullptr;
 public:
 	static PoolManager *instance();
 	

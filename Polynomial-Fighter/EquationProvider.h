@@ -51,20 +51,7 @@ struct Equation {
 				std::to_string(n*(a * b + b * c + a * c)) + "x -" +
 				std::to_string(n*product);
 		}
-		if (size == 4) {
-			int a = solutions[0];
-			int b = solutions[1];
-			int c = solutions[2];
-			int d = solutions[3];
-			sum = a + b + c + d;
-			product = a * b * c *d;
-			return std::to_string(n) + "x^4 " +
-				std::to_string(-sum*n)) + "x^3 +" +
-				std::to_string(n*(a*b+a*c+a*d+c*b+c*d+d*b))+ "x^2 " +
-				std::to_string(-n*(a*c*d+b*c*d+a*b*c+a*b*d))+ "x +" +
-				std::to_string((n)*product);
-		}
-		return "nie";
+
 	}
 
 	bool isSolution(int val) {

@@ -63,9 +63,9 @@ public:
 
 	void draw(sf::RenderTarget & target, sf::RenderStates states = sf::RenderStates::Default) const;
 
-	void ParticleSystem::setPosition(sf::Vector2f position);
+	void setPosition(sf::Vector2f position);
 
-	sf::Vector2f ParticleSystem::getPosition();
+	sf::Vector2f getPosition();
 
 	static void buildOnHitParticles(ParticleSystem *particleSystem, sf::Vector2f position, sf::Vector2f direction);
 

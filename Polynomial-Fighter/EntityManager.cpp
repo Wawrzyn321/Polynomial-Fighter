@@ -1,10 +1,10 @@
 #include "EntityManager.h"
 
-EntityManager *EntityManager::sInstance = NULL;
+EntityManager *EntityManager::sInstance = nullptr;
 
 EntityManager * EntityManager::instance()
 {
-    if (sInstance == NULL) {
+    if (sInstance == nullptr) {
         sInstance = new EntityManager();
     }
     return sInstance;
@@ -15,7 +15,7 @@ void EntityManager::addEntity(Entity *entity) {
 }
 
 void EntityManager::deleteEntity(Entity *entity) {
-	if (entity == NULL) {
+	if (entity == nullptr) {
 		Debug::PrintErrorFormatted("EntityManager::deleteEntity: supplied Entity was NULL!");
 		return;
 	}
@@ -24,7 +24,7 @@ void EntityManager::deleteEntity(Entity *entity) {
 	}
 	entities.erase(std::remove(entities.begin(), entities.end(), entity), entities.end());
 	delete entity;
-    entity = NULL;
+    entity = nullptr;
 }
 
 std::vector<Entity*> EntityManager::getEntities() {
@@ -34,31 +34,32 @@ std::vector<Entity*> EntityManager::getEntities() {
 #pragma region Searching the list
 
 Entity* EntityManager::findEntityByName(std::string name) {
-	for (unsigned i = 0; i < entities.size(); i++) {
-		if (entities[i]->name == name) {
-			return entities[i];
+	for (auto &entitie : entities) {
+		if (entitie->name == name) {
+			return entitie;
 		}
 	}
     //Debug::PrintFormatted("EntityManager::findEntityByName: could not find object of name <%>!\n", name);
-	return NULL;
+	return nullptr;
 }
 
 Entity* EntityManager::findEntityByTag(std::string tag, bool includeDisabled) {
-	for (unsigned i = 0; i < entities.size(); i++) {
-		if (entities[i]->getEnabled() == false && !includeDisabled) continue;
-		if (entities[i]->tag == tag) {
-			return entities[i];
+	for (auto &entitie : entities) {
+		if (!entitie->getEnabled() && !includeDisabled) continue;
+		if (entitie->tag == tag) {
+			return entitie;
 		}
 	}
-	return NULL;
+	return nullptr;
 }
 
-std::vector<Entity*> EntityManager::findEntitiesByTag(std::string tag, bool includeDisabled) {
+std::vector<Entity*> EntityManager::findEntitiesByTag(std::string tag, bool includeDisabled)
+{
 	std::vector<Entity*> entitiesFound;
-	for (unsigned i = 0; i < entities.size(); i++) {
-		if (entities[i]->tag == tag) {
-			if (!includeDisabled && entities[i]->getEnabled() == false) continue;
-			entitiesFound.push_back(entities[i]);
+	for (auto &entitie : entities) {
+		if (entitie->tag == tag) {
+			if (!includeDisabled && !entitie->getEnabled()) continue;
+			entitiesFound.push_back(entitie);
 		}
 	}
 	return entitiesFound;
@@ -68,26 +69,26 @@ std::vector<Entity*> EntityManager::findEntitiesByTag(std::string tag, bool incl
 
 void EntityManager::update(Time::TimeData timeData) {
 	Time::Timer *t = Time::Timer::instance();
-	for (unsigned i = 0; i < entities.size(); i++) {
-		if (entities[i]->getEnabled()) {
-			entities[i]->update(timeData);
+	for (auto &entitie : entities) {
+		if (entitie->getEnabled()) {
+			entitie->update(timeData);
 		}
 	}
 }
 
 void EntityManager::draw(sf::RenderTarget& target, sf::RenderStates states) {
-	for (unsigned i = 0; i < entities.size(); i++) {
-		if (entities[i] == NULL) {
+	for (auto &entitie : entities) {
+		if (entitie == nullptr) {
 			Debug::PrintErrorFormatted("EntityManager::draw: supplied entity is NULL!");
 			continue;
 		}
-		if (entities[i]->getEnabled()) {
+		if (entitie->getEnabled()) {
 			glEnable(GL_SCISSOR_TEST);
 			glScissor((GLint)GameData::SCENE_BOUNDS.left,
 				(GLint)GameData::SCENE_BOUNDS.top,
 				(GLint)GameData::SCENE_BOUNDS.width,
 				(GLint)GameData::SCENE_BOUNDS.height);
-			entities[i]->draw(target, states);
+			entitie->draw(target, states);
 			glDisable(GL_SCISSOR_TEST);
 		}
 	}
@@ -95,17 +96,17 @@ void EntityManager::draw(sf::RenderTarget& target, sf::RenderStates states) {
 
 void EntityManager::reset()
 {
-	for (unsigned i = 0; i < entities.size(); i++) {
-		delete entities[i];
-		entities[i] = NULL;
+	for (auto &entitie : entities) {
+		delete entitie;
+		entitie = nullptr;
 	}
 	entities.clear();
 }
 
 bool EntityManager::validateEntityIndex(Entity* entity) {
-	if (entity == NULL) return false;
-	for (unsigned i = 0; i < entities.size(); i++) {
-		if (entities[i] == entity) {
+	if (entity == nullptr) return false;
+	for (auto &entitie : entities) {
+		if (entitie == entity) {
 			return true;
 		}
 	}
@@ -113,8 +114,8 @@ bool EntityManager::validateEntityIndex(Entity* entity) {
 }
 
 EntityManager::~EntityManager() {
-	for (unsigned i = 0; i < entities.size(); i++) {
-		entities[i]->onDestroy();
-		delete entities[i];
+	for (auto &entitie : entities) {
+		entitie->onDestroy();
+		delete entitie;
 	}
 }

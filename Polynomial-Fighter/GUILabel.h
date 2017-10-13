@@ -5,13 +5,14 @@
 #include "IMouseEventsListener.h"
 #include "Asset Manager.h"
 #include "Timer.h"
+
 class PauseManager;
 
 class GUILabel : public sf::Drawable, public IMouseEventsListener {
 	friend class PauseManager;
 protected:
 	sf::Text text;
-	std::function<void(void)> action = NULL;
+	std::function<void(void)> action = nullptr;
 
 	bool mouseCollideText(sf::Vector2i pos);
 
@@ -19,18 +20,17 @@ protected:
 
 public:
 
-	GUILabel() {}
-	GUILabel(sf::Vector2f position, int fontSize, std::string caption, std::function<void(void)> function = NULL);
+	GUILabel(sf::Vector2f position, int fontSize, std::string caption, std::function<void(void)> function = nullptr);
 
 	virtual void update(Time::TimeData timeData);
 
 	void updateText(std::string caption);
 
-	virtual void draw(sf::RenderTarget& target, sf::RenderStates states = sf::RenderStates::Default) const;
+	virtual void draw(sf::RenderTarget &target, sf::RenderStates states = sf::RenderStates::Default) const;
 
-	void onMouseClick(sf::Vector2i mousePosition);
+	void onMouseClick(sf::Vector2i mousePosition) override;
 
-	void onMouseMove(sf::Vector2i mousePosition);
+	void onMouseMove(sf::Vector2i mousePosition) override;
 
 protected:
 	sf::Color color_text_normal = sf::Color::White;

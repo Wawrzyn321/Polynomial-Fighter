@@ -1,7 +1,7 @@
 #ifndef IMOUSE_EVENTS_LISTENER_H
 #define IMOUSE_EVENTS_LISTENER_H
 
-#include <SFML\System\Vector2.hpp>
+#include <SFML/System/Vector2.hpp>
 
 class IMouseEventsListener {
 public:

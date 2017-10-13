@@ -7,21 +7,21 @@
 #include <memory>
 #include "Debug.h"
 
-class AssetManager{
+class AssetManager
+{
 private:
-	AssetManager() {}
-    std::map<std::string, sf::Texture> textures;
-	std::map<std::string, sf::Font> fonts;
-	std::map<std::string, sf::SoundBuffer> sounds;
+	AssetManager() = default;
+    std::map<std::string, std::shared_ptr<sf::Texture>> textures;
+	std::map<std::string, std::shared_ptr<sf::Font>> fonts;
+	std::map<std::string, std::shared_ptr<sf::SoundBuffer>> sounds;
     static AssetManager* sInstance;
+
 public:
-	static AssetManager *instance();
+    static AssetManager *instance();
 
-	sf::Texture *getTexture(const std::string &filename);
-	sf::Font *getFont(const std::string &filename);
-	sf::SoundBuffer *getSound(const std::string &filename);
-
-
+	std::shared_ptr<sf::Texture> getTexture(const std::string &filename);
+	std::shared_ptr<sf::Font> getFont(const std::string &filename);
+	std::shared_ptr<sf::SoundBuffer> getSound(const std::string &filename);
 };
 
 

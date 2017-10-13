@@ -2,7 +2,7 @@
 #define GAME_DATA_H
 
 #include <iostream>
-#include <SFML\Graphics.hpp>
+#include <SFML/Graphics.hpp>
 
 namespace GameData {
 

@@ -1,21 +1,20 @@
 #ifndef SOUND_MANAGER_H
 #define SOUND_MANAGER_H
 
-#include <SFML\Audio.hpp>
+#include <SFML/Audio.hpp>
 #include "Asset Manager.h"
 class PauseManager;
 
 class SoundManager {
 	friend class PauseManager;
 private:
-	SoundManager() {}
 	static SoundManager* sInstance;
 
-	std::vector<sf::Sound> players;
+	std::vector<std::shared_ptr<sf::Sound>> players;
 
 	AssetManager *assetManagerInstance;
 
-	void play(sf::Sound * sound, sf::SoundBuffer *buffer);
+	void play(std::shared_ptr<sf::Sound> sound, std::shared_ptr<sf::SoundBuffer> buffer);
 
 	void setPitch(float timeScale);
 public:
@@ -23,8 +22,7 @@ public:
 
 	bool isOn = true;
 
-	void playSound(std::string bufferName);
-
+	void playSound(const std::string &bufferName);
 };
 
 #endif
