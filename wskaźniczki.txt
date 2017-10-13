@@ -1,0 +1,2 @@
+shared_ptr<T> sptr = std::make_shared<T>(constrcutor); //nowe new
+

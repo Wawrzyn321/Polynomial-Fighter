@@ -22,7 +22,7 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{FBA4CE77-80DB-4E63-9DBB-ECF8B21F2958}</ProjectGuid>
     <RootNamespace>PolynomialFighter</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -47,7 +47,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
@@ -119,6 +119,7 @@
     <ClCompile Include="EntityManager.cpp" />
     <ClCompile Include="EquationProvider.cpp" />
     <ClCompile Include="GUILabel.cpp" />
+    <ClCompile Include="LayoutController.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ParticleSystem.cpp" />
     <ClCompile Include="PoolManager.cpp" />
@@ -139,6 +140,7 @@
     <ClInclude Include="IDamageable.h" />
     <ClInclude Include="IMouseEventsListener.h" />
     <ClInclude Include="ITransformable.h" />
+    <ClInclude Include="LayoutController.h" />
     <ClInclude Include="ParticleSystem.h" />
     <ClInclude Include="PoolManager.h" />
     <ClInclude Include="ScoresManager.h" />
