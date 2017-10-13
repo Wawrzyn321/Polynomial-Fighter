@@ -14,7 +14,7 @@ void ScoresManager::setGUI(sf::Vector2f position, float scale)
 	gui.updateScores(scores);
 }
 
-void ScoresManager::loadScores(std::vector<int> v)
+void ScoresManager::loadScores(const std::vector<int> &v)
 {
 	scores = std::vector<int>(v);
 	if (guiSet) {
@@ -45,7 +45,7 @@ bool ScoresManager::loadScores(std::string path) {
 
 bool ScoresManager::saveScores(std::string path)
 {
-	if (scores.size() == 0) {
+	if (scores.empty()) {
 		std::cout << "ScoresManager: No scores to save!" << std::endl;
 		return false;
 	}
@@ -54,9 +54,9 @@ bool ScoresManager::saveScores(std::string path)
 		std::cout << "ScoresManager: Failed to save scores! (" << path << ")" << std::endl;
 		return false;
 	}
-	for (unsigned i = 0; i < scores.size(); i++) {
-		fileOut << scores[i];// >> std::endl;
-		fileOut << toString('\n');
+	for (int score : scores) {
+		fileOut << score;// >> std::endl;
+		fileOut << '\n';
 	}
 	fileOut.close();
 	return true;
@@ -84,8 +84,8 @@ void ScoresManager::clearScores(std::string path)
 	std::ofstream fileOut;
 	fileOut.open(path, std::ofstream::out | std::ofstream::trunc);
 	fileOut.close();
-	for (unsigned i = 0; i < scores.size(); i++){
-		scores[i] = 0;
+	for (int &score : scores) {
+		score = 0;
 	}
 	if (guiSet) {
 		gui.updateScores(scores);

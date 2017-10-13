@@ -1,7 +1,7 @@
 #include "Utility.h"
 
 unsigned intLenght(int number) {
-	int l = 0;
+	unsigned int l = 0;
 
 	if (number < 0) {
 		number = -number;

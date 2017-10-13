@@ -1,8 +1,8 @@
 #ifndef ENTITY_H
 #define ENTITY_H
 
-#include <SFML\System.hpp>
-#include <SFML\Graphics.hpp>
+#include <SFML/System.hpp>
+#include <SFML/Graphics.hpp>
 #include "ITransformable.h"
 //#include "EventManager.h"
 #include "Timer.h"

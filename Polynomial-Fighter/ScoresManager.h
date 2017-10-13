@@ -12,12 +12,12 @@ private:
 
 	bool guiSet = false;
 public:
-	ScoresManager() {}
-	ScoresManager(unsigned capacity);
+	ScoresManager() = default;
+	ScoresManager(unsigned int capacity);
 
 	void setGUI(sf::Vector2f position, float scale);
 
-	void loadScores(std::vector<int> v);
+	void loadScores(const std::vector<int> &v);
 
 	bool loadScores(std::string path);
 

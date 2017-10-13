@@ -1,7 +1,7 @@
 #ifndef TIMER_H
 #define TIMER_H
 
-#include <SFML\System.hpp>
+#include <SFML/System.hpp>
 #include "SoundManager.h"
 
 namespace Time {
@@ -29,11 +29,11 @@ namespace Time {
         float timeScale = 1;
     public:
         static Timer* instance();
-        sf::Uint64 getDeltaTime(); //todo const correct
-        sf::Uint64 getElapsedTime();
+        sf::Uint64 getDeltaTime() const;
+        sf::Uint64 getElapsedTime() const;
         void setTimeScale(float timeScale);
-        float getTimeScale();
-        TimeData getTimeData();
+        float getTimeScale() const;
+        TimeData getTimeData() const;
 		void reset();
     };
 
