@@ -35,6 +35,6 @@ set(SOURCE_FILES
         Polynomial-Fighter/Timer.cpp
         Polynomial-Fighter/Timer.h
         Polynomial-Fighter/Utility.cpp
-        Polynomial-Fighter/Utility.h)
+        Polynomial-Fighter/Utility.h Polynomial-Fighter/RandomGenerator.cpp Polynomial-Fighter/RandomGenerator.h)
 
 add_executable(Polynomial_Fighter ${SOURCE_FILES})
