@@ -14,7 +14,6 @@ void showVector(vector<int> v) {
 
 int main()
 {
-	srand((unsigned)time(NULL));
 
 //#ifdef  _WIN32
 //	//hide console
