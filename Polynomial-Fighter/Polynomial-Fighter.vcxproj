@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -141,6 +141,7 @@
     <ClInclude Include="ITransformable.h" />
     <ClInclude Include="ParticleSystem.h" />
     <ClInclude Include="PoolManager.h" />
+    <ClInclude Include="Random.h" />
     <ClInclude Include="ScoresManager.h" />
     <ClInclude Include="ScoresManagerGUI.h" />
     <ClInclude Include="SoundManager.h" />
