@@ -121,7 +121,6 @@
     <ClCompile Include="GUILabel.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ParticleSystem.cpp" />
-    <ClCompile Include="PoolManager.cpp" />
     <ClCompile Include="RandomGenerator.cpp" />
     <ClCompile Include="ScoresManager.cpp" />
     <ClCompile Include="ScoresManagerGUI.cpp" />
@@ -141,7 +140,6 @@
     <ClInclude Include="IMouseEventsListener.h" />
     <ClInclude Include="ITransformable.h" />
     <ClInclude Include="ParticleSystem.h" />
-    <ClInclude Include="PoolManager.h" />
     <ClInclude Include="RandomGenerator.h" />
     <ClInclude Include="ScoresManager.h" />
     <ClInclude Include="ScoresManagerGUI.h" />
