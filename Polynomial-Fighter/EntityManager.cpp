@@ -10,11 +10,11 @@ EntityManager * EntityManager::instance()
     return sInstance;
 }
 
-void EntityManager::addEntity(Entity *entity) {
+void EntityManager::addEntity(std::shared_ptr<Entity> entity) {
 	entities.push_back(entity);
 }
 
-void EntityManager::deleteEntity(Entity *entity) {
+void EntityManager::deleteEntity(std::shared_ptr<Entity> entity) {
 	if (entity == nullptr) {
 		Debug::PrintErrorFormatted("EntityManager::deleteEntity: supplied Entity was NULL!");
 		return;
@@ -23,39 +23,40 @@ void EntityManager::deleteEntity(Entity *entity) {
 		entity->onDestroy();
 	}
 	entities.erase(std::remove(entities.begin(), entities.end(), entity), entities.end());
-	delete entity;
+	//delete entity; TODO
     entity = nullptr;
 }
 
-std::vector<Entity*> EntityManager::getEntities() {
+std::vector<std::shared_ptr<Entity>> EntityManager::getEntities() const
+{
 	return entities;
 }
 
 #pragma region Searching the list
 
-Entity* EntityManager::findEntityByName(std::string name) {
+std::weak_ptr<Entity> EntityManager::findEntityByName(std::string name) {
 	for (auto &entitie : entities) {
 		if (entitie->name == name) {
 			return entitie;
 		}
 	}
     //Debug::PrintFormatted("EntityManager::findEntityByName: could not find object of name <%>!\n", name);
-	return nullptr;
+	return {};
 }
 
-Entity* EntityManager::findEntityByTag(std::string tag, bool includeDisabled) {
+std::weak_ptr<Entity> EntityManager::findEntityByTag(std::string tag, bool includeDisabled) {
 	for (auto &entitie : entities) {
 		if (!entitie->getEnabled() && !includeDisabled) continue;
 		if (entitie->tag == tag) {
 			return entitie;
 		}
 	}
-	return nullptr;
+	return {};
 }
 
-std::vector<Entity*> EntityManager::findEntitiesByTag(std::string tag, bool includeDisabled)
+std::vector<std::weak_ptr<Entity>> EntityManager::findEntitiesByTag(std::string tag, bool includeDisabled)
 {
-	std::vector<Entity*> entitiesFound;
+	std::vector<std::weak_ptr<Entity>> entitiesFound;
 	for (auto &entitie : entities) {
 		if (entitie->tag == tag) {
 			if (!includeDisabled && !entitie->getEnabled()) continue;
@@ -67,7 +68,7 @@ std::vector<Entity*> EntityManager::findEntitiesByTag(std::string tag, bool incl
 
 #pragma endregion
 
-void EntityManager::update(Time::TimeData timeData) {
+void EntityManager::update(const Time::TimeData timeData) {
 	Time::Timer *t = Time::Timer::instance();
 	for (auto &entitie : entities) {
 		if (entitie->getEnabled()) {
@@ -83,39 +84,32 @@ void EntityManager::draw(sf::RenderTarget& target, sf::RenderStates states) {
 			continue;
 		}
 		if (entitie->getEnabled()) {
-			glEnable(GL_SCISSOR_TEST);
+
+			//todo uzmienniæ
+			/*glEnable(GL_SCISSOR_TEST);
 			glScissor((GLint)GameData::SCENE_BOUNDS.left,
 				(GLint)GameData::SCENE_BOUNDS.top,
 				(GLint)GameData::SCENE_BOUNDS.width,
-				(GLint)GameData::SCENE_BOUNDS.height);
+				(GLint)GameData::SCENE_BOUNDS.height);*/
 			entitie->draw(target, states);
-			glDisable(GL_SCISSOR_TEST);
+			//glDisable(GL_SCISSOR_TEST);
 		}
 	}
 }
 
-void EntityManager::reset()
+void EntityManager::clear()
 {
-	for (auto &entitie : entities) {
-		delete entitie;
-		entitie = nullptr;
+	for (auto &entity : entities) {
+		entity->onDestroy();
+		entity.reset();
+		entity = nullptr;
 	}
 	entities.clear();
 }
 
-bool EntityManager::validateEntityIndex(Entity* entity) {
-	if (entity == nullptr) return false;
-	for (auto &entitie : entities) {
-		if (entitie == entity) {
-			return true;
-		}
-	}
-	return false;
-}
-
 EntityManager::~EntityManager() {
-	for (auto &entitie : entities) {
-		entitie->onDestroy();
-		delete entitie;
+	for (auto &entity : entities) {
+		entity->onDestroy();
+		entity.reset();
 	}
 }

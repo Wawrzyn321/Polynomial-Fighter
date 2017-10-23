@@ -3,41 +3,37 @@
 
 #include "Entity.h"
 #include <SFML/OpenGL.hpp>
-#include <algorithm>
 #include <vector>
 
 class EntityManager
 {
 	friend class PoolManager;
-private:
 	EntityManager() = default;
 
     static EntityManager *sInstance;
-    std::vector<Entity*> entities;
+    std::vector<std::shared_ptr<Entity>> entities;
 
 public:
 
 	static EntityManager *instance();
 
-	void addEntity(Entity *entity);
+	void addEntity(std::shared_ptr<Entity>);
 
-	void deleteEntity(Entity *entity);
+	void deleteEntity(std::shared_ptr<Entity>);
 
-	std::vector<Entity*> getEntities();
+	std::vector<std::shared_ptr<Entity>> getEntities() const;
 
-	Entity* findEntityByName(std::string name);
+	std::weak_ptr<Entity> findEntityByName(std::string name);
 
-	Entity* findEntityByTag(std::string tag, bool includeDisabled = false);
+	std::weak_ptr<Entity> findEntityByTag(std::string tag, bool includeDisabled = false);
 
-    std::vector<Entity*> findEntitiesByTag(std::string tag, bool includeDisabled = false);
+    std::vector<std::weak_ptr<Entity>> findEntitiesByTag(std::string tag, bool includeDisabled = false);
 
 	void update(Time::TimeData timeData);
 
 	void draw(sf::RenderTarget& target, sf::RenderStates states = sf::RenderStates::Default);
 
-	void reset();
-
-	bool validateEntityIndex(Entity* entity);
+	void clear();
 
 	~EntityManager();
 };

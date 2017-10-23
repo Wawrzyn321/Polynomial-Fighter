@@ -134,6 +134,7 @@
     <ClInclude Include="Entity.h" />
     <ClInclude Include="EntityManager.h" />
     <ClInclude Include="EquationProvider.h" />
+    <ClInclude Include="ExampleEntities.h" />
     <ClInclude Include="GameData.h" />
     <ClInclude Include="GUILabel.h" />
     <ClInclude Include="IDamageable.h" />
