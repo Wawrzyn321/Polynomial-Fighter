@@ -20,6 +20,9 @@ public:
 
     //latwiej nam bedzie zrobic delete by name/tag
     //zreszta chyba bedzie to mialo wiecej sensu logicznego
+
+	//a co, jesli chcemy usunac konkretna instancje? name nie
+	//musi byc jednoznaczne.
 	void deleteEntitiesByTag(const std::string &tag);
 
     void deleteEntityByName(const std::string &name);
@@ -27,10 +30,6 @@ public:
     std::vector<std::weak_ptr<Entity>> getEntities();
 
 	std::weak_ptr<Entity> findEntityByName(const std::string &name);
-
-    //ta funkcja troche nie ma sensu chyba, tag z definicji okresla grupe obiektow
-    //chyba, ze czasem sie przyda wziecie pierwszego z brzegu z danego tagu
-	std::weak_ptr<Entity> findEntityByTag(const std::string &tag, bool includeDisabled = false);
 
     std::vector<std::weak_ptr<Entity>> findEntitiesByTag(const std::string &tag, bool includeDisabled = false);
 

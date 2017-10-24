@@ -81,22 +81,6 @@ std::weak_ptr<Entity> EntityManager::findEntityByName(const std::string &name)
     return std::weak_ptr<Entity>(); //sprawdza sie to std::weak_ptr::expired(), bo nie da sie nullptr
 }
 
-std::weak_ptr<Entity> EntityManager::findEntityByTag(const std::string &tag, bool includeDisabled)
-{
-	for (auto &entitie : entities)
-    {
-		if (!entitie->getEnabled() && !includeDisabled) continue;
-
-		if (entitie->tag == tag)
-        {
-            std::weak_ptr<Entity> weakPtr = entitie;
-			return weakPtr;
-		}
-	}
-
-	return std::weak_ptr<Entity>(); //sprawdza sie to std::weak_ptr::expired(), bo nie da sie nullptr
-}
-
 std::vector<std::weak_ptr<Entity>> EntityManager::findEntitiesByTag(const std::string &tag, bool includeDisabled)
 {
 	std::vector<std::weak_ptr<Entity>> entitiesFound;
@@ -118,8 +102,6 @@ std::vector<std::weak_ptr<Entity>> EntityManager::findEntitiesByTag(const std::s
 
 void EntityManager::update(const Time::TimeData timeData)
 {
-	Time::Timer *t = Time::Timer::instance();
-
 	for (auto &entitie : entities)
     {
 		if (entitie->getEnabled())

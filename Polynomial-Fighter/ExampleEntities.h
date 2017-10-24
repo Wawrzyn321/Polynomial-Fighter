@@ -96,6 +96,7 @@ public:
 
 class TransformObserver : public Entity
 {
+protected:
 	sf::RectangleShape rect;
 	std::shared_ptr<ITransformable> observed;
 
@@ -186,6 +187,26 @@ public:
 	{
 		target.draw(circle, states);
 	};
+};
+
+class TransformWanderer : public TransformObserver
+{
+
+public:
+	TransformWanderer(sf::Vector2f pos, const std::weak_ptr<Entity> observed): TransformObserver(pos, observed)
+	{
+		rect.setSize({ 25, 4 });
+		rect.setFillColor(sf::Color(255,255,0, 127));
+
+		name = "Transform Wanderer";
+	}
+
+	void update(Time::TimeData timeData) override
+	{
+		TransformObserver::update(timeData);
+
+		setPosition(lerp(getPosition(), observed->getPosition(), timeData.getScaledDeltaTimeInSec()));
+	}
 };
 
 #endif
