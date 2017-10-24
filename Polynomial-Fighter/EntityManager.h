@@ -7,27 +7,32 @@
 
 class EntityManager
 {
-	friend class PoolManager;
+private:
 	EntityManager() = default;
 
     static EntityManager *sInstance;
     std::vector<std::shared_ptr<Entity>> entities;
-
 public:
 
 	static EntityManager *instance();
 
 	void addEntity(std::shared_ptr<Entity>);
 
-	void deleteEntity(std::shared_ptr<Entity>);
+    //latwiej nam bedzie zrobic delete by name/tag
+    //zreszta chyba bedzie to mialo wiecej sensu logicznego
+	void deleteEntitiesByTag(const std::string &tag);
 
-	std::vector<std::shared_ptr<Entity>> getEntities() const;
+    void deleteEntityByName(const std::string &name);
 
-	std::weak_ptr<Entity> findEntityByName(std::string name);
+    std::vector<std::weak_ptr<Entity>> getEntities();
 
-	std::weak_ptr<Entity> findEntityByTag(std::string tag, bool includeDisabled = false);
+	std::weak_ptr<Entity> findEntityByName(const std::string &name);
 
-    std::vector<std::weak_ptr<Entity>> findEntitiesByTag(std::string tag, bool includeDisabled = false);
+    //ta funkcja troche nie ma sensu chyba, tag z definicji okresla grupe obiektow
+    //chyba, ze czasem sie przyda wziecie pierwszego z brzegu z danego tagu
+	std::weak_ptr<Entity> findEntityByTag(const std::string &tag, bool includeDisabled = false);
+
+    std::vector<std::weak_ptr<Entity>> findEntitiesByTag(const std::string &tag, bool includeDisabled = false);
 
 	void update(Time::TimeData timeData);
 

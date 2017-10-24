@@ -24,8 +24,6 @@ set(SOURCE_FILES
         Polynomial-Fighter/main.cpp
         Polynomial-Fighter/ParticleSystem.cpp
         Polynomial-Fighter/ParticleSystem.h
-        Polynomial-Fighter/PoolManager.cpp
-        Polynomial-Fighter/PoolManager.h
         Polynomial-Fighter/ScoresManager.cpp
         Polynomial-Fighter/ScoresManager.h
         Polynomial-Fighter/ScoresManagerGUI.cpp
