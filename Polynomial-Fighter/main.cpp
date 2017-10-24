@@ -28,6 +28,10 @@ void addEntities(EntityManager *entityManager){
 	entityManager->addEntity(make_shared<ParticleSystem>(ps));
 
 	entityManager->addEntity(make_shared<EmergencyBlinker>(EmergencyBlinker({ 500, 50 }, 1e3)));
+
+	entityManager->addEntity(make_shared<TransformWanderer>(TransformWanderer({ 300,300 }, e)));
+	entityManager->addEntity(make_shared<TransformWanderer>(TransformWanderer({ 400,400 }, e)));
+	entityManager->addEntity(make_shared<TransformWanderer>(TransformWanderer({ 500,500 }, e)));
 }
 
 int main()
@@ -55,6 +59,11 @@ int main()
 			}
 
 			if (event.type == sf::Event::MouseMoved) {}
+
+			if(event.type == sf::Event::MouseWheelMoved)
+			{
+				timer->setTimeScale(timer->getTimeScale() + event.mouseWheel.delta*0.25f);
+			}
 		}
 
 		Time::TimeData deltaTime = timer->getTimeData();
