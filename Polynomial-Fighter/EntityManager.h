@@ -27,6 +27,8 @@ public:
 
     void deleteEntityByName(const std::string &name);
 
+	void deleteEntity(std::weak_ptr<Entity> entity);
+
     std::vector<std::weak_ptr<Entity>> getEntities();
 
 	std::weak_ptr<Entity> findEntityByName(const std::string &name);

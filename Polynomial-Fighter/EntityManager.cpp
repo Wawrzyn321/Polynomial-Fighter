@@ -52,6 +52,24 @@ void EntityManager::deleteEntityByName(const std::string &name)
     }
 }
 
+void EntityManager::deleteEntity(std::weak_ptr<Entity> entity)
+{
+    for (int i = 0; i < entities.size(); i++)
+    {
+        if (entities[i] == entity.lock())
+        {
+            if (entities[i]->getEnabled())
+            {
+                entities[i]->onDestroy();
+            }
+
+            entities[i].reset();
+            entities.erase(entities.begin() + i);
+            return;
+        }
+    }
+}
+
 std::vector<std::weak_ptr<Entity>> EntityManager::getEntities()
 {
     std::vector<std::weak_ptr<Entity>> weakPtrs;
