@@ -19,7 +19,7 @@ public:
 	bool collisionsEnabled = true;
 
 	virtual sf::Vector2f getPosition() = 0;
-	virtual void setPosition(const sf::Vector2f position) = 0;
+	virtual void setPosition(sf::Vector2f position) = 0;
     virtual float getCollisionRadius()
 	{
         return collisionRadius;
