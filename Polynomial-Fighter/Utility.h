@@ -1,12 +1,10 @@
 #ifndef UTILITY_H
 #define UTILITY_H
 
+#include <SFML/Graphics.hpp>
 #include "GameData.h"
 #include "Asset Manager.h"
-#include <SFML/Graphics.hpp>
 #include "Debug.h"
-#include "IDamageable.h"
-#include <sstream>
 
 const float pi = 3.1415926535f;
 
@@ -38,6 +36,17 @@ T lerp(T from, T to, float amount) {
 	return from+(to - from)*amount;
 }
 
+template <typename T>
+T clamp(T value, T min, T max)
+{
+	return value<min ? min : value>max ? max : value;
+}
+
+template <typename T>
+T clamp01(T value)
+{
+	return value < 0 ? 0 : value>1 ? 1 : value;
+}
 
 template <typename T>
 sf::Vector2<T> vectorNormalize(sf::Vector2<T> vec) {
