@@ -82,7 +82,12 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>C:\SFML\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>C:\SFML\include;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>sfml-graphics-d.lib;sfml-system-d.lib;sfml-window-d.lib;sfml-audio-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -114,6 +119,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AdvancedParticle.cpp" />
+    <ClCompile Include="AdvancedParticleSystem.cpp" />
+    <ClCompile Include="APSBuilder.cpp" />
     <ClCompile Include="AssetManager.cpp" />
     <ClCompile Include="Debug.cpp" />
     <ClCompile Include="EntityManager.cpp" />
@@ -129,12 +137,17 @@
     <ClCompile Include="Utility.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AdvancedParticle.h" />
+    <ClInclude Include="AdvancedParticleSystem.h" />
+    <ClInclude Include="AdvancedParticleSystemData.h" />
+    <ClInclude Include="APSBuilder.h" />
     <ClInclude Include="Asset Manager.h" />
     <ClInclude Include="Debug.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="EntityManager.h" />
     <ClInclude Include="EquationProvider.h" />
     <ClInclude Include="ExampleEntities.h" />
+    <ClInclude Include="FloatColor.h" />
     <ClInclude Include="GameData.h" />
     <ClInclude Include="GUILabel.h" />
     <ClInclude Include="IDamageable.h" />
