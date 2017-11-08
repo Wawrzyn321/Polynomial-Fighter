@@ -7,6 +7,7 @@ class PolynomialFactor
 private:
     int x;
     int constant;
+    bool isInteger(double n) const;
 
 public:
     PolynomialFactor(int x = 0, int constant = 0);
@@ -15,6 +16,7 @@ public:
     int getConstant() const;
     void setConstant(int constant);
     int getRoot() const;
+    bool isRootInteger() const;
 };
 
 
