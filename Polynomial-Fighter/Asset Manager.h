@@ -5,7 +5,6 @@
 #include <SFML/Audio.hpp>
 #include <map>
 #include <memory>
-#include "Debug.h"
 
 class AssetManager
 {

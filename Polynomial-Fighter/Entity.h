@@ -14,6 +14,9 @@ public:
     std::string name;
 	std::string tag;
 
+	Entity(const std::string &name = "", const std::string &tag ="") :
+			name(name), tag(tag) {};
+
     virtual void update(Time::TimeData timeData) {};
 
     virtual void onDestroy() {};

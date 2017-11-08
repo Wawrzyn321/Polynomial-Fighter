@@ -24,8 +24,8 @@ set(SOURCE_FILES
         Polynomial-Fighter/main.cpp
         Polynomial-Fighter/ParticleSystem.cpp
         Polynomial-Fighter/ParticleSystem.h
-        Polynomial-Fighter/PoolManager.cpp
-        Polynomial-Fighter/PoolManager.h
+        Polynomial-Fighter/RandomGenerator.cpp
+        Polynomial-Fighter/RandomGenerator.h
         Polynomial-Fighter/ScoresManager.cpp
         Polynomial-Fighter/ScoresManager.h
         Polynomial-Fighter/ScoresManagerGUI.cpp
@@ -35,6 +35,6 @@ set(SOURCE_FILES
         Polynomial-Fighter/Timer.cpp
         Polynomial-Fighter/Timer.h
         Polynomial-Fighter/Utility.cpp
-        Polynomial-Fighter/Utility.h Polynomial-Fighter/RandomGenerator.cpp Polynomial-Fighter/RandomGenerator.h)
+        Polynomial-Fighter/Utility.h)
 
 add_executable(Polynomial_Fighter ${SOURCE_FILES})

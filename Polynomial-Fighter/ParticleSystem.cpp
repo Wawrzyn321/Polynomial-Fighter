@@ -1,5 +1,6 @@
 #include "ParticleSystem.h"
 
+//todo change to RandomGenerator
 float ParticleSystem::randomVariation(float variation) {
 	if (variation <= 0) return 1;
 	if (variation > 1) variation = 1;
@@ -66,11 +67,24 @@ ParticleSystem* ParticleSystem::setDispersion(sf::Vector2f direction, int disper
 		return this;
 	}
 
+ParticleSystem* ParticleSystem::setRepeating(bool repeating)
+{
+	//todo add repeating interval
+	this->repeating = repeating;
+	return this;
+}
+
+ParticleSystem* ParticleSystem::setDrag(float drag)
+{
+	this->drag = drag;
+	return this;
+}
+
 ParticleSystem ParticleSystem::finishBuilding() {
 	//add particles and velocities if needed
 	for (size_t i = particles.size(); i < amount; i++) {
 		float currentSize = size * randomVariation(sizeVariation);
-		particles.push_back(sf::CircleShape(currentSize, 6));
+		particles.push_back(sf::CircleShape(currentSize, 12));
 		particles[i].setFillColor(cachedColor);
 		velocities.push_back(sf::Vector2f());
 	}
@@ -107,12 +121,31 @@ void ParticleSystem::update(Time::TimeData timerData)
 	float scale = (time - accumulator) / time;
 	for (unsigned i = 0; i < amount; i++) {
 		particles[i].move(velocities[i]*timerData.getScaledDeltaTimeInMili());
+		velocities[i] *= (1 - timerData.getScaledDeltaTimeInSec() * drag);
 		particles[i].setScale(scale, scale);
 	}
 
 	accumulator += timerData.getScaledDeltaTimeInSec();
 	if (accumulator > time) {
-		setEnabled(false);
+		if (repeating) {
+			accumulator = 0;
+			//copy-paste, ale i tak to tylko dla przyk³adu, bêdzie refaktor
+			float baseAngle = direction == sf::Vector2f(0, 0) ? 0
+				: atan2(direction.y, direction.x)*180.0f / pi;
+
+			for (unsigned i = 0; i < amount; i++) {
+				float currentAngle = 0;
+				if (dispersionAngle != 0) {
+					currentAngle = (baseAngle - dispersionAngle*0.5f + rand() % dispersionAngle)*pi / 180.0f;
+				}
+				particles[i].setPosition(getPosition());
+				float currentVelocity = startVelocity * randomVariation(velocityVariation);
+				velocities[i] = sf::Vector2f(cos(currentAngle), sin(currentAngle))*currentVelocity;
+			}
+		}
+		else {
+			setEnabled(false);
+		}
 	}
 }
 

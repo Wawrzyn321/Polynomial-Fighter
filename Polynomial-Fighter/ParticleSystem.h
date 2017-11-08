@@ -11,6 +11,7 @@ namespace PSDefaultValues {
 	const sf::Vector2f direction = sf::Vector2f(0, 0);
 	const float startVelocity = 0.1f;
 	const float size = 5;
+	const bool repeating = false;
 };
 
 
@@ -30,6 +31,10 @@ private:
 
 	float accumulator;
 	float time;
+
+	float repeating;
+
+	float drag;
 
 	int dispersionAngle;
 	sf::Vector2f direction;
@@ -57,9 +62,13 @@ public:
 
 	ParticleSystem* setDispersion(sf::Vector2f direction, int dispersionAngle);
 
+	ParticleSystem* setRepeating(bool repeating);
+
+	ParticleSystem* setDrag(float drag);
+
 	ParticleSystem finishBuilding();
 
-	void update(Time::TimeData timerData);
+	void update(Time::TimeData timerData) override;
 
 	void draw(sf::RenderTarget & target, sf::RenderStates states = sf::RenderStates::Default) const;
 
