@@ -93,7 +93,7 @@ int main()
 	//test wielomianow
 	PolynomialGeneralForm wielomian;
 	wielomian.setCoefficient(2, -3);
-	wielomian.setCoefficient(0, 1);
+	wielomian.setCoefficient(0, -1);
 	wielomian.setCoefficient(1, 2);
 	wielomian.setCoefficient(4, 5);
 
