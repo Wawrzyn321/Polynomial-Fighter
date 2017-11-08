@@ -2,6 +2,9 @@
 #include "EntityManager.h"
 #include "ExampleEntities.h"
 #include "ParticleSystem.h"
+#include "PolynomialGeneralForm.h"
+#include "PolynomialProductForm.h"
+#include "PolynomialMultipler.h"
 
 using namespace std;
 
@@ -59,66 +62,88 @@ int main()
 	//#pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
 	//#endif
 
-	EntityManager *entityManager = EntityManager::instance();
+//	EntityManager *entityManager = EntityManager::instance();
 
 	//test entity managera
-	entityManager->addEntity(make_shared<TestEntity>("n1", "t1"));
-	entityManager->addEntity(make_shared<TestEntity>("n2", "t1"));
-	entityManager->addEntity(make_shared<TestEntity>("n3", "t2"));
-	entityManager->addEntity(make_shared<TestEntity>("n4", "t2"));
-
-	auto entities = entityManager->getEntities();
-	for (auto &i : entities)
-	{
-		auto entity = i.lock();
-		cout << "Jaka jestes? Jestem " << entity->name << " z " << entity->tag << endl;
-	}
-
-	auto a = entityManager->findEntityByName("n3");
-	cout << "Jaka jestes? Jestem " << a.lock()->name << " z " << a.lock()->tag << endl;
-
-	entityManager->deleteEntity(a);
-
-	entities = entityManager->findEntitiesByTag("t2");
-	for (auto &i : entities)
-	{
-		auto entity = i.lock();
-		cout << "Jaka jestes? Jestem " << entity->name << " z " << entity->tag << endl;
-	}
+//	entityManager->addEntity(make_shared<TestEntity>("n1", "t1"));
+//	entityManager->addEntity(make_shared<TestEntity>("n2", "t1"));
+//	entityManager->addEntity(make_shared<TestEntity>("n3", "t2"));
+//	entityManager->addEntity(make_shared<TestEntity>("n4", "t2"));
+//
+//	auto entities = entityManager->getEntities();
+//	for (auto &i : entities)
+//	{
+//		auto entity = i.lock();
+//		cout << "Jaka jestes? Jestem " << entity->name << " z " << entity->tag << endl;
+//	}
+//
+//	auto a = entityManager->findEntityByName("n3");
+//	cout << "Jaka jestes? Jestem " << a.lock()->name << " z " << a.lock()->tag << endl;
+//
+//	entityManager->deleteEntity(a);
+//
+//	entities = entityManager->findEntitiesByTag("t2");
+//	for (auto &i : entities)
+//	{
+//		auto entity = i.lock();
+//		cout << "Jaka jestes? Jestem " << entity->name << " z " << entity->tag << endl;
+//	}
 	//koniec testu
 
-	addEntities(entityManager);
+	//test wielomianow
+	PolynomialGeneralForm wielomian;
+	wielomian.setCoefficient(2, -3);
+	wielomian.setCoefficient(0, -1);
+	wielomian.setCoefficient(1, 2);
+	wielomian.setCoefficient(4, 5);
 
-	sf::RenderWindow window(sf::VideoMode(1024, 768), "PF");
+	cout << wielomian.getCoefficient(4) << endl;
+	cout << wielomian.getCoefficient(3) << endl;
+	cout << wielomian.getCoefficient(2) << endl;
+	cout << wielomian.getCoefficient(1) << endl;
+	cout << wielomian.getCoefficient(0) << endl;
+	cout << wielomian.toString() << endl;
 
-	Time::Timer *timer = Time::Timer::instance();
+	PolynomialProductForm wielomian2;
+	wielomian2.addFactor(2, -1);
+	wielomian2.addFactor(-3, -2);
+	auto wynik = PolynomialMultipler::generalForm(wielomian2);
+	cout << endl << "Wynik mnozenia: " << wynik.toString();
+	//koniec testu
 
-	while (window.isOpen())
-	{
-		sf::Event event;
-		while (window.pollEvent(event))
-		{
-			if (event.type == sf::Event::Closed) {
-				window.close();
-				break;
-			}
+//	addEntities(entityManager);
 
-			if (event.type == sf::Event::MouseMoved) {}
+//	sf::RenderWindow window(sf::VideoMode(1024, 768), "PF");
+//
+//	Time::Timer *timer = Time::Timer::instance();
+//
+//	while (window.isOpen())
+//	{
+//		sf::Event event;
+//		while (window.pollEvent(event))
+//		{
+//			if (event.type == sf::Event::Closed) {
+//				window.close();
+//				break;
+//			}
+//
+//			if (event.type == sf::Event::MouseMoved) {}
+//
+//			if(event.type == sf::Event::MouseWheelMoved)
+//			{
+//				timer->setTimeScale(timer->getTimeScale() + event.mouseWheel.delta*0.25f);
+//			}
+//		}
+//
+//		Time::TimeData deltaTime = timer->getTimeData();
+//
+//		entityManager->update(deltaTime);
+//
+//		window.clear();
+//		entityManager->draw(window);
+//		window.display();
+//	}
 
-			if(event.type == sf::Event::MouseWheelMoved)
-			{
-				timer->setTimeScale(timer->getTimeScale() + event.mouseWheel.delta*0.25f);
-			}
-		}
-
-		Time::TimeData deltaTime = timer->getTimeData();
-
-		entityManager->update(deltaTime);
-
-		window.clear();
-		entityManager->draw(window);
-		window.display();
-	}
-	delete entityManager;
+//	delete entityManager;
 	return 0;
 }
