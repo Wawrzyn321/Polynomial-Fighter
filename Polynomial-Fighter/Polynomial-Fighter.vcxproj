@@ -119,10 +119,13 @@
     <ClCompile Include="EntityManager.cpp" />
     <ClCompile Include="EquationProvider.cpp" />
     <ClCompile Include="GUILabel.cpp" />
+    <ClCompile Include="InputField.cpp" />
+    <ClCompile Include="InputFieldParser.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ParticleSystem.cpp" />
     <ClCompile Include="PoolManager.cpp" />
     <ClCompile Include="RandomGenerator.cpp" />
+    <ClCompile Include="Request.cpp" />
     <ClCompile Include="ScoresManager.cpp" />
     <ClCompile Include="ScoresManagerGUI.cpp" />
     <ClCompile Include="SoundManager.cpp" />
@@ -132,6 +135,7 @@
   <ItemGroup>
     <ClInclude Include="Asset Manager.h" />
     <ClInclude Include="Debug.h" />
+    <ClInclude Include="Delegate.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="EntityManager.h" />
     <ClInclude Include="EquationProvider.h" />
@@ -139,10 +143,13 @@
     <ClInclude Include="GUILabel.h" />
     <ClInclude Include="IDamageable.h" />
     <ClInclude Include="IMouseEventsListener.h" />
+    <ClInclude Include="InputField.h" />
+    <ClInclude Include="InputFieldParser.h" />
     <ClInclude Include="ITransformable.h" />
     <ClInclude Include="ParticleSystem.h" />
     <ClInclude Include="PoolManager.h" />
     <ClInclude Include="RandomGenerator.h" />
+    <ClInclude Include="Request.h" />
     <ClInclude Include="ScoresManager.h" />
     <ClInclude Include="ScoresManagerGUI.h" />
     <ClInclude Include="SoundManager.h" />
