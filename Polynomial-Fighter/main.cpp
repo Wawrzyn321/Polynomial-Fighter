@@ -34,6 +34,24 @@ void addEntities(EntityManager *entityManager){
 	entityManager->addEntity(make_shared<TransformWanderer>(TransformWanderer({ 500,500 }, e)));
 }
 
+class TestEntity : public Entity
+{
+public:
+	TestEntity(const std::string &name = "", const std::string &tag ="") :
+			Entity(name, tag)
+	{}
+
+	sf::Vector2f getPosition() override
+	{
+		return sf::Vector2f();
+	}
+
+	void setPosition(sf::Vector2f position) override
+	{
+
+	}
+};
+
 int main()
 {
 	//#ifdef  _WIN32
@@ -42,6 +60,33 @@ int main()
 	//#endif
 
 	EntityManager *entityManager = EntityManager::instance();
+
+	//test entity managera
+	entityManager->addEntity(make_shared<TestEntity>("n1", "t1"));
+	entityManager->addEntity(make_shared<TestEntity>("n2", "t1"));
+	entityManager->addEntity(make_shared<TestEntity>("n3", "t2"));
+	entityManager->addEntity(make_shared<TestEntity>("n4", "t2"));
+
+	auto entities = entityManager->getEntities();
+	for (auto &i : entities)
+	{
+		auto entity = i.lock();
+		cout << "Jaka jestes? Jestem " << entity->name << " z " << entity->tag << endl;
+	}
+
+	auto a = entityManager->findEntityByName("n3");
+	cout << "Jaka jestes? Jestem " << a.lock()->name << " z " << a.lock()->tag << endl;
+
+	entityManager->deleteEntity(a);
+
+	entities = entityManager->findEntitiesByTag("t2");
+	for (auto &i : entities)
+	{
+		auto entity = i.lock();
+		cout << "Jaka jestes? Jestem " << entity->name << " z " << entity->tag << endl;
+	}
+	//koniec testu
+
 	addEntities(entityManager);
 
 	sf::RenderWindow window(sf::VideoMode(1024, 768), "PF");
