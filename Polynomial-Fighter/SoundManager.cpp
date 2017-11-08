@@ -29,7 +29,7 @@ void SoundManager::playSound(const std::string &bufferName)
 
 	for (auto &player : players)
 	{
-		if ((*player).getStatus() != sf::SoundSource::Status::Playing)
+		if (player->getStatus() != sf::SoundSource::Status::Playing)
 		{
 			play(player, buffer);
 			return;
@@ -44,6 +44,6 @@ void SoundManager::playSound(const std::string &bufferName)
 void SoundManager::setPitch(float timeScale)
 {
 	for (auto &player : players) {
-        (*player).setPitch(timeScale);
+        player->setPitch(timeScale);
 	}
 }
