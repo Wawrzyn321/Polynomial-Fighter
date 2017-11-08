@@ -38,3 +38,20 @@ void PolynomialProductForm::addFactor(int x, int constant)
 {
     factors.emplace_back(x, constant);
 }
+
+void PolynomialProductForm::addFactor(const PolynomialFactor &factor)
+{
+    factors.emplace_back(factor.getX(), factor.getConstant());
+}
+
+std::set<int> PolynomialProductForm::getRoots() const
+{
+    std::set<int> roots;
+
+    for (auto &i : factors)
+    {
+        roots.insert(i.getRoot());
+    }
+
+    return roots;
+}

@@ -5,6 +5,7 @@
 #include "PolynomialGeneralForm.h"
 #include "PolynomialProductForm.h"
 #include "PolynomialMultipler.h"
+#include "PolynomialGenerator.h"
 
 using namespace std;
 
@@ -91,24 +92,35 @@ int main()
 	//koniec testu
 
 	//test wielomianow
-	PolynomialGeneralForm wielomian;
-	wielomian.setCoefficient(2, -3);
-	wielomian.setCoefficient(0, -1);
-	wielomian.setCoefficient(1, 2);
-	wielomian.setCoefficient(4, 5);
+//	PolynomialGeneralForm wielomian;
+//	wielomian.setCoefficient(2, -3);
+//	wielomian.setCoefficient(0, -1);
+//	wielomian.setCoefficient(1, 2);
+//	wielomian.setCoefficient(4, 5);
+//
+//	cout << wielomian.getCoefficient(4) << endl;
+//	cout << wielomian.getCoefficient(3) << endl;
+//	cout << wielomian.getCoefficient(2) << endl;
+//	cout << wielomian.getCoefficient(1) << endl;
+//	cout << wielomian.getCoefficient(0) << endl;
+//	cout << wielomian.toString() << endl;
+//
+//	PolynomialProductForm wielomian2;
+//	wielomian2.addFactor(2, -1);
+//	wielomian2.addFactor(-3, -2);
+//	auto wynik = PolynomialMultipler::generalForm(wielomian2);
+//	cout << endl << "Wynik mnozenia: " << wynik.toString() << endl;
 
-	cout << wielomian.getCoefficient(4) << endl;
-	cout << wielomian.getCoefficient(3) << endl;
-	cout << wielomian.getCoefficient(2) << endl;
-	cout << wielomian.getCoefficient(1) << endl;
-	cout << wielomian.getCoefficient(0) << endl;
-	cout << wielomian.toString() << endl;
+	PolynomialProductForm wielomianLosowy = PolynomialGenerator::generatePolynomial(3, 2);
+	auto wielomianLosowyOgolny = PolynomialMultipler::generalForm(wielomianLosowy);
+	cout << "Jaki jestes? Losowy w postaci ogolnej: " << wielomianLosowyOgolny.toString() << endl;
+	cout << "A to moje pierwiastki:" << endl;
 
-	PolynomialProductForm wielomian2;
-	wielomian2.addFactor(2, -1);
-	wielomian2.addFactor(-3, -2);
-	auto wynik = PolynomialMultipler::generalForm(wielomian2);
-	cout << endl << "Wynik mnozenia: " << wynik.toString();
+	auto roots = wielomianLosowy.getRoots();
+	for (auto &i : roots)
+	{
+		cout << i << endl;
+	}
 	//koniec testu
 
 //	addEntities(entityManager);

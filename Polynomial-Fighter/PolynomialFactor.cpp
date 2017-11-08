@@ -1,4 +1,7 @@
+#include <cmath>
 #include "PolynomialFactor.h"
+
+PolynomialFactor::PolynomialFactor(int x, int constant) : x(x), constant(constant) {}
 
 int PolynomialFactor::getX() const
 {
@@ -20,9 +23,17 @@ void PolynomialFactor::setConstant(int constant)
     PolynomialFactor::constant = constant;
 }
 
-PolynomialFactor::PolynomialFactor(int x, int constant) : x(x), constant(constant) {}
-
 int PolynomialFactor::getRoot() const
 {
     return -constant / x;
+}
+
+bool PolynomialFactor::isInteger(double n) const
+{
+    return (std::trunc(n) == n);
+}
+
+bool PolynomialFactor::isRootInteger() const
+{
+    return isInteger(static_cast<double> (-constant) / static_cast<double> (x));
 }

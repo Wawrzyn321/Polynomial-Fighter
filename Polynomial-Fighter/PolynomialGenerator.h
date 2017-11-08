@@ -3,10 +3,12 @@
 
 #include "RandomGenerator.h"
 #include "PolynomialProductForm.h"
+#include <iostream>
 
 class PolynomialGenerator
 {
-//musza byc stale rooty, no i generuje ze wzgledu na stopien
+public:
+    static PolynomialProductForm generatePolynomial(unsigned int deg, unsigned int valuesRange = 2);
 };
 
 
