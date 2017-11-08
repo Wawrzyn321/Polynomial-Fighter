@@ -15,7 +15,8 @@ PolynomialGeneralForm PolynomialMultipler::generalForm(const PolynomialProductFo
         return temp;
     }
 
-    std::stack<PolynomialGeneralForm> partResults;
+    PolynomialGeneralForm lastResult;
+
     for (int i = 0; i < productForm.getDeg() - 1; i++)
     {
         PolynomialGeneralForm g1;
@@ -28,15 +29,15 @@ PolynomialGeneralForm PolynomialMultipler::generalForm(const PolynomialProductFo
         }
         else
         {
-            g1 = partResults.top();
+            g1 = lastResult;
             g2 = factorToGeneral(productForm.factors[i + 1]);
         }
 
         auto result = multiplyGenerals(g1, g2);
-        partResults.push(result);
+        lastResult = result;
     }
 
-    return partResults.top();
+    return lastResult;
 
     //RECZNY TEST DLA DWOCH FACTOROW
 //    auto g1 = factorToGeneral(productForm.factors[0]);
