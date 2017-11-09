@@ -125,10 +125,11 @@
     <ClCompile Include="ParticleSystem.cpp" />
     <ClCompile Include="PoolManager.cpp" />
     <ClCompile Include="RandomGenerator.cpp" />
-    <ClCompile Include="Request.cpp" />
+    <ClCompile Include="RequestHandlers.cpp" />
     <ClCompile Include="ScoresManager.cpp" />
     <ClCompile Include="ScoresManagerGUI.cpp" />
     <ClCompile Include="SoundManager.cpp" />
+    <ClCompile Include="StringPreprocessor.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="Utility.cpp" />
   </ItemGroup>
@@ -150,9 +151,11 @@
     <ClInclude Include="PoolManager.h" />
     <ClInclude Include="RandomGenerator.h" />
     <ClInclude Include="Request.h" />
+    <ClInclude Include="RequestHandlers.h" />
     <ClInclude Include="ScoresManager.h" />
     <ClInclude Include="ScoresManagerGUI.h" />
     <ClInclude Include="SoundManager.h" />
+    <ClInclude Include="StringPreprocessor.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="Utility.h" />
   </ItemGroup>
