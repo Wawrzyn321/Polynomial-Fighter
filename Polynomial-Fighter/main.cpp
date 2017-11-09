@@ -50,13 +50,7 @@ void addEntities(EntityManager *entityManager){
 	entityManager->addEntity(make_shared<AdvancedParticleSystem>(*aps2));
 }
 
-int main()
-{
-	//#ifdef  _WIN32
-	//	//hide console
-	//#pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
-	//#endif
-	
+void APS_demo(){
 	EntityManager *entityManager = EntityManager::instance();
 	addEntities(entityManager);
 
@@ -85,8 +79,8 @@ int main()
 			{
 				timer->setTimeScale(timer->getTimeScale() + event.mouseWheel.delta*0.25f);
 			}
-			
-			if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Key::R)
+
+			if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Key::R)
 			{
 				shared_ptr<Entity> e = entityManager->findEntityByName("PARTICLES").lock();
 				shared_ptr<AdvancedParticleSystem> derived = dynamic_pointer_cast<AdvancedParticleSystem> (e);
@@ -102,7 +96,7 @@ int main()
 		}
 
 		Time::TimeData deltaTime = timer->getTimeData();
-		
+
 		entityManager->update(deltaTime);
 
 		window.clear();
@@ -110,5 +104,14 @@ int main()
 		window.display();
 	}
 	delete entityManager;
+}
+
+int main()
+{
+	//#ifdef  _WIN32
+	//	//hide console
+	//#pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
+	//#endif
+	APS_demo();
 	return 0;
 }

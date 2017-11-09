@@ -1,21 +1,21 @@
 #include "APSBuilder.h"
 
-RawAPS* APSBuilder::startBuilding(sf::Vector2f position)
+APSBuilder* APSBuilder::startBuilding(sf::Vector2f position)
 {
-	RawAPS *rawAPS = new RawAPS(position);
+	APSBuilder *builder = new APSBuilder(position);
 
-	rawAPS->aps->name = "Particle System";
+	builder->aps->name = "Particle System";
 
-	return rawAPS;
+	return builder;
 }
 
-RawAPS::RawAPS(sf::Vector2f position)
+APSBuilder::APSBuilder(sf::Vector2f position)
 {
 	aps = new AdvancedParticleSystem(position);
 	cachedTime = 0;
 }
 
-RawAPS* RawAPS::setMainData(float time, int count, Space space)
+APSBuilder* APSBuilder::setMainData(float time, int count, Space space)
 {
 	aps->time = time;
 	aps->count = count;
@@ -25,7 +25,7 @@ RawAPS* RawAPS::setMainData(float time, int count, Space space)
 	return this;
 }
 
-RawAPS* RawAPS::setIntervals(float spawningTime, float timeBetweenSpawn, float startDelayTime)
+APSBuilder* APSBuilder::setIntervals(float spawningTime, float timeBetweenSpawn, float startDelayTime)
 {
 	aps->spawningTime = spawningTime;
 	aps->timeBetweenSpawn = timeBetweenSpawn;
@@ -34,13 +34,13 @@ RawAPS* RawAPS::setIntervals(float spawningTime, float timeBetweenSpawn, float s
 	return this;
 }
 
-RawAPS* RawAPS::setLooping(bool looping)
+APSBuilder* APSBuilder::setLooping(bool looping)
 {
 	aps->looping = looping;
 	return this;
 }
 
-RawAPS* RawAPS::setAsCircle(float circleRadius, int circlePointCount)
+APSBuilder* APSBuilder::setAsCircle(float circleRadius, int circlePointCount)
 {
 	aps->circleRadius = circleRadius;
 	aps->circlePointCount = circlePointCount;
@@ -48,38 +48,28 @@ RawAPS* RawAPS::setAsCircle(float circleRadius, int circlePointCount)
 	//aps->shapeType = CIRCLE;
 	return this;
 }
-//
-//RawAPS* RawAPS::setAsRectangle(sf::Vector2f rectangleSize, float shapeSizeVariation, bool uniformShapeScaling)
-//{
-//	aps->rectangleSize = rectangleSize;
-//	aps->shapeSizeVariation = shapeSizeVariation;
-//	aps->uniformShapeScaling = uniformShapeScaling;
-//
-//	aps->shapeType = RECTANGLE;
-//	return this;
-//}
 
-RawAPS* RawAPS::setScaling(float overTimeScaling)
+APSBuilder* APSBuilder::setScaling(float overTimeScaling)
 {
 	aps->overTimeScaling = overTimeScaling;
 	return this;
 }
 
-RawAPS* RawAPS::setGravity(bool useGravity, sf::Vector2f gravity)
+APSBuilder* APSBuilder::setGravity(bool useGravity, sf::Vector2f gravity)
 {
 	aps->useGravity = useGravity;
 	aps->gravity = gravity;
 	return this;
 }
 
-RawAPS* RawAPS::setDispersion(float dispersionAngle, sf::Vector2f direction)
+APSBuilder* APSBuilder::setDispersion(float dispersionAngle, sf::Vector2f direction)
 {
 	aps->dispersionAngle = dispersionAngle;
 	aps->direction = direction;
 	return this;
 }
-
-RawAPS* RawAPS::setColors(sf::Color startColor, float startColorVariation, sf::Color endColor, float endColorVariation, float colorChangingSpeed)
+	
+APSBuilder* APSBuilder::setColors(sf::Color startColor, float startColorVariation, sf::Color endColor, float endColorVariation, float colorChangingSpeed)
 {
 	aps->startColor = startColor;
 	aps->startAngularVelocityVariation = startColorVariation;
@@ -89,13 +79,13 @@ RawAPS* RawAPS::setColors(sf::Color startColor, float startColorVariation, sf::C
 	return this;
 }
 
-RawAPS* RawAPS::setRandomColor(bool useRandomColors)
+APSBuilder* APSBuilder::setRandomColor(bool useRandomColors)
 {
 	aps->useRandomColors = useRandomColors;
 	return this;
 }
 
-RawAPS* RawAPS::setVelocity(float startVelocity, float startVelocityVariation, float drag)
+APSBuilder* APSBuilder::setVelocity(float startVelocity, float startVelocityVariation, float drag)
 {
 	aps->startVelocity = startVelocity;
 	aps->startVelocityVariation = startVelocityVariation;
@@ -103,7 +93,7 @@ RawAPS* RawAPS::setVelocity(float startVelocity, float startVelocityVariation, f
 	return this;
 }
 
-RawAPS* RawAPS::setAngularVelocity(float startAngularVelocity, float startAngularVelocityVariation, float angularDrag)
+APSBuilder* APSBuilder::setAngularVelocity(float startAngularVelocity, float startAngularVelocityVariation, float angularDrag)
 {
 	aps->startAngularVelocity = startAngularVelocity;
 	aps->startAngularVelocityVariation = startAngularVelocityVariation;
@@ -111,7 +101,7 @@ RawAPS* RawAPS::setAngularVelocity(float startAngularVelocity, float startAngula
 	return this;
 }
 
-AdvancedParticleSystem* RawAPS::finishBuilding(bool playOnStart)
+AdvancedParticleSystem* APSBuilder::finishBuilding(bool playOnStart)
 {
 	aps->finishBuilding();
 	aps->state = PRE_WAITING;
