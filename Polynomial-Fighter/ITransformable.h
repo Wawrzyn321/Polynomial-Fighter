@@ -5,7 +5,6 @@
 #include "Utility.h"
 
 class ITransformable {
-	//friend bool BulletBase::isOutsideBounds(void);
 protected:
 	sf::Sprite baseSprite;
     float collisionRadius;
