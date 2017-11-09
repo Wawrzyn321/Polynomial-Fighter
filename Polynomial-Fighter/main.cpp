@@ -4,7 +4,6 @@
 #include "APSBuilder.h"
 #include "AdvancedParticleSystemData.h"
 #include "AdvancedParticleSystem.h"
-#include "ParticleSystem.h"
 
 using namespace std;
 
@@ -15,20 +14,6 @@ void addEntities(EntityManager *entityManager){
 
 	weak_ptr<Entity> e = entityManager->findEntityByName("Ellipse Walker");
 	entityManager->addEntity(make_shared<TransformObserver>(TransformObserver({ 900, 700 }, e)));
-
-	//todo join constructor & building?
-	ParticleSystem ps = ParticleSystem();
-	ps.startBuilding({ 20, 750 })
-		->setAmount(20)
-		->setDrag(2.0f)
-		->setColor(sf::Color::Blue)
-		->setDispersion({ 1, -0.7f }, 40)
-		->setSize(10, 0.4f)
-		->setStartVelocity(1.7f, 0.4f)
-		->setTime(3)
-		->setRepeating(true)
-		->finishBuilding();
-	entityManager->addEntity(make_shared<ParticleSystem>(ps));
 
 	entityManager->addEntity(make_shared<EmergencyBlinker>(EmergencyBlinker({ 500, 50 }, 1e3)));
 
@@ -41,9 +26,7 @@ void addEntities(EntityManager *entityManager){
 		->setMainData(5000, 100, WORLD)
 		->setLooping(true)
 		->setIntervals(2000, 2000, 0)
-		//->setAsRectangle({ 20,10 }, 0.7f, false)
 		->setAsCircle(10, 32)
-		//->setAngularVelocity(0.2f, 1.0f, 0.999f)
 		->setColors(RandomGenerator::getRandomColor(), 0.9f, sf::Color::Transparent, 0.1f, 0.001f)
 		->setRandomColor(true)
 		->setVelocity(0.4f, 0.5f, 0.996f)
@@ -119,7 +102,7 @@ int main()
 		}
 
 		Time::TimeData deltaTime = timer->getTimeData();
-
+		
 		entityManager->update(deltaTime);
 
 		window.clear();

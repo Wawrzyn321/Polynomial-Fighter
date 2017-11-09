@@ -45,12 +45,9 @@ class AdvancedParticleSystem : public Entity
 	bool useGravity = false;
 	sf::Vector2f gravity = sf::Vector2f(0, 9.81f);
 
-	//APSShape shapeType = CIRCLE;
 	float circleRadius = 10.0f;
 	int circlePointCount = 16;
-	sf::Vector2f rectangleSize = sf::Vector2f(10, 10);
 	float shapeSizeVariation = 0;
-	bool uniformShapeScaling = true;
 
 	float time = 10000;
 
