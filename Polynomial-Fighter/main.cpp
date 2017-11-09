@@ -1,124 +1,89 @@
-#include <SFML/Window.hpp>
-#include "EntityManager.h"
-#include "ExampleEntities.h"
-#include "ParticleSystem.h"
+#include <iostream>
+#include "InputField.h"
+#include "EquationProvider.h"
+#include "RandomGenerator.h"
+#include "Timer.h"
+#include "InputFieldParser.h"
+#include "PolynomialProductForm.h"
+#include "PolynomialGenerator.h"
+#include "PolynomialMultipler.h"
 
 using namespace std;
 
-void addEntities(EntityManager *entityManager){
-	entityManager->addEntity(make_shared<EllipseWalker>(EllipseWalker({ 200, 300 }, { 100, 200 }, 2)));
-
-	entityManager->addEntity(make_shared<ColorChanger>(ColorChanger({ 700, 400 }, 1)));
-
-	weak_ptr<Entity> e = entityManager->findEntityByName("Ellipse Walker");
-	entityManager->addEntity(make_shared<TransformObserver>(TransformObserver({ 900, 700 }, e)));
-
-	//todo join constructor & building?
-	ParticleSystem ps = ParticleSystem();
-	ps.startBuilding({ 20, 750 })
-		->setAmount(20)
-		->setDrag(2.0f)
-		->setColor(sf::Color::Blue)
-		->setDispersion({ 1, -0.7f }, 40)
-		->setSize(10, 0.4f)
-		->setStartVelocity(1.7f, 0.4f)
-		->setTime(3)
-		->setRepeating(true)
-		->finishBuilding();
-	entityManager->addEntity(make_shared<ParticleSystem>(ps));
-
-	entityManager->addEntity(make_shared<EmergencyBlinker>(EmergencyBlinker({ 500, 50 }, 1e3)));
-
-	entityManager->addEntity(make_shared<TransformWanderer>(TransformWanderer({ 300,300 }, e)));
-	entityManager->addEntity(make_shared<TransformWanderer>(TransformWanderer({ 400,400 }, e)));
-	entityManager->addEntity(make_shared<TransformWanderer>(TransformWanderer({ 500,500 }, e)));
+void showVector(vector<int> v) {
+	for (const auto &i : v) { //todo ładne
+		cout << i << " ";
+	}
+	cout << endl;
 }
 
-class TestEntity : public Entity
+PolynomialProductForm pf;
+
+
+void fun(const string &str)
 {
-public:
-	TestEntity(const std::string &name = "", const std::string &tag ="") :
-			Entity(name, tag)
-	{}
+	InputFieldParser p = InputFieldParser();
+	auto v = p.parse(str);
 
-	sf::Vector2f getPosition() override
+	system("cls");
+	for (int root : v)
 	{
-		return sf::Vector2f();
+		if(pf.isRoot(root))
+		{
+			cout << root << " to pierwiasnetek" << endl;
+			pf.removeFactorsByRoot(root);
+		}
 	}
+	cout << PolynomialMultipler::generalForm(pf).toString() << endl;
 
-	void setPosition(sf::Vector2f position) override
-	{
+}
 
-	}
-};
-
-int main()
+void inputFieldTest()
 {
-	//#ifdef  _WIN32
-	//	//hide console
-	//#pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
-	//#endif
+	cout << endl;
+	sf::RenderWindow window(sf::VideoMode(GameData::WINDOW_SIZE.x, GameData::WINDOW_SIZE.y), "IF");
 
-	EntityManager *entityManager = EntityManager::instance();
+	Time::Timer *t = Time::Timer::instance();
 
-	//test entity managera
-	entityManager->addEntity(make_shared<TestEntity>("n1", "t1"));
-	entityManager->addEntity(make_shared<TestEntity>("n2", "t1"));
-	entityManager->addEntity(make_shared<TestEntity>("n3", "t2"));
-	entityManager->addEntity(make_shared<TestEntity>("n4", "t2"));
-
-	auto entities = entityManager->getEntities();
-	for (auto &i : entities)
-	{
-		auto entity = i.lock();
-		cout << "Jaka jestes? Jestem " << entity->name << " z " << entity->tag << endl;
-	}
-
-	auto a = entityManager->findEntityByName("n3");
-	cout << "Jaka jestes? Jestem " << a.lock()->name << " z " << a.lock()->tag << endl;
-
-	entityManager->deleteEntity(a);
-
-	entities = entityManager->findEntitiesByTag("t2");
-	for (auto &i : entities)
-	{
-		auto entity = i.lock();
-		cout << "Jaka jestes? Jestem " << entity->name << " z " << entity->tag << endl;
-	}
-	//koniec testu
-
-	addEntities(entityManager);
-
-	sf::RenderWindow window(sf::VideoMode(1024, 768), "PF");
-
-	Time::Timer *timer = Time::Timer::instance();
+	InputField f = InputField({ 200, 100 }, { 200, 50 });
+	
+	f.OnTextSubmitted.add(fun);
+	f.isSelected = true;
 
 	while (window.isOpen())
 	{
 		sf::Event event;
 		while (window.pollEvent(event))
 		{
-			if (event.type == sf::Event::Closed) {
+			if (event.type == sf::Event::Closed)
 				window.close();
-				break;
-			}
-
-			if (event.type == sf::Event::MouseMoved) {}
-
-			if(event.type == sf::Event::MouseWheelMoved)
-			{
-				timer->setTimeScale(timer->getTimeScale() + event.mouseWheel.delta*0.25f);
-			}
+			f.feed(event);
 		}
+		Time::TimeData timeData = t->getTimeData();
 
-		Time::TimeData deltaTime = timer->getTimeData();
+		f.update(timeData);
 
-		entityManager->update(deltaTime);
-
-		window.clear();
-		entityManager->draw(window);
+		window.clear(sf::Color(127,127,127));
+		window.draw(f);
 		window.display();
 	}
-	delete entityManager;
+}
+
+int main()
+{
+
+//#ifdef  _WIN32
+//	//hide console
+//#pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
+//#endif
+
+	pf = PolynomialGenerator::generatePolynomial(3);
+
+	cout << PolynomialMultipler::generalForm(pf).toString() << endl;
+
+	InputFieldParser::runTests();
+	inputFieldTest();
+
+	system("pause");
 	return 0;
 }
