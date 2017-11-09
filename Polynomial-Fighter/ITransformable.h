@@ -15,6 +15,7 @@ protected:
             (collisionRadius + other->getCollisionRadius())*(collisionRadius + other->getCollisionRadius());
     }
 public:
+	virtual ~ITransformable() = default;
 	bool collisionsEnabled = true;
 
 	virtual sf::Vector2f getPosition() = 0;

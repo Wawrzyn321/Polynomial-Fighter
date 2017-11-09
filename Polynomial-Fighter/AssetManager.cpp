@@ -1,4 +1,5 @@
 #include "Asset Manager.h"
+#include "Debug.h"
 
 AssetManager * AssetManager::sInstance = nullptr;
 
@@ -24,7 +25,7 @@ std::shared_ptr<sf::Texture> AssetManager::getTexture(const std::string &filenam
 	{
         std::shared_ptr<sf::Texture> texture = std::make_shared<sf::Texture>();
         
-        if (!(*texture).loadFromFile(filename))
+        if (!texture->loadFromFile(filename))
 		{
 			Debug::PrintFormatted("AssetManager::getTexture: cannot load texture %!", filename);
 
@@ -51,7 +52,7 @@ std::shared_ptr<sf::Font> AssetManager::getFont(const std::string &filename)
     {
         std::shared_ptr<sf::Font> font = std::make_shared<sf::Font>();
 
-        if (!(*font).loadFromFile(filename))
+        if (!font->loadFromFile(filename))
         {
 			Debug::PrintFormatted("AssetManager::getFont: cannot load font %!", filename);
         }
@@ -73,7 +74,7 @@ std::shared_ptr<sf::SoundBuffer> AssetManager::getSound(const std::string &filen
     {
         std::shared_ptr<sf::SoundBuffer> sound = std::make_shared<sf::SoundBuffer>();
 
-		if (!(*sound).loadFromFile(filename))
+		if (!sound->loadFromFile(filename))
         {
 			Debug::PrintFormatted("AssetManager::getSound: cannot load sound %!", filename);
 		}
