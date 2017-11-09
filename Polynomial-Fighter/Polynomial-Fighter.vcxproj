@@ -123,6 +123,11 @@
     <ClCompile Include="InputFieldParser.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ParticleSystem.cpp" />
+    <ClCompile Include="PolynomialFactor.cpp" />
+    <ClCompile Include="PolynomialGeneralForm.cpp" />
+    <ClCompile Include="PolynomialGenerator.cpp" />
+    <ClCompile Include="PolynomialMultipler.cpp" />
+    <ClCompile Include="PolynomialProductForm.cpp" />
     <ClCompile Include="RandomGenerator.cpp" />
     <ClCompile Include="RequestHandlers.cpp" />
     <ClCompile Include="ScoresManager.cpp" />
@@ -148,6 +153,11 @@
     <ClInclude Include="InputFieldParser.h" />
     <ClInclude Include="ITransformable.h" />
     <ClInclude Include="ParticleSystem.h" />
+    <ClInclude Include="PolynomialFactor.h" />
+    <ClInclude Include="PolynomialGeneralForm.h" />
+    <ClInclude Include="PolynomialGenerator.h" />
+    <ClInclude Include="PolynomialMultipler.h" />
+    <ClInclude Include="PolynomialProductForm.h" />
     <ClInclude Include="RandomGenerator.h" />
     <ClInclude Include="Request.h" />
     <ClInclude Include="RequestHandlers.h" />
