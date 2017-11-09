@@ -4,6 +4,9 @@
 #include "RandomGenerator.h"
 #include "Timer.h"
 #include "InputFieldParser.h"
+#include "PolynomialProductForm.h"
+#include "PolynomialGenerator.h"
+#include "PolynomialMultipler.h"
 
 using namespace std;
 
@@ -14,10 +17,25 @@ void showVector(vector<int> v) {
 	cout << endl;
 }
 
+PolynomialProductForm pf;
+
+
 void fun(const string &str)
 {
 	InputFieldParser p = InputFieldParser();
 	auto v = p.parse(str);
+
+	system("cls");
+	for (int root : v)
+	{
+		if(pf.isRoot(root))
+		{
+			cout << root << " to pierwiasnetek" << endl;
+			pf.removeFactorsByRoot(root);
+		}
+	}
+	cout << PolynomialMultipler::generalForm(pf).toString() << endl;
+
 }
 
 void inputFieldTest()
@@ -58,6 +76,10 @@ int main()
 //	//hide console
 //#pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
 //#endif
+
+	pf = PolynomialGenerator::generatePolynomial(3);
+
+	cout << PolynomialMultipler::generalForm(pf).toString() << endl;
 
 	InputFieldParser::runTests();
 	inputFieldTest();

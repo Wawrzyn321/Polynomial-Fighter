@@ -2,6 +2,8 @@
 #include <array>
 #include <iostream>
 #include <string>
+#include "GameData.h"
+#include "Debug.h"
 
 void InputField::initGraphics()
 {
