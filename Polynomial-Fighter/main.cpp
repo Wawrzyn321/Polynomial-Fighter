@@ -19,7 +19,6 @@ void showVector(vector<int> v) {
 
 PolynomialProductForm pf;
 
-
 void fun(const string &str)
 {
 	InputFieldParser p = InputFieldParser();
@@ -34,6 +33,12 @@ void fun(const string &str)
 			pf.removeFactorsByRoot(root);
 		}
 	}
+	if(pf.getRoots().size() == 0)
+	{
+		cout << "to już wszystko, nowy wielomian: ";
+		pf = PolynomialGenerator::generatePolynomial(3);
+	}
+
 	cout << PolynomialMultipler::generalForm(pf).toString() << endl;
 
 }
@@ -48,7 +53,7 @@ void inputFieldTest()
 	InputField f = InputField({ 200, 100 }, { 200, 50 });
 	
 	f.OnTextSubmitted.add(fun);
-	f.isSelected = true;
+	f.interactable = true;
 
 	while (window.isOpen())
 	{
@@ -57,6 +62,11 @@ void inputFieldTest()
 		{
 			if (event.type == sf::Event::Closed)
 				window.close();
+
+			if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Escape) {
+				f.interactable = !f.interactable;
+			}
+
 			f.feed(event);
 		}
 		Time::TimeData timeData = t->getTimeData();
@@ -71,13 +81,13 @@ void inputFieldTest()
 
 int main()
 {
-
+	srand(time(NULL));
 //#ifdef  _WIN32
 //	//hide console
 //#pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
 //#endif
 
-	pf = PolynomialGenerator::generatePolynomial(3);
+	pf = PolynomialGenerator::generatePolynomial(5);
 
 	cout << PolynomialMultipler::generalForm(pf).toString() << endl;
 

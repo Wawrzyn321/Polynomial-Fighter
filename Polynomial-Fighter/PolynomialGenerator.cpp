@@ -4,12 +4,12 @@ PolynomialProductForm PolynomialGenerator::generatePolynomial(unsigned int deg, 
 {
 	PolynomialProductForm polynomial;
 
-
+	for (unsigned i = 0; i < deg; i++)
 	{
 		PolynomialFactor factor;
 		do
 		{
-			int x = 1;
+			int x;
 			do
 			{
 				x = RandomGenerator::getInt(-static_cast<int>(valuesRange), valuesRange);
