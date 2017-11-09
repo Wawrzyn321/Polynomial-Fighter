@@ -2,12 +2,6 @@
 #define ADVANCED_PARTICLE_SYSTEM_DATA_H
 
 #include <SFML/Graphics.hpp>
-//
-//enum APSShape
-//{
-//	CIRCLE = 0,
-//	RECTANGLE = 1,
-//};
 
 enum Space
 {
@@ -65,17 +59,10 @@ namespace APSDefaultValues {
 	const float endColorVariation = 0;
 	const float colorChangingSpeed = 1.0f;
 
-	//shape type
-	//const APSShape shapeType = CIRCLE;
-
 	//as circle
 	const float circleRadius = 10.0f;
 	const float circlePointCount = 16;
 
-	////as rectangle
-	//const sf::Vector2f rectangleSize = sf::Vector2f(10, 10);
-	//const float shapeSizeVariation = 0;
-	//const bool uniformShapeScaling = true;
 }
 
 #endif
