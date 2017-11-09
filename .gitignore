@@ -288,5 +288,4 @@ __pycache__/
 *.xsd.cs
 
 cmake-build-debug
-
 *.dll

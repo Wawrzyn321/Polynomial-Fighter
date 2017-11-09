@@ -15,6 +15,9 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ParticleSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="AssetManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -51,13 +54,31 @@
     <ClCompile Include="RandomGenerator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="AdvancedParticleSystem.cpp">
+    <ClCompile Include="InputField.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="AdvancedParticle.cpp">
+    <ClCompile Include="InputFieldParser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="APSBuilder.cpp">
+    <ClCompile Include="RequestHandlers.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="StringPreprocessor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PolynomialProductForm.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PolynomialMultipler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PolynomialGenerator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PolynomialGeneralForm.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PolynomialFactor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -75,6 +96,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Timer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleSystem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="IMouseEventsListener.h">
@@ -110,22 +134,40 @@
     <ClInclude Include="RandomGenerator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="InputField.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Delegate.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="InputFieldParser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Request.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RequestHandlers.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="StringPreprocessor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="ExampleEntities.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="AdvancedParticleSystem.h">
+    <ClInclude Include="PolynomialProductForm.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="AdvancedParticleSystemData.h">
+    <ClInclude Include="PolynomialMultipler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="AdvancedParticle.h">
+    <ClInclude Include="PolynomialGenerator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="APSBuilder.h">
+    <ClInclude Include="PolynomialGeneralForm.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="FloatColor.h">
+    <ClInclude Include="PolynomialFactor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
