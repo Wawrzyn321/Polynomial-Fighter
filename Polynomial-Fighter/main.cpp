@@ -81,7 +81,6 @@ void inputFieldTest()
 
 int main()
 {
-	srand(time(NULL));
 //#ifdef  _WIN32
 //	//hide console
 //#pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
