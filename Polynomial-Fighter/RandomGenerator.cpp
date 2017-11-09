@@ -57,3 +57,36 @@ int RandomGenerator::getVariation(int value, float percentage)
 	int max = static_cast<int>(value * percentage);
 	return getInt(value - max, value + max);
 }
+
+sf::Color RandomGenerator::getRandomColor(bool includeAlpha)
+{
+	sf::Uint8 r = getInt(0, 255);
+	sf::Uint8 g = getInt(0, 255);
+	sf::Uint8 b = getInt(0, 255);
+	if(includeAlpha)
+	{
+		sf::Uint8 a = getInt(0, 255);
+		return sf::Color(r, g, b, a);
+	}
+	else
+	{
+		return sf::Color(r, g, b);
+	}
+}
+
+sf::Color RandomGenerator::getVariation(sf::Color color, float variation, bool includeAlpha)
+{
+	sf::Uint8 r = clamp(getVariation(color.r, variation), 0, 255);
+	sf::Uint8 g = clamp(getVariation(color.g, variation), 0, 255);
+	sf::Uint8 b = clamp(getVariation(color.b, variation), 0, 255);
+	if (includeAlpha)
+	{
+		sf::Uint8 a = clamp(getVariation(color.a, variation), 0, 255);
+		return sf::Color(r, g, b, a);
+	}
+	else
+	{
+		return sf::Color(r, g, b);
+	}
+}
+
