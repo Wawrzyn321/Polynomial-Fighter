@@ -123,7 +123,6 @@
     <ClCompile Include="InputFieldParser.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ParticleSystem.cpp" />
-    <ClCompile Include="PoolManager.cpp" />
     <ClCompile Include="RandomGenerator.cpp" />
     <ClCompile Include="RequestHandlers.cpp" />
     <ClCompile Include="ScoresManager.cpp" />
@@ -140,6 +139,7 @@
     <ClInclude Include="Entity.h" />
     <ClInclude Include="EntityManager.h" />
     <ClInclude Include="EquationProvider.h" />
+    <ClInclude Include="ExampleEntities.h" />
     <ClInclude Include="GameData.h" />
     <ClInclude Include="GUILabel.h" />
     <ClInclude Include="IDamageable.h" />
@@ -148,7 +148,6 @@
     <ClInclude Include="InputFieldParser.h" />
     <ClInclude Include="ITransformable.h" />
     <ClInclude Include="ParticleSystem.h" />
-    <ClInclude Include="PoolManager.h" />
     <ClInclude Include="RandomGenerator.h" />
     <ClInclude Include="Request.h" />
     <ClInclude Include="RequestHandlers.h" />
