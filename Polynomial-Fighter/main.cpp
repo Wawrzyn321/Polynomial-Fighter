@@ -35,7 +35,7 @@ void fun(const string &str)
 	}
 	if(pf.getRoots().size() == 0)
 	{
-		cout << "to już wszystko, nowy wielomian: ";
+		cout << "to juz wszystko, nowy wielomian: " << endl;
 		pf = PolynomialGenerator::generatePolynomial(3);
 	}
 

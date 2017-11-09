@@ -1,7 +1,5 @@
 #include "SoundManager.h"
 
-using namespace std;
-
 SoundManager *SoundManager::sInstance = nullptr;
 
 void SoundManager::play(std::shared_ptr<sf::Sound> sound, std::shared_ptr<sf::SoundBuffer> buffer)

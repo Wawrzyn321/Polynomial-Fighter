@@ -122,7 +122,6 @@
     <ClCompile Include="InputField.cpp" />
     <ClCompile Include="InputFieldParser.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="ParticleSystem.cpp" />
     <ClCompile Include="PolynomialFactor.cpp" />
     <ClCompile Include="PolynomialGeneralForm.cpp" />
     <ClCompile Include="PolynomialGenerator.cpp" />
@@ -152,7 +151,6 @@
     <ClInclude Include="InputField.h" />
     <ClInclude Include="InputFieldParser.h" />
     <ClInclude Include="ITransformable.h" />
-    <ClInclude Include="ParticleSystem.h" />
     <ClInclude Include="PolynomialFactor.h" />
     <ClInclude Include="PolynomialGeneralForm.h" />
     <ClInclude Include="PolynomialGenerator.h" />
