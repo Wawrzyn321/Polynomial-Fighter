@@ -49,12 +49,11 @@ InputField::InputField(sf::Vector2f position, sf::Vector2f size)
 	initGraphics();
 
 	interactable = true;
-	isSelected = false;
 }
 
 void InputField::feed(const sf::Event event)
 {
-	if (!interactable || !isSelected) return;
+	if (!interactable) return;
 
 	if (event.type == sf::Event::TextEntered) {
 
@@ -103,6 +102,8 @@ void InputField::setText(const std::string &TEXT)
 
 void InputField::update(const Time::TimeData& timeData)
 {
+	if (!interactable) return;
+
 	float alpha = (sin(timeData.elapsedTime.asMicroseconds()*3.0f *Time::MICRO_TO_SEC*timeData.timeScale) + 1) * 128;
 	setAlpha(cursor, alpha*0.75f+64);
 }

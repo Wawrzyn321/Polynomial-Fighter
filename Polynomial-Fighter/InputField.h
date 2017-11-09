@@ -24,7 +24,6 @@ class InputField : public sf::Drawable
 public:
 	Delegate<const std::string&> OnTextSubmitted;
 	bool interactable;
-	bool isSelected;
 	InputField(sf::Vector2f position, sf::Vector2f size);
 
 	void feed(sf::Event event);
