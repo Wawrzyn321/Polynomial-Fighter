@@ -35,6 +35,6 @@ set(SOURCE_FILES
         Polynomial-Fighter/Timer.cpp
         Polynomial-Fighter/Timer.h
         Polynomial-Fighter/Utility.cpp
-        Polynomial-Fighter/Utility.h)
+        Polynomial-Fighter/Utility.h Polynomial-Fighter/PolynomialProductForm.cpp Polynomial-Fighter/PolynomialProductForm.h Polynomial-Fighter/PolynomialGenerator.cpp Polynomial-Fighter/PolynomialGenerator.h Polynomial-Fighter/PolynomialFactor.cpp Polynomial-Fighter/PolynomialFactor.h Polynomial-Fighter/PolynomialGeneralForm.cpp Polynomial-Fighter/PolynomialGeneralForm.h Polynomial-Fighter/PolynomialMultipler.cpp Polynomial-Fighter/PolynomialMultipler.h)
 
 add_executable(Polynomial_Fighter ${SOURCE_FILES})
