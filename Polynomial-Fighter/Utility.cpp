@@ -40,10 +40,11 @@ void setAlpha(sf::Text &text, float alpha) {
 
 sf::Color lerp(sf::Color from, sf::Color to, float amount)
 {
-	return sf::Color((sf::Uint8)(from.r + (to.r - from.r)*amount),
-		(sf::Uint8)(from.g + (to.g - from.g)*amount),
-		(sf::Uint8)(from.b + (to.b - from.b)*amount),
-		(sf::Uint8)(from.a + (to.a - from.a)*amount));
+	return sf::Color(
+		(sf::Uint8)((float)from.r + ((float)to.r - (float)from.r)*amount),
+		(sf::Uint8)((float)from.g + ((float)to.g - (float)from.g)*amount),
+		(sf::Uint8)((float)from.b + ((float)to.b - (float)from.b)*amount),
+		(sf::Uint8)((float)from.a + ((float)to.a - (float)from.a)*amount));
 }
 
 sf::FloatRect getCenteredFloatRect(float width, float height, float xShift, float yShift)
