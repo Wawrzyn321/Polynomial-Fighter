@@ -8,7 +8,6 @@
 class AdvancedParticleSystem : public Entity
 {
 	friend class APSBuilder;
-	friend class RawAPS;
 
 	APSState state;
 	sf::Vector2f position;
