@@ -21,17 +21,17 @@ public:
 
 	PowerfulText(){}
 
-	PowerfulText(const std::string& script, std::shared_ptr<sf::Font> font, unsigned characterSize = 30);
+	PowerfulText(const std::string& script, const std::shared_ptr<sf::Font> &font, unsigned characterSize = 30);
 
 	void rebuild(const std::string& script, bool autoRecenter = false);
 
 	void center();
 
 	sf::Color getColor() const;
-	void setColor(sf::Color color);
+	void setColor(const sf::Color &color);
 
 	sf::Vector2f getPosition() const;
-	void setPosition(sf::Vector2f position);
+	void setPosition(const sf::Vector2f &position);
 
 	int getCharacterSize() const;
 	void setCharacterSize(unsigned characterSize);
