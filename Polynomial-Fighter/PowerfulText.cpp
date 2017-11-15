@@ -1,7 +1,7 @@
 #include "PowerfulText.h"
 #include <iostream>
 
-PowerfulText::PowerfulText(const std::string& script, const std::shared_ptr<sf::Font> font, unsigned characterSize)
+PowerfulText::PowerfulText(const std::string& script, const std::shared_ptr<sf::Font> &font, unsigned characterSize)
 {
 	this->script = script;
 	this->font = font;
@@ -87,7 +87,7 @@ sf::Color PowerfulText::getColor() const
 	return color;
 }
 
-void PowerfulText::setColor(sf::Color color)
+void PowerfulText::setColor(const sf::Color &color)
 {
 	this->color = color;
 	for (sf::Text &text : texts)
@@ -101,7 +101,7 @@ sf::Vector2f PowerfulText::getPosition() const
 	return position;
 }
 
-void PowerfulText::setPosition(sf::Vector2f position)
+void PowerfulText::setPosition(const sf::Vector2f &position)
 {
 	this->position = position;
 	for (sf::Text &text : texts)
