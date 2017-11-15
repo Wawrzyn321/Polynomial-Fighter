@@ -127,6 +127,7 @@
     <ClCompile Include="PolynomialGenerator.cpp" />
     <ClCompile Include="PolynomialMultipler.cpp" />
     <ClCompile Include="PolynomialProductForm.cpp" />
+    <ClCompile Include="PowerfulText.cpp" />
     <ClCompile Include="RandomGenerator.cpp" />
     <ClCompile Include="RequestHandlers.cpp" />
     <ClCompile Include="ScoresManager.cpp" />
@@ -156,6 +157,7 @@
     <ClInclude Include="PolynomialGenerator.h" />
     <ClInclude Include="PolynomialMultipler.h" />
     <ClInclude Include="PolynomialProductForm.h" />
+    <ClInclude Include="PowerfulText.h" />
     <ClInclude Include="RandomGenerator.h" />
     <ClInclude Include="Request.h" />
     <ClInclude Include="RequestHandlers.h" />
