@@ -10,6 +10,8 @@ const float pi = 3.1415926535f;
 
 unsigned intLenght(int number);
 
+//float minAngleDifference(float from, float to);
+
 void centerTextOrigin(sf::Text &textShape);
 
 void setAlpha(sf::Shape &shape, float alpha);
