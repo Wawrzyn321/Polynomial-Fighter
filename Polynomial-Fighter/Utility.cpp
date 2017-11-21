@@ -16,6 +16,12 @@ unsigned intLenght(int number) {
 	return l;
 }
 
+//float minAngleDifference(float from, float to) {
+//	float difference = to - from;
+//	difference = clamp(difference - floor(difference / 360.0f) * 360.0f, 0.0f, 360.0f);
+//	return difference > 180.0f ? difference - 360.0f : difference;
+//}
+
 void centerTextOrigin(sf::Text & textShape)
 {
 	textShape.setOrigin(textShape.getLocalBounds().width / 2, textShape.getLocalBounds().height / 2);
