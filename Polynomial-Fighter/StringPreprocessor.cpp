@@ -10,9 +10,9 @@ bool RequestPreprocessor::isInRangeInclusive(int r)
 
 std::string RequestPreprocessor::removePeriods(std::string input)
 {
-	for (unsigned i = 0; i < input.size(); i++)
+	for (char &i : input)
 	{
-		if (input[i] == ',') input[i] = ' ';
+		if (i == ',') i = ' ';
 	}
 	return input;
 }
@@ -28,8 +28,8 @@ std::string RequestPreprocessor::removeTrailingSpaces(const std::string& input)
 
 bool RequestPreprocessor::hasInequalityCharacters(const std::string& input)
 {
-	return find(input.begin(), input.end(), '>') != input.end() ||
-		find(input.begin(), input.end(), '<') != input.end();
+	return input.find('>') != std::string::npos ||
+		input.find('<') != std::string::npos;
 }
 
 bool RequestPreprocessor::isNumber(const std::string& input)
