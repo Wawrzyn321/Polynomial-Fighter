@@ -16,20 +16,15 @@ public:
 
 	static EntityManager *instance();
 
-	void addEntity(std::shared_ptr<Entity>);
+	void addEntity(const std::shared_ptr<Entity> &entity);
 
-    //latwiej nam bedzie zrobic delete by name/tag
-    //zreszta chyba bedzie to mialo wiecej sensu logicznego
-
-	//a co, jesli chcemy usunac konkretna instancje? name nie
-	//musi byc jednoznaczne.
 	void deleteEntitiesByTag(const std::string &tag);
 
     void deleteEntityByName(const std::string &name);
 
-	void deleteEntity(std::weak_ptr<Entity> entity);
+	void deleteEntity(const std::weak_ptr<Entity> &entity);
 
-    std::vector<std::weak_ptr<Entity>> getEntities();
+    std::vector<std::weak_ptr<Entity>> getEntities(bool includeDisabled = false);
 
 	std::weak_ptr<Entity> findEntityByName(const std::string &name);
 
@@ -40,6 +35,8 @@ public:
 	void draw(sf::RenderTarget& target, sf::RenderStates states = sf::RenderStates::Default);
 
 	void clear();
+
+	void removeMarked();
 
 	~EntityManager();
 };

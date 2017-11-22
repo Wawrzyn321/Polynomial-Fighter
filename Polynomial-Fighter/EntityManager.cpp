@@ -12,7 +12,7 @@ EntityManager * EntityManager::instance()
     return sInstance;
 }
 
-void EntityManager::addEntity(std::shared_ptr<Entity> entity)
+void EntityManager::addEntity(const std::shared_ptr<Entity> &entity)
 {
 	entities.push_back(entity);
 }
@@ -52,7 +52,7 @@ void EntityManager::deleteEntityByName(const std::string &name)
     }
 }
 
-void EntityManager::deleteEntity(std::weak_ptr<Entity> entity)
+void EntityManager::deleteEntity(const std::weak_ptr<Entity> &entity)
 {
     for (int i = 0; i < entities.size(); i++)
     {
@@ -70,12 +70,20 @@ void EntityManager::deleteEntity(std::weak_ptr<Entity> entity)
     }
 }
 
-std::vector<std::weak_ptr<Entity>> EntityManager::getEntities()
+std::vector<std::weak_ptr<Entity>> EntityManager::getEntities(bool includeDisabled)
 {
     std::vector<std::weak_ptr<Entity>> weakPtrs;
 
 	for (auto &entitie : entities)
     {
+        if (!includeDisabled)
+        {
+            if (!entitie->getEnabled())
+            {
+                continue;
+            }
+        }
+
         std::weak_ptr<Entity> weakPtr = entitie;
         weakPtrs.push_back(weakPtr);
     }
@@ -129,9 +137,12 @@ void EntityManager::update(const Time::TimeData timeData)
 	}
 }
 
-void EntityManager::draw(sf::RenderTarget& target, sf::RenderStates states) {
-	for (auto &entitie : entities) {
-		if (entitie == nullptr) {
+void EntityManager::draw(sf::RenderTarget& target, sf::RenderStates states)
+{
+	for (auto &entitie : entities)
+    {
+		if (entitie == nullptr)
+        {
 			Debug::PrintErrorFormatted("EntityManager::draw: supplied entity is NULL!");
 			continue;
 		}
@@ -153,9 +164,14 @@ void EntityManager::clear()
 {
 	for (auto &entity : entities)
 	{
-		entity->onDestroy();
+        if (entity->getEnabled())
+        {
+            entity->onDestroy();
+        }
+
 		entity.reset();
 	}
+
 	entities.clear();
 }
 
@@ -163,8 +179,34 @@ EntityManager::~EntityManager()
 {
 	for (auto &entity : entities)
 	{
-		entity->onDestroy();
+        if (entity->getEnabled())
+        {
+            entity->onDestroy();
+        }
+
 		entity.reset();
 	}
+
 	entities.clear();
+}
+
+void EntityManager::removeMarked()
+{
+    std::vector<std::weak_ptr<Entity>> toDelete;
+
+    for (auto &entitie : entities)
+    {
+        if (entitie->getToDelete())
+        {
+            toDelete.emplace_back(std::weak_ptr<Entity>(entitie));
+        }
+    }
+
+    if (!toDelete.empty())
+    {
+        for (auto &i : toDelete)
+        {
+            deleteEntity(i);
+        }
+    }
 }
