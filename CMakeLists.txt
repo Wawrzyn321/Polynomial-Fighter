@@ -27,8 +27,6 @@ set(SOURCE_FILES
         Polynomial-Fighter/Entity.h
         Polynomial-Fighter/EntityManager.cpp
         Polynomial-Fighter/EntityManager.h
-        Polynomial-Fighter/EquationProvider.cpp
-        Polynomial-Fighter/EquationProvider.h
         Polynomial-Fighter/GameData.h
         Polynomial-Fighter/GUILabel.cpp
         Polynomial-Fighter/GUILabel.h
