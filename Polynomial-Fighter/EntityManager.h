@@ -22,11 +22,15 @@ public:
 
     void deleteEntityByName(const std::string &name);
 
+	void deleteEntityById(unsigned long id);
+
 	void deleteEntity(const std::weak_ptr<Entity> &entity);
 
     std::vector<std::weak_ptr<Entity>> getEntities(bool includeDisabled = false);
 
 	std::weak_ptr<Entity> findEntityByName(const std::string &name);
+
+	std::weak_ptr<Entity> findEntityById(unsigned long id);
 
     std::vector<std::weak_ptr<Entity>> findEntitiesByTag(const std::string &tag, bool includeDisabled = false);
 
