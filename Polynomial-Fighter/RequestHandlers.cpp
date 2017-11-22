@@ -35,16 +35,13 @@ Request RequestHandler::handle(const std::string& input) const
 
 RequestHandler::~RequestHandler()
 {
-	if (succesor)
-	{
-		delete succesor;
-	}
+	delete succesor;
 }
 
 
 bool EmptyStringHandler::canHandleRequest(const std::string& input) const
 {
-	return input.size() == 0;
+	return input.empty();
 }
 
 Request EmptyStringHandler::handleImplementation(const std::string& input) const
@@ -79,7 +76,7 @@ Request SingleNumberStringHandler::handleImplementation(const std::string& input
 		}
 	}
 	//stoi error
-	catch (std::invalid_argument invalidArgumentException)
+	catch (std::invalid_argument &invalidArgumentException)
 	{
 		return passFurther(input);
 	}
@@ -132,7 +129,7 @@ Request LHSInequalityStringHandler::handleImplementation(const std::string& inpu
 		}
 	}
 	//stoi error
-	catch (std::invalid_argument invalidArgumentException)
+	catch (std::invalid_argument &invalidArgumentException)
 	{
 		return passFurther(input);
 	}
@@ -184,7 +181,7 @@ Request RHSInequalityStringHandler::handleImplementation(const std::string& inpu
 		}
 	}
 	//stoi error
-	catch (std::invalid_argument invalidArgumentException)
+	catch (std::invalid_argument &invalidArgumentException)
 	{
 		return passFurther(input);
 	}
@@ -228,7 +225,7 @@ Request ListStringHandler::handleImplementation(const std::string& input) const
 		return { v, "" };
 	}
 	//stoi error
-	catch (std::invalid_argument invalidArgumentException)
+	catch (std::invalid_argument &invalidArgumentException)
 	{
 		return { {}, "Invalid character @" + std::to_string(v.size() + 1) + "!" };
 	}

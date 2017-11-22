@@ -14,8 +14,8 @@ PowerfulText::PowerfulText(const std::string& script, const std::shared_ptr<sf::
 
 void PowerfulText::rebuild(const std::string& script, bool autoRecenter)
 {
-	const unsigned smallerCharacterSize = static_cast<unsigned>(characterSize * SIZE_MULTIPLIER);
-	const unsigned scaledOffset = static_cast<unsigned>(characterSize*MID_TEXT_OFFSET);
+	auto smallerCharacterSize = static_cast<unsigned>(characterSize * SIZE_MULTIPLIER);
+	auto scaledOffset = static_cast<unsigned>(characterSize*MID_TEXT_OFFSET);
 
 	texts.clear();
 	overallLength = 0;
@@ -33,7 +33,7 @@ void PowerfulText::rebuild(const std::string& script, bool autoRecenter)
 		}
 		else
 		{
-			texts.push_back(sf::Text(script.substr(start, current - start), *font, characterSize));
+			texts.emplace_back(script.substr(start, current - start), *font, characterSize);
 			texts.back().setOrigin(-overallLength, 0);
 			texts.back().setPosition({ 0,0 });
 			overallLength += texts.back().getLocalBounds().width + scaledOffset;
@@ -41,10 +41,10 @@ void PowerfulText::rebuild(const std::string& script, bool autoRecenter)
 			current++;
 			if (current == script.size())
 			{
-				throw new std::exception("PowerfulText::rebuild: out of range!");
+				throw std::runtime_error("PowerfulText::rebuild: out of range!");
 			}
 
-			texts.push_back(sf::Text(script[current], *font, smallerCharacterSize));
+			texts.emplace_back(script[current], *font, smallerCharacterSize);
 			const float yOffset = (c == UPPER ? UPPER_SHIFT : LOWER_SHIFT)*characterSize*SIZE_MULTIPLIER;
 			texts.back().setOrigin(-overallLength, yOffset);
 			texts.back().setPosition({ 0,0 });
@@ -54,9 +54,10 @@ void PowerfulText::rebuild(const std::string& script, bool autoRecenter)
 			start = current;
 		}
 	}
+
 	if (start != current)
 	{
-		texts.push_back(sf::Text(script.substr(start, current - start), *font, characterSize));
+		texts.emplace_back(script.substr(start, current - start), *font, characterSize);
 		texts.back().setOrigin(-overallLength, 0);
 		texts.back().setPosition({ 0,0 });
 		overallLength += texts.back().getLocalBounds().width + scaledOffset;
@@ -125,8 +126,8 @@ void PowerfulText::setCharacterSize(unsigned characterSize)
 
 void PowerfulText::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-	for (int i = 0; i < texts.size(); i++)
+	for (const auto &text : texts)
 	{
-		target.draw(texts[i], states);
+		target.draw(text, states);
 	}
 }
