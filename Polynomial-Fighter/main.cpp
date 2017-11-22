@@ -1,6 +1,5 @@
 #include <iostream>
 #include "InputField.h"
-#include "EquationProvider.h"
 #include "RandomGenerator.h"
 #include "Timer.h"
 #include "InputFieldParser.h"
