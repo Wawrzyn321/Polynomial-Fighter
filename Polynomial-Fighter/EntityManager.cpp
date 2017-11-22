@@ -210,3 +210,33 @@ void EntityManager::removeMarked()
         }
     }
 }
+void EntityManager::deleteEntityById(unsigned long id)
+{
+    for (int i = 0; i < entities.size(); i++)
+    {
+        if (entities[i]->getId() == id)
+        {
+            if (entities[i]->getEnabled())
+            {
+                entities[i]->onDestroy();
+            }
+
+            entities[i].reset();
+            entities.erase(entities.begin() + i);
+            return;
+        }
+    }
+}
+std::weak_ptr<Entity> EntityManager::findEntityById(unsigned long id)
+{
+    for (auto &entitie : entities)
+    {
+        if (entitie->getId() == id)
+        {
+            std::weak_ptr<Entity> weakPtr = entitie;
+            return weakPtr;
+        }
+    }
+
+    return std::weak_ptr<Entity>(); //sprawdza sie to std::weak_ptr::expired(), bo nie da sie nullptr
+}

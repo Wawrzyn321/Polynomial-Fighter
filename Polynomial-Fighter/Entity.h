@@ -8,15 +8,22 @@
 #include "Timer.h"
 
 class Entity : public sf::Drawable, public ITransformable {
+private:
+	unsigned long getCurrentId()
+	{
+		static unsigned long currentId = 0;
+		return currentId++;
+	}
 protected:
     bool enabled = true;
 	bool toDelete = false;
+	const unsigned long id;
 public:
     std::string name;
 	std::string tag;
 
 	Entity(const std::string &name = "", const std::string &tag = "") :
-			name(name), tag(tag) {};
+			name(name), tag(tag), id(getCurrentId()) {};
 
     virtual void update(Time::TimeData timeData) {};
 
@@ -42,7 +49,11 @@ public:
 	{
 		this->toDelete = toDelete;
 	}
-};
 
+	unsigned long getId() const
+	{
+		return id;
+	}
+};
 
 #endif
