@@ -115,13 +115,17 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AssetManager.cpp" />
+    <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Debug.cpp" />
     <ClCompile Include="EntityManager.cpp" />
     <ClCompile Include="EquationProvider.cpp" />
     <ClCompile Include="GUILabel.cpp" />
     <ClCompile Include="InputField.cpp" />
     <ClCompile Include="InputFieldParser.cpp" />
+    <ClCompile Include="ITransformable.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PlayerHealthGUI.cpp" />
     <ClCompile Include="PolynomialFactor.cpp" />
     <ClCompile Include="PolynomialGeneralForm.cpp" />
     <ClCompile Include="PolynomialGenerator.cpp" />
@@ -139,6 +143,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Asset Manager.h" />
+    <ClInclude Include="Bullet.h" />
     <ClInclude Include="Debug.h" />
     <ClInclude Include="Delegate.h" />
     <ClInclude Include="Entity.h" />
@@ -152,6 +157,8 @@
     <ClInclude Include="InputField.h" />
     <ClInclude Include="InputFieldParser.h" />
     <ClInclude Include="ITransformable.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="PlayerHealthGUI.h" />
     <ClInclude Include="PolynomialFactor.h" />
     <ClInclude Include="PolynomialGeneralForm.h" />
     <ClInclude Include="PolynomialGenerator.h" />

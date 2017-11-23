@@ -4,7 +4,6 @@
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
 #include "ITransformable.h"
-//#include "EventManager.h"
 #include "Timer.h"
 
 class Entity : public sf::Drawable, public ITransformable {
@@ -13,6 +12,7 @@ protected:
 public:
     std::string name;
 	std::string tag;
+	bool markedForDeletion = false;
 
 	Entity(const std::string &name = "", const std::string &tag ="") :
 			name(name), tag(tag) {};
