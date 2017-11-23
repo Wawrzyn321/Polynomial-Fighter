@@ -1,82 +1,15 @@
-#include <iostream>
-#include "InputField.h"
-#include "EquationProvider.h"
 #include "RandomGenerator.h"
 #include "Timer.h"
-#include "InputFieldParser.h"
-#include "PolynomialProductForm.h"
-#include "PolynomialGenerator.h"
-#include "PolynomialMultipler.h"
+#include "EntityManager.h"
+#include "Bullet.h"
+#include "Player.h"
 
 using namespace std;
 
-void showVector(vector<int> v) {
-	for (const auto &i : v) { //todo ładne
-		cout << i << " ";
-	}
-	cout << endl;
-}
-
-PolynomialProductForm pf;
-
-void fun(const string &str)
-{
-	InputFieldParser p = InputFieldParser();
-	auto v = p.parse(str);
-
-	system("cls");
-	for (int root : v)
-	{
-		if(pf.isRoot(root))
-		{
-			cout << root << " to pierwiasnetek" << endl;
-			pf.removeFactorsByRoot(root);
-		}
-	}
-	if(pf.getRoots().size() == 0)
-	{
-		cout << "to juz wszystko, nowy wielomian: " << endl;
-		pf = PolynomialGenerator::generatePolynomial(3);
-	}
-
-	cout << PolynomialMultipler::generalForm(pf).toString() << endl;
-
-}
-
-void inputFieldTest()
-{
-	cout << endl;
-	sf::RenderWindow window(sf::VideoMode(GameData::WINDOW_SIZE.x, GameData::WINDOW_SIZE.y), "IF");
-
-	Time::Timer *t = Time::Timer::instance();
-
-	InputField f = InputField({ 200, 100 }, { 200, 50 });
-	
-	f.OnTextSubmitted.add(fun);
-	f.interactable = true;
-
-	while (window.isOpen())
-	{
-		sf::Event event;
-		while (window.pollEvent(event))
-		{
-			if (event.type == sf::Event::Closed)
-				window.close();
-
-			if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Escape) {
-				f.interactable = !f.interactable;
-			}
-
-			f.feed(event);
-		}
-		Time::TimeData timeData = t->getTimeData();
-
-		f.update(timeData);
-
-		window.clear(sf::Color(127,127,127));
-		window.draw(f);
-		window.display();
-	}
+void addBullet(){
+	auto b = std::make_shared<Bullet>(Bullet("ball", { 100,100 }, 5));
+	b->setTarget(EntityManager::instance()->findEntityByName(GameData::NAME_PLAYER).lock()->getPosition(), GameData::NAME_PLAYER, 2, 2);
+	EntityManager::instance()->addEntity(b);
 }
 
 int main()
@@ -86,12 +19,36 @@ int main()
 //#pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
 //#endif
 
-	pf = PolynomialGenerator::generatePolynomial(5);
+	auto em = EntityManager::instance();
+	auto t = Time::Timer::instance();
 
-	cout << PolynomialMultipler::generalForm(pf).toString() << endl;
 
-	InputFieldParser::runTests();
-	inputFieldTest();
+
+	Player p = Player({ GameData::WINDOW_SIZE.x*0.5f, GameData::WINDOW_SIZE.y*0.5f });
+	em->addEntity(std::shared_ptr<Entity>(static_cast<Entity*>(&p)));
+	//em->addEntity(std::make_shared<Player>(p));
+
+	sf::RenderWindow window(sf::VideoMode(GameData::WINDOW_SIZE.x, GameData::WINDOW_SIZE.y), "pf");
+	while (window.isOpen())
+	{
+		sf::Event event;
+		while (window.pollEvent(event))
+		{
+			if (event.type == sf::Event::Closed)
+				window.close();
+			if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Space) {
+				addBullet();
+			}
+		}
+
+		auto deltaTime = t->getTimeData();
+		em->update(deltaTime);
+		em->removeMarked();
+
+		window.clear();
+		em->draw(window);
+		window.display();
+	}
 
 	system("pause");
 	return 0;

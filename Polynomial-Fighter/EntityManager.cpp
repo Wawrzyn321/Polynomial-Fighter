@@ -1,4 +1,5 @@
 #include "EntityManager.h"
+#include "Debug.h"
 
 EntityManager *EntityManager::sInstance = nullptr;
 
@@ -12,9 +13,10 @@ EntityManager * EntityManager::instance()
     return sInstance;
 }
 
-void EntityManager::addEntity(std::shared_ptr<Entity> entity)
+std::shared_ptr<Entity> EntityManager::addEntity(std::shared_ptr<Entity> entity)
 {
 	entities.push_back(entity);
+	return entity;
 }
 
 void EntityManager::deleteEntitiesByTag(const std::string &tag)
@@ -83,6 +85,29 @@ std::vector<std::weak_ptr<Entity>> EntityManager::getEntities()
     return weakPtrs;
 }
 
+void EntityManager::removeMarked()
+{
+	std::vector<std::weak_ptr<Entity>> toDelete;
+
+	for (auto &entity : entities)
+	{
+		if (entity->markedForDeletion)
+		{
+			toDelete.emplace_back(std::weak_ptr<Entity>(entity));
+		}
+	}
+
+	if (!toDelete.empty())
+	{
+		for (auto &i : toDelete)
+		{
+			deleteEntity(i);
+		}
+	}
+}
+
+
+
 #pragma region Searching the list
 
 std::weak_ptr<Entity> EntityManager::findEntityByName(const std::string &name)
@@ -120,22 +145,24 @@ std::vector<std::weak_ptr<Entity>> EntityManager::findEntitiesByTag(const std::s
 
 void EntityManager::update(const Time::TimeData timeData)
 {
-	for (auto &entitie : entities)
+	for (auto &entity : entities)
     {
-		if (entitie->getEnabled())
+		if (entity->getEnabled() && !entity->markedForDeletion)
         {
-			entitie->update(timeData);
+			entity->update(timeData);
 		}
 	}
 }
 
 void EntityManager::draw(sf::RenderTarget& target, sf::RenderStates states) {
-	for (auto &entitie : entities) {
-		if (entitie == nullptr) {
+	Debug::PrintFormatted("%", entities.size());
+	for (auto &entity : entities) {
+		if (entity == nullptr) {
 			Debug::PrintErrorFormatted("EntityManager::draw: supplied entity is NULL!");
 			continue;
 		}
-		if (entitie->getEnabled()) {
+		Debug::PrintFormatted("<%>", entity->name);
+		if (entity->getEnabled() && !entity->markedForDeletion) {
 
 			//todo uzmienni?
 			/*glEnable(GL_SCISSOR_TEST);
@@ -143,7 +170,7 @@ void EntityManager::draw(sf::RenderTarget& target, sf::RenderStates states) {
 				(GLint)GameData::SCENE_BOUNDS.top,
 				(GLint)GameData::SCENE_BOUNDS.width,
 				(GLint)GameData::SCENE_BOUNDS.height);*/
-			entitie->draw(target, states);
+			entity->draw(target, states);
 			//glDisable(GL_SCISSOR_TEST);
 		}
 	}

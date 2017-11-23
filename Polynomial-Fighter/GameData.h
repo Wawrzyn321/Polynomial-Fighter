@@ -2,18 +2,20 @@
 #define GAME_DATA_H
 
 #include <SFML/Graphics.hpp>
+#include "Player.h"
 
 namespace GameData {
 
 
 	const std::string TAG_ENEMY = "enemy";
-	const std::string TAG_PLAYER_BULLET = "player_bullet";
-	const std::string TAG_ENEMY_BULLET = "enemy_bullet";
+	const std::string TAG_BULLET = "bullet";
 	const std::string TAG_PLAYER = "player";
 	const std::string TAG_PARTICLE_SYSTEM = "particle_system";
 	const std::string TAG_HEALING_PACK = "health";
 
 	const std::string NAME_PLAYER = "player";
+	const float PLAYER_STARTING_HEALTH = 10.0f;
+	const float PLAYER_COLLISION_RADIUS = 10.0f;
 
 	const std::string FONT_REGULAR = "Aleo-Regular.otf";
 	const std::string FONT_ITALIC = "Aleo-Italic.otf";

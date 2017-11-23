@@ -12,11 +12,12 @@ private:
 
     static EntityManager *sInstance;
     std::vector<std::shared_ptr<Entity>> entities;
+
 public:
 
 	static EntityManager *instance();
 
-	void addEntity(std::shared_ptr<Entity>);
+	std::shared_ptr<Entity>  addEntity(std::shared_ptr<Entity>);
 
     //latwiej nam bedzie zrobic delete by name/tag
     //zreszta chyba bedzie to mialo wiecej sensu logicznego
@@ -30,6 +31,8 @@ public:
 	void deleteEntity(std::weak_ptr<Entity> entity);
 
     std::vector<std::weak_ptr<Entity>> getEntities();
+
+	void removeMarked();
 
 	std::weak_ptr<Entity> findEntityByName(const std::string &name);
 
