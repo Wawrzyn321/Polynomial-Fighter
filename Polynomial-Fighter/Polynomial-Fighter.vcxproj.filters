@@ -45,9 +45,6 @@
     <ClCompile Include="EntityManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="EquationProvider.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="RandomGenerator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -137,9 +134,6 @@
     <ClInclude Include="EntityManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="EquationProvider.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="RandomGenerator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -159,9 +153,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="StringPreprocessor.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ExampleEntities.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="PolynomialProductForm.h">

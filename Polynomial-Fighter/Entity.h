@@ -20,7 +20,6 @@ protected:
 public:
     std::string name;
 	std::string tag;
-	bool markedForDeletion = false;
 
 	Entity(const std::string &name = "", const std::string &tag = "") :
 			name(name), tag(tag), id(getCurrentId()) {};

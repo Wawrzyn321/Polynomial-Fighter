@@ -29,9 +29,9 @@ public:
 
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
-	void receiveDamage(float damage, float bonusDamageMultiplier) override;
+	void receiveDamage(float damage, float bonusDamageMultiplier = 1) override;
 
-	void receiveDamage(float damage, sf::Vector2f incoming, float bonusDamageMultiplier) override;
+	void receiveDamage(float damage, sf::Vector2f incoming, float bonusDamageMultiplier = 1) override;
 	
 };
 

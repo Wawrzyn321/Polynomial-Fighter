@@ -6,9 +6,23 @@
 
 using namespace std;
 
+/*
+ *o co chodzi
+ *jest gracz na srodku OK
+ *z 100, 100 leci do niego pocisk OK
+ *w momencie uderzenia powinien zadac mu obrazenia i umrzec OK
+ *i wszystko jest ok, dopoki nie wywolamy Bullet::checkCollisions::(d->receiveDamage...)
+ *potem gra crashuje sie na probie narysowania gracza
+ *co ciekawe - po wywolaniu receiveDamage na graczu ten traci name - jest pustym stringiem
+ *bez tego wywolania wszystko dziala
+ *SMUTKI
+ */
+
+
+
 void addBullet(){
 	auto b = std::make_shared<Bullet>(Bullet("ball", { 100,100 }, 5));
-	b->setTarget(EntityManager::instance()->findEntityByName(GameData::NAME_PLAYER).lock()->getPosition(), GameData::NAME_PLAYER, 2, 2);
+	b->setTarget(EntityManager::instance()->findEntityByName(GameData::NAME_PLAYER), 1, 2);
 	EntityManager::instance()->addEntity(b);
 }
 
@@ -21,8 +35,6 @@ int main()
 
 	auto em = EntityManager::instance();
 	auto t = Time::Timer::instance();
-
-
 
 	Player p = Player({ GameData::WINDOW_SIZE.x*0.5f, GameData::WINDOW_SIZE.y*0.5f });
 	em->addEntity(std::shared_ptr<Entity>(static_cast<Entity*>(&p)));
