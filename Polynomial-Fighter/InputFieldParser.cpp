@@ -53,7 +53,7 @@ void InputFieldParser::runTests()
 
 	//empty
 	Request r = chain->handle("");
-	assert(r.isValid() && r.result.size() == 0);
+	assert(r.isValid() && r.result.empty());
 
 	//single
 	r = chain->handle("-0");
@@ -79,9 +79,9 @@ void InputFieldParser::runTests()
 	r = chain->handle(">6");
 	assert(r.isValid() && r.result.size() == 1 && r.result[0] == 7);
 	r = chain->handle(">7");
-	assert(r.isValid() && r.result.size() == 0);
+	assert(r.isValid() && r.result.empty());
 	r = chain->handle("<-7");
-	assert(r.isValid() && r.result.size() == 0);
+	assert(r.isValid() && r.result.empty());
 	r = chain->handle("<<2");
 	assert(!r.isValid());
 	r = chain->handle(RequestPreprocessor::removeTrailingSpaces("     <    -2 2     2    "));
@@ -101,9 +101,9 @@ void InputFieldParser::runTests()
 	r = chain->handle("-6>");
 	assert(r.isValid() && r.result.size() == 1 && r.result[0] == -7);
 	r = chain->handle("7<");
-	assert(r.isValid() && r.result.size() == 0);
+	assert(r.isValid() && r.result.empty());
 	r = chain->handle("-7>");
-	assert(r.isValid() && r.result.size() == 0);
+	assert(r.isValid() && r.result.empty());
 
 	//LHS & RHS, generally all input with more than one '<' or '>' is incorrect
 	//the same for '-'... or '8'... or '9'...

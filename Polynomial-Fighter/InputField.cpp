@@ -68,7 +68,8 @@ void InputField::feed(const sf::Event event)
 		}
 		//return - submit
 		else if (c == '\r') {
-			if (currentText != "") {
+			if (!currentText.empty())
+			{
 				OnTextSubmitted.invoke(text.getString());
 				clear();
 			}
