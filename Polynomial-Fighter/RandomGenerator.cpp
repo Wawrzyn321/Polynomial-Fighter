@@ -54,7 +54,7 @@ float RandomGenerator::getVariation(float value, float percentage)
 
 int RandomGenerator::getVariation(int value, float percentage)
 {
-	int max = static_cast<int>(value * percentage);
+	auto max = static_cast<int>(value * percentage);
 	return getInt(value - max, value + max);
 }
 

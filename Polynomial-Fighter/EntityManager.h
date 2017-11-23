@@ -12,29 +12,25 @@ private:
 
     static EntityManager *sInstance;
     std::vector<std::shared_ptr<Entity>> entities;
-
 public:
 
 	static EntityManager *instance();
 
-	std::shared_ptr<Entity>  addEntity(std::shared_ptr<Entity>);
+	void addEntity(const std::shared_ptr<Entity> &entity);
 
-    //latwiej nam bedzie zrobic delete by name/tag
-    //zreszta chyba bedzie to mialo wiecej sensu logicznego
-
-	//a co, jesli chcemy usunac konkretna instancje? name nie
-	//musi byc jednoznaczne.
 	void deleteEntitiesByTag(const std::string &tag);
 
     void deleteEntityByName(const std::string &name);
 
-	void deleteEntity(std::weak_ptr<Entity> entity);
+	void deleteEntityById(unsigned long id);
 
-    std::vector<std::weak_ptr<Entity>> getEntities();
+	void deleteEntity(const std::weak_ptr<Entity> &entity);
 
-	void removeMarked();
+    std::vector<std::weak_ptr<Entity>> getEntities(bool includeDisabled = false);
 
 	std::weak_ptr<Entity> findEntityByName(const std::string &name);
+
+	std::weak_ptr<Entity> findEntityById(unsigned long id);
 
     std::vector<std::weak_ptr<Entity>> findEntitiesByTag(const std::string &tag, bool includeDisabled = false);
 
@@ -43,6 +39,8 @@ public:
 	void draw(sf::RenderTarget& target, sf::RenderStates states = sf::RenderStates::Default);
 
 	void clear();
+
+	void removeMarked();
 
 	~EntityManager();
 };

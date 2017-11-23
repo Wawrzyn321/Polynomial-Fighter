@@ -1,5 +1,4 @@
 #include "EntityManager.h"
-#include "Debug.h"
 
 EntityManager *EntityManager::sInstance = nullptr;
 
@@ -13,10 +12,9 @@ EntityManager * EntityManager::instance()
     return sInstance;
 }
 
-std::shared_ptr<Entity> EntityManager::addEntity(std::shared_ptr<Entity> entity)
+void EntityManager::addEntity(const std::shared_ptr<Entity> &entity)
 {
 	entities.push_back(entity);
-	return entity;
 }
 
 void EntityManager::deleteEntitiesByTag(const std::string &tag)
@@ -54,7 +52,7 @@ void EntityManager::deleteEntityByName(const std::string &name)
     }
 }
 
-void EntityManager::deleteEntity(std::weak_ptr<Entity> entity)
+void EntityManager::deleteEntity(const std::weak_ptr<Entity> &entity)
 {
     for (int i = 0; i < entities.size(); i++)
     {
@@ -72,41 +70,26 @@ void EntityManager::deleteEntity(std::weak_ptr<Entity> entity)
     }
 }
 
-std::vector<std::weak_ptr<Entity>> EntityManager::getEntities()
+std::vector<std::weak_ptr<Entity>> EntityManager::getEntities(bool includeDisabled)
 {
     std::vector<std::weak_ptr<Entity>> weakPtrs;
 
 	for (auto &entitie : entities)
     {
+        if (!includeDisabled)
+        {
+            if (!entitie->getEnabled())
+            {
+                continue;
+            }
+        }
+
         std::weak_ptr<Entity> weakPtr = entitie;
         weakPtrs.push_back(weakPtr);
     }
 
     return weakPtrs;
 }
-
-void EntityManager::removeMarked()
-{
-	std::vector<std::weak_ptr<Entity>> toDelete;
-
-	for (auto &entity : entities)
-	{
-		if (entity->markedForDeletion)
-		{
-			toDelete.emplace_back(std::weak_ptr<Entity>(entity));
-		}
-	}
-
-	if (!toDelete.empty())
-	{
-		for (auto &i : toDelete)
-		{
-			deleteEntity(i);
-		}
-	}
-}
-
-
 
 #pragma region Searching the list
 
@@ -145,24 +128,25 @@ std::vector<std::weak_ptr<Entity>> EntityManager::findEntitiesByTag(const std::s
 
 void EntityManager::update(const Time::TimeData timeData)
 {
-	for (auto &entity : entities)
+	for (auto &entitie : entities)
     {
-		if (entity->getEnabled() && !entity->markedForDeletion)
+		if (entitie->getEnabled())
         {
-			entity->update(timeData);
+			entitie->update(timeData);
 		}
 	}
 }
 
-void EntityManager::draw(sf::RenderTarget& target, sf::RenderStates states) {
-	Debug::PrintFormatted("%", entities.size());
-	for (auto &entity : entities) {
-		if (entity == nullptr) {
+void EntityManager::draw(sf::RenderTarget& target, sf::RenderStates states)
+{
+	for (auto &entitie : entities)
+    {
+		if (entitie == nullptr)
+        {
 			Debug::PrintErrorFormatted("EntityManager::draw: supplied entity is NULL!");
 			continue;
 		}
-		Debug::PrintFormatted("<%>", entity->name);
-		if (entity->getEnabled() && !entity->markedForDeletion) {
+		if (entitie->getEnabled()) {
 
 			//todo uzmienni?
 			/*glEnable(GL_SCISSOR_TEST);
@@ -170,7 +154,7 @@ void EntityManager::draw(sf::RenderTarget& target, sf::RenderStates states) {
 				(GLint)GameData::SCENE_BOUNDS.top,
 				(GLint)GameData::SCENE_BOUNDS.width,
 				(GLint)GameData::SCENE_BOUNDS.height);*/
-			entity->draw(target, states);
+			entitie->draw(target, states);
 			//glDisable(GL_SCISSOR_TEST);
 		}
 	}
@@ -180,9 +164,14 @@ void EntityManager::clear()
 {
 	for (auto &entity : entities)
 	{
-		entity->onDestroy();
+        if (entity->getEnabled())
+        {
+            entity->onDestroy();
+        }
+
 		entity.reset();
 	}
+
 	entities.clear();
 }
 
@@ -190,8 +179,64 @@ EntityManager::~EntityManager()
 {
 	for (auto &entity : entities)
 	{
-		entity->onDestroy();
+        if (entity->getEnabled())
+        {
+            entity->onDestroy();
+        }
+
 		entity.reset();
 	}
+
 	entities.clear();
+}
+
+void EntityManager::removeMarked()
+{
+    std::vector<std::weak_ptr<Entity>> toDelete;
+
+    for (auto &entitie : entities)
+    {
+        if (entitie->getToDelete())
+        {
+            toDelete.emplace_back(std::weak_ptr<Entity>(entitie));
+        }
+    }
+
+    if (!toDelete.empty())
+    {
+        for (auto &i : toDelete)
+        {
+            deleteEntity(i);
+        }
+    }
+}
+void EntityManager::deleteEntityById(unsigned long id)
+{
+    for (int i = 0; i < entities.size(); i++)
+    {
+        if (entities[i]->getId() == id)
+        {
+            if (entities[i]->getEnabled())
+            {
+                entities[i]->onDestroy();
+            }
+
+            entities[i].reset();
+            entities.erase(entities.begin() + i);
+            return;
+        }
+    }
+}
+std::weak_ptr<Entity> EntityManager::findEntityById(unsigned long id)
+{
+    for (auto &entitie : entities)
+    {
+        if (entitie->getId() == id)
+        {
+            std::weak_ptr<Entity> weakPtr = entitie;
+            return weakPtr;
+        }
+    }
+
+    return std::weak_ptr<Entity>(); //sprawdza sie to std::weak_ptr::expired(), bo nie da sie nullptr
 }
