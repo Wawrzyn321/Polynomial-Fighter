@@ -16,18 +16,16 @@ void Bullet::initGraphics()
 
 void Bullet::checkCollisions()
 {
-	auto target = EntityManager::instance()->findEntityByName(recipientName);
+	auto target = EntityManager::instance()->findEntityById(recipientID);
 	Entity* e = target.lock().get();
-	if (checkCollision((ITransformable*)e))
-	{
-		((IDamageable*)e)->receiveDamage(damage, vectorNormalize(velocity), bonusDamage);
-		markedForDeletion = true;
-	}
-	//po auto ostrzeniu
 	if (checkCollision(static_cast<ITransformable*>(e)))
 	{
-		reinterpret_cast<IDamageable*>(e)->receiveDamage(damage, vectorNormalize(velocity), bonusDamage);
-		markedForDeletion = true;
+		Debug::PrintFormatted("przed wywolaniem receive: {%} -> ", e->name);
+		auto d = reinterpret_cast<IDamageable*>(e);
+		Debug::PrintFormatted("tutaj IDam: <%>", d);
+		d->receiveDamage(damage, vectorNormalize(velocity), bonusDamage);
+		Debug::PrintFormatted("i po wywolaniu {%}\n", e->name);
+		toDelete = true;
 	}
 }
 
@@ -39,11 +37,7 @@ void Bullet::checkBounds()
 		|| v.y > GameData::WINDOW_SIZE.y + radius)
 	{
 		Debug::PrintFormatted("ha\n");
-		/*Entity *e = (Entity*)this;
-		std::shared_ptr<Entity> sp = std::shared_ptr<Entity>(e);
-		std::weak_ptr<Entity> p = std::weak_ptr<Entity>(sp);
-		EntityManager::instance()->deleteEntity(p);*/
-		markedForDeletion = true;
+		toDelete = true;
 	}
 }
 
@@ -60,11 +54,12 @@ Bullet::Bullet(const std::string& name, const sf::Vector2f& position, float radi
 	setPosition(position);
 }
 
-void Bullet::setTarget(const sf::Vector2f& targetPosition, const std::string& recipient, float velocity, float damage,
+void Bullet::setTarget(const std::weak_ptr<Entity> recipient, float velocity, float damage,
                        float bonusDamage)
 {
-	this->velocity = vectorNormalize(targetPosition - getPosition()) * velocity;
-	this->recipientName = recipient;
+	sf::Vector2f currentTargetPosition = ((ITransformable*)(recipient.lock().get()))->getPosition();
+	this->velocity = vectorNormalize(currentTargetPosition - getPosition()) * velocity;
+	this->recipientID = recipient.lock().get()->getId();
 	this->damage = damage;
 	this->bonusDamage = bonusDamage;
 }

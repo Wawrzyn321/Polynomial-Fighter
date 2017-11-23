@@ -7,7 +7,7 @@
 class Bullet : public Entity {
 	sf::CircleShape shape;
 	sf::Vector2f velocity;
-	std::string recipientName;
+	long recipientID;
 	float radius;
 	float damage;
 	float bonusDamage;
@@ -22,7 +22,7 @@ public:
 	sf::IntRect bounds;
 	Bullet(const std::string& name, const sf::Vector2f& position, float radius);
 
-	void setTarget(const sf::Vector2f& targetPosition, const std::string& recipient, float velocity, float damage,
+	void setTarget(const std::weak_ptr<Entity>, float velocity, float damage,
 	               float bonusDamage = 0);
 
 	sf::Vector2f getPosition() override;
@@ -31,7 +31,7 @@ public:
 
 	void update(Time::TimeData timeData) override;;
 
-	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;;
+	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 };
 
 #endif

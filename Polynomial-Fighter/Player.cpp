@@ -7,7 +7,7 @@ void Player::initGraphics()
 	shape = sf::RectangleShape({ 30,15 });
 	shape.setOrigin(15, 15 * 0.5f);
 
-	healthGUI = std::make_unique<PlayerHealthGUI>(PlayerHealthGUI({ 300, 300 }, { 200, 30 }, maxHealth));
+	//healthGUI = std::make_unique<PlayerHealthGUI>(PlayerHealthGUI({ 300, 300 }, { 200, 30 }, maxHealth));
 }
 
 Player::Player(const sf::Vector2f& position)
@@ -34,33 +34,35 @@ void Player::setPosition(sf::Vector2f position)
 
 void Player::onDestroy()
 {
-	healthGUI.release();
+	//healthGUI.release();
 }
 
 void Player::update(Time::TimeData timeData)
 {
-	healthGUI->updateHealthGraphics(timeData.getScaledDeltaTimeInMili());
+	//healthGUI->updateHealthGraphics(timeData.getScaledDeltaTimeInMili());
 }
 
 void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	target.draw(shape, states);
-	target.draw(*healthGUI, states);
+	//target.draw(*healthGUI, states);
 }
 
 void Player::receiveDamage(float damage, float bonusDamageMultiplier)
 {
-	health = clamp(health - damage*bonusDamageMultiplier, 0.0f, health);
+	Debug::PrintFormatted("(%)", name); //no i to siê nie wywo³uje
+
+	/*health = clamp(health - damage*bonusDamageMultiplier, 0.0f, health);
 	healthGUI->health = health;
 	if(health==0)
 	{
 		Time::Timer::instance()->setTimeScale(0);
-		Debug::PrintFormatted("DEAF");
-	}
+	}*/
 }
 
 void Player::receiveDamage(float damage, sf::Vector2f incoming, float bonusDamageMultiplier)
 {
-	receiveDamage(damage, bonusDamageMultiplier);
+	Debug::PrintFormatted("(%)", name); //no i to siê nie wywo³uje te¿
+	//receiveDamage(damage, bonusDamageMultiplier);
 	//todo add effects
 }
