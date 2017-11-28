@@ -5,19 +5,31 @@
 #include "IDamageable.h"
 #include "Delegate.h"
 #include "PlayerHealthGUI.h"
+#include "PlayerCannon.h"
 
-class Player: public Entity, public IDamageable
+class Player : public Entity, public IDamageable
 {
 	sf::RectangleShape shape;
-	std::unique_ptr<PlayerHealthGUI> healthGUI;
 	float health;
 	float maxHealth;
 
+	std::unique_ptr<PlayerHealthGUI> healthGUI;
+	std::unique_ptr<PlayerCannon> cannon;
+
+	float targetRotation;
+	bool rotationEventInvoked = true;
+
 	void initGraphics();
+
+	void updateRotation(float deltaTime);
+
 public:
 	Delegate<int> DeathEvent;
+	Delegate<float> FinishedRotatingEvent;
 
 	Player(const sf::Vector2f &position);
+
+	void setTargetPosition(const sf::Vector2f& position);
 
 	sf::Vector2f getPosition() override;
 

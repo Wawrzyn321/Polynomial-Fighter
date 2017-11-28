@@ -23,7 +23,7 @@ public:
 	Bullet(const std::string& name, const sf::Vector2f& position, float radius);
 
 	void setTarget(const std::weak_ptr<Entity>, float velocity, float damage,
-	               float bonusDamage = 0);
+	               float bonusDamage = 1);
 
 	sf::Vector2f getPosition() override;
 

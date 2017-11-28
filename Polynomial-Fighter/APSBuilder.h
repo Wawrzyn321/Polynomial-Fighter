@@ -13,7 +13,7 @@ class APSBuilder
 public:
 	static APSBuilder* startBuilding(sf::Vector2f position);
 
-	APSBuilder* setMainData(float time, int count, Space space = SELF);
+	APSBuilder* setMainData(float time, int count, Space space = SELF, ActionAfterEmmision actionAfterEmmision = DESTROY);
 
 	APSBuilder* setIntervals(float spawningTime, float timeBetweenSpawn, float startDelayTime);
 
@@ -26,6 +26,8 @@ public:
 	APSBuilder *setGravity(bool useGravity, sf::Vector2f gravity = sf::Vector2f(0, 0.981f));
 
 	APSBuilder* setDispersion(float dispersionAngle, sf::Vector2f direction);
+
+	APSBuilder* setDispersion(float dispersionAngle, float incomingDeg);
 
 	APSBuilder* setColors(sf::Color startColor, float startColorVariation, sf::Color endColor, float endColorVariation, float colorChangingSpeed);
 

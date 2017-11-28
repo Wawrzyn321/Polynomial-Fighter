@@ -55,12 +55,6 @@ void EntityManager::deleteEntityByName(const std::string &name)
 
 void EntityManager::deleteEntity(const std::weak_ptr<Entity> &entity)
 {
-	Debug::PrintFormatted("deleteEntity: przed (");
-	for (int i = 0; i < entities.size(); i++)
-	{
-		Debug::PrintFormatted("(% % %) ", entities[i], entities[i]->name, entities[i]->getId());
-	}
-	Debug::PrintFormatted(") po (");
     for (int i = 0; i < entities.size(); i++)
     {
         if (entities[i] == entity.lock())
@@ -72,14 +66,9 @@ void EntityManager::deleteEntity(const std::weak_ptr<Entity> &entity)
 
             entities[i].reset();
             entities.erase(entities.begin() + i);
-            //return;
+            return;
         }
     }
-	for (int i = 0; i < entities.size(); i++)
-	{
-		Debug::PrintFormatted("(% % %) ", entities[i], entities[i]->name, entities[i]->getId());
-	}
-	Debug::PrintFormatted(")\n");
 }
 
 std::vector<std::weak_ptr<Entity>> EntityManager::getEntities(bool includeDisabled)
@@ -142,6 +131,8 @@ void EntityManager::update(const Time::TimeData timeData)
 {
 	for (auto &entitie : entities)
     {
+		//if (!entitie) continue;
+
 		if (entitie->getEnabled())
         {
 			entitie->update(timeData);
@@ -204,7 +195,7 @@ EntityManager::~EntityManager()
 void EntityManager::removeMarked()
 {
     std::vector<std::weak_ptr<Entity>> toDelete;
-	int przet = entities.size();
+	unsigned w = entities.size();
     for (auto &entitie : entities)
     {
         if (entitie->getToDelete())
@@ -220,9 +211,12 @@ void EntityManager::removeMarked()
             deleteEntity(i);
         }
     }
-	if(przet != entities.size())
-	Debug::PrintFormatted("%->%\n", przet,entities.size());
+	if(w != entities.size())
+	{
+		Debug::PrintFormatted("\n%->%\n", w, entities.size());
+	}
 }
+
 void EntityManager::deleteEntityById(unsigned long id)
 {
     for (int i = 0; i < entities.size(); i++)
@@ -240,6 +234,7 @@ void EntityManager::deleteEntityById(unsigned long id)
         }
     }
 }
+
 std::weak_ptr<Entity> EntityManager::findEntityById(unsigned long id)
 {
     for (auto &entitie : entities)

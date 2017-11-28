@@ -16,11 +16,11 @@ unsigned intLenght(int number) {
 	return l;
 }
 
-//float minAngleDifference(float from, float to) {
-//	float difference = to - from;
-//	difference = clamp(difference - floor(difference / 360.0f) * 360.0f, 0.0f, 360.0f);
-//	return difference > 180.0f ? difference - 360.0f : difference;
-//}
+float minAngleDifference(float from, float to) {
+	float difference = to - from;
+	difference = clamp(difference - floor(difference / 360.0f) * 360.0f, 0.0f, 360.0f);
+	return difference > 180.0f ? difference - 360.0f : difference;
+}
 
 void centerTextOrigin(sf::Text & textShape)
 {
@@ -67,4 +67,16 @@ int getLastCharacterPosition(std::string text, char c) {
 		}
 	}
 	return -1;
+}
+
+void rotateTowards(sf::Transformable& transformable, float angleDeg, float time)
+{
+	float from = transformable.getRotation() * pi / 180.0f;
+	float to = angleDeg * pi / 180.0f;
+
+	float xRotation = (1 - time) * cos(from) + time * cos(to);
+	float yRotation = (1 - time) * sin(from) + time * sin(to);
+	float nextRotation = atan2(yRotation, xRotation);
+
+	transformable.setRotation(nextRotation * 180.0f / pi);
 }

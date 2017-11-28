@@ -15,11 +15,12 @@ APSBuilder::APSBuilder(sf::Vector2f position)
 	cachedTime = 0;
 }
 
-APSBuilder* APSBuilder::setMainData(float time, int count, Space space)
+APSBuilder* APSBuilder::setMainData(float time, int count, Space space, ActionAfterEmmision actionAfterEmmision)
 {
 	aps->time = time;
 	aps->count = count;
 	aps->space = space;
+	aps->actionAfterEmmision = actionAfterEmmision;
 
 	cachedTime = time;
 	return this;
@@ -66,6 +67,13 @@ APSBuilder* APSBuilder::setDispersion(float dispersionAngle, sf::Vector2f direct
 {
 	aps->dispersionAngle = dispersionAngle;
 	aps->direction = direction;
+	return this;
+}
+
+APSBuilder* APSBuilder::setDispersion(float dispersionAngle, float incomingDeg)
+{
+	aps->dispersionAngle = dispersionAngle;
+	aps->direction = { cos(incomingDeg*pi / 180.0f), sin(incomingDeg*pi / 180.0f) };
 	return this;
 }
 	

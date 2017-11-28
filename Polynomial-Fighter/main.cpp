@@ -3,22 +3,9 @@
 #include "EntityManager.h"
 #include "Bullet.h"
 #include "Player.h"
+#include "Enemy.h"
 
 using namespace std;
-
-/*
- *o co chodzi
- *jest gracz na srodku OK
- *z 100, 100 leci do niego pocisk OK
- *w momencie uderzenia powinien zadac mu obrazenia i umrzec OK
- *i wszystko jest ok, dopoki nie wywolamy Bullet::checkCollisions::(d->receiveDamage...)
- *potem gra crashuje sie na probie narysowania gracza
- *co ciekawe - po wywolaniu receiveDamage na graczu ten traci name - jest pustym stringiem
- *bez tego wywolania wszystko dziala
- *SMUTKI
- */
-
-
 
 void addBullet(){
 	auto b = std::make_shared<Bullet>(Bullet("ball", { 100,100 }, 5));
@@ -36,8 +23,12 @@ int main()
 	auto em = EntityManager::instance();
 	auto t = Time::Timer::instance();
 
-	Player p = Player({ GameData::WINDOW_SIZE.x*0.5f, GameData::WINDOW_SIZE.y*0.5f });
-	em->addEntity(std::shared_ptr<Entity>(static_cast<Entity*>(&p)));
+	Enemy *d = new Enemy({ 200,300 });
+
+	em->addEntity(std::shared_ptr<Entity>(d));
+
+	Player *p = new Player({ GameData::WINDOW_SIZE.x*0.5f, GameData::WINDOW_SIZE.y*0.5f });
+	em->addEntity(std::shared_ptr<Entity>(p));
 	//em->addEntity(std::make_shared<Player>(p));
 
 	sf::RenderWindow window(sf::VideoMode(GameData::WINDOW_SIZE.x, GameData::WINDOW_SIZE.y), "pf");
@@ -50,6 +41,14 @@ int main()
 				window.close();
 			if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Space) {
 				addBullet();
+			}
+			if(event.type == sf::Event::MouseButtonPressed)
+			{
+				auto p = em->findEntityByName(GameData::NAME_PLAYER).lock();
+				dynamic_pointer_cast<Player>(p)->setTargetPosition({ 
+					static_cast<float>(sf::Mouse::getPosition(window).x), 
+					static_cast<float>(sf::Mouse::getPosition(window).y)
+				});
 			}
 		}
 

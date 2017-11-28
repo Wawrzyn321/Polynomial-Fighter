@@ -9,6 +9,12 @@ enum Space
 	WORLD,
 };
 
+enum ActionAfterEmmision
+{
+	DEACTIVATE,
+	DESTROY,
+};
+
 enum APSState
 {
 	PRE_WAITING,
