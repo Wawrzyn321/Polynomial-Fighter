@@ -7,7 +7,24 @@ void Player::initGraphics()
 	shape = sf::RectangleShape({ 30,15 });
 	shape.setOrigin(15, 15 * 0.5f);
 
-	//healthGUI = std::make_unique<PlayerHealthGUI>(PlayerHealthGUI({ 300, 300 }, { 200, 30 }, maxHealth));
+	healthGUI = std::make_unique<PlayerHealthGUI>(PlayerHealthGUI({ 300, 300 }, { 200, 30 }, maxHealth));
+}
+
+void Player::updateRotation(float deltaTime)
+{
+	const float min_difference = 0.08f;
+	const float speed = 0.01f;
+
+	if (abs(minAngleDifference(shape.getRotation(), targetRotation))>min_difference)
+	{
+		rotateTowards(shape, targetRotation, deltaTime*speed);
+	}
+	else if (!rotationEventInvoked)
+	{
+		Debug::PrintFormatted("!");
+		FinishedRotatingEvent(targetRotation);
+		rotationEventInvoked = true;
+	}
 }
 
 Player::Player(const sf::Vector2f& position)
@@ -19,8 +36,23 @@ Player::Player(const sf::Vector2f& position)
 	collisionRadius = GameData::PLAYER_COLLISION_RADIUS;
 
 	initGraphics();
-	setPosition(position);
+	this->Player::setPosition(position);
+	Debug::PrintFormatted("% %\n", position.x, position.y);
+	cannon = std::make_unique<PlayerCannon>(PlayerCannon(this));
+	/*cannon ???????
+		wypierniczamy weak ptr, tylko shared
+	NIE WOLNO (BARDZO NIE WOLNO) uzywac get(), TYLKO SHARED PTR
+	== NULLPTR -> */
 }
+
+void Player::setTargetPosition(const sf::Vector2f& position)
+{
+	auto diff = position - getPosition();
+	targetRotation = atan2(diff.y, diff.x)*180.0f / pi;
+	rotationEventInvoked = false;
+}
+
+#pragma region ITransformable
 
 sf::Vector2f Player::getPosition()
 {
@@ -32,37 +64,44 @@ void Player::setPosition(sf::Vector2f position)
 	shape.setPosition(position);
 }
 
+#pragma endregion
+
+#pragma region Entity
+
 void Player::onDestroy()
 {
-	//healthGUI.release();
+	healthGUI.release();
 }
 
 void Player::update(Time::TimeData timeData)
 {
-	//healthGUI->updateHealthGraphics(timeData.getScaledDeltaTimeInMili());
+	healthGUI->updateHealthGraphics(timeData.getScaledDeltaTimeInMili());
+	updateRotation(timeData.getScaledDeltaTimeInMili());
 }
 
 void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	target.draw(shape, states);
-	//target.draw(*healthGUI, states);
+	target.draw(*healthGUI, states);
 }
+
+#pragma endregion
+
+#pragma region IDamageable
 
 void Player::receiveDamage(float damage, float bonusDamageMultiplier)
 {
-	Debug::PrintFormatted("(%)", name); //no i to siê nie wywo³uje
-
-	/*health = clamp(health - damage*bonusDamageMultiplier, 0.0f, health);
+	health = clamp(health - damage*bonusDamageMultiplier, 0.0f, health);
 	healthGUI->health = health;
-	if(health==0)
+	if (health == 0)
 	{
-		Time::Timer::instance()->setTimeScale(0);
-	}*/
+		DeathEvent.invoke(0);
+	}
 }
 
 void Player::receiveDamage(float damage, sf::Vector2f incoming, float bonusDamageMultiplier)
 {
-	Debug::PrintFormatted("(%)", name); //no i to siê nie wywo³uje te¿
-	//receiveDamage(damage, bonusDamageMultiplier);
-	//todo add effects
+	receiveDamage(damage, bonusDamageMultiplier);
 }
+
+#pragma endregion

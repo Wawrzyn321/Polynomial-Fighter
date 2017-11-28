@@ -30,30 +30,30 @@ AdvancedParticleSystem* AdvancedParticleSystem::finishBuilding()
 	return this;
 }
 
+void AdvancedParticleSystem::onLiveEnded()
+{
+	if (looping)
+	{
+		revive();
+	}
+	else
+	{
+		if (actionAfterEmmision == DESTROY)
+		{
+			Debug::PrintFormatted("destroy");
+			setToDelete(true);
+		}
+		else {
+			state = OFF;
+		}
+	}
+}
+
 void AdvancedParticleSystem::addParticle()
 {
-	//if (shapeType == CIRCLE)
-	//{
 	float r = RandomGenerator::getVariation(circleRadius, shapeSizeVariation);
 	int pc = static_cast<int>(RandomGenerator::getVariation(circlePointCount, shapeSizeVariation));
 	particles.push_back(AdvancedParticle(r, pc, this));
-	//}
-	/*else
-	{
-		float variation = RandomGenerator::getVariation(1.0f, shapeSizeVariation);
-
-		if (uniformShapeScaling)
-		{
-			particles.push_back(AdvancedParticle(rectangleSize*variation, this));
-		}
-		else
-		{
-			float a = rectangleSize.x*variation;
-			float b = RandomGenerator::getVariation(rectangleSize.y, shapeSizeVariation);
-			particles.push_back(AdvancedParticle({a, b}, this));
-		}
-	}*/
-
 	particles.back().setPosition(position);
 
 	float baseAngle = direction == sf::Vector2f(0, 0) ? 0
@@ -88,13 +88,14 @@ void AdvancedParticleSystem::handleStartDelay(float deltaTime)
 
 void AdvancedParticleSystem::handleUpdatingOnly(float deltaTime)
 {
+	mainAccumulator += deltaTime;
 	if (mainAccumulator > time)
 	{
 		for (AdvancedParticle &particle : particles)
 		{
 			particle.isAlive = false;
 		}
-		state = looping ? WAITING : OFF;
+		onLiveEnded();
 		mainAccumulator = 0;
 	}
 }
@@ -122,7 +123,6 @@ void AdvancedParticleSystem::handleSpawning(float deltaTime)
 	mainAccumulator += deltaTime;
 	spawningAccumulator += deltaTime;
 
-	//Debug::PrintFormatted("% %\n", spawningAccumulator, singleSpawnTime);
 	while (spawningAccumulator > singleSpawnTime && count > particles.size())
 	{
 		addParticle();
@@ -154,14 +154,7 @@ void AdvancedParticleSystem::informOfDeath()
 	aliveParticlesCount--;
 	if (aliveParticlesCount == 0 && state == ONLY_UPDATING)
 	{
-		if (looping)
-		{
-			revive();
-		}
-		else
-		{
-			state = OFF;
-		}
+		onLiveEnded();
 	}
 }
 

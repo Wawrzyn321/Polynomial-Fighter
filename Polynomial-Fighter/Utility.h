@@ -10,7 +10,7 @@ const float pi = 3.1415926535f;
 
 unsigned intLenght(int number);
 
-//float minAngleDifference(float from, float to);
+float minAngleDifference(float from, float to);
 
 void centerTextOrigin(sf::Text &textShape);
 
@@ -25,6 +25,8 @@ sf::Color lerp(sf::Color from, sf::Color to, float amount);
 sf::FloatRect getCenteredFloatRect(float width, float height, float xShift = 0, float yShift = 0);
 
 int getLastCharacterPosition(std::string text, char c);
+
+void rotateTowards(sf::Transformable& sprite, float angleDeg, float time = 1.0f);
 
 #pragma region Template functions
 
@@ -64,7 +66,7 @@ sf::Vector2<T> operator*(const sf::Vector2<T> &vec, R a) {
 }
 
 template <typename T>
-void rotateTowards(sf::Sprite &sprite, sf::Vector2<T> target, float time = 1.0f) {
+void rotateTowards(sf::Transformable &sprite, sf::Vector2<T> target, float time = 1.0f) {
 	float from = sprite.getRotation()*pi / 180.0f;
 	float to = atan2(sprite.getPosition().y - target.y, sprite.getPosition().x - target.x);
 

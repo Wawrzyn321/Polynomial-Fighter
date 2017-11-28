@@ -3,6 +3,40 @@
 #include <functional>
 #include <vector>
 
+class Action
+{
+	typedef std::function<void()> Function0;
+	std::vector<Function0> content;
+public:
+	void add(Function0 fun)
+	{
+		content.push_back(fun);
+	}
+
+	void remove(Function0 fun)
+	{
+		//content.erase(fun);
+	}
+
+	void clear()
+	{
+		content.clear();
+	}
+
+	void invoke()
+	{
+		for (auto && f : content)
+		{
+			f();
+		}
+	}
+
+	void operator()()
+	{
+		invoke();
+	}
+};
+
 template <typename T>
 class Delegate
 {
@@ -31,6 +65,12 @@ public:
 			f(param);
 		}
 	}
+
+	void operator()(T param)
+	{
+		invoke(param);
+	}
 };
+
 
 #endif

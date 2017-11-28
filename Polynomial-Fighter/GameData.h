@@ -2,10 +2,8 @@
 #define GAME_DATA_H
 
 #include <SFML/Graphics.hpp>
-#include "Player.h"
 
 namespace GameData {
-
 
 	const std::string TAG_ENEMY = "enemy";
 	const std::string TAG_BULLET = "bullet";
@@ -27,15 +25,16 @@ namespace GameData {
 	const std::string PATH_TO_SOUNDS = "sounds/";
 	const std::string PATH_TO_SAVE = "save.dat";
 
+	const int DEFAULT_NUMBER_OF_ROUNDS = 5;
+
 	const std::string SOUND_EXPLOSION_LONG = "explosion_long.ogg";
 	const std::string SOUND_EXPLOSION_SHORT = "explosion_short.ogg";
 	const std::string SOUND_PLAYER_SHOOT = "player_shoot.ogg";
 	const std::string SOUND_ENEMY_SHOOT = "enemy_shoot.ogg";
 	const std::string SOUND_MENU_CLICK = "menu_click.ogg";
 
-
 	const sf::Vector2i WINDOW_SIZE = sf::Vector2i(1024, 768);
-	const sf::Rect<int> SCENE_BOUNDS = sf::Rect<int>(0, 64, WINDOW_SIZE.x, WINDOW_SIZE.y-64*2-8);
+	const sf::IntRect DEFAULT_BOUNDS = sf::IntRect({ 0,0 }, WINDOW_SIZE);;
 }
 
 #endif
