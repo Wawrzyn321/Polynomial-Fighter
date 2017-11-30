@@ -1,7 +1,6 @@
 #include "Bullet.h"
 #include "EntityManager.h"
 #include "IDamageable.h"
-#include "ITransformable.h"
 #include "GameData.h"
 #include "Debug.h"
 
@@ -17,11 +16,14 @@ void Bullet::initGraphics()
 void Bullet::checkCollisions()
 {
 	auto target = EntityManager::instance()->findEntityById(recipientID);
-	std::shared_ptr<Entity> e = target.lock();
 
-	if (checkCollision(dynamic_cast<ITransformable*>(e.get())))
+	//TODO
+	//checkCollision, receive damage
+	//musza brac jako argument referencje do shared_ptr, zwykle wskazniki to zlo i nie uzywamy ich
+
+	if (checkCollision(*target))
 	{
-		auto d = dynamic_cast<IDamageable*>(e.get());
+        auto d = std::dynamic_pointer_cast<IDamageable>(target);
 		d->receiveDamage(damage, vectorNormalize(velocity), bonusDamage);
 		toDelete = true;
 	}
@@ -51,12 +53,11 @@ Bullet::Bullet(const std::string& name, const sf::Vector2f& position, float radi
 	setPosition(position);
 }
 
-void Bullet::setTarget(const std::weak_ptr<Entity> recipient, float velocity, float damage,
-                       float bonusDamage)
+void Bullet::setTarget(const Entity &recipient, float velocity, float damage, float bonusDamage)
 {
-	sf::Vector2f currentTargetPosition = ((ITransformable*)(recipient.lock().get()))->getPosition();
+	sf::Vector2f currentTargetPosition = recipient.getPosition();
 	this->velocity = vectorNormalize(currentTargetPosition - getPosition()) * velocity;
-	this->recipientID = recipient.lock().get()->getId();
+	this->recipientID = recipient.getId();
 	this->damage = damage;
 	this->bonusDamage = bonusDamage;
 }

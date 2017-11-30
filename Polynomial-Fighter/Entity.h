@@ -3,10 +3,9 @@
 
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
-#include "ITransformable.h"
 #include "Timer.h"
 
-class Entity : public sf::Drawable, public ITransformable {
+class Entity : public sf::Drawable, public sf::Transformable {
 private:
 	unsigned long getCurrentId()
 	{
@@ -17,9 +16,13 @@ protected:
     bool enabled = true;
 	bool toDelete = false;
 	const unsigned long id;
+	float collisionRadius = 0;
+	virtual bool checkCollision(Entity &other);
+    sf::Vector2f position;
 public:
     std::string name;
 	std::string tag;
+	bool collisionsEnabled = true;
 
 	Entity(const std::string &name = "", const std::string &tag = "") :
 			name(name), tag(tag), id(getCurrentId()) {};
@@ -53,6 +56,10 @@ public:
 	{
 		return id;
 	}
+
+	virtual sf::Vector2f getPosition() const;
+	virtual void setPosition(sf::Vector2f position) = 0;
+	virtual float getCollisionRadius() const;
 };
 
 #endif

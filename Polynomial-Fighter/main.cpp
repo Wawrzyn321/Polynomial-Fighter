@@ -9,7 +9,7 @@ using namespace std;
 
 void addBullet(){
 	auto b = std::make_shared<Bullet>(Bullet("ball", { 100,100 }, 5));
-	b->setTarget(EntityManager::instance()->findEntityByName(GameData::NAME_PLAYER), 1, 2);
+	b->setTarget(*(EntityManager::instance()->findEntityByName(GameData::NAME_PLAYER)), 1, 2);
 	EntityManager::instance()->addEntity(b);
 }
 
@@ -44,7 +44,7 @@ int main()
 			}
 			if(event.type == sf::Event::MouseButtonPressed)
 			{
-				auto p = em->findEntityByName(GameData::NAME_PLAYER).lock();
+				auto p = em->findEntityByName(GameData::NAME_PLAYER);
 				dynamic_pointer_cast<Player>(p)->setTargetPosition({ 
 					static_cast<float>(sf::Mouse::getPosition(window).x), 
 					static_cast<float>(sf::Mouse::getPosition(window).y)

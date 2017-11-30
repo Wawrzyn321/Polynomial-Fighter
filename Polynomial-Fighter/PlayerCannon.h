@@ -10,12 +10,11 @@ class PlayerCannon
 	std::vector<int> targets;
 
 	int numberOfRounds;
-	float originX;
-	float originY;
+    sf::Vector2f origin;
 public:
-	PlayerCannon(Player *player);
+	PlayerCannon(sf::Vector2f origin);
 
-	void setTargets(const std::vector<int>& targets);
+	void setTargets(const std::vector<int> &targets);
 
 	void shoot(float angle);
 };

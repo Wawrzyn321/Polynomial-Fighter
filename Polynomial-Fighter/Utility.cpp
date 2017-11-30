@@ -18,7 +18,7 @@ unsigned intLenght(int number) {
 
 float minAngleDifference(float from, float to) {
 	float difference = to - from;
-	difference = clamp(difference - floor(difference / 360.0f) * 360.0f, 0.0f, 360.0f);
+	difference = customClamp(static_cast<float>(difference - floor(difference / 360.0f) * 360.0f), 0.0f, 360.0f);
 	return difference > 180.0f ? difference - 360.0f : difference;
 }
 

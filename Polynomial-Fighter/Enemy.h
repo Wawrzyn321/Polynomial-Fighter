@@ -24,7 +24,7 @@ public:
 		setPosition(position);
 	}
 
-	sf::Vector2f getPosition() override
+	sf::Vector2f getPosition()
 	{
 		return shape.getPosition();
 	}
@@ -39,12 +39,13 @@ public:
 		target.draw(shape, states);
 	}
 
-	void receiveDamage(float damage, float bonusDamageMultiplier = 1) override
+	void receiveDamage(float damage, float bonusDamageMultiplier) override
 	{
 		Debug::PrintFormatted("ala");
 	}
 
-	void receiveDamage(float damage, sf::Vector2f incoming, float bonusDamageMultiplier = 1) override{
+	void receiveDamage(float damage, sf::Vector2f incoming, float bonusDamageMultiplier) override
+    {
 		Debug::PrintFormatted("ala2");
 	}
 

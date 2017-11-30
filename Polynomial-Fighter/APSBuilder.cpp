@@ -73,7 +73,8 @@ APSBuilder* APSBuilder::setDispersion(float dispersionAngle, sf::Vector2f direct
 APSBuilder* APSBuilder::setDispersion(float dispersionAngle, float incomingDeg)
 {
 	aps->dispersionAngle = dispersionAngle;
-	aps->direction = { cos(incomingDeg*pi / 180.0f), sin(incomingDeg*pi / 180.0f) };
+	aps->direction = {static_cast<float>(cos(incomingDeg*pi / 180.0f)),
+					  static_cast<float>(sin(incomingDeg*pi / 180.0f))};
 	return this;
 }
 	

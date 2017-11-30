@@ -1,6 +1,7 @@
 #ifndef UTILITY_H
 #define UTILITY_H
 
+#include <algorithm>
 #include <SFML/Graphics.hpp>
 #include "GameData.h"
 #include "Asset Manager.h"
@@ -75,6 +76,12 @@ void rotateTowards(sf::Transformable &sprite, sf::Vector2<T> target, float time 
 	float nextRotation = atan2(yRotation, xRotation);
 
 	sprite.setRotation(nextRotation*180.0f/pi);
+}
+
+template<class T>
+const T& customClamp(const T &x, const T &upper, const T &lower)
+{
+    return std::min(upper, std::max(x, lower)); //mam stare gcc i nie chce mi sie aktualizowac... na linuksie to trudne
 }
 
 #pragma endregion

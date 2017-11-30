@@ -22,10 +22,9 @@ public:
 	sf::IntRect bounds;
 	Bullet(const std::string& name, const sf::Vector2f& position, float radius);
 
-	void setTarget(const std::weak_ptr<Entity>, float velocity, float damage,
-	               float bonusDamage = 1);
+	void setTarget(const Entity &recipient, float velocity, float damage, float bonusDamage = 1);
 
-	sf::Vector2f getPosition() override;
+	sf::Vector2f getPosition();
 
 	void setPosition(sf::Vector2f position) override;
 
