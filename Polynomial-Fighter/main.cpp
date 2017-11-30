@@ -44,8 +44,8 @@ int main()
 			}
 			if(event.type == sf::Event::MouseButtonPressed)
 			{
-				auto p = em->findEntityByName(GameData::NAME_PLAYER);
-				dynamic_pointer_cast<Player>(p)->setTargetPosition({ 
+				auto p = em->findEntityByName<Player>(GameData::NAME_PLAYER);
+				p->setTargetPosition({
 					static_cast<float>(sf::Mouse::getPosition(window).x), 
 					static_cast<float>(sf::Mouse::getPosition(window).y)
 				});
