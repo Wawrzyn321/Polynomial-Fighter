@@ -38,11 +38,8 @@ Player::Player(const sf::Vector2f& position)
 	initGraphics();
 	this->Player::setPosition(position);
 	Debug::PrintFormatted("% %\n", position.x, position.y);
-	cannon = std::make_unique<PlayerCannon>(PlayerCannon(this));
-	/*cannon ???????
-		wypierniczamy weak ptr, tylko shared
-	NIE WOLNO (BARDZO NIE WOLNO) uzywac get(), TYLKO SHARED PTR
-	== NULLPTR -> */
+	cannon = std::make_unique<PlayerCannon>(PlayerCannon(position));
+    FinishedRotatingEvent.add(std::bind(&PlayerCannon::shoot, cannon.get(), std::placeholders::_1));
 }
 
 void Player::setTargetPosition(const sf::Vector2f& position)

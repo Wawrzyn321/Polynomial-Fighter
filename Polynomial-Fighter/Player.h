@@ -31,7 +31,7 @@ public:
 
 	void setTargetPosition(const sf::Vector2f& position);
 
-	sf::Vector2f getPosition() override;
+	sf::Vector2f getPosition();
 
 	void setPosition(sf::Vector2f position) override;
 
@@ -41,9 +41,9 @@ public:
 
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
-	void receiveDamage(float damage, float bonusDamageMultiplier = 1) override;
+	void receiveDamage(float damage, float bonusDamageMultiplier) override;
 
-	void receiveDamage(float damage, sf::Vector2f incoming, float bonusDamageMultiplier = 1) override;
+	void receiveDamage(float damage, sf::Vector2f incoming, float bonusDamageMultiplier) override;
 	
 };
 

@@ -31,8 +31,9 @@ public:
 
 	FloatColor lerpTo(const FloatColor to, float t, bool clampT = true)
 	{
-		if (clampT) {
-			t = clamp(t, 0.0f, 1.0f);
+		if (clampT)
+		{
+			t = customClamp(t, 0.0f, 1.0f);
 		}
 		x += (to.x - x)*t;
 		y += (to.y - y)*t;

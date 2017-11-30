@@ -81,7 +81,7 @@ public:
 	void onDestroy() override;
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
-	sf::Vector2f getPosition() override;
+	sf::Vector2f getPosition();
 	void setPosition(const sf::Vector2f position) override;
 
 };

@@ -7,15 +7,12 @@
 #include "APSBuilder.h"
 #include "EntityManager.h"
 
-PlayerCannon::PlayerCannon(Player *player)
+PlayerCannon::PlayerCannon(sf::Vector2f origin)
 {
-	//this->origin = player->getPosition();
-	originX = player->Player::getPosition().x;
-	originY = player->Player::getPosition().y;
+	this->origin = origin;
 
-	Debug::PrintFormatted("oto pozycja gracza % %\n", originX, originY);
+	Debug::PrintFormatted("oto pozycja gracza % %\n", this->origin.x, this->origin.y);
 	numberOfRounds = GameData::DEFAULT_NUMBER_OF_ROUNDS;
-	player->FinishedRotatingEvent.add(std::bind(&PlayerCannon::shoot, this, std::placeholders::_1));
 }
 
 void PlayerCannon::setTargets(const std::vector<int>& targets)
@@ -37,9 +34,9 @@ void PlayerCannon::shoot(float angle)
 	EntityManager::instance()->addEntity(std::make_shared<AdvancedParticleSystem>(*aps));
 	delete aps;*/
 
-	Debug::PrintFormatted("strzelam, to origin cannnona % %\n", originX, originY);
-	auto b = std::make_shared<Bullet>(Bullet("Playerbullet", { originX, originY }, 5));
-	b->setTarget(EntityManager::instance()->findEntityByName("EEE"), 1, 2);
+	Debug::PrintFormatted("strzelam, to origin cannnona % %\n", origin.x, origin.y);
+	auto b = std::make_shared<Bullet>(Bullet("Playerbullet", origin, 5));
+	b->setTarget(*(EntityManager::instance()->findEntityByName("EEE")), 1, 2);
 	EntityManager::instance()->addEntity(b);
 	numberOfRounds--;
 }
