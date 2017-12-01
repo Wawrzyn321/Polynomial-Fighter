@@ -31,9 +31,9 @@ public:
 
 	void setTargetPosition(const sf::Vector2f& position);
 
-	sf::Vector2f getPosition();
+	sf::Vector2f getPosition() const override;
 
-	void setPosition(sf::Vector2f position) override;
+	void setPosition(const sf::Vector2f &position) override;
 
 	void onDestroy() override;
 

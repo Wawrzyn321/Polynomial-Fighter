@@ -17,6 +17,8 @@ public:
 	void setTargets(const std::vector<int> &targets);
 
 	void shoot(float angle);
+
+	void update(float deltaTime);
 };
 
 

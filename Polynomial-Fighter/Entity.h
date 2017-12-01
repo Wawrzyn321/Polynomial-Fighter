@@ -6,7 +6,6 @@
 #include "Timer.h"
 
 class Entity : public sf::Drawable, public sf::Transformable {
-private:
 	unsigned long getCurrentId()
 	{
 		static unsigned long currentId = 0;
@@ -17,8 +16,7 @@ protected:
 	bool toDelete = false;
 	const unsigned long id;
 	float collisionRadius = 0;
-	virtual bool checkCollision(Entity &other);
-    sf::Vector2f position;
+	virtual bool checkCollision(const std::shared_ptr<Entity> &other);
 public:
     std::string name;
 	std::string tag;
@@ -57,8 +55,8 @@ public:
 		return id;
 	}
 
-	virtual sf::Vector2f getPosition() const;
-	virtual void setPosition(sf::Vector2f position) = 0;
+	virtual sf::Vector2f getPosition() const = 0;
+	virtual void setPosition(const sf::Vector2f &position) = 0;
 	virtual float getCollisionRadius() const;
 };
 

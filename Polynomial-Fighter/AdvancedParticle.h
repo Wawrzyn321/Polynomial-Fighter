@@ -55,8 +55,8 @@ public:
 	void onDestroy() override;
 
 	void move(sf::Vector2f shift);
-	sf::Vector2f getPosition();
-	void setPosition(sf::Vector2f position) override;
+	sf::Vector2f getPosition() const override;
+	void setPosition(const sf::Vector2f &position) override;
 };
 
 #endif

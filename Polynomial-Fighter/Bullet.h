@@ -10,7 +10,7 @@ class Bullet : public Entity {
 	long recipientID;
 	float radius;
 	float damage;
-	float bonusDamage;
+	float bonusDamageMultiplier;
 
 	void initGraphics();
 
@@ -20,13 +20,15 @@ class Bullet : public Entity {
 
 public:
 	sf::IntRect bounds;
-	Bullet(const std::string& name, const sf::Vector2f& position, float radius);
+	Bullet(const std::string& name, const sf::Vector2f& position, float radius, float damage, float bonusDamageMultiplier = 1);
 
-	void setTarget(const Entity &recipient, float velocity, float damage, float bonusDamage = 1);
+	void setTarget(const std::shared_ptr<Entity> recipient, float velocity);
 
-	sf::Vector2f getPosition();
+	void setTarget(const std::shared_ptr<Entity> recipient, const sf::Vector2f& normalizedDirection, float velocity);
 
-	void setPosition(sf::Vector2f position) override;
+	sf::Vector2f getPosition() const override;
+
+	void setPosition(const sf::Vector2f &position) override;
 
 	void update(Time::TimeData timeData) override;;
 

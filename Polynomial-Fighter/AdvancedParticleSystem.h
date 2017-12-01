@@ -81,9 +81,8 @@ public:
 	void onDestroy() override;
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
-	sf::Vector2f getPosition();
-	void setPosition(const sf::Vector2f position) override;
-
+	void setPosition(const sf::Vector2f &position) override;
+	sf::Vector2f getPosition() const override;
 };
 
 #endif ADVANCED_PARTICLE_SYSTEM_H
