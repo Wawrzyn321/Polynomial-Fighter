@@ -21,15 +21,12 @@ public:
 		name = "EEE";
 		initGraphics();
 		collisionRadius = 1;
-		setPosition(position);
+		Enemy::setPosition(position);
 	}
 
-	sf::Vector2f getPosition()
-	{
-		return shape.getPosition();
-	}
+	sf::Vector2f getPosition() const override;
 
-	void setPosition(sf::Vector2f position) override
+	void setPosition(const sf::Vector2f &position) override
 	{
 		shape.setPosition(position);
 	}

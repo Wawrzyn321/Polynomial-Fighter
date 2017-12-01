@@ -4,7 +4,7 @@
 
 void Player::initGraphics()
 {
-	shape = sf::RectangleShape({ 30,15 });
+	shape = sf::RectangleShape({ 30, 15 });
 	shape.setOrigin(15, 15 * 0.5f);
 
 	healthGUI = std::make_unique<PlayerHealthGUI>(PlayerHealthGUI({ 300, 300 }, { 200, 30 }, maxHealth));
@@ -12,8 +12,8 @@ void Player::initGraphics()
 
 void Player::updateRotation(float deltaTime)
 {
-	const float min_difference = 0.08f;
-	const float speed = 0.01f;
+	const float min_difference = 1.2f;
+	const float speed = 0.015f;
 
 	if (abs(minAngleDifference(shape.getRotation(), targetRotation))>min_difference)
 	{
@@ -21,7 +21,6 @@ void Player::updateRotation(float deltaTime)
 	}
 	else if (!rotationEventInvoked)
 	{
-		Debug::PrintFormatted("!");
 		FinishedRotatingEvent(targetRotation);
 		rotationEventInvoked = true;
 	}
@@ -37,7 +36,6 @@ Player::Player(const sf::Vector2f& position)
 
 	initGraphics();
 	this->Player::setPosition(position);
-	Debug::PrintFormatted("% %\n", position.x, position.y);
 	cannon = std::make_unique<PlayerCannon>(PlayerCannon(position));
     FinishedRotatingEvent.add(std::bind(&PlayerCannon::shoot, cannon.get(), std::placeholders::_1));
 }
@@ -51,12 +49,12 @@ void Player::setTargetPosition(const sf::Vector2f& position)
 
 #pragma region ITransformable
 
-sf::Vector2f Player::getPosition()
+sf::Vector2f Player::getPosition() const
 {
 	return shape.getPosition();
 }
 
-void Player::setPosition(sf::Vector2f position)
+void Player::setPosition(const sf::Vector2f &position)
 {
 	shape.setPosition(position);
 }
@@ -68,12 +66,15 @@ void Player::setPosition(sf::Vector2f position)
 void Player::onDestroy()
 {
 	healthGUI.release();
+	cannon.release();
 }
 
 void Player::update(Time::TimeData timeData)
 {
-	healthGUI->updateHealthGraphics(timeData.getScaledDeltaTimeInMili());
-	updateRotation(timeData.getScaledDeltaTimeInMili());
+	float deltaTime = timeData.getScaledDeltaTimeInMili();
+	cannon->update(deltaTime);
+	healthGUI->updateHealthGraphics(deltaTime);
+	updateRotation(deltaTime);
 }
 
 void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const

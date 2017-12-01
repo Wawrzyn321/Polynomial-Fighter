@@ -8,8 +8,8 @@
 using namespace std;
 
 void addBullet(){
-	auto b = std::make_shared<Bullet>(Bullet("ball", { 100,100 }, 5));
-	b->setTarget(*(EntityManager::instance()->findEntityByName(GameData::NAME_PLAYER)), 1, 2);
+	auto b = std::make_shared<Bullet>(Bullet("ball", { 11,12 }, 5, 1));
+	b->setTarget(EntityManager::instance()->findEntityByName(GameData::NAME_PLAYER), 2);
 	EntityManager::instance()->addEntity(b);
 }
 
@@ -60,7 +60,5 @@ int main()
 		em->draw(window);
 		window.display();
 	}
-
-	system("pause");
 	return 0;
 }

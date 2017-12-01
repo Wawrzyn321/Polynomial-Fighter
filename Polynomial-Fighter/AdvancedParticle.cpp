@@ -134,12 +134,12 @@ void AdvancedParticle::move(sf::Vector2f shift)
 	setPosition(getPosition() + shift);
 }
 
-sf::Vector2f AdvancedParticle::getPosition()
+sf::Vector2f AdvancedParticle::getPosition() const
 {
 	return circle.getPosition();// currentShape->getPosition();
 }
 
-void AdvancedParticle::setPosition(sf::Vector2f position)
+void AdvancedParticle::setPosition(const sf::Vector2f &position)
 {
 	//currentShape->setPosition(position);
 	circle.setPosition(position);

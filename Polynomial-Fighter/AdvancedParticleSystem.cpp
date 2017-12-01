@@ -40,7 +40,6 @@ void AdvancedParticleSystem::onLiveEnded()
 	{
 		if (actionAfterEmmision == DESTROY)
 		{
-			Debug::PrintFormatted("destroy");
 			setToDelete(true);
 		}
 		else {
@@ -209,12 +208,12 @@ void AdvancedParticleSystem::draw(sf::RenderTarget& target, sf::RenderStates sta
 
 #pragma region ITransformable Override
 
-sf::Vector2f AdvancedParticleSystem::getPosition()
+sf::Vector2f AdvancedParticleSystem::getPosition() const
 {
 	return position;
 }
 
-void AdvancedParticleSystem::setPosition(const sf::Vector2f position)
+void AdvancedParticleSystem::setPosition(const sf::Vector2f &position)
 {
 	if (space == SELF) {
 		sf::Vector2f shift = position - this->position;

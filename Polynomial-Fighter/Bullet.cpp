@@ -16,15 +16,14 @@ void Bullet::initGraphics()
 void Bullet::checkCollisions()
 {
 	auto target = EntityManager::instance()->findEntityById(recipientID);
-
 	//TODO
 	//checkCollision, receive damage
 	//musza brac jako argument referencje do shared_ptr, zwykle wskazniki to zlo i nie uzywamy ich
-
-	if (checkCollision(*target))
+	//£ADNIE TO ZROBI£EM.
+	if (checkCollision(target))
 	{
         auto d = std::dynamic_pointer_cast<IDamageable>(target);
-		d->receiveDamage(damage, vectorNormalize(velocity), bonusDamage);
+		d->receiveDamage(damage, vectorNormalize(velocity), bonusDamageMultiplier);
 		toDelete = true;
 	}
 }
@@ -40,35 +39,41 @@ void Bullet::checkBounds()
 	}
 }
 
-Bullet::Bullet(const std::string& name, const sf::Vector2f& position, float radius)
+Bullet::Bullet(const std::string& name, const sf::Vector2f& position, float radius, float damage, float bonusDamageMultiplier)
 {
 	this->name = name;
 	this->radius = radius;
+	this->damage = damage;
+	this->bonusDamageMultiplier = bonusDamageMultiplier;
 	collisionRadius = radius;
 	tag = GameData::TAG_BULLET;
 	bounds = GameData::DEFAULT_BOUNDS;
 
 	initGraphics();
-
-	setPosition(position);
+	Bullet::setPosition(position);
 }
 
-void Bullet::setTarget(const Entity &recipient, float velocity, float damage, float bonusDamage)
+void Bullet::setTarget(const std::shared_ptr<Entity> recipient, float velocity)
 {
-	sf::Vector2f currentTargetPosition = recipient.getPosition();
+	sf::Vector2f currentTargetPosition = recipient->getPosition();
 	this->velocity = vectorNormalize(currentTargetPosition - getPosition()) * velocity;
-	this->recipientID = recipient.getId();
-	this->damage = damage;
-	this->bonusDamage = bonusDamage;
+	this->recipientID = recipient->getId();
 }
 
-sf::Vector2f Bullet::getPosition()
+void Bullet::setTarget(const std::shared_ptr<Entity> recipient, const sf::Vector2f& normalizedDirection, float velocity)
+{
+	sf::Vector2f currentTargetPosition = recipient->getPosition();
+	this->velocity = normalizedDirection * velocity;
+	this->recipientID = recipient->getId();
+}
+
+sf::Vector2f Bullet::getPosition() const
 {
 	//todo add const
 	return shape.getPosition();
 }
 
-void Bullet::setPosition(sf::Vector2f position)
+void Bullet::setPosition(const sf::Vector2f &position)
 {
 	//todo add const
 	shape.setPosition(position);
@@ -77,6 +82,7 @@ void Bullet::setPosition(sf::Vector2f position)
 void Bullet::update(Time::TimeData timeData)
 {
 	setPosition(getPosition() + velocity * timeData.getScaledDeltaTimeInMili());
+
 	checkCollisions();
 	checkBounds();
 }

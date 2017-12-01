@@ -3,7 +3,7 @@
 
 EntityManager *EntityManager::sInstance = nullptr;
 
-EntityManager * EntityManager::instance()
+EntityManager *EntityManager::instance()
 {
     if (sInstance == nullptr)
     {
@@ -13,7 +13,7 @@ EntityManager * EntityManager::instance()
     return sInstance;
 }
 
-std::shared_ptr<Entity> & EntityManager::addEntity(const std::shared_ptr<Entity> &entity)
+std::shared_ptr<Entity> &EntityManager::addEntity(const std::shared_ptr<Entity> &entity)
 {
 	entities.push_back(entity);
     return entities.back();

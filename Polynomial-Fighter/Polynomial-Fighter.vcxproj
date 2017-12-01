@@ -121,11 +121,11 @@
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Debug.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="Entity.cpp" />
     <ClCompile Include="EntityManager.cpp" />
     <ClCompile Include="GUILabel.cpp" />
     <ClCompile Include="InputField.cpp" />
     <ClCompile Include="InputFieldParser.cpp" />
-    <ClCompile Include="ITransformable.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerCannon.cpp" />
@@ -164,7 +164,6 @@
     <ClInclude Include="IMouseEventsListener.h" />
     <ClInclude Include="InputField.h" />
     <ClInclude Include="InputFieldParser.h" />
-    <ClInclude Include="ITransformable.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerCannon.h" />
     <ClInclude Include="PlayerHealthGUI.h" />
