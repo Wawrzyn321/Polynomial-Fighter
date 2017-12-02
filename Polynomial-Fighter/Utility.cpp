@@ -63,7 +63,7 @@ sf::FloatRect getCenteredFloatRect(float width, float height, float xShift, floa
 int getLastCharacterPosition(std::string text, char c) {
 	for (size_t i = text.size()-1; i >=0; i--) {
 		if (text[i] == c) {
-			return (int)i;
+			return int(i);
 		}
 	}
 	return -1;
@@ -79,4 +79,21 @@ void rotateTowards(sf::Transformable& transformable, float angleDeg, float time)
 	float nextRotation = atan2(yRotation, xRotation);
 
 	transformable.setRotation(nextRotation * 180.0f / pi);
+}
+
+sf::Vector2f getPointOnIntRect(const sf::FloatRect& bounds)
+{
+	bool horizontal = RandomGenerator::getBoolean();
+	if(horizontal)
+	{
+		float latitude = RandomGenerator::getFloat(0, bounds.width);
+		bool left = RandomGenerator::getBoolean();
+		return { latitude, (left ? 0 : bounds.height) };
+	}
+	else
+	{
+		float altitude = RandomGenerator::getFloat(0, bounds.height);
+		bool top = RandomGenerator::getBoolean();
+		return { (top ? bounds.width : 0), altitude };
+	}
 }

@@ -21,6 +21,7 @@ public:
 	std::shared_ptr<sf::Texture> getTexture(const std::string &filename);
 	std::shared_ptr<sf::Font> getFont(const std::string &filename);
 	std::shared_ptr<sf::SoundBuffer> getSound(const std::string &filename);
+	std::shared_ptr<sf::Font> getDefaultFont();
 };
 
 

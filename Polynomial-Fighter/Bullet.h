@@ -30,7 +30,7 @@ public:
 
 	void setPosition(const sf::Vector2f &position) override;
 
-	void update(Time::TimeData timeData) override;;
+	void update(Time::TimeData timeData) override;
 
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 };

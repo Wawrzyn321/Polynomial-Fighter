@@ -11,6 +11,8 @@ namespace GameData {
 	const std::string TAG_PARTICLE_SYSTEM = "particle_system";
 	const std::string TAG_HEALING_PACK = "health";
 
+	const float ENEMY_INNER_RADIUS_SQR = 180 * 180;
+
 	const std::string NAME_PLAYER = "player";
 	const float PLAYER_STARTING_HEALTH = 10.0f;
 	const float PLAYER_COLLISION_RADIUS = 10.0f;
@@ -35,6 +37,9 @@ namespace GameData {
 
 	const sf::Vector2i WINDOW_SIZE = sf::Vector2i(1024, 768);
 	const sf::IntRect DEFAULT_BOUNDS = sf::IntRect({ 0,0 }, WINDOW_SIZE);;
+
+	const unsigned MAX_POLYNOMINAL_DEGREE = 7;
+	const unsigned MAX_POLYNOMINAL_VALUE = 5;
 }
 
 #endif
