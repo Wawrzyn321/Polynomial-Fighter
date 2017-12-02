@@ -7,7 +7,11 @@ void Player::initGraphics()
 	shape = sf::RectangleShape({ 30, 15 });
 	shape.setOrigin(15, 15 * 0.5f);
 
-	healthGUI = std::make_unique<PlayerHealthGUI>(PlayerHealthGUI({ 300, 300 }, { 200, 30 }, maxHealth));
+	healthGUI = std::make_unique<PlayerHealthGUI>(
+		PlayerHealthGUI(
+	{ GameData::WINDOW_SIZE.x*0.03f, GameData::WINDOW_SIZE.y*0.89f },
+	{ GameData::WINDOW_SIZE.x*0.3f, GameData::WINDOW_SIZE.y*0.08f },
+			maxHealth));
 }
 
 void Player::updateRotation(float deltaTime)
@@ -36,7 +40,7 @@ Player::Player(const sf::Vector2f& position)
 
 	initGraphics();
 	this->Player::setPosition(position);
-	cannon = std::make_unique<PlayerCannon>(PlayerCannon(position));
+	cannon = std::make_unique<PlayerCannon>(PlayerCannon(position, this));
     FinishedRotatingEvent.add(std::bind(&PlayerCannon::shoot, cannon.get(), std::placeholders::_1));
 }
 
@@ -45,6 +49,11 @@ void Player::setTargetPosition(const sf::Vector2f& position)
 	auto diff = position - getPosition();
 	targetRotation = atan2(diff.y, diff.x)*180.0f / pi;
 	rotationEventInvoked = false;
+}
+
+void Player::appendTargets(const std::vector<DesignatedTarget>& targets)
+{
+	cannon->appendTargets(targets);
 }
 
 #pragma region ITransformable

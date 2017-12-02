@@ -13,10 +13,12 @@ namespace Time {
         sf::Time deltaTime;
         float timeScale;
         sf::Time elapsedTime;
-        float getScaledDeltaTimeInMili() {
+        float getScaledDeltaTimeInMili() const
+        {
             return deltaTime.asMicroseconds()*timeScale*MICRO_TO_MILI;
         }
-        float getScaledDeltaTimeInSec() {
+        float getScaledDeltaTimeInSec() const
+        {
             return deltaTime.asMicroseconds()*timeScale*MICRO_TO_SEC;
         }
     };

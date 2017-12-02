@@ -2,19 +2,37 @@
 #define PLAYER_CANNON_H
 #include <vector>
 #include <SFML/System/Vector2.hpp>
+#include <queue>
+
+struct DesignatedTarget
+{
+	unsigned recipientID;
+	int root;
+};
+
 
 class Player;
-
 class PlayerCannon
 {
-	std::vector<int> targets;
+	enum CannonState
+	{
+		IDLE,
+		WAITING_FOR_AIM,
+		SHOOTING,
+	};
+
+
+	std::queue<DesignatedTarget> targets;
 
 	int numberOfRounds;
     sf::Vector2f origin;
+	CannonState state;
+	DesignatedTarget currentTarget;
+	Player *playerReference;
 public:
-	PlayerCannon(sf::Vector2f origin);
+	PlayerCannon(const sf::Vector2f &origin, Player *playerReference);
 
-	void setTargets(const std::vector<int> &targets);
+	void appendTargets(const std::vector<DesignatedTarget> &targets);
 
 	void shoot(float angle);
 
