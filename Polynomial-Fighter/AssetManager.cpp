@@ -82,3 +82,8 @@ std::shared_ptr<sf::SoundBuffer> AssetManager::getSound(const std::string &filen
 		return sound;
 	}
 }
+
+std::shared_ptr<sf::Font> AssetManager::getDefaultFont()
+{
+	return getFont(GameData::PATH_TO_RESOURCES + GameData::PATH_TO_FONTS + GameData::FONT_REGULAR);
+}

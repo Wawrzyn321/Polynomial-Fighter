@@ -6,6 +6,7 @@
 #include "GameData.h"
 #include "Asset Manager.h"
 #include "Debug.h"
+#include "RandomGenerator.h"
 
 const float pi = 3.1415926535f;
 
@@ -28,6 +29,8 @@ sf::FloatRect getCenteredFloatRect(float width, float height, float xShift = 0, 
 int getLastCharacterPosition(std::string text, char c);
 
 void rotateTowards(sf::Transformable& sprite, float angleDeg, float time = 1.0f);
+
+sf::Vector2f getPointOnIntRect(const sf::FloatRect& bounds);
 
 #pragma region Template functions
 
