@@ -5,6 +5,7 @@
 #include "Entity.h"
 
 class Bullet : public Entity {
+protected:
 	sf::CircleShape shape;
 	sf::Vector2f velocity;
 	long recipientID;

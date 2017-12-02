@@ -31,6 +31,8 @@ public:
 
 	void setTargetPosition(const sf::Vector2f& position);
 
+	void appendTargets(const std::vector<DesignatedTarget>& targets);
+
 	sf::Vector2f getPosition() const override;
 
 	void setPosition(const sf::Vector2f &position) override;
@@ -44,7 +46,6 @@ public:
 	void receiveDamage(float damage, float bonusDamageMultiplier) override;
 
 	void receiveDamage(float damage, sf::Vector2f incoming, float bonusDamageMultiplier) override;
-	
 };
 
 #endif

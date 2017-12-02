@@ -2,6 +2,7 @@
 #define ENTITY_MANAGER_H
 
 #include "Entity.h"
+#include "Debug.h"
 #include <SFML/OpenGL.hpp>
 #include <vector>
 
@@ -45,6 +46,9 @@ public:
 
     template<class T>
     std::shared_ptr<T> findEntityById(unsigned long id);
+
+	template <class T>
+	std::shared_ptr<T> findEntityOfType(bool includeDisabled = false);
 
     template<class T>
     std::vector<std::shared_ptr<T>> findEntitiesByTag(const std::string &tag, bool includeDisabled = false);
@@ -116,6 +120,23 @@ std::shared_ptr<T> EntityManager::findEntityById(unsigned long id)
     }
 
     return {};
+}
+
+template <class T>
+std::shared_ptr<T> EntityManager::findEntityOfType(bool includeDisabled)
+{
+	for (unsigned i = 0; i < entities.size(); i++)
+	{
+		if (entities[i]->getEnabled() || includeDisabled) {
+			auto e = std::dynamic_pointer_cast<T>(entities[i]);
+			if (e != nullptr)
+			{
+				Debug::PrintFormatted("JEST");
+				return e;
+			}
+		}
+	}
+	return {};
 }
 
 template<class T>

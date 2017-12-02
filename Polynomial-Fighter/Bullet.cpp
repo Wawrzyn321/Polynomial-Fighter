@@ -55,6 +55,11 @@ Bullet::Bullet(const std::string& name, const sf::Vector2f& position, float radi
 
 void Bullet::setTarget(const std::shared_ptr<Entity> recipient, float velocity)
 {
+	if(!recipient)
+	{
+		Debug::PrintErrorFormatted("Bullet::setTarget: recipient is null!\n");
+		return;
+	}
 	sf::Vector2f currentTargetPosition = recipient->getPosition();
 	this->velocity = vectorNormalize(currentTargetPosition - getPosition()) * velocity;
 	this->recipientID = recipient->getId();
@@ -62,7 +67,11 @@ void Bullet::setTarget(const std::shared_ptr<Entity> recipient, float velocity)
 
 void Bullet::setTarget(const std::shared_ptr<Entity> recipient, const sf::Vector2f& normalizedDirection, float velocity)
 {
-	sf::Vector2f currentTargetPosition = recipient->getPosition();
+	if (!recipient)
+	{
+		Debug::PrintErrorFormatted("Bullet::setTarget: recipient is null!\n");
+		return;
+	}
 	this->velocity = normalizedDirection * velocity;
 	this->recipientID = recipient->getId();
 }

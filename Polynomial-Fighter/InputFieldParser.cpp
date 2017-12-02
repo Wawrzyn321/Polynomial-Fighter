@@ -3,6 +3,7 @@
 #include "StringPreprocessor.h"
 #include <iostream>
 #include <cassert>
+#include "Debug.h"
 
 std::vector<int> InputFieldParser::parse(const std::string& input)
 {
@@ -34,7 +35,7 @@ std::vector<int> InputFieldParser::parse(const std::string& input)
 	else
 	{
 		//show error message
-		std::cout << r.message << std::endl;
+		//Debug::PrintErrorFormatted("InputFieldParser::parse: %", r.message);
 	}
 	std::cout << std::endl;
 	delete chain;

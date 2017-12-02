@@ -20,7 +20,7 @@ class InputField : public sf::Drawable
 	static bool isInputCharacterValid(char c);
 	void updateCursorPosition();
 
-	const int characterLimit = 20;
+	const int characterLimit = 11;
 public:
 	Delegate<const std::string&> OnTextSubmitted;
 	bool interactable;
