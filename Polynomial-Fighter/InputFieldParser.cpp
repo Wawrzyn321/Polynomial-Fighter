@@ -22,7 +22,7 @@ std::vector<int> InputFieldParser::parse(const std::string& input)
 
 	//handle the input
 	Request r = chain->handle(unraw);
-
+	/*
 	if (r.isValid())
 	{
 		//display the result
@@ -38,6 +38,7 @@ std::vector<int> InputFieldParser::parse(const std::string& input)
 		//Debug::PrintErrorFormatted("InputFieldParser::parse: %", r.message);
 	}
 	std::cout << std::endl;
+	*/
 	delete chain;
 	return r.result;
 }

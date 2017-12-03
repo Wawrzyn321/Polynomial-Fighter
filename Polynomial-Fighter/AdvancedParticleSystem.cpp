@@ -90,6 +90,7 @@ void AdvancedParticleSystem::handleUpdatingOnly(float deltaTime)
 	mainAccumulator += deltaTime;
 	if (mainAccumulator > time)
 	{
+		//Debug::PrintFormatted("% %\n", mainAccumulator, deltaTime);
 		for (AdvancedParticle &particle : particles)
 		{
 			particle.isAlive = false;
@@ -150,6 +151,7 @@ void AdvancedParticleSystem::revive()
 
 void AdvancedParticleSystem::informOfDeath()
 {
+	Debug::PrintFormatted("% ", aliveParticlesCount);
 	aliveParticlesCount--;
 	if (aliveParticlesCount == 0 && state == ONLY_UPDATING)
 	{
@@ -162,7 +164,7 @@ void AdvancedParticleSystem::informOfDeath()
 void AdvancedParticleSystem::update(Time::TimeData timeData)
 {
 	//nie switchem.
-	if(state== PRE_WAITING)
+	if(state == PRE_WAITING)
 	{
 		handleStartDelay(timeData.getScaledDeltaTimeInMili());
 	}

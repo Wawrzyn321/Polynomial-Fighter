@@ -13,10 +13,16 @@ EntityManager *EntityManager::instance()
     return sInstance;
 }
 
-std::shared_ptr<Entity> &EntityManager::addEntity(const std::shared_ptr<Entity> &entity)
+std::shared_ptr<Entity>& EntityManager::addEntity(const std::shared_ptr<Entity>& entity, bool instantly)
 {
-	entities.push_back(entity);
-    return entities.back();
+	if (instantly) {
+		entities.push_back(entity);
+		return entities.back();
+	}
+	else {
+		entitiesToAdd.push_back(entity);
+		return entitiesToAdd.back();
+	}
 }
 
 void EntityManager::deleteEntitiesByTag(const std::string &tag)
@@ -92,6 +98,17 @@ std::vector<std::shared_ptr<Entity>> EntityManager::getEntities(bool includeDisa
     }
 
     return toReturn;
+}
+
+void EntityManager::addNewEntitites()
+{
+	if (!entitiesToAdd.empty()) {
+		for (auto &&entity : entitiesToAdd)
+		{
+			entities.push_back(entity);
+		}
+		entitiesToAdd.clear();
+	}
 }
 
 #pragma region Searching the list
@@ -196,7 +213,6 @@ EntityManager::~EntityManager()
 void EntityManager::removeMarked()
 {
     std::vector<std::shared_ptr<Entity>> toDelete;
-	unsigned w = entities.size();
 
     for (auto &entity : entities)
     {
@@ -213,11 +229,6 @@ void EntityManager::removeMarked()
             deleteEntity(i);
         }
     }
-
-	if(w != entities.size())
-	{
-		Debug::PrintFormatted("\n%->%\n", w, entities.size());
-	}
 }
 
 void EntityManager::deleteEntityById(unsigned long id)

@@ -69,6 +69,7 @@ void PowerfulText::rebuild(const std::string& script, bool autoRecenter)
 	{
 		center();
 	}
+	setPosition(getPosition());
 }
 
 void PowerfulText::center()

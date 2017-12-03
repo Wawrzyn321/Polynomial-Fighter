@@ -1,6 +1,8 @@
 #include "Enemy.h"
 #include "PolynomialMultipler.h"
 #include <cassert>
+#include "APSBuilder.h"
+#include "EntityManager.h"
 
 void Enemy::initGraphics(const std::string &name, float angle)
 {
@@ -27,7 +29,7 @@ Enemy::Enemy(const sf::Vector2f& position, const sf::Vector2f &playerPosition, f
 	velocity = dir * speed;
 
 	initGraphics(this->name, atan2f(dir.y, dir.x)*180.0f/pi);
-	collisionRadius = 1;
+	collisionRadius = GameData::ENEMY_COLLISION_RADIUS;
 	Enemy::setPosition(position);
 }
 
@@ -41,8 +43,14 @@ void Enemy::decreasePolynomial(int root)
 	assert(pff.isRoot(root));
 	pff.removeFactorsByRoot(root);
 
-	name = PolynomialMultipler::generalForm(pff).toString();
-	caption->rebuild(name);
+	if (pff.getDeg() == 0) {
+		DeathEvent(id);
+		setToDelete(true);
+	}
+	else {
+		name = PolynomialMultipler::generalForm(pff).toString();
+		caption->rebuild(name);
+	}
 }
 
 #pragma region ITransformable
@@ -102,7 +110,12 @@ void Enemy::receiveDamage(float damage, float bonusDamageMultiplier)
 
 void Enemy::receiveDamage(float damage, sf::Vector2f incoming, float bonusDamageMultiplier)
 {
-	Debug::PrintFormatted("ala2");
+	/*AdvancedParticleSystem *aps = APSBuilder::startBuilding(getPosition())
+		->setMainData(10000, 10)
+		->setIntervals(100, 100, 100)
+		->setAsCircle(100, 12)
+		->finishBuilding();
+	EntityManager::instance()->addEntity(std::shared_ptr<AdvancedParticleSystem>(aps));*/
 }
 
 #pragma endregion

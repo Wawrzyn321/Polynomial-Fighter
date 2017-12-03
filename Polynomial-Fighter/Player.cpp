@@ -23,10 +23,11 @@ void Player::updateRotation(float deltaTime)
 	{
 		rotateTowards(shape, targetRotation, deltaTime*speed);
 	}
-	else if (!rotationEventInvoked)
+	else if (!rotationEventInvoked2)
 	{
+		rotationEventInvoked2 = true;
+		shape.setRotation(targetRotation);
 		FinishedRotatingEvent(targetRotation);
-		rotationEventInvoked = true;
 	}
 }
 
@@ -41,17 +42,20 @@ Player::Player(const sf::Vector2f& position)
 	initGraphics();
 	this->Player::setPosition(position);
 	cannon = std::make_unique<PlayerCannon>(PlayerCannon(position, this));
-    FinishedRotatingEvent.add(std::bind(&PlayerCannon::shoot, cannon.get(), std::placeholders::_1));
+	rotationEventInvoked2 = true;
+    FinishedRotatingEvent.add(std::bind(&PlayerCannon::onRotationFinished, cannon.get(), std::placeholders::_1));
 }
 
 void Player::setTargetPosition(const sf::Vector2f& position)
 {
+	rotationEventInvoked2 = false;
 	auto diff = position - getPosition();
-	targetRotation = atan2(diff.y, diff.x)*180.0f / pi;
-	rotationEventInvoked = false;
+	if (position.x != getPosition().x && position.y != getPosition().y) {
+		targetRotation = atan2(diff.y, diff.x)*180.0f / pi;
+	}
 }
 
-void Player::appendTargets(const std::vector<DesignatedTarget>& targets)
+void Player::appendTargets(const std::vector<DesignatedTarget>& targets) const
 {
 	cannon->appendTargets(targets);
 }

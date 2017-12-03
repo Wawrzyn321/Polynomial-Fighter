@@ -14,9 +14,9 @@ void EnemySpawner::spawnEnemy()
 		return;
 	}
 
-	unsigned deg = clamp(difficultyLevel + 1, unsigned(0), GameData::MAX_POLYNOMINAL_DEGREE);
-	unsigned valuesRange = clamp((difficultyLevel + 1) * 2, unsigned(0), GameData::MAX_POLYNOMINAL_VALUE);
-	float speed = difficultyLevel + 0.2f;
+	unsigned deg = clamp(difficultyLevel+1, unsigned(0), GameData::MAX_POLYNOMINAL_DEGREE);
+	unsigned valuesRange = clamp(difficultyLevel+1, unsigned(0), GameData::MAX_POLYNOMINAL_VALUE);
+	float speed = 0.1f + difficultyLevel*0.03f;
 	PolynomialProductForm pff = PolynomialGenerator::generatePolynomial(deg, valuesRange);
 	sf::Vector2f position = getPointOnIntRect(bounds);
 
@@ -29,8 +29,10 @@ void EnemySpawner::spawnEnemy()
 
 float EnemySpawner::calculateInterval() const
 {
-	// f(x) = 1000 * (2.5 + x) / (1 + x) -> (1000, 2500>
-	return 1000.0f * (2.5f + difficultyLevel) / float(1 + difficultyLevel);
+	// f(x) = 1000 * (4.5 + 0.1x) / (1 + 0.1x) -> (1000, 4500>
+	float f = (4.5f + difficultyLevel*0.1f) / float(1 + difficultyLevel*0.1f);
+	float multiplier = 1 / Time::MICRO_TO_MILI;
+	return multiplier * f;
 }
 
 EnemySpawner::EnemySpawner(const sf::IntRect& bounds, GameplayManager* gameplayManager, unsigned difficultyLevel)
@@ -39,6 +41,7 @@ EnemySpawner::EnemySpawner(const sf::IntRect& bounds, GameplayManager* gameplayM
 	this->difficultyLevel = difficultyLevel;
 	managerReference = gameplayManager;
 	interval = calculateInterval();
+	accumulator = interval*0.5f;
 }
 
 void EnemySpawner::incrementDifficultyLevel()
@@ -63,6 +66,8 @@ void EnemySpawner::reset(float interval)
 
 void EnemySpawner::update(const Time::TimeData &timeData)
 {
+	if (!isActive) return;
+
 	accumulator += timeData.getScaledDeltaTimeInMili();
 	if(accumulator>=interval)
 	{

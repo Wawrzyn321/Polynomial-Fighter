@@ -114,5 +114,6 @@ AdvancedParticleSystem* APSBuilder::finishBuilding(bool playOnStart)
 {
 	aps->finishBuilding();
 	aps->state = PRE_WAITING;
+	Debug::PrintFormatted("jest, %", aps->count);
 	return aps;
 }

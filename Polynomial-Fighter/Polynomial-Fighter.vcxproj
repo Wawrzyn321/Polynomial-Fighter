@@ -142,6 +142,7 @@
     <ClCompile Include="RequestHandlers.cpp" />
     <ClCompile Include="ScoresManager.cpp" />
     <ClCompile Include="ScoresManagerGUI.cpp" />
+    <ClCompile Include="SignedBullet.cpp" />
     <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="StringPreprocessor.cpp" />
     <ClCompile Include="Timer.cpp" />
@@ -182,6 +183,7 @@
     <ClInclude Include="RequestHandlers.h" />
     <ClInclude Include="ScoresManager.h" />
     <ClInclude Include="ScoresManagerGUI.h" />
+    <ClInclude Include="SignedBullet.h" />
     <ClInclude Include="SoundManager.h" />
     <ClInclude Include="StringPreprocessor.h" />
     <ClInclude Include="Timer.h" />
