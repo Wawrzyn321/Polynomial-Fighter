@@ -13,11 +13,12 @@ private:
 
     static EntityManager *sInstance;
     std::vector<std::shared_ptr<Entity>> entities;
+	std::vector<std::shared_ptr<Entity>> entitiesToAdd;
 public:
 
 	static EntityManager *instance();
 
-	std::shared_ptr<Entity> & addEntity(const std::shared_ptr<Entity> &entity);
+	std::shared_ptr<Entity> & addEntity(const std::shared_ptr<Entity> &entity, bool instantly = false);
 
     template<class T>
     std::shared_ptr<T> addEntity(const std::shared_ptr<Entity> &entity);
@@ -31,6 +32,8 @@ public:
 	void deleteEntity(const std::shared_ptr<Entity> &entity);
 
     std::vector<std::shared_ptr<Entity>> getEntities(bool includeDisabled = false);
+
+	void addNewEntitites();
 
 	std::shared_ptr<Entity> findEntityByName(const std::string &name);
 
@@ -131,7 +134,6 @@ std::shared_ptr<T> EntityManager::findEntityOfType(bool includeDisabled)
 			auto e = std::dynamic_pointer_cast<T>(entities[i]);
 			if (e != nullptr)
 			{
-				Debug::PrintFormatted("JEST");
 				return e;
 			}
 		}

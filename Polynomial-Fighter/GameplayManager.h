@@ -8,14 +8,15 @@ class GameplayManager
 	unsigned difficultyLevel;
 	unsigned points;
 	unsigned targetEnemiesNumber;
-	unsigned alreadySpawneEnemies;
+	unsigned alreadySpawnedEnemies;
 
 	EnemySpawner spawner;
-	Player *player;
+	std::shared_ptr<Player> player;
+	void startNextLevel();
 public:
 	void EnemySpawned(unsigned id);
 	void EnemyDestroyed(unsigned id);
-	void TextSubmitted(std::string text);
+	void TextSubmitted(const std::string &text) const;
 	void PlayerDestroyed(int i);
 
 	GameplayManager();

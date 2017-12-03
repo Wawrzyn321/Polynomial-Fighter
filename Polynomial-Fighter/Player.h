@@ -6,6 +6,7 @@
 #include "Delegate.h"
 #include "PlayerHealthGUI.h"
 #include "PlayerCannon.h"
+#include "Debug.h"
 
 class Player : public Entity, public IDamageable
 {
@@ -16,8 +17,8 @@ class Player : public Entity, public IDamageable
 	std::unique_ptr<PlayerHealthGUI> healthGUI;
 	std::unique_ptr<PlayerCannon> cannon;
 
-	float targetRotation;
-	bool rotationEventInvoked = true;
+	float targetRotation = 0;
+	bool rotationEventInvoked2;
 
 	void initGraphics();
 
@@ -31,7 +32,7 @@ public:
 
 	void setTargetPosition(const sf::Vector2f& position);
 
-	void appendTargets(const std::vector<DesignatedTarget>& targets);
+	void appendTargets(const std::vector<DesignatedTarget>& targets) const;
 
 	sf::Vector2f getPosition() const override;
 
@@ -46,6 +47,7 @@ public:
 	void receiveDamage(float damage, float bonusDamageMultiplier) override;
 
 	void receiveDamage(float damage, sf::Vector2f incoming, float bonusDamageMultiplier) override;
+
 };
 
 #endif

@@ -7,29 +7,42 @@
 #include "Enemy.h"
 #include <cassert>
 
+//todo funkcje zapewniajace dane liczbowe?
+// osobiscie uwazam, ze najlepszym momentem dla programisty jest usuwanie przeklenstw
+// z kodu po tym, jak juz skonczy debugowanie i wszystko dziala.
+
+void GameplayManager::startNextLevel()
+{
+	points += 1000;
+	difficultyLevel++;
+	targetEnemiesNumber = (difficultyLevel + 1) * 3;
+	alreadySpawnedEnemies = 0;
+
+	spawner.incrementDifficultyLevel();
+	spawner.isActive = true;
+}
+
 void GameplayManager::EnemySpawned(unsigned id)
 {
-	alreadySpawneEnemies++;
-	if(alreadySpawneEnemies == targetEnemiesNumber)
+	alreadySpawnedEnemies++;
+	if(alreadySpawnedEnemies == targetEnemiesNumber)
 	{
+		Debug::PrintFormatted("Skonczyliscmy fale % z % przec, czekam.\n", difficultyLevel, alreadySpawnedEnemies);
 		spawner.isActive = false;
 	}
 }
 
 void GameplayManager::EnemyDestroyed(unsigned id)
 {
-	alreadySpawneEnemies--;
+	alreadySpawnedEnemies--;
 	points += 100;
-	if(alreadySpawneEnemies == 0)
+	if(alreadySpawnedEnemies == 0)
 	{
-		points += 1000;
-		difficultyLevel++;
-		spawner.incrementDifficultyLevel();
-		spawner.isActive = true;
+		startNextLevel();
 	}
 }
 
-void GameplayManager::TextSubmitted(std::string text)
+void GameplayManager::TextSubmitted(const std::string &text) const
 {
 	InputFieldParser p = InputFieldParser();
 	auto values = p.parse(text);
@@ -37,6 +50,7 @@ void GameplayManager::TextSubmitted(std::string text)
 	auto entities = EntityManager::instance()->findEntitiesByTag(GameData::TAG_ENEMY);
 
 	std::vector<DesignatedTarget> targets;
+
 	for(auto e : entities)
 	{
 		for(auto v : values)
@@ -63,15 +77,16 @@ GameplayManager::GameplayManager()
 	difficultyLevel = 0;
 	points = 0;
 	targetEnemiesNumber = (difficultyLevel + 1) * 3;
-	alreadySpawneEnemies = 0;
+	alreadySpawnedEnemies = 0;
 
-	player = new Player({ GameData::WINDOW_SIZE.x*0.5f, GameData::WINDOW_SIZE.y*0.5f });
+	player = std::make_shared<Player>(sf::Vector2f(GameData::WINDOW_SIZE.x*0.5f, GameData::WINDOW_SIZE.y*0.5f));
 	player->DeathEvent.add(std::bind(&GameplayManager::PlayerDestroyed, this, std::placeholders::_1));
-	EntityManager::instance()->addEntity(std::shared_ptr<Entity>(player));
+	EntityManager::instance()->addEntity(player, true);
 
 	spawner = EnemySpawner(GameData::DEFAULT_BOUNDS, this, difficultyLevel);
 	spawner.findPlayer();
 	spawner.OnEnemySpawn.add(std::bind(&GameplayManager::EnemySpawned, this, std::placeholders::_1));
+	spawner.isActive = true;
 }
 
 void GameplayManager::update(const Time::TimeData &timeData)

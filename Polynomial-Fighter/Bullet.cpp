@@ -3,6 +3,7 @@
 #include "IDamageable.h"
 #include "GameData.h"
 #include "Debug.h"
+#include <cassert>
 
 void Bullet::initGraphics()
 {
@@ -11,6 +12,13 @@ void Bullet::initGraphics()
 	shape = sf::CircleShape(radius, pointCount);
 	shape.setOrigin(radius, radius);
 	//todo set color
+}
+
+void Bullet::hitTarget(const std::shared_ptr<Entity>& target)
+{
+	auto d = std::dynamic_pointer_cast<IDamageable>(target);
+	assert(d);
+	d->receiveDamage(damage, vectorNormalize(velocity), bonusDamageMultiplier);
 }
 
 void Bullet::checkCollisions()
@@ -22,8 +30,7 @@ void Bullet::checkCollisions()
 	//£ADNIE TO ZROBI£EM.
 	if (checkCollision(target))
 	{
-        auto d = std::dynamic_pointer_cast<IDamageable>(target);
-		d->receiveDamage(damage, vectorNormalize(velocity), bonusDamageMultiplier);
+		hitTarget(target);
 		toDelete = true;
 	}
 }
@@ -49,7 +56,7 @@ Bullet::Bullet(const std::string& name, const sf::Vector2f& position, float radi
 	tag = GameData::TAG_BULLET;
 	bounds = GameData::DEFAULT_BOUNDS;
 
-	initGraphics();
+	Bullet::initGraphics();
 	Bullet::setPosition(position);
 }
 

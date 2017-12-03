@@ -33,7 +33,7 @@ void AdvancedParticle::checkPulse()
 	if (abs(velocity.x) < minValues::minVelocity && abs(velocity.y) < minValues::minVelocity)
 	{
 		isAlive = false;
-		//Debug::PrintFormatted("DEAD by speed");
+		Debug::PrintFormatted("DEAD by speed");
 		parent->informOfDeath();
 	}
 
@@ -43,7 +43,7 @@ void AdvancedParticle::checkPulse()
 		abs(circle.getScale().y) < minValues::minScale)
 	{
 		isAlive = false;
-		//Debug::PrintFormatted("DEAD by scale");
+		Debug::PrintFormatted("DEAD by scale");
 		parent->informOfDeath();
 	}
 
@@ -115,6 +115,7 @@ void AdvancedParticle::draw(sf::RenderTarget& target, sf::RenderStates states) c
 void AdvancedParticle::update(Time::TimeData timeData)
 {
 	if (isAlive) {
+		Debug::PrintFormatted("% %\n", getPosition().x, getPosition().y);
 		float deltaTime = std::abs(timeData.getScaledDeltaTimeInMili());
 		applyTransform(deltaTime);
 		applyDrag(deltaTime);

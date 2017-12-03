@@ -69,6 +69,7 @@ int main()
 
 		em->update(deltaTime);
 		em->removeMarked();
+		em->addNewEntitites();
 
 		window.clear();
 		em->draw(window);
