@@ -46,15 +46,15 @@ public:
 
 	//AdvancedParticle(sf::Vector2f size, AdvancedParticleSystem *parent);
 
-	void setTransform(sf::Vector2f velocity, float drag, float angularVelocity, float angularDrag, float scaling);
-	void setColors(sf::Color startColor, sf::Color endColor, float colorChangingSpeed);
-	void setGravity(bool useGravity, sf::Vector2f gravity);
+	void setTransform(const sf::Vector2f &velocity, float drag, float angularVelocity, float angularDrag, float scaling);
+	void setColors(const sf::Color &startColor, const sf::Color &endColor, float colorChangingSpeed);
+	void setGravity(bool useGravity, const sf::Vector2f &gravity);
 
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 	void update(Time::TimeData timeData) override;
 	void onDestroy() override;
 
-	void move(sf::Vector2f shift);
+	void move(const sf::Vector2f &shift);
 	sf::Vector2f getPosition() const override;
 	void setPosition(const sf::Vector2f &position) override;
 };

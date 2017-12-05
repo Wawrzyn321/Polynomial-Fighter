@@ -49,7 +49,7 @@ class AdvancedParticleSystem : public Entity
 	float shapeSizeVariation = 0;
 
 	float time = 10000;
-	ActionAfterEmmision actionAfterEmmision = DESTROY;
+	ActionAfterEmmision actionAfterEmmision = ActionAfterEmmision::DESTROY;
 
 	float mainAccumulator;
 	float spawningAccumulator;
@@ -57,7 +57,7 @@ class AdvancedParticleSystem : public Entity
 	int spawnedParticles;
 	int aliveParticlesCount;
 
-	AdvancedParticleSystem(sf::Vector2f position);
+	AdvancedParticleSystem(const sf::Vector2f &position);
 	AdvancedParticleSystem* finishBuilding();
 
 	void onLiveEnded();
@@ -71,7 +71,7 @@ class AdvancedParticleSystem : public Entity
 	void handleSpawning(float deltaTime);
 public:
 
-	Space space = SELF;
+	Space space = Space::SELF;
 
 	void revive();
 

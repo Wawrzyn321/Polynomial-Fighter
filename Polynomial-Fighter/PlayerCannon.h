@@ -19,7 +19,7 @@ struct DesignatedTarget
 class Player;
 class PlayerCannon
 {
-	enum CannonState
+	enum class CannonState
 	{
 		IDLE,
 		WAITING_FOR_AIM,

@@ -10,7 +10,7 @@
 class Player;
 class Enemy : public Entity, public IDamageable
 {
-	enum State
+	enum class State
 	{
 		CLOSING_IN,
 		ARRIVED,

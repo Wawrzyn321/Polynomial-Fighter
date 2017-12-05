@@ -14,7 +14,7 @@ class PolynomialProductForm
 private:
     std::vector<PolynomialFactor> factors;
 public:
-    unsigned int getDeg() const;
+	size_t getDeg() const;
     void addFactor(int x, int constant);
     void addFactor(const PolynomialFactor &factor);
     void removeFactorsByRoot(int root);

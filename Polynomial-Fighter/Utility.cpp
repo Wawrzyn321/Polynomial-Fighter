@@ -60,7 +60,7 @@ sf::FloatRect getCenteredFloatRect(float width, float height, float xShift, floa
 	return sf::FloatRect(left, top, width, height);
 }
 
-int getLastCharacterPosition(std::string text, char c) {
+int getLastCharacterPosition(const std::string &text, char c) {
 	for (size_t i = text.size()-1; i >=0; i--) {
 		if (text[i] == c) {
 			return int(i);

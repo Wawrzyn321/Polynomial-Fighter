@@ -1,6 +1,7 @@
 #include "PolynomialProductForm.h"
+#include <algorithm>
 
-unsigned int PolynomialProductForm::getDeg() const
+size_t PolynomialProductForm::getDeg() const
 {
     return factors.size();
 }
@@ -25,13 +26,11 @@ void PolynomialProductForm::removeAllFactors()
 
 void PolynomialProductForm::removeFactorsByRoot(int root)
 {
-    for (int i = 0; i < factors.size(); i++)
-    {
-        if (factors[i].getRoot() == root)
-        {
-            factors.erase(factors.begin() + i);
-        }
-    }
+	auto list = std::remove_if(factors.begin(), factors.end(), [root](const PolynomialFactor & i)
+	{
+		return i.getRoot() == root;
+	});
+	factors.erase(list, factors.end());
 }
 
 void PolynomialProductForm::addFactor(int x, int constant)
