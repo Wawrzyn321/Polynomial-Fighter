@@ -76,7 +76,7 @@ AdvancedParticle::AdvancedParticle(float radius, int pointCount, AdvancedParticl
 
 #pragma region Setting values
 
-void AdvancedParticle::setTransform(sf::Vector2f velocity, float drag, float angularVelocity, float angularDrag, float scaling)
+void AdvancedParticle::setTransform(const sf::Vector2f &velocity, float drag, float angularVelocity, float angularDrag, float scaling)
 {
 	this->velocity = velocity;
 	this->drag = drag;
@@ -85,7 +85,7 @@ void AdvancedParticle::setTransform(sf::Vector2f velocity, float drag, float ang
 	this->scaling = scaling;
 }
 
-void AdvancedParticle::setColors(sf::Color startColor, sf::Color endColor, float colorChangingSpeed)
+void AdvancedParticle::setColors(const sf::Color &startColor, const sf::Color &endColor, float colorChangingSpeed)
 {
 	//currentShape->setFillColor(startColor);
 	circle.setFillColor(startColor);
@@ -94,7 +94,7 @@ void AdvancedParticle::setColors(sf::Color startColor, sf::Color endColor, float
 	this->colorChangingSpeed = colorChangingSpeed;
 }
 
-void AdvancedParticle::setGravity(bool useGravity, sf::Vector2f gravity)
+void AdvancedParticle::setGravity(bool useGravity, const sf::Vector2f &gravity)
 {
 	this->useGravity = useGravity;
 	this->gravity = gravity;
@@ -130,7 +130,7 @@ void AdvancedParticle::onDestroy() {}
 
 #pragma region ITransformable Override + move function
 
-void AdvancedParticle::move(sf::Vector2f shift)
+void AdvancedParticle::move(const sf::Vector2f &shift)
 {
 	setPosition(getPosition() + shift);
 }

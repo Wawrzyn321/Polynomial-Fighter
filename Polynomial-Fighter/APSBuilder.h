@@ -8,12 +8,12 @@ class APSBuilder
 
 	AdvancedParticleSystem* aps = nullptr;
 
-	APSBuilder(sf::Vector2f position);
+	APSBuilder(const sf::Vector2f &position);
 
 public:
-	static APSBuilder* startBuilding(sf::Vector2f position);
+	static APSBuilder* startBuilding(const sf::Vector2f &position);
 
-	APSBuilder* setMainData(float time, int count, Space space = SELF, ActionAfterEmmision actionAfterEmmision = DESTROY);
+	APSBuilder* setMainData(float time, int count, Space space = Space::SELF, ActionAfterEmmision actionAfterEmmision = ActionAfterEmmision::DESTROY);
 
 	APSBuilder* setIntervals(float spawningTime, float timeBetweenSpawn, float startDelayTime);
 

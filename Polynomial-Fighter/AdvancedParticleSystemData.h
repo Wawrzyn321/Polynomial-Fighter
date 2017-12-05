@@ -3,19 +3,19 @@
 
 #include <SFML/Graphics.hpp>
 
-enum Space
+enum class Space
 {
 	SELF,
 	WORLD,
 };
 
-enum ActionAfterEmmision
+enum class ActionAfterEmmision
 {
 	DEACTIVATE,
 	DESTROY,
 };
 
-enum APSState
+enum class APSState
 {
 	PRE_WAITING,
 	SPAWNING,

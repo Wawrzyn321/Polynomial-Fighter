@@ -1,12 +1,12 @@
 #include "AdvancedParticleSystem.h"
 
-AdvancedParticleSystem::AdvancedParticleSystem(sf::Vector2f position)
+AdvancedParticleSystem::AdvancedParticleSystem(const sf::Vector2f &position)
 {
 	this->position = position;
 	mainAccumulator = 0;
 	spawnedParticles = 0;
 	singleSpawnTime = 0;
-	state = OFF;
+	state = APSState::OFF;
 }
 
 AdvancedParticleSystem* AdvancedParticleSystem::finishBuilding()
@@ -20,7 +20,7 @@ AdvancedParticleSystem* AdvancedParticleSystem::finishBuilding()
 		for (size_t i = 0; i < count; i++) {
 			addParticle();
 		}
-		state = ONLY_UPDATING;
+		state = APSState::ONLY_UPDATING;
 	}
 	else
 	{
@@ -38,12 +38,12 @@ void AdvancedParticleSystem::onLiveEnded()
 	}
 	else
 	{
-		if (actionAfterEmmision == DESTROY)
+		if (actionAfterEmmision == ActionAfterEmmision::DESTROY)
 		{
 			setToDelete(true);
 		}
 		else {
-			state = OFF;
+			state = APSState::OFF;
 		}
 	}
 }
@@ -81,7 +81,7 @@ void AdvancedParticleSystem::handleStartDelay(float deltaTime)
 	if(mainAccumulator>startDelayTime)
 	{
 		mainAccumulator = 0;
-		state = SPAWNING;
+		state = APSState::SPAWNING;
 	}
 }
 
@@ -132,7 +132,7 @@ void AdvancedParticleSystem::handleSpawning(float deltaTime)
 	if (count <= particles.size())
 	{
 		spawningAccumulator = 0;
-		state = ONLY_UPDATING;
+		state = APSState::ONLY_UPDATING;
 	}
 }
 
@@ -140,7 +140,7 @@ void AdvancedParticleSystem::handleSpawning(float deltaTime)
 
 void AdvancedParticleSystem::revive()
 {
-	state = SPAWNING;
+	state = APSState::SPAWNING;
 	finishBuilding();
 	for (AdvancedParticle &particle : particles)
 	{
@@ -153,7 +153,7 @@ void AdvancedParticleSystem::informOfDeath()
 {
 	Debug::PrintFormatted("% ", aliveParticlesCount);
 	aliveParticlesCount--;
-	if (aliveParticlesCount == 0 && state == ONLY_UPDATING)
+	if (aliveParticlesCount == 0 && state == APSState::ONLY_UPDATING)
 	{
 		onLiveEnded();
 	}
@@ -164,26 +164,26 @@ void AdvancedParticleSystem::informOfDeath()
 void AdvancedParticleSystem::update(Time::TimeData timeData)
 {
 	//nie switchem.
-	if(state == PRE_WAITING)
+	if(state == APSState::PRE_WAITING)
 	{
 		handleStartDelay(timeData.getScaledDeltaTimeInMili());
 	}
 
-	if (state == WAITING)
+	if (state == APSState::WAITING)
 	{
 		handleWaitingForRevival(timeData.getScaledDeltaTimeInMili());
 	}
 
-	if (state == SPAWNING)
+	if (state == APSState::SPAWNING)
 	{
 		handleSpawning(timeData.getScaledDeltaTimeInMili());
 	}
 
-	if (state == ONLY_UPDATING) {
+	if (state == APSState::ONLY_UPDATING) {
 		handleUpdatingOnly(timeData.getScaledDeltaTimeInMili());
 	}
 
-	if (state != OFF) {
+	if (state != APSState::OFF) {
 		handleUpdatingParticles(timeData);
 	}
 }
@@ -198,7 +198,7 @@ void AdvancedParticleSystem::onDestroy()
 
 void AdvancedParticleSystem::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-	if (state != OFF) {
+	if (state != APSState::OFF) {
 		for (unsigned int i = 0; i < particles.size(); i++)
 		{
 			particles[i].draw(target, states);
@@ -217,7 +217,7 @@ sf::Vector2f AdvancedParticleSystem::getPosition() const
 
 void AdvancedParticleSystem::setPosition(const sf::Vector2f &position)
 {
-	if (space == SELF) {
+	if (space == Space::SELF) {
 		sf::Vector2f shift = position - this->position;
 		for (AdvancedParticle &particle : particles)
 		{

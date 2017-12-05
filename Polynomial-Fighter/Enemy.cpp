@@ -22,7 +22,7 @@ Enemy::Enemy(const sf::Vector2f& position, const sf::Vector2f &playerPosition, f
 	this->pff = pff;
 	this->playerPosition = playerPosition;
 	tag = GameData::TAG_ENEMY;
-	state = CLOSING_IN;
+	state = State::CLOSING_IN;
 	attractionRadiusSqr = GameData::ENEMY_INNER_RADIUS_SQR + pff.getDeg() * 30 + RandomGenerator::getFloat(-50,50);
 
 	sf::Vector2f dir = vectorNormalize(playerPosition - position);
@@ -81,11 +81,11 @@ void Enemy::draw(sf::RenderTarget& target, sf::RenderStates states) const
 
 void Enemy::update(Time::TimeData timeData)
 {
-	if (state == CLOSING_IN) {
+	if (state == State::CLOSING_IN) {
 		setPosition(getPosition() + velocity);
 		if (squaredDistance(getPosition(), playerPosition) < attractionRadiusSqr)
 		{
-			state = ARRIVED;
+			state = State::ARRIVED;
 		}
 	}
 	else

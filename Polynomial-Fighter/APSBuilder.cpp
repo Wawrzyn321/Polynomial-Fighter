@@ -1,6 +1,6 @@
 #include "APSBuilder.h"
 
-APSBuilder* APSBuilder::startBuilding(sf::Vector2f position)
+APSBuilder* APSBuilder::startBuilding(const sf::Vector2f &position)
 {
 	APSBuilder *builder = new APSBuilder(position);
 
@@ -9,10 +9,9 @@ APSBuilder* APSBuilder::startBuilding(sf::Vector2f position)
 	return builder;
 }
 
-APSBuilder::APSBuilder(sf::Vector2f position)
+APSBuilder::APSBuilder(const sf::Vector2f &position)
 {
 	aps = new AdvancedParticleSystem(position);
-	cachedTime = 0;
 }
 
 APSBuilder* APSBuilder::setMainData(float time, int count, Space space, ActionAfterEmmision actionAfterEmmision)
@@ -113,7 +112,7 @@ APSBuilder* APSBuilder::setAngularVelocity(float startAngularVelocity, float sta
 AdvancedParticleSystem* APSBuilder::finishBuilding(bool playOnStart)
 {
 	aps->finishBuilding();
-	aps->state = PRE_WAITING;
+	aps->state = APSState::PRE_WAITING;
 	Debug::PrintFormatted("jest, %", aps->count);
 	return aps;
 }

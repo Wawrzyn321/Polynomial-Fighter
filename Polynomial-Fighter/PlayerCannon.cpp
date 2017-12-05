@@ -10,7 +10,7 @@ void PlayerCannon::updateState()
 {
 	if (targets.size() == 0)
 	{
-		state = IDLE;
+		state = CannonState::IDLE;
 	}
 	else
 	{
@@ -21,7 +21,7 @@ void PlayerCannon::updateState()
 void PlayerCannon::getNextTarget()
 {
 	assert(!targets.empty());
-	state = WAITING_FOR_AIM;
+	state = CannonState::WAITING_FOR_AIM;
 	currentTarget = targets.front();
 	targets.erase(targets.begin());
 	sf::Vector2f pos = EntityManager::instance()->findEntityById(currentTarget.recipientID)->getPosition();
@@ -44,7 +44,7 @@ void PlayerCannon::shoot()
 	std::string bulletName = "Signed bullet with " +
 		std::to_string(currentTarget.root) + " for " +
 		std::to_string(currentTarget.recipientID);
-	auto sb = std::make_shared<SignedBullet>(bulletName, origin, 5, 1, currentTarget.root);
+	auto sb = std::make_shared<SignedBullet>(bulletName, origin, 5.0f, 1.0f, currentTarget.root);
 
 	if (!EntityManager::instance()->findEntityById(currentTarget.recipientID))
 	{
@@ -61,7 +61,7 @@ PlayerCannon::PlayerCannon(const sf::Vector2f &origin, Player *playerReference)
 {
 	this->origin = origin;
 	this->playerReference = playerReference;
-	state = IDLE;
+	state = CannonState::IDLE;
 	reloadAccumulator = 0;
 	reloadTime = GameData::PLAYER_RELOAD_TIME;
 
@@ -79,7 +79,7 @@ void PlayerCannon::appendTargets(const std::vector<DesignatedTarget>& targets)
 			this->targets.push_back(t);
 		}
 	}
-	if (state == IDLE) {
+	if (state == CannonState::IDLE) {
 		updateState();
 	}
 }
@@ -87,7 +87,7 @@ void PlayerCannon::appendTargets(const std::vector<DesignatedTarget>& targets)
 void PlayerCannon::onRotationFinished(float angle)
 {
 	if (numberOfRounds != 0 || true) {
-		state = WAITING_FOR_RELOAD;
+		state = CannonState::WAITING_FOR_RELOAD;
 		reloadAccumulator = 0;
 	}
 	else
@@ -98,10 +98,10 @@ void PlayerCannon::onRotationFinished(float angle)
 
 void PlayerCannon::update(float deltaTime)
 {
-	if(state == WAITING_FOR_AIM || state == WAITING_FOR_RELOAD)
+	if(state == CannonState::WAITING_FOR_AIM || state == CannonState::WAITING_FOR_RELOAD)
 	{
 		reloadAccumulator += deltaTime;
-		if(reloadAccumulator>=reloadTime && state == WAITING_FOR_RELOAD)
+		if(reloadAccumulator>=reloadTime && state == CannonState::WAITING_FOR_RELOAD)
 		{
 			shoot();
 		}
