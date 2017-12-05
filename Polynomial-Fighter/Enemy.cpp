@@ -3,8 +3,9 @@
 #include <cassert>
 #include "APSBuilder.h"
 #include "EntityManager.h"
+#include "EnemyCannon.h"
 
-void Enemy::initGraphics(const std::string &name, float angle)
+void Enemy::initComponents(const std::string &captionText, float angle)
 {
 	const unsigned textSize = 20;
 
@@ -12,7 +13,7 @@ void Enemy::initGraphics(const std::string &name, float angle)
 	shape.setOrigin(5, 5);
 	shape.setRotation(angle);
 
-	caption = std::make_unique<PowerfulText>(name, AssetManager::instance()->getDefaultFont(), textSize);
+	caption = std::make_unique<PowerfulText>(captionText, AssetManager::instance()->getDefaultFont(), textSize);
 	caption->center();
 }
 
@@ -28,9 +29,15 @@ Enemy::Enemy(const sf::Vector2f& position, const sf::Vector2f &playerPosition, f
 	sf::Vector2f dir = vectorNormalize(playerPosition - position);
 	velocity = dir * speed;
 
-	initGraphics(this->name, atan2f(dir.y, dir.x)*180.0f/pi);
+	initComponents(this->name, atan2f(dir.y, dir.x)*180.0f/pi);
 	collisionRadius = GameData::ENEMY_COLLISION_RADIUS;
 	Enemy::setPosition(position);
+}
+
+void Enemy::initCannon()
+{
+	cannon = std::make_unique<EnemyCannon>(this, int(pff.getDeg()));
+
 }
 
 bool Enemy::canBeDamagedBy(int value) const
@@ -70,7 +77,6 @@ sf::Vector2f Enemy::getPosition() const
 
 #pragma endregion
 
-
 #pragma region Entity
 
 void Enemy::draw(sf::RenderTarget& target, sf::RenderStates states) const
@@ -82,21 +88,23 @@ void Enemy::draw(sf::RenderTarget& target, sf::RenderStates states) const
 void Enemy::update(const Time::TimeData &timeData)
 {
 	if (state == State::CLOSING_IN) {
-		setPosition(getPosition() + velocity);
+		setPosition(getPosition() + velocity*timeData.getScaledDeltaTimeInMili());
 		if (squaredDistance(getPosition(), playerPosition) < attractionRadiusSqr)
 		{
 			state = State::ARRIVED;
+			cannon->resetAccumulator();
 		}
 	}
 	else
 	{
-
+		cannon->update(timeData.getScaledDeltaTimeInMili());
 	}
 }
 
 void Enemy::onDestroy()
 {
-	caption.release();
+	caption.reset();
+	cannon.reset();
 }
 
 #pragma endregion
@@ -105,7 +113,7 @@ void Enemy::onDestroy()
 
 void Enemy::receiveDamage(float damage, float bonusDamageMultiplier)
 {
-	Debug::PrintFormatted("ala");
+	cannon->resetAccumulator();
 }
 
 void Enemy::receiveDamage(float damage, sf::Vector2f incoming, float bonusDamageMultiplier)
@@ -116,6 +124,7 @@ void Enemy::receiveDamage(float damage, sf::Vector2f incoming, float bonusDamage
 		->setAsCircle(100, 12)
 		->finishBuilding();
 	EntityManager::instance()->addEntity(std::shared_ptr<AdvancedParticleSystem>(aps));*/
+	cannon->resetAccumulator();
 }
 
 #pragma endregion

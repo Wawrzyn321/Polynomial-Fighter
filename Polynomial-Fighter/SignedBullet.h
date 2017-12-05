@@ -12,7 +12,7 @@ class SignedBullet : public Bullet
 protected:
 	void hitTarget(const std::shared_ptr<Entity>& target) override;
 public:
-	SignedBullet(const std::string& name, const sf::Vector2f& position, float radius, float damage, int load, float bonusDamageMultiplier = 1);
+	SignedBullet(const sf::Vector2f& position, float radius, float damage, int load, float bonusDamageMultiplier = 1);
 
 	void setPosition(const sf::Vector2f &position) override;
 

@@ -69,7 +69,6 @@ void GameplayManager::TextSubmitted(const std::string &text) const
 void GameplayManager::PlayerDestroyed(int i)
 {
 	spawner.isActive = false;
-	Debug::PrintFormatted("UMARLEM, ale za to mam % punktow\n", points);
 }
 
 GameplayManager::GameplayManager()

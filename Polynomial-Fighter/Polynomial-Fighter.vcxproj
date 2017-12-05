@@ -121,6 +121,7 @@
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Debug.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="EnemyCannon.cpp" />
     <ClCompile Include="GameplayManager.cpp" />
     <ClCompile Include="EnemySpawner.cpp" />
     <ClCompile Include="Entity.cpp" />
@@ -158,6 +159,7 @@
     <ClInclude Include="Debug.h" />
     <ClInclude Include="Delegate.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="EnemyCannon.h" />
     <ClInclude Include="GameplayManager.h" />
     <ClInclude Include="EnemySpawner.h" />
     <ClInclude Include="Entity.h" />

@@ -6,6 +6,7 @@
 #include "PolynomialProductForm.h"
 #include "PowerfulText.h"
 #include "Delegate.h"
+#include "EnemyCannon.h"
 
 class Player;
 class Enemy : public Entity, public IDamageable
@@ -19,16 +20,20 @@ class Enemy : public Entity, public IDamageable
 	sf::RectangleShape shape;
 	sf::Vector2f velocity;
 	sf::Vector2f playerPosition;
-	PolynomialProductForm pff;
 	float attractionRadiusSqr;
-	std::unique_ptr<PowerfulText> caption;
 	State state;
 
-	void initGraphics(const std::string &name, float angle);
+	PolynomialProductForm pff;
+	std::unique_ptr<PowerfulText> caption;
+	std::unique_ptr<EnemyCannon> cannon;
+
+	void initComponents(const std::string &captionText, float angle);
 public:
 	Delegate<unsigned> DeathEvent;
 
 	Enemy(const sf::Vector2f& position, const sf::Vector2f &playerPosition, float speed, PolynomialProductForm pff);
+
+	void initCannon();
 
 	bool canBeDamagedBy(int value) const;
 

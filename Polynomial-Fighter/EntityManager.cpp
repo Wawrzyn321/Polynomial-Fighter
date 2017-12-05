@@ -145,7 +145,7 @@ std::vector<std::shared_ptr<Entity>> EntityManager::findEntitiesByTag(const std:
 
 #pragma endregion
 
-void EntityManager::update(const const Time::TimeData &timeData)
+void EntityManager::update(const Time::TimeData &timeData)
 {
 	for (auto &entity : entities)
     {

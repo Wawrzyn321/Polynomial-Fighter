@@ -9,12 +9,6 @@
 
 using namespace std;
 
-void addBullet(){
-	auto b = std::make_shared<Bullet>(Bullet("ball", { 11,12 }, 5, 1));
-	b->setTarget(EntityManager::instance()->findEntityOfType<Enemy>(), 2);
-	EntityManager::instance()->addEntity(b);
-}
-
 void hideConsole()
 {
 	//#ifdef  _WIN32
@@ -48,9 +42,18 @@ int main()
 				window.close();
 				return 0;
 			}
-			if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::W) {
-				addBullet();
+			if (event.type == sf::Event::LostFocus) {
+				t->setTimeScale(0);
 			}
+
+			if (event.type == sf::Event::GainedFocus) {
+				t->setTimeScale(1);
+			}
+			if (event.type == sf::Event::MouseWheelMoved)
+			{
+				t->setTimeScale(t->getTimeScale() + event.mouseWheel.delta*0.1f);
+			}
+
 			/*if(event.type == sf::Event::MouseButtonPressed)
 			{
 				auto p = em->findEntityOfType<Player>();
