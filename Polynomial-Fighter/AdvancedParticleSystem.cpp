@@ -6,6 +6,8 @@ AdvancedParticleSystem::AdvancedParticleSystem(const sf::Vector2f &position)
 	mainAccumulator = 0;
 	spawnedParticles = 0;
 	singleSpawnTime = 0;
+	spawningAccumulator = 0;
+	aliveParticlesCount = 0;
 	state = APSState::OFF;
 }
 
@@ -53,7 +55,8 @@ void AdvancedParticleSystem::addParticle()
 	float r = RandomGenerator::getVariation(circleRadius, shapeSizeVariation);
 	int pc = static_cast<int>(RandomGenerator::getVariation(circlePointCount, shapeSizeVariation));
 	particles.push_back(AdvancedParticle(r, pc, this));
-	particles.back().setPosition(position);
+	AdvancedParticle &currentParticle = particles.back();
+	currentParticle.setPosition(position);
 
 	float baseAngle = direction == sf::Vector2f(0, 0) ? 0
 		: atan2(direction.y, direction.x)*180.0f / pi;
@@ -63,12 +66,12 @@ void AdvancedParticleSystem::addParticle()
 	}
 
 	sf::Color color = useRandomColors ? RandomGenerator::getRandomColor() : RandomGenerator::getVariation(startColor, startColorVariation);
-	particles.back().setColors(color, RandomGenerator::getVariation(endColor, endColorVariation), colorChangingSpeed);
+	currentParticle.setColors(color, RandomGenerator::getVariation(endColor, endColorVariation), colorChangingSpeed);
 
 	sf::Vector2f vel = sf::Vector2f(cos(currentAngle), sin(currentAngle)) * RandomGenerator::getVariation(startVelocity, startVelocityVariation);
-	particles.back().setTransform(vel, drag, RandomGenerator::getVariation(startAngularVelocity, startAngularVelocityVariation), angularDrag, overTimeScaling);
+	currentParticle.setTransform(vel, drag, RandomGenerator::getVariation(startAngularVelocity, startAngularVelocityVariation), angularDrag, overTimeScaling);
 
-	particles.back().setGravity(useGravity, gravity);
+	currentParticle.setGravity(useGravity, gravity);
 
 	aliveParticlesCount++;
 }
@@ -109,7 +112,7 @@ void AdvancedParticleSystem::handleWaitingForRevival(float deltaTime)
 	}
 }
 
-void AdvancedParticleSystem::handleUpdatingParticles(Time::TimeData timeData)
+void AdvancedParticleSystem::handleUpdatingParticles(const Time::TimeData &timeData)
 {
 	mainAccumulator += timeData.getScaledDeltaTimeInMili();
 	for (unsigned i = 0; i < particles.size(); i++)
@@ -161,7 +164,7 @@ void AdvancedParticleSystem::informOfDeath()
 
 #pragma region Entity Override
 
-void AdvancedParticleSystem::update(Time::TimeData timeData)
+void AdvancedParticleSystem::update(const Time::TimeData &timeData)
 {
 	//nie switchem.
 	if(state == APSState::PRE_WAITING)

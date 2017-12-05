@@ -64,6 +64,7 @@ PlayerCannon::PlayerCannon(const sf::Vector2f &origin, Player *playerReference)
 	state = CannonState::IDLE;
 	reloadAccumulator = 0;
 	reloadTime = GameData::PLAYER_RELOAD_TIME;
+	currentTarget = DesignatedTarget();
 
 	numberOfRounds = GameData::DEFAULT_NUMBER_OF_ROUNDS;
 }

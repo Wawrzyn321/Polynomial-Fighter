@@ -112,7 +112,7 @@ void AdvancedParticle::draw(sf::RenderTarget& target, sf::RenderStates states) c
 	}
 }
 
-void AdvancedParticle::update(Time::TimeData timeData)
+void AdvancedParticle::update(const Time::TimeData &timeData)
 {
 	if (isAlive) {
 		Debug::PrintFormatted("% %\n", getPosition().x, getPosition().y);

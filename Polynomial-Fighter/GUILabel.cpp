@@ -2,7 +2,7 @@
 #include "Debug.h"
 #include "SoundManager.h"
 
-bool GUILabel::mouseCollideText(sf::Vector2i pos) {
+bool GUILabel::mouseCollideText(const sf::Vector2i &pos) {
 	
 	return (pos.x >= text.getGlobalBounds().left
 		&& pos.x <= text.getGlobalBounds().left + text.getGlobalBounds().width
@@ -28,12 +28,12 @@ GUILabel::GUILabel(sf::Vector2f position, int fontSize, std::string caption, std
 	text.setPosition(position);
 }
 
-void GUILabel::update(Time::TimeData timeData)
+void GUILabel::update(const Time::TimeData &timeData)
 {
 	text.setFillColor(lerp(text.getFillColor(), currentColor, timeData.getScaledDeltaTimeInSec()*50.0f));
 }
 
-void GUILabel::updateText(std::string caption)
+void GUILabel::updateText(const std::string &caption)
 {
 	text.setString(caption);
 }

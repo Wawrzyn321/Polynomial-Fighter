@@ -78,11 +78,11 @@ void Player::setPosition(const sf::Vector2f &position)
 
 void Player::onDestroy()
 {
-	healthGUI.release();
-	cannon.release();
+	healthGUI.reset();
+	cannon.reset();
 }
 
-void Player::update(Time::TimeData timeData)
+void Player::update(const Time::TimeData &timeData)
 {
 	float deltaTime = timeData.getScaledDeltaTimeInMili();
 	cannon->update(deltaTime);

@@ -10,9 +10,9 @@ class FloatColor
 public:
 	float x, y, z, w;
 
-	FloatColor(){}
+	FloatColor() : x(0), y(0), z(0), w(0) {}
 
-	FloatColor(const sf::Color color)
+	FloatColor(const sf::Color &color)
 	{
 		x = static_cast<float>(color.r)*colorRangeReciproc;
 		y = static_cast<float>(color.g)*colorRangeReciproc;
@@ -29,7 +29,7 @@ public:
 		return sf::Color((sf::Uint8)r, (sf::Uint8)g, (sf::Uint8)b, (sf::Uint8)a);
 	}
 
-	FloatColor lerpTo(const FloatColor to, float t, bool clampT = true)
+	FloatColor lerpTo(const FloatColor &to, float t, bool clampT = true)
 	{
 		if (clampT)
 		{

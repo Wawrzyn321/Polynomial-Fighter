@@ -51,7 +51,7 @@ public:
 	void setGravity(bool useGravity, const sf::Vector2f &gravity);
 
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
-	void update(Time::TimeData timeData) override;
+	void update(const Time::TimeData &timeData) override;
 	void onDestroy() override;
 
 	void move(const sf::Vector2f &shift);

@@ -26,8 +26,6 @@ sf::Color lerp(sf::Color from, sf::Color to, float amount);
 
 sf::FloatRect getCenteredFloatRect(float width, float height, float xShift = 0, float yShift = 0);
 
-int getLastCharacterPosition(const std::string &text, char c);
-
 void rotateTowards(sf::Transformable& sprite, float angleDeg, float time = 1.0f);
 
 sf::Vector2f getPointOnIntRect(const sf::FloatRect& bounds);

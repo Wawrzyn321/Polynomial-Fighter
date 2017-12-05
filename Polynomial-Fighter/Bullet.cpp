@@ -55,12 +55,13 @@ Bullet::Bullet(const std::string& name, const sf::Vector2f& position, float radi
 	collisionRadius = radius;
 	tag = GameData::TAG_BULLET;
 	bounds = GameData::DEFAULT_BOUNDS;
+	recipientID = -1;
 
 	Bullet::initGraphics();
 	Bullet::setPosition(position);
 }
 
-void Bullet::setTarget(const std::shared_ptr<Entity> recipient, float velocity)
+void Bullet::setTarget(const std::shared_ptr<Entity> &recipient, float velocity)
 {
 	if(!recipient)
 	{
@@ -72,7 +73,7 @@ void Bullet::setTarget(const std::shared_ptr<Entity> recipient, float velocity)
 	this->recipientID = recipient->getId();
 }
 
-void Bullet::setTarget(const std::shared_ptr<Entity> recipient, const sf::Vector2f& normalizedDirection, float velocity)
+void Bullet::setTarget(const std::shared_ptr<Entity> &recipient, const sf::Vector2f& normalizedDirection, float velocity)
 {
 	if (!recipient)
 	{
@@ -95,7 +96,7 @@ void Bullet::setPosition(const sf::Vector2f &position)
 	shape.setPosition(position);
 }
 
-void Bullet::update(Time::TimeData timeData)
+void Bullet::update(const Time::TimeData &timeData)
 {
 	setPosition(getPosition() + velocity * timeData.getScaledDeltaTimeInMili());
 

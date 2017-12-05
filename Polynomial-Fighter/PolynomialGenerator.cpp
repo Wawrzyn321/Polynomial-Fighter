@@ -4,7 +4,7 @@ PolynomialProductForm PolynomialGenerator::generatePolynomial(unsigned int deg, 
 {
     PolynomialProductForm polynomial;
 
-    for (int i = 0; i < deg; i++)
+    for (unsigned i = 0; i < deg; i++)
     {
         PolynomialFactor factor;
         do

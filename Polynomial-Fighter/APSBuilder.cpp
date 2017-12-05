@@ -12,6 +12,7 @@ APSBuilder* APSBuilder::startBuilding(const sf::Vector2f &position)
 APSBuilder::APSBuilder(const sf::Vector2f &position)
 {
 	aps = new AdvancedParticleSystem(position);
+	cachedTime = 0;
 }
 
 APSBuilder* APSBuilder::setMainData(float time, int count, Space space, ActionAfterEmmision actionAfterEmmision)
@@ -55,14 +56,14 @@ APSBuilder* APSBuilder::setScaling(float overTimeScaling)
 	return this;
 }
 
-APSBuilder* APSBuilder::setGravity(bool useGravity, sf::Vector2f gravity)
+APSBuilder* APSBuilder::setGravity(bool useGravity, const sf::Vector2f &gravity)
 {
 	aps->useGravity = useGravity;
 	aps->gravity = gravity;
 	return this;
 }
 
-APSBuilder* APSBuilder::setDispersion(float dispersionAngle, sf::Vector2f direction)
+APSBuilder* APSBuilder::setDispersion(float dispersionAngle, const sf::Vector2f &direction)
 {
 	aps->dispersionAngle = dispersionAngle;
 	aps->direction = direction;

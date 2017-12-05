@@ -79,7 +79,7 @@ void Enemy::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	target.draw(*caption.get(), states);
 }
 
-void Enemy::update(Time::TimeData timeData)
+void Enemy::update(const Time::TimeData &timeData)
 {
 	if (state == State::CLOSING_IN) {
 		setPosition(getPosition() + velocity);
