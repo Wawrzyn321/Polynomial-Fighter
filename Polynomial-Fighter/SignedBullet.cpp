@@ -22,10 +22,12 @@ void SignedBullet::hitTarget(const std::shared_ptr<Entity>& target)
 	enemy->decreasePolynomial(load);
 }
 
-SignedBullet::SignedBullet(const std::string & name, const sf::Vector2f & position, float radius, float damage, int load, float bonusDamageMultiplier) :
-	Bullet(name, position, radius, damage, bonusDamageMultiplier)
+SignedBullet::SignedBullet(const sf::Vector2f & position, float radius, float damage, int load, float bonusDamageMultiplier) :
+	Bullet(position, radius, damage, bonusDamageMultiplier)
 {
 	this->load = load;
+
+	name = "SignedBullet";
 	tag = GameData::TAG_DESIGNATED_BULLET;
 }
 

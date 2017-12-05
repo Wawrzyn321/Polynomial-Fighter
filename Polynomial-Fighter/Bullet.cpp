@@ -46,12 +46,12 @@ void Bullet::checkBounds()
 	}
 }
 
-Bullet::Bullet(const std::string& name, const sf::Vector2f& position, float radius, float damage, float bonusDamageMultiplier)
+Bullet::Bullet(const sf::Vector2f& position, float radius, float damage, float bonusDamageMultiplier)
 {
-	this->name = name;
 	this->radius = radius;
 	this->damage = damage;
 	this->bonusDamageMultiplier = bonusDamageMultiplier;
+	name = "Bullet";
 	collisionRadius = radius;
 	tag = GameData::TAG_BULLET;
 	bounds = GameData::DEFAULT_BOUNDS;
@@ -61,16 +61,17 @@ Bullet::Bullet(const std::string& name, const sf::Vector2f& position, float radi
 	Bullet::setPosition(position);
 }
 
-void Bullet::setTarget(const std::shared_ptr<Entity> &recipient, float velocity)
+void Bullet::setTarget(const std::shared_ptr<Entity> &recipient, float speed)
 {
 	if(!recipient)
 	{
 		Debug::PrintErrorFormatted("Bullet::setTarget: recipient is null!\n");
 		return;
 	}
-	sf::Vector2f currentTargetPosition = recipient->getPosition();
-	this->velocity = vectorNormalize(currentTargetPosition - getPosition()) * velocity;
 	this->recipientID = recipient->getId();
+
+	sf::Vector2f currentTargetPosition = recipient->getPosition();
+	velocity = vectorNormalize(currentTargetPosition - getPosition()) * speed;
 }
 
 void Bullet::setTarget(const std::shared_ptr<Entity> &recipient, const sf::Vector2f& normalizedDirection, float velocity)

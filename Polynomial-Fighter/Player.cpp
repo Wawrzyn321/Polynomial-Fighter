@@ -1,6 +1,8 @@
 #include "Player.h"
 #include "GameData.h"
 #include "Utility.h"
+#include "EntityManager.h"
+#include "APSBuilder.h"
 
 void Player::initGraphics()
 {
@@ -41,7 +43,7 @@ Player::Player(const sf::Vector2f& position)
 
 	initGraphics();
 	this->Player::setPosition(position);
-	cannon = std::make_unique<PlayerCannon>(PlayerCannon(position, this));
+	cannon = std::make_unique<PlayerCannon>(PlayerCannon(this));
 	rotationEventInvoked2 = true;
     FinishedRotatingEvent.add(std::bind(&PlayerCannon::onRotationFinished, cannon.get(), std::placeholders::_1));
 }
@@ -107,6 +109,9 @@ void Player::receiveDamage(float damage, float bonusDamageMultiplier)
 	if (health == 0)
 	{
 		DeathEvent.invoke(0);
+		enabled = false;
+		collisionsEnabled = false;
+		setToDelete(true);
 	}
 }
 

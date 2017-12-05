@@ -41,14 +41,14 @@ void PlayerCannon::shoot()
 	->finishBuilding(true);
 	EntityManager::instance()->addEntity(std::make_shared<AdvancedParticleSystem>(*aps));
 	delete aps;*/
-	std::string bulletName = "Signed bullet with " +
+	auto sb = std::make_shared<SignedBullet>(origin, 5.0f, 1.0f, currentTarget.root);
+	sb->name = "Signed bullet with " +
 		std::to_string(currentTarget.root) + " for " +
 		std::to_string(currentTarget.recipientID);
-	auto sb = std::make_shared<SignedBullet>(bulletName, origin, 5.0f, 1.0f, currentTarget.root);
 
 	if (!EntityManager::instance()->findEntityById(currentTarget.recipientID))
 	{
-		Debug::PrintErrorFormatted("no to sie stac nie powinno");
+		Debug::PrintErrorFormatted("no to sie stac nie powinno %", currentTarget.recipientID);
 	}
 
 	sb->setTarget(EntityManager::instance()->findEntityById(currentTarget.recipientID), 1);
@@ -57,10 +57,10 @@ void PlayerCannon::shoot()
 	updateState();
 }
 
-PlayerCannon::PlayerCannon(const sf::Vector2f &origin, Player *playerReference)
+PlayerCannon::PlayerCannon(Player *playerReference)
 {
-	this->origin = origin;
 	this->playerReference = playerReference;
+	origin = playerReference->getPosition();
 	state = CannonState::IDLE;
 	reloadAccumulator = 0;
 	reloadTime = GameData::PLAYER_RELOAD_TIME;
@@ -71,8 +71,6 @@ PlayerCannon::PlayerCannon(const sf::Vector2f &origin, Player *playerReference)
 
 void PlayerCannon::appendTargets(const std::vector<DesignatedTarget>& targets)
 {
-	reloadAccumulator = reloadTime;
-
 	//this->targets.insert(this->targets.end(), targets.begin(), targets.end());
 	for(auto &t : targets)
 	{
@@ -81,6 +79,8 @@ void PlayerCannon::appendTargets(const std::vector<DesignatedTarget>& targets)
 		}
 	}
 	if (state == CannonState::IDLE) {
+		reloadAccumulator = reloadTime*2;
+
 		updateState();
 	}
 }

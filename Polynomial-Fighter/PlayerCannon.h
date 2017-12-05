@@ -43,7 +43,7 @@ class PlayerCannon
 
 	void shoot();
 public:
-	PlayerCannon(const sf::Vector2f &origin, Player *playerReference);
+	PlayerCannon(Player *playerReference);
 
 	void appendTargets(const std::vector<DesignatedTarget> &targets);
 

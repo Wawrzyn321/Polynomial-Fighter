@@ -25,9 +25,9 @@ protected:
 
 public:
 	sf::IntRect bounds;
-	Bullet(const std::string& name, const sf::Vector2f& position, float radius, float damage, float bonusDamageMultiplier = 1);
+	Bullet(const sf::Vector2f& position, float radius, float damage, float bonusDamageMultiplier = 1);
 
-	virtual void setTarget(const std::shared_ptr<Entity>& recipient, float velocity);
+	virtual void setTarget(const std::shared_ptr<Entity>& recipient, float speed);
 
 	virtual void setTarget(const std::shared_ptr<Entity>& recipient, const sf::Vector2f& normalizedDirection, float velocity);
 
