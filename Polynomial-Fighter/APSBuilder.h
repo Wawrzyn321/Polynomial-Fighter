@@ -23,9 +23,9 @@ public:
 
 	APSBuilder *setScaling(float overTimeScaling);
 
-	APSBuilder *setGravity(bool useGravity, sf::Vector2f gravity = sf::Vector2f(0, 0.981f));
+	APSBuilder *setGravity(bool useGravity, const sf::Vector2f& gravity = sf::Vector2f(0, 0.981f));
 
-	APSBuilder* setDispersion(float dispersionAngle, sf::Vector2f direction);
+	APSBuilder* setDispersion(float dispersionAngle, const sf::Vector2f& direction);
 
 	APSBuilder* setDispersion(float dispersionAngle, float incomingDeg);
 

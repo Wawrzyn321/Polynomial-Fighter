@@ -67,7 +67,7 @@ class AdvancedParticleSystem : public Entity
 	void handleStartDelay(float get_scaled_delta_time_in_mili);
 	void handleUpdatingOnly(float deltaTime);
 	void handleWaitingForRevival(float deltaTime);
-	void handleUpdatingParticles(Time::TimeData timeData);
+	void handleUpdatingParticles(const Time::TimeData &timeData);
 	void handleSpawning(float deltaTime);
 public:
 
@@ -77,7 +77,7 @@ public:
 
 	void informOfDeath();
 
-	void update(Time::TimeData timeData) override;
+	void update(const Time::TimeData &timeData) override;
 	void onDestroy() override;
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 

@@ -56,7 +56,7 @@ public:
     template<class T>
     std::vector<std::shared_ptr<T>> findEntitiesByTag(const std::string &tag, bool includeDisabled = false);
 
-	void update(Time::TimeData timeData);
+	void update(const Time::TimeData &timeData);
 
 	void draw(sf::RenderTarget& target, sf::RenderStates states = sf::RenderStates::Default);
 

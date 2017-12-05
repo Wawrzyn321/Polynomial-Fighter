@@ -34,15 +34,15 @@ bool RequestPreprocessor::hasInequalityCharacters(const std::string& input)
 
 bool RequestPreprocessor::isNumber(const std::string& input)
 {
-	removeTrailingSpaces(input);
+	std::string unraw = removeTrailingSpaces(input);
 	int i = 0;
-	if (input[i] == '-')
+	if (unraw[i] == '-')
 	{
 		i++;
 	}
-	for (; i < input.size(); i++)
+	for (; i < unraw.size(); i++)
 	{
-		if (input[i] < '0' || input[i] > '9')
+		if (unraw[i] < '0' || unraw[i] > '9')
 		{
 			return false;
 		}

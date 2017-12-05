@@ -25,7 +25,7 @@ public:
 	Entity(const std::string &name = "", const std::string &tag = "") :
 			name(name), tag(tag), id(getCurrentId()) {};
 
-    virtual void update(Time::TimeData timeData) {};
+    virtual void update(const Time::TimeData &timeData) {};
 
     virtual void onDestroy() {};
 
