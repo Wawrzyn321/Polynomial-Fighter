@@ -6,7 +6,7 @@ class APSBuilder
 {
 	float cachedTime;
 
-	AdvancedParticleSystem* aps = nullptr;
+	std::shared_ptr<AdvancedParticleSystem> aps;
 
 	APSBuilder(const sf::Vector2f &position);
 
@@ -37,7 +37,7 @@ public:
 
 	APSBuilder* setAngularVelocity(float startAngularVelocity, float startAngularVelocityVariation, float angularDrag);
 
-	AdvancedParticleSystem* finishBuilding(bool playOnStart = true);
+	std::shared_ptr<AdvancedParticleSystem> finishBuilding(bool playOnStart = true) const;
 
 };
 
