@@ -57,7 +57,6 @@ class AdvancedParticleSystem : public Entity
 	int spawnedParticles;
 	int aliveParticlesCount;
 
-	AdvancedParticleSystem(const sf::Vector2f &position);
 	AdvancedParticleSystem* finishBuilding();
 
 	void onLiveEnded();
@@ -70,6 +69,7 @@ class AdvancedParticleSystem : public Entity
 	void handleUpdatingParticles(const Time::TimeData &timeData);
 	void handleSpawning(float deltaTime);
 public:
+	AdvancedParticleSystem(const sf::Vector2f &position);
 
 	Space space = Space::SELF;
 

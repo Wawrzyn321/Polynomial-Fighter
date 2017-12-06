@@ -5,7 +5,7 @@ bool Entity::checkCollision(const std::shared_ptr<Entity> &other)
 {
 	if (!other)
 	{
-		Debug::PrintFormatted("Entity::checkCollision: other == null\n");
+		//Debug::PrintFormatted("Entity::checkCollision: other == null\n");
 		return false;
 	}
 

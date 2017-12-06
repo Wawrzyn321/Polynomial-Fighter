@@ -91,9 +91,9 @@ void AdvancedParticleSystem::handleStartDelay(float deltaTime)
 void AdvancedParticleSystem::handleUpdatingOnly(float deltaTime)
 {
 	mainAccumulator += deltaTime;
+	Debug::PrintFormatted("%/% %\n", mainAccumulator, time, deltaTime);
 	if (mainAccumulator > time)
 	{
-		//Debug::PrintFormatted("% %\n", mainAccumulator, deltaTime);
 		for (AdvancedParticle &particle : particles)
 		{
 			particle.isAlive = false;
@@ -134,6 +134,7 @@ void AdvancedParticleSystem::handleSpawning(float deltaTime)
 
 	if (count <= particles.size())
 	{
+		mainAccumulator = 0;
 		spawningAccumulator = 0;
 		state = APSState::ONLY_UPDATING;
 	}

@@ -112,6 +112,11 @@ void Player::receiveDamage(float damage, float bonusDamageMultiplier)
 		enabled = false;
 		collisionsEnabled = false;
 		setToDelete(true);
+		auto aps = APSBuilder::startBuilding(getPosition())
+			->setMainData(1000, 100)
+			->setAsCircle(10, 10)
+			->finishBuilding();
+		EntityManager::instance()->addEntity(aps);
 	}
 }
 

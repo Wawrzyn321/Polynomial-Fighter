@@ -11,7 +11,7 @@ APSBuilder* APSBuilder::startBuilding(const sf::Vector2f &position)
 
 APSBuilder::APSBuilder(const sf::Vector2f &position)
 {
-	aps = new AdvancedParticleSystem(position);
+	aps = std::make_shared<AdvancedParticleSystem>(position);
 	cachedTime = 0;
 }
 
@@ -110,10 +110,10 @@ APSBuilder* APSBuilder::setAngularVelocity(float startAngularVelocity, float sta
 	return this;
 }
 
-AdvancedParticleSystem* APSBuilder::finishBuilding(bool playOnStart)
+std::shared_ptr<AdvancedParticleSystem> APSBuilder::finishBuilding(bool playOnStart) const
 {
 	aps->finishBuilding();
 	aps->state = APSState::PRE_WAITING;
-	Debug::PrintFormatted("jest, %", aps->count);
+	Debug::PrintFormatted("jest, %\n", aps->count);
 	return aps;
 }

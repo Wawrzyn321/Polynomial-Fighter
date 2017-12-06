@@ -53,6 +53,13 @@ int main()
 			{
 				t->setTimeScale(t->getTimeScale() + event.mouseWheel.delta*0.1f);
 			}
+			if (event.type == sf::Event::MouseButtonPressed)
+			{
+				if (event.mouseButton.button == sf::Mouse::Middle)
+				{
+					t->setTimeScale(1);
+				}
+			}
 
 			/*if(event.type == sf::Event::MouseButtonPressed)
 			{
