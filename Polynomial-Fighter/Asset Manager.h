@@ -9,20 +9,23 @@
 class AssetManager
 {
 private:
+	using TexturePointer = std::shared_ptr <sf::Texture>;
+	using FontPointer = std::shared_ptr<sf::Font>;
+	using SoundBufferPointer = std::shared_ptr<sf::SoundBuffer>;
+
 	AssetManager() = default;
-    std::map<std::string, std::shared_ptr<sf::Texture>> textures;
-	std::map<std::string, std::shared_ptr<sf::Font>> fonts;
-	std::map<std::string, std::shared_ptr<sf::SoundBuffer>> sounds;
+    std::map<std::string, TexturePointer> textures;
+	std::map<std::string, FontPointer> fonts;
+	std::map<std::string, SoundBufferPointer> sounds;
     static AssetManager* sInstance;
 
 public:
     static AssetManager *instance();
 
-	std::shared_ptr<sf::Texture> getTexture(const std::string &filename);
-	std::shared_ptr<sf::Font> getFont(const std::string &filename);
-	std::shared_ptr<sf::SoundBuffer> getSound(const std::string &filename);
-	std::shared_ptr<sf::Font> getDefaultFont();
+	TexturePointer getTexture(const std::string &filename);
+	FontPointer getFont(const std::string &filename);
+	SoundBufferPointer getSound(const std::string &filename);
+	FontPointer getDefaultFont();
 };
-
 
 #endif

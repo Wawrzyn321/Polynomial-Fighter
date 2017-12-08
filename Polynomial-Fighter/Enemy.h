@@ -51,7 +51,11 @@ public:
 
 	void receiveDamage(float damage, sf::Vector2f incoming, float bonusDamageMultiplier) override;
 
-	~Enemy();
+	Enemy(const Enemy &) = default;
+
+	~Enemy(); 
+
+	Enemy(Enemy&&) = default;
 private:
 	const float enemyCollisionRadius = 10.0f;
 	const float enemyInnerRadiusSQR = 180 * 180;

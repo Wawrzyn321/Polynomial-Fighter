@@ -12,7 +12,7 @@ AssetManager * AssetManager::instance()
     return sInstance;
 }
 
-std::shared_ptr<sf::Texture> AssetManager::getTexture(const std::string &filename)
+AssetManager::TexturePointer AssetManager::getTexture(const std::string &filename)
 {
     auto &texMap = sInstance->textures;
     auto pairFound = texMap.find(filename);
@@ -23,7 +23,7 @@ std::shared_ptr<sf::Texture> AssetManager::getTexture(const std::string &filenam
 	}
     else
 	{
-        std::shared_ptr<sf::Texture> texture = std::make_shared<sf::Texture>();
+		TexturePointer texture = std::make_shared<sf::Texture>();
         
         if (!texture->loadFromFile(filename))
 		{
@@ -39,7 +39,7 @@ std::shared_ptr<sf::Texture> AssetManager::getTexture(const std::string &filenam
     }
 }
 
-std::shared_ptr<sf::Font> AssetManager::getFont(const std::string &filename)
+AssetManager::FontPointer AssetManager::getFont(const std::string &filename)
 {
     auto &sFontMap = sInstance->fonts;
     auto pairFound = sFontMap.find(filename);
@@ -50,7 +50,7 @@ std::shared_ptr<sf::Font> AssetManager::getFont(const std::string &filename)
 	}
     else
     {
-        std::shared_ptr<sf::Font> font = std::make_shared<sf::Font>();
+		FontPointer font = std::make_shared<sf::Font>();
 
         if (!font->loadFromFile(filename))
         {
@@ -61,7 +61,7 @@ std::shared_ptr<sf::Font> AssetManager::getFont(const std::string &filename)
     }
 }
 
-std::shared_ptr<sf::SoundBuffer> AssetManager::getSound(const std::string &filename)
+AssetManager::SoundBufferPointer AssetManager::getSound(const std::string &filename)
 {
 	auto &sSoundMap = sInstance->sounds;
 	auto pairFound = sounds.find(filename);
@@ -72,7 +72,7 @@ std::shared_ptr<sf::SoundBuffer> AssetManager::getSound(const std::string &filen
 	}
 	else
     {
-        std::shared_ptr<sf::SoundBuffer> sound = std::make_shared<sf::SoundBuffer>();
+		SoundBufferPointer sound = std::make_shared<sf::SoundBuffer>();
 
 		if (!sound->loadFromFile(filename))
         {
@@ -83,7 +83,7 @@ std::shared_ptr<sf::SoundBuffer> AssetManager::getSound(const std::string &filen
 	}
 }
 
-std::shared_ptr<sf::Font> AssetManager::getDefaultFont()
+AssetManager::FontPointer AssetManager::getDefaultFont()
 {
 	return getFont(GameData::PATH_TO_RESOURCES + GameData::PATH_TO_FONTS + GameData::FONT_REGULAR);
 }

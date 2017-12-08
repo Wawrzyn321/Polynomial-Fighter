@@ -19,6 +19,8 @@ public:
 
 	void resetAccumulator();
 
+	~EnemyCannon() = default;
+
 private:
 	const float baseReloadTime = 2000.0f;
 	const float baseBulletDamage = 200.0f;//1.2f;

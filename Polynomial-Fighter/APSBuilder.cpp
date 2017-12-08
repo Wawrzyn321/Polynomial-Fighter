@@ -1,10 +1,11 @@
 #include "APSBuilder.h"
+#include "Utility.h"
 
 APSBuilder* APSBuilder::startBuilding(const sf::Vector2f &position)
 {
 	APSBuilder *builder = new APSBuilder(position);
 
-	builder->aps->name = "Particle System";
+	builder->aps->name = GameData::NAME_PARTICLE_SYSTEM;
 
 	return builder;
 }
@@ -113,7 +114,13 @@ APSBuilder* APSBuilder::setAngularVelocity(float startAngularVelocity, float sta
 std::shared_ptr<AdvancedParticleSystem> APSBuilder::finishBuilding(bool playOnStart) const
 {
 	aps->finishBuilding();
-	aps->state = APSState::PRE_WAITING;
+	if (playOnStart) {
+		aps->state = APSState::PRE_WAITING;
+	}
+	else
+	{
+		aps->state = APSState::OFF;
+	}
 	Debug::PrintFormatted("jest, %\n", aps->count);
 	return aps;
 }

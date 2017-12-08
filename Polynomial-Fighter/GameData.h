@@ -15,6 +15,7 @@ namespace GameData {
 	const std::string TAG_HEALING_PACK = "health";
 
 	const std::string NAME_PLAYER = "player";
+	const std::string NAME_PARTICLE_SYSTEM = "Particle System";
 
 	const std::string FONT_REGULAR = "Aleo-Regular.otf";
 	const std::string FONT_ITALIC = "Aleo-Italic.otf";
