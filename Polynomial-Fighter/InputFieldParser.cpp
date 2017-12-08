@@ -1,15 +1,15 @@
 #include "InputFieldParser.h"
-#include "RequestHandlers.h"
-#include "StringPreprocessor.h"
-#include <iostream>
 #include <cassert>
+#include "RequestHandlers.h"
+#include "StringSubprocessor.h"
 #include "Debug.h"
+#include "Request.h"
 
 std::vector<int> InputFieldParser::parse(const std::string& input)
 {
 	//preprocess input
-	std::string unraw = RequestPreprocessor::removePeriods(input);
-	unraw = RequestPreprocessor::removeTrailingSpaces(unraw);
+	std::string unraw = RequestSubprocessor::removePeriods(input);
+	unraw = RequestSubprocessor::removeTrailingSpaces(unraw);
 
 	//create chain
 	RequestHandler* chain =
@@ -18,7 +18,8 @@ std::vector<int> InputFieldParser::parse(const std::string& input)
 				new LHSInequalityStringHandler(
 					new RHSInequalityStringHandler(
 						new ListStringHandler(
-							nullptr)))));
+							new DivisorStringHandler(
+								nullptr))))));
 
 	//handle the input
 	Request r = chain->handle(unraw);
@@ -51,11 +52,12 @@ void InputFieldParser::runTests()
 				new LHSInequalityStringHandler(
 					new RHSInequalityStringHandler(
 						new ListStringHandler(
-							nullptr)))));
+							new DivisorStringHandler(
+								nullptr))))));
 
 	//empty
 	Request r = chain->handle("");
-	assert(r.isValid() && r.result.empty());
+	assert(r.isValid() && r.message == RH_Codes::EMPTY);
 
 	//single
 	r = chain->handle("-0");
@@ -63,15 +65,15 @@ void InputFieldParser::runTests()
 	r = chain->handle("7");
 	assert(r.isValid() && r.result[0] == 7);
 	r = chain->handle("8");
-	assert(!r.isValid() && r.message == RH_ErrorCodes::OUT_OF_RANGE);
+	assert(!r.isValid() && r.message == RH_Codes::OUT_OF_RANGE);
 	r = chain->handle("-7");
 	assert(r.isValid() && r.result[0] == -7);
 	r = chain->handle("-8");
-	assert(!r.isValid() && r.message == RH_ErrorCodes::OUT_OF_RANGE);
+	assert(!r.isValid() && r.message == RH_Codes::OUT_OF_RANGE);
 	r = chain->handle("9");
-	assert(!r.isValid() && r.message == RH_ErrorCodes::OUT_OF_RANGE);
+	assert(!r.isValid() && r.message == RH_Codes::OUT_OF_RANGE);
 	r = chain->handle("-9");
-	assert(!r.isValid() && r.message == RH_ErrorCodes::OUT_OF_RANGE);
+	assert(!r.isValid() && r.message == RH_Codes::OUT_OF_RANGE);
 
 	//LHS
 	r = chain->handle("<2");
@@ -86,7 +88,7 @@ void InputFieldParser::runTests()
 	assert(r.isValid() && r.result.empty());
 	r = chain->handle("<<2");
 	assert(!r.isValid());
-	r = chain->handle(RequestPreprocessor::removeTrailingSpaces("     <    -2 2     2    "));
+	r = chain->handle(RequestSubprocessor::removeTrailingSpaces("     <    -2 2     2    "));
 	assert(!r.isValid());
 
 	//RHS
@@ -94,9 +96,9 @@ void InputFieldParser::runTests()
 	assert(r.isValid() && r.result[1] == 4);
 	r = chain->handle("2><");
 	assert(!r.isValid());
-	r = chain->handle(RequestPreprocessor::removeTrailingSpaces("         -     2    >"));
+	r = chain->handle(RequestSubprocessor::removeTrailingSpaces("         -     2    >"));
 	assert(!r.isValid());
-	r = chain->handle(RequestPreprocessor::removeTrailingSpaces("         -2     2    >"));
+	r = chain->handle(RequestSubprocessor::removeTrailingSpaces("         -2     2    >"));
 	assert(!r.isValid());
 	r = chain->handle("6<");
 	assert(r.isValid() && r.result.size() == 1 && r.result[0] == 7);
@@ -123,6 +125,16 @@ void InputFieldParser::runTests()
 	assert(r.isValid() && r.result.size() == 3&& r.result[2] == -1);
 	r = chain->handle("-2 -2 -2 -3 -4 1 2 2");
 	assert(r.isValid() && r.result.size() == 5);
+
+	//divisor
+	r = chain->handle("/-1");
+	assert(r.isValid() && r.result[0] == -1 && r.message == RH_Codes::DIVISOR);
+	r = chain->handle("/");
+	assert(!r.isValid());
+	r = chain->handle("/2-");
+	assert(!r.isValid());
+	r = chain->handle("/0");
+	assert(!r.isValid() && r.message == RH_Codes::DIVISION_BY_ZERO);
 
 	delete chain;
 }

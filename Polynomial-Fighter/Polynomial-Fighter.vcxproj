@@ -145,7 +145,7 @@
     <ClCompile Include="ScoresManagerGUI.cpp" />
     <ClCompile Include="SignedBullet.cpp" />
     <ClCompile Include="SoundManager.cpp" />
-    <ClCompile Include="StringPreprocessor.cpp" />
+    <ClCompile Include="StringSubprocessor.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="Utility.cpp" />
   </ItemGroup>
@@ -187,7 +187,7 @@
     <ClInclude Include="ScoresManagerGUI.h" />
     <ClInclude Include="SignedBullet.h" />
     <ClInclude Include="SoundManager.h" />
-    <ClInclude Include="StringPreprocessor.h" />
+    <ClInclude Include="StringSubprocessor.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="Utility.h" />
   </ItemGroup>

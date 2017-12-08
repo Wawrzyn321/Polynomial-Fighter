@@ -1,14 +1,15 @@
-#include "StringPreprocessor.h"
+#include "StringSubprocessor.h"
 #include "RequestHandlers.h"
 #include <iterator>
 #include <sstream>
+#include "Debug.h"
 
-bool RequestPreprocessor::isInRangeInclusive(int r)
+bool RequestSubprocessor::isInRangeInclusive(int r)
 {
 	return r >= -maxNumber && r <= maxNumber;
 }
 
-std::string RequestPreprocessor::removePeriods(std::string input)
+std::string RequestSubprocessor::removePeriods(std::string input)
 {
 	for (char &i : input)
 	{
@@ -17,7 +18,7 @@ std::string RequestPreprocessor::removePeriods(std::string input)
 	return input;
 }
 
-std::string RequestPreprocessor::removeTrailingSpaces(const std::string& input)
+std::string RequestSubprocessor::removeTrailingSpaces(const std::string& input)
 {
 	unsigned start = 0;
 	while (start < input.size() && input[start] == ' ') start++;
@@ -26,13 +27,18 @@ std::string RequestPreprocessor::removeTrailingSpaces(const std::string& input)
 	return input.substr(start, end - start + 1);
 }
 
-bool RequestPreprocessor::hasInequalityCharacters(const std::string& input)
+bool RequestSubprocessor::hasSlash(const std::string& input)
+{
+	return input.find('/') != std::string::npos;
+}
+
+bool RequestSubprocessor::hasInequalityCharacters(const std::string& input)
 {
 	return input.find('>') != std::string::npos ||
 		input.find('<') != std::string::npos;
 }
 
-bool RequestPreprocessor::isNumber(const std::string& input)
+bool RequestSubprocessor::isNumber(const std::string& input)
 {
 	std::string unraw = removeTrailingSpaces(input);
 	int i = 0;

@@ -32,7 +32,7 @@ public:
 
 	void setText(const std::string &text);
 
-	void update(const Time::TimeData& timeData); //resharper tak zaproponowa³, mo¿na to uogólniæ do entities
+	void update(const Time::TimeData& timeData);
 
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
