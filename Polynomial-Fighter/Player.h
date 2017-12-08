@@ -38,8 +38,6 @@ public:
 
 	void setPosition(const sf::Vector2f &position) override;
 
-	void onDestroy() override;
-
 	void update(const Time::TimeData &timeData) override;
 
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
@@ -48,6 +46,10 @@ public:
 
 	void receiveDamage(float damage, sf::Vector2f incoming, float bonusDamageMultiplier) override;
 
+	~Player();
+private:
+	const float startingHealth = 10.0f;
+	const float playerCollisionRadius = 10.0f;
 };
 
 #endif

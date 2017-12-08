@@ -37,9 +37,9 @@ Player::Player(const sf::Vector2f& position)
 {
 	tag = GameData::TAG_PLAYER;
 	name = GameData::NAME_PLAYER;
-	health = GameData::PLAYER_STARTING_HEALTH;
-	maxHealth = GameData::PLAYER_STARTING_HEALTH;
-	collisionRadius = GameData::PLAYER_COLLISION_RADIUS;
+	health = startingHealth;
+	maxHealth = maxHealth;
+	collisionRadius = playerCollisionRadius;
 
 	initGraphics();
 	this->Player::setPosition(position);
@@ -78,12 +78,6 @@ void Player::setPosition(const sf::Vector2f &position)
 
 #pragma region Entity
 
-void Player::onDestroy()
-{
-	healthGUI.reset();
-	cannon.reset();
-}
-
 void Player::update(const Time::TimeData &timeData)
 {
 	float deltaTime = timeData.getScaledDeltaTimeInMili();
@@ -109,7 +103,7 @@ void Player::receiveDamage(float damage, float bonusDamageMultiplier)
 	if (health == 0)
 	{
 		DeathEvent.invoke(0);
-		enabled = false;
+		setEnabled(false);
 		collisionsEnabled = false;
 		setToDelete(true);
 		auto aps = APSBuilder::startBuilding(getPosition())
@@ -126,3 +120,9 @@ void Player::receiveDamage(float damage, sf::Vector2f incoming, float bonusDamag
 }
 
 #pragma endregion
+
+Player::~Player()
+{
+	healthGUI.reset();
+	cannon.reset();
+}

@@ -47,11 +47,14 @@ public:
 
 	void update(const Time::TimeData &timeData) override;
 
-	void onDestroy() override;
-
 	void receiveDamage(float damage, float bonusDamageMultiplier) override;
 
 	void receiveDamage(float damage, sf::Vector2f incoming, float bonusDamageMultiplier) override;
+
+	~Enemy();
+private:
+	const float enemyCollisionRadius = 10.0f;
+	const float enemyInnerRadiusSQR = 180 * 180;
 };
 
 #endif

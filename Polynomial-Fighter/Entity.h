@@ -11,9 +11,9 @@ class Entity : public sf::Drawable, public sf::Transformable {
 		static unsigned long currentId = 0;
 		return currentId++;
 	}
-protected:
-    bool enabled = true;
+	bool enabled = true;
 	bool toDelete = false;
+protected:
 	const unsigned long id;
 	float collisionRadius = 0;
 	virtual bool checkCollision(const std::shared_ptr<Entity> &other);
