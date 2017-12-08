@@ -63,10 +63,10 @@ PlayerCannon::PlayerCannon(Player *playerReference)
 	origin = playerReference->getPosition();
 	state = CannonState::IDLE;
 	reloadAccumulator = 0;
-	reloadTime = GameData::PLAYER_RELOAD_TIME;
+	reloadTime = defaultReloadTime;
 	currentTarget = DesignatedTarget();
 
-	numberOfRounds = GameData::DEFAULT_NUMBER_OF_ROUNDS;
+	numberOfRounds = defaultNumberOfRounds;
 }
 
 void PlayerCannon::appendTargets(const std::vector<DesignatedTarget>& targets)

@@ -50,6 +50,10 @@ public:
 	void onRotationFinished(float angle);
 
 	void update(float deltaTime);
+private:
+	const float defaultReloadTime = 400.0f;
+	const int defaultNumberOfRounds = 5;
+
 };
 
 

@@ -31,7 +31,7 @@ void Bullet::checkCollisions()
 	if (checkCollision(target))
 	{
 		hitTarget(target);
-		toDelete = true;
+		setToDelete(true);
 	}
 }
 
@@ -42,7 +42,7 @@ void Bullet::checkBounds()
 	bool yExceeded = pos.y < -radius || pos.y > GameData::WINDOW_SIZE.y + radius;
 	if (xExceeded || yExceeded)
 	{
-		toDelete = true;
+		setToDelete(true);
 	}
 }
 

@@ -14,13 +14,7 @@ namespace GameData {
 	const std::string TAG_PARTICLE_SYSTEM = "particle_system";
 	const std::string TAG_HEALING_PACK = "health";
 
-	const float ENEMY_COLLISION_RADIUS = 10.0f;
-	const float ENEMY_INNER_RADIUS_SQR = 180 * 180;
-
 	const std::string NAME_PLAYER = "player";
-	const float PLAYER_STARTING_HEALTH = 10.0f;
-	const float PLAYER_RELOAD_TIME = 400.0f;
-	const float PLAYER_COLLISION_RADIUS = 10.0f;
 
 	const std::string FONT_REGULAR = "Aleo-Regular.otf";
 	const std::string FONT_ITALIC = "Aleo-Italic.otf";
@@ -31,8 +25,6 @@ namespace GameData {
 	const std::string PATH_TO_FONTS = "fonts/";
 	const std::string PATH_TO_SOUNDS = "sounds/";
 	const std::string PATH_TO_SAVE = "save.dat";
-
-	const int DEFAULT_NUMBER_OF_ROUNDS = 5;
 
 	const std::string SOUND_EXPLOSION_LONG = "explosion_long.ogg";
 	const std::string SOUND_EXPLOSION_SHORT = "explosion_short.ogg";

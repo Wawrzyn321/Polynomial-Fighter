@@ -24,13 +24,13 @@ Enemy::Enemy(const sf::Vector2f& position, const sf::Vector2f &playerPosition, f
 	this->playerPosition = playerPosition;
 	tag = GameData::TAG_ENEMY;
 	state = State::CLOSING_IN;
-	attractionRadiusSqr = GameData::ENEMY_INNER_RADIUS_SQR + pff.getDeg() * 30 + RandomGenerator::getFloat(-50,50);
+	attractionRadiusSqr = enemyInnerRadiusSQR + pff.getDeg() * 30 + RandomGenerator::getFloat(-50,50);
 
 	sf::Vector2f dir = vectorNormalize(playerPosition - position);
 	velocity = dir * speed;
 
 	initComponents(this->name, atan2f(dir.y, dir.x)*180.0f/pi);
-	collisionRadius = GameData::ENEMY_COLLISION_RADIUS;
+	collisionRadius = enemyCollisionRadius;
 	Enemy::setPosition(position);
 }
 
@@ -101,12 +101,6 @@ void Enemy::update(const Time::TimeData &timeData)
 	}
 }
 
-void Enemy::onDestroy()
-{
-	caption.reset();
-	cannon.reset();
-}
-
 #pragma endregion
 
 #pragma region IDamageable
@@ -128,3 +122,8 @@ void Enemy::receiveDamage(float damage, sf::Vector2f incoming, float bonusDamage
 }
 
 #pragma endregion
+
+Enemy::~Enemy() {
+	caption.reset();
+	cannon.reset();
+}
