@@ -1,6 +1,6 @@
 #ifndef INPUT_FIELD_PARSER_H
 #define INPUT_FIELD_PARSER_H
-#include "Request.h"
+#include <vector>
 
 class InputFieldParser
 {

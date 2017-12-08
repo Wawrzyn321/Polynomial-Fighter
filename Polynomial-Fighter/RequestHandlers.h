@@ -3,15 +3,6 @@
 
 #include "Request.h"
 
-namespace RH_ErrorCodes
-{
-	const std::string NOT_A_NUMBER = "Not a number!";
-	const std::string INVALID_INPUT = "Invalid input!";
-	const std::string SUCCESOR_NULL = "Succesor is null!";
-	const std::string OUT_OF_RANGE = "Out of range!";
-	//custom ones are also allowed
-}
-
 class RequestHandler
 {
 protected:
@@ -90,5 +81,16 @@ private:
 	static std::vector<std::string> tokenize(const std::string& input);
 };
 
+
+class DivisorStringHandler : public RequestHandler
+{
+public:
+	DivisorStringHandler(RequestHandler *succesor) : RequestHandler(succesor) { }
+
+protected:
+	bool canHandleRequest(const std::string& input) const override;
+
+	Request handleImplementation(const std::string& input) const override;
+};
 
 #endif
