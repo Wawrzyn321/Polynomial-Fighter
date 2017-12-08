@@ -121,9 +121,9 @@ void Enemy::receiveDamage(float damage, sf::Vector2f incoming, float bonusDamage
 	cannon->resetAccumulator();
 }
 
-#pragma endregion
-
 Enemy::~Enemy() {
 	caption.reset();
 	cannon.reset();
 }
+
+#pragma endregion

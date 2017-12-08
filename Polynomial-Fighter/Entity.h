@@ -4,6 +4,7 @@
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
 #include "Timer.h"
+#include <memory>
 
 class Entity : public sf::Drawable, public sf::Transformable {
 	unsigned long getCurrentId()
@@ -58,6 +59,10 @@ public:
 	virtual sf::Vector2f getPosition() const = 0;
 	virtual void setPosition(const sf::Vector2f &position) = 0;
 	virtual float getCollisionRadius() const;
+
+	Entity(const Entity&) = default;
+	Entity(Entity&&) = default;
+	virtual ~Entity() = default;
 };
 
 #endif
