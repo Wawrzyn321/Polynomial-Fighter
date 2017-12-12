@@ -135,7 +135,10 @@ void PlayerCannon::appendTargets(const std::vector<int>& values, const std::vect
 	}
 	else
 	{
-		Debug::PrintFormatted("Za mao: chce %\n", size);
+		auto ft = std::make_shared<FleetingText>("Not enough bullets!", 
+			origin + sf::Vector2f(0, -20), sf::Color(255, 233, 233), 20);
+		ft->run(0.001f, { RandomGenerator::getFloat(-0.01f, 0.01f), -0.03f }, 0);
+		EntityManager::instance()->addEntity(ft);
 	}
 }
 

@@ -22,7 +22,7 @@ std::vector<int> InputFieldParser::parse(const std::string& input)
 								nullptr))))));
 
 	//handle the input
-	Request r = chain->handle(unraw);
+	RequestValue r = chain->handle(unraw);
 	/*
 	if (r.isValid())
 	{
@@ -56,7 +56,7 @@ void InputFieldParser::runTests()
 								nullptr))))));
 
 	//empty
-	Request r = chain->handle("");
+	RequestValue r = chain->handle("");
 	assert(r.isValid() && r.message == RH_Codes::EMPTY);
 
 	//single

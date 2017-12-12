@@ -10,13 +10,13 @@ protected:
 
 	virtual bool canHandleRequest(const std::string &input) const = 0;
 
-	virtual Request handleImplementation(const std::string &input) const = 0;
+	virtual RequestValue handleImplementation(const std::string &input) const = 0;
 
-	Request passFurther(const std::string& input) const;
+	RequestValue passFurther(const std::string& input) const;
 public:
 	RequestHandler(RequestHandler* succesor);
 
-	Request handle(const std::string& input) const;
+	RequestValue handle(const std::string& input) const;
 
 	virtual ~RequestHandler();
 };
@@ -29,7 +29,7 @@ public:
 protected:
 	bool canHandleRequest(const std::string& input) const override;
 
-	Request handleImplementation(const std::string& input) const override;
+	RequestValue handleImplementation(const std::string& input) const override;
 };
 
 class SingleNumberStringHandler : public RequestHandler
@@ -40,7 +40,7 @@ public:
 protected:
 	bool canHandleRequest(const std::string& input) const override;
 
-	Request handleImplementation(const std::string& input) const override;
+	RequestValue handleImplementation(const std::string& input) const override;
 };
 
 class LHSInequalityStringHandler : public RequestHandler
@@ -51,7 +51,7 @@ public:
 protected:
 	bool canHandleRequest(const std::string& input) const override;
 
-	Request handleImplementation(const std::string& input) const override;
+	RequestValue handleImplementation(const std::string& input) const override;
 };
 
 
@@ -63,7 +63,7 @@ public:
 protected:
 	bool canHandleRequest(const std::string& input) const override;
 
-	Request handleImplementation(const std::string& input) const override;
+	RequestValue handleImplementation(const std::string& input) const override;
 };
 
 
@@ -75,7 +75,7 @@ public:
 protected:
 	bool canHandleRequest(const std::string& input) const override;
 
-	Request handleImplementation(const std::string& input) const override;
+	RequestValue handleImplementation(const std::string& input) const override;
 
 private:
 	static std::vector<std::string> tokenize(const std::string& input);
@@ -90,7 +90,7 @@ public:
 protected:
 	bool canHandleRequest(const std::string& input) const override;
 
-	Request handleImplementation(const std::string& input) const override;
+	RequestValue handleImplementation(const std::string& input) const override;
 };
 
 #endif
