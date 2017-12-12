@@ -2,6 +2,7 @@
 #define FLOAT_COLOR_H
 
 #include "Utility.h"
+#include <sstream>
 
 class FloatColor
 {
@@ -33,7 +34,7 @@ public:
 	{
 		if (clampT)
 		{
-			t = customClamp(t, 0.0f, 1.0f);
+			t = clamp01(t);
 		}
 		x += (to.x - x)*t;
 		y += (to.y - y)*t;
@@ -66,7 +67,12 @@ public:
 		else {
 			return std::max(std::max(r, g), b);
 		}
+	}
 
+	friend std::ostream& operator<<(std::ostream& os, const FloatColor& color)
+	{
+		os << color.x << " " << color.y << " " << color.z << " " << color.w;
+		return os;
 	}
 };
 

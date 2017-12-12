@@ -52,10 +52,13 @@ void AdvancedParticleSystem::onLiveEnded()
 
 void AdvancedParticleSystem::addParticle()
 {
-	float r = RandomGenerator::getVariation(circleRadius, shapeSizeVariation);
-	int pc = static_cast<int>(RandomGenerator::getVariation(circlePointCount, shapeSizeVariation));
-	particles.push_back(AdvancedParticle(r, pc, this));
+	//main data
+	float radius = RandomGenerator::getVariation(circleRadius, shapeSizeVariation);
+	int pointCount = static_cast<int>(RandomGenerator::getVariation(circlePointCount, shapeSizeVariation));
+	particles.push_back(AdvancedParticle(radius, pointCount, this));
 	AdvancedParticle &currentParticle = particles.back();
+
+	//set transform
 	currentParticle.setPosition(position);
 
 	float baseAngle = direction == sf::Vector2f(0, 0) ? 0
@@ -65,9 +68,11 @@ void AdvancedParticleSystem::addParticle()
 		currentAngle = (baseAngle - dispersionAngle*0.5f + rand() % static_cast<int>(dispersionAngle))*pi / 180.0f;
 	}
 
+	//set color
 	sf::Color color = useRandomColors ? RandomGenerator::getRandomColor() : RandomGenerator::getVariation(startColor, startColorVariation);
 	currentParticle.setColors(color, RandomGenerator::getVariation(endColor, endColorVariation), colorChangingSpeed);
 
+	//set forces
 	sf::Vector2f vel = sf::Vector2f(cos(currentAngle), sin(currentAngle)) * RandomGenerator::getVariation(startVelocity, startVelocityVariation);
 	currentParticle.setTransform(vel, drag, RandomGenerator::getVariation(startAngularVelocity, startAngularVelocityVariation), angularDrag, overTimeScaling);
 
@@ -81,7 +86,7 @@ void AdvancedParticleSystem::addParticle()
 void AdvancedParticleSystem::handleStartDelay(float deltaTime)
 {
 	mainAccumulator += deltaTime;
-	if(mainAccumulator>startDelayTime)
+	if (mainAccumulator > startDelayTime)
 	{
 		mainAccumulator = 0;
 		state = APSState::SPAWNING;
@@ -91,7 +96,6 @@ void AdvancedParticleSystem::handleStartDelay(float deltaTime)
 void AdvancedParticleSystem::handleUpdatingOnly(float deltaTime)
 {
 	mainAccumulator += deltaTime;
-	Debug::PrintFormatted("%/% %\n", mainAccumulator, time, deltaTime);
 	if (mainAccumulator > time)
 	{
 		for (AdvancedParticle &particle : particles)
@@ -134,7 +138,8 @@ void AdvancedParticleSystem::handleSpawning(float deltaTime)
 
 	if (count <= particles.size())
 	{
-		mainAccumulator = 0;
+		Debug::PrintFormatted("AdvancedParticleSystem::handleSpawning wszystkie dodane\n");
+			mainAccumulator = 0;
 		spawningAccumulator = 0;
 		state = APSState::ONLY_UPDATING;
 	}
@@ -144,6 +149,7 @@ void AdvancedParticleSystem::handleSpawning(float deltaTime)
 
 void AdvancedParticleSystem::revive()
 {
+	Debug::PrintFormatted("Reveive\n");
 	state = APSState::SPAWNING;
 	finishBuilding();
 	for (AdvancedParticle &particle : particles)
@@ -194,6 +200,7 @@ void AdvancedParticleSystem::update(const Time::TimeData &timeData)
 
 void AdvancedParticleSystem::onDestroy()
 {
+	Debug::PrintFormatted("destr: %\n", count);
 	for (AdvancedParticle &particle : particles)
 	{
 		particle.onDestroy();
@@ -203,6 +210,7 @@ void AdvancedParticleSystem::onDestroy()
 void AdvancedParticleSystem::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	if (state != APSState::OFF) {
+		//Debug::PrintFormatted("% %\n", particles.size(), count);
 		for (unsigned int i = 0; i < particles.size(); i++)
 		{
 			particles[i].draw(target, states);

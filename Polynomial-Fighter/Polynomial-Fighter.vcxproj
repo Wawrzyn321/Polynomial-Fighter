@@ -75,6 +75,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -82,6 +83,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -91,6 +93,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -105,6 +108,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>C:\SFML\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -122,6 +126,7 @@
     <ClCompile Include="Debug.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyCannon.cpp" />
+    <ClCompile Include="FleetingText.cpp" />
     <ClCompile Include="GameplayManager.cpp" />
     <ClCompile Include="EnemySpawner.cpp" />
     <ClCompile Include="Entity.cpp" />
@@ -130,6 +135,7 @@
     <ClCompile Include="InputField.cpp" />
     <ClCompile Include="InputFieldParser.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MunitionContainer.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerCannon.cpp" />
     <ClCompile Include="PlayerHealthGUI.cpp" />
@@ -160,6 +166,7 @@
     <ClInclude Include="Delegate.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyCannon.h" />
+    <ClInclude Include="FleetingText.h" />
     <ClInclude Include="GameplayManager.h" />
     <ClInclude Include="EnemySpawner.h" />
     <ClInclude Include="Entity.h" />
@@ -171,6 +178,7 @@
     <ClInclude Include="IMouseEventsListener.h" />
     <ClInclude Include="InputField.h" />
     <ClInclude Include="InputFieldParser.h" />
+    <ClInclude Include="MunitionContainer.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerCannon.h" />
     <ClInclude Include="PlayerHealthGUI.h" />

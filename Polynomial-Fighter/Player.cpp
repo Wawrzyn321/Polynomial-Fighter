@@ -108,44 +108,33 @@ void Player::receiveDamage(float damage, float bonusDamageMultiplier)
 		collisionsEnabled = false;
 		setToDelete(true);
 		auto aps = APSBuilder::startBuilding(getPosition())
-			->setMainData(1000, 100)
-			->setAsCircle(10, 10)
+			->setMainData(5000, 100)
+			->setIntervals(100, 50, 0)
+			->setColors(sf::Color::Red, 0.1f, sf::Color::White, 0.0f, 0.001f)
+			->setAsCircle(5, 6)
+			->setVelocity(0.5f * bonusDamageMultiplier, 0.1f, 0.995f)
+			->setScaling(0.999f)
 			->finishBuilding();
-		EntityManager::instance()->addEntity(aps);
+		EntityManager::instance()->addEntity(std::shared_ptr<AdvancedParticleSystem>(aps));
 	}
 }
 
 void Player::receiveDamage(float damage, sf::Vector2f incoming, float bonusDamageMultiplier)
 {
-	receiveDamage(damage, bonusDamageMultiplier);
 	bool wasDestroyed = (health - damage*bonusDamageMultiplier) <= 0;
-	if (wasDestroyed) {
+	if (!wasDestroyed) {
 		auto aps = APSBuilder::startBuilding(getPosition())
-			->setMainData(2000, 30)
-			->setIntervals(100, 50, 0)
-			->setColors(sf::Color::Red, 0.7f, sf::Color::White, 0.1f, 0.001f)
-			->setAsCircle(5, 6)
-			->setVelocity(0.2f * bonusDamageMultiplier, 0.1f, 0.999f)
+			->setMainData(2000, 15)
+			->setIntervals(100, 0, 0)
+			->setColors(sf::Color::Red, 0.3f, sf::Color::White, 0.1f, 0.001f)
+			->setAsCircle(4, 6)
+			->setVelocity(0.4f * bonusDamageMultiplier, 0.1f, 0.999f)
 			->setScaling(0.999f)
-			->setGravity(true, -incoming*0.05f)
-			->setDispersion(80 / bonusDamageMultiplier, incoming)
+			->setDispersion(40 / bonusDamageMultiplier, incoming)
 			->finishBuilding();
 		EntityManager::instance()->addEntity(std::shared_ptr<AdvancedParticleSystem>(aps));
 	}
-	else
-	{
-		auto aps = APSBuilder::startBuilding(getPosition())
-			->setMainData(2000, 30)
-			->setIntervals(100, 50, 0)
-			->setColors(sf::Color::Red, 0.7f, sf::Color::White, 0.1f, 0.001f)
-			->setAsCircle(5, 6)
-			->setVelocity(0.2f * bonusDamageMultiplier, 0.1f, 0.999f)
-			->setScaling(0.999f)
-			->setGravity(true, -incoming*0.05f)
-			->setDispersion(80 / bonusDamageMultiplier, incoming)
-			->finishBuilding();
-		EntityManager::instance()->addEntity(std::shared_ptr<AdvancedParticleSystem>(aps));
-	}
+	receiveDamage(damage, bonusDamageMultiplier);
 }
 
 #pragma endregion
