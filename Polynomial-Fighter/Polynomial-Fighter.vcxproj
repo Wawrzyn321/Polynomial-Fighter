@@ -171,7 +171,6 @@
     <ClInclude Include="FloatColor.h" />
     <ClInclude Include="GameData.h" />
     <ClInclude Include="IDamageable.h" />
-    <ClInclude Include="IMouseEventsListener.h" />
     <ClInclude Include="InputField.h" />
     <ClInclude Include="InputFieldParser.h" />
     <ClInclude Include="MunitionContainer.h" />

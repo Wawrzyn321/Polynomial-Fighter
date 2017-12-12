@@ -4,7 +4,7 @@
 #include "Debug.h"
 #include "StringSubprocessor.h"
 
-Request RequestHandler::passFurther(const std::string& input) const
+RequestValue RequestHandler::passFurther(const std::string& input) const
 {
 	if (succesor == nullptr)
 	{
@@ -21,7 +21,7 @@ RequestHandler::RequestHandler(RequestHandler* succesor)
 	this->succesor = succesor;
 }
 
-Request RequestHandler::handle(const std::string& input) const
+RequestValue RequestHandler::handle(const std::string& input) const
 {
 	if (canHandleRequest(input))
 	{
@@ -44,7 +44,7 @@ bool EmptyStringHandler::canHandleRequest(const std::string& input) const
 	return input.empty();
 }
 
-Request EmptyStringHandler::handleImplementation(const std::string& input) const
+RequestValue EmptyStringHandler::handleImplementation(const std::string& input) const
 {
 	return { {}, RH_Codes::EMPTY };
 }
@@ -58,7 +58,7 @@ bool SingleNumberStringHandler::canHandleRequest(const std::string& input) const
 		RequestSubprocessor::isNumber(input);
 }
 
-Request SingleNumberStringHandler::handleImplementation(const std::string& input) const
+RequestValue SingleNumberStringHandler::handleImplementation(const std::string& input) const
 {
 	try
 	{
@@ -94,7 +94,7 @@ bool LHSInequalityStringHandler::canHandleRequest(const std::string& input) cons
 		!RequestSubprocessor::hasInequalityCharacters(input.substr(1));
 }
 
-Request LHSInequalityStringHandler::handleImplementation(const std::string& input) const
+RequestValue LHSInequalityStringHandler::handleImplementation(const std::string& input) const
 {
 	try
 	{
@@ -148,7 +148,7 @@ bool RHSInequalityStringHandler::canHandleRequest(const std::string& input) cons
 		!RequestSubprocessor::hasInequalityCharacters(input.substr(0, input.size() - 1));
 }
 
-Request RHSInequalityStringHandler::handleImplementation(const std::string& input) const
+RequestValue RHSInequalityStringHandler::handleImplementation(const std::string& input) const
 {
 	try
 	{
@@ -200,7 +200,7 @@ bool ListStringHandler::canHandleRequest(const std::string& input) const
 		!RequestSubprocessor::hasInequalityCharacters(input);
 }
 
-Request ListStringHandler::handleImplementation(const std::string& input) const
+RequestValue ListStringHandler::handleImplementation(const std::string& input) const
 {
 	std::vector<int> v;
 	try
@@ -245,7 +245,7 @@ bool DivisorStringHandler::canHandleRequest(const std::string& input) const
 		!RequestSubprocessor::hasInequalityCharacters(input);
 }
 
-Request DivisorStringHandler::handleImplementation(const std::string& input) const
+RequestValue DivisorStringHandler::handleImplementation(const std::string& input) const
 {
 	try
 	{

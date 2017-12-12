@@ -18,7 +18,7 @@ namespace RH_Codes
 	//custom ones are also allowed
 }
 
-class Request
+class RequestValue
 {
 public:
 	std::vector<int> result;
