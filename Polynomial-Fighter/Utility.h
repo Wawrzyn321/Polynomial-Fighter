@@ -62,6 +62,11 @@ sf::Vector2<T> vectorNormalize(sf::Vector2<T> vec) {
 	return vec;
 }
 
+template <typename T1, typename T2>
+auto lerp(T1 from, T2 to, float amount) -> decltype(typeid(float)*(from + to)) {
+	return from + (to - from)*amount;
+}
+
 template <typename T, typename R>
 sf::Vector2<T> operator*(const sf::Vector2<T> &vec, R a) {
 	return sf::Vector2<T>((T)(vec.x*a), (T)(vec.y*a));
