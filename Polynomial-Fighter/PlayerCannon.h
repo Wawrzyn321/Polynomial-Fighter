@@ -2,7 +2,9 @@
 #define PLAYER_CANNON_H
 #include <vector>
 #include <SFML/System/Vector2.hpp>
-#include <set>
+#include "MunitionContainer.h"
+#include <memory>
+#include "Entity.h"
 
 struct DesignatedTarget
 {
@@ -17,7 +19,7 @@ struct DesignatedTarget
 
 
 class Player;
-class PlayerCannon
+class PlayerCannon : public sf::Drawable
 {
 	enum class CannonState
 	{
@@ -28,11 +30,12 @@ class PlayerCannon
 
 	std::vector<DesignatedTarget> targets;
 
-	int numberOfRounds = 9999;
     sf::Vector2f origin;
 	CannonState state;
 	DesignatedTarget currentTarget;
 	Player *playerReference;
+
+	std::shared_ptr<MunitionContainer> munitionGUI;
 
 	float reloadAccumulator;
 	float reloadTime;
@@ -42,18 +45,21 @@ class PlayerCannon
 	void getNextTarget();
 
 	void shoot();
+
+	void addAfterAppendText(int targetsAdded) const;
 public:
 	PlayerCannon(Player *playerReference);
-
-	void appendTargets(const std::vector<DesignatedTarget> &targets);
+	void appendTargets(const std::vector<int>& values, const std::vector<std::shared_ptr<Entity>> &enemies);
 
 	void onRotationFinished(float angle);
 
+	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+
 	void update(float deltaTime);
+
+	~PlayerCannon();
 private:
 	const float defaultReloadTime = 400.0f;
-	const int defaultNumberOfRounds = 5;
-
 };
 
 

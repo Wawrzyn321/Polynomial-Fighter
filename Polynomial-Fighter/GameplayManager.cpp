@@ -44,26 +44,11 @@ void GameplayManager::EnemyDestroyed(unsigned id)
 
 void GameplayManager::TextSubmitted(const std::string &text) const
 {
-	InputFieldParser p = InputFieldParser();
-	auto values = p.parse(text);
+	auto values = InputFieldParser::parse(text);
 
-	auto entities = EntityManager::instance()->findEntitiesByTag(GameData::TAG_ENEMY);
+	std::vector<std::shared_ptr<Entity>> entities = EntityManager::instance()->findEntitiesByTag(GameData::TAG_ENEMY);
 
-	std::vector<DesignatedTarget> targets;
-
-	for(auto e : entities)
-	{
-		for(auto v : values)
-		{
-			std::shared_ptr<Enemy> enemy = std::dynamic_pointer_cast<Enemy>(e);
-			assert(enemy);
-			if(enemy->canBeDamagedBy(v))
-			{
-				targets.push_back({enemy->getId(), v});
-			}
-		}
-	}
-	player->appendTargets(targets);
+	player->appendTargets(values, entities);
 }
 
 void GameplayManager::PlayerDestroyed(int i)

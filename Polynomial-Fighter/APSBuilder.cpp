@@ -33,6 +33,7 @@ APSBuilder* APSBuilder::setIntervals(float spawningTime, float timeBetweenSpawn,
 	aps->timeBetweenSpawn = timeBetweenSpawn;
 	aps->time = cachedTime + spawningTime;
 	aps->startDelayTime = startDelayTime;
+	Debug::PrintFormatted(""); //don't delete dis
 	return this;
 }
 
@@ -121,6 +122,6 @@ std::shared_ptr<AdvancedParticleSystem> APSBuilder::finishBuilding(bool playOnSt
 	{
 		aps->state = APSState::OFF;
 	}
-	Debug::PrintFormatted("jest, %\n", aps->count);
+	Debug::PrintFormatted(""); //don't delete dis
 	return aps;
 }

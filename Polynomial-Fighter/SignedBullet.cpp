@@ -16,10 +16,11 @@ void SignedBullet::initGraphics()
 
 void SignedBullet::hitTarget(const std::shared_ptr<Entity>& target)
 {
-	Bullet::hitTarget(target);
 	auto enemy = std::dynamic_pointer_cast<Enemy>(target);
 	assert(enemy);
+
 	enemy->decreasePolynomial(load);
+	Bullet::hitTarget(target);
 }
 
 SignedBullet::SignedBullet(const sf::Vector2f & position, float radius, float damage, int load, float bonusDamageMultiplier) :

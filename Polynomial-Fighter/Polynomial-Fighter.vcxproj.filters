@@ -117,6 +117,12 @@
     <ClCompile Include="StringSubprocessor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="FleetingText.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MunitionContainer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameData.h">
@@ -237,6 +243,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="StringSubprocessor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FleetingText.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MunitionContainer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

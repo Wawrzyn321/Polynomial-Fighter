@@ -5,6 +5,7 @@
 #include "EntityManager.h"
 #include "Player.h"
 #include <cassert>
+#include "FleetingText.h"
 
 void PlayerCannon::updateState()
 {
@@ -53,8 +54,31 @@ void PlayerCannon::shoot()
 
 	sb->setTarget(EntityManager::instance()->findEntityById(currentTarget.recipientID), 1);
 	EntityManager::instance()->addEntity(sb);
-	numberOfRounds--;
 	updateState();
+}
+
+void PlayerCannon::addAfterAppendText(int targetsAdded) const
+{
+	std::string caption;
+	sf::Color color;
+	if (targetsAdded == 0)
+	{
+		caption = "Miss";
+		color = sf::Color(255, 233, 233);
+	}
+	else if (targetsAdded == 1)
+	{
+		caption = "New target";
+		color = sf::Color(255, 233, 233);
+	}
+	else {
+		caption = std::to_string(targetsAdded) + " new targets";
+		color = sf::Color::White;
+	}
+
+	auto ft = std::make_shared<FleetingText>(caption, origin + sf::Vector2f(0, -20), color, 20);
+	ft->run(0.001f, { RandomGenerator::getFloat(-0.01f, 0.01f), -0.03f }, 0);
+	EntityManager::instance()->addEntity(ft);
 }
 
 PlayerCannon::PlayerCannon(Player *playerReference)
@@ -66,28 +90,58 @@ PlayerCannon::PlayerCannon(Player *playerReference)
 	reloadTime = defaultReloadTime;
 	currentTarget = DesignatedTarget();
 
-	numberOfRounds = defaultNumberOfRounds;
+	munitionGUI = std::make_shared<MunitionContainer>(sf::Vector2f(GameData::WINDOW_SIZE.x*0.03f, GameData::WINDOW_SIZE.y*0.03f),
+		sf::Vector2f(GameData::WINDOW_SIZE.x*0.3f, GameData::WINDOW_SIZE.y*0.08f ));
 }
 
-void PlayerCannon::appendTargets(const std::vector<DesignatedTarget>& targets)
+void PlayerCannon::appendTargets(const std::vector<int>& values, const std::vector<std::shared_ptr<Entity>> &enemies)
 {
-	//this->targets.insert(this->targets.end(), targets.begin(), targets.end());
-	for(auto &t : targets)
-	{
-		if (std::find(this->targets.begin(), this->targets.end(), t) == this->targets.end()) {
-			this->targets.push_back(t);
-		}
-	}
-	if (state == CannonState::IDLE) {
-		reloadAccumulator = reloadTime*2;
+	auto shuffledValues = values;
+	std::random_shuffle(shuffledValues.begin(), shuffledValues.end());
 
-		updateState();
+	int targetsAdded = 0;
+	int size = int(shuffledValues.size());
+	if (munitionGUI->canShoot(size)) {
+		munitionGUI->removeRounds(size);
+
+		std::vector<DesignatedTarget> targets;
+		for (auto e : enemies)
+		{
+			for (auto v : shuffledValues)
+			{
+				std::shared_ptr<Enemy> enemy = std::dynamic_pointer_cast<Enemy>(e);
+				assert(enemy);
+				if (enemy->canBeDamagedBy(v))
+				{
+					targetsAdded++;
+					targets.push_back({ enemy->getId(), v });
+				}
+			}
+		}
+
+		for (auto &t : targets)
+		{
+			if (std::find(this->targets.begin(), this->targets.end(), t) == this->targets.end()) {
+				this->targets.push_back(t);
+			}
+		}
+		if (state == CannonState::IDLE) {
+			reloadAccumulator = reloadTime * 2;
+
+			updateState();
+		}
+
+		addAfterAppendText(targetsAdded);
+	}
+	else
+	{
+		Debug::PrintFormatted("Za mao: chce %\n", size);
 	}
 }
 
 void PlayerCannon::onRotationFinished(float angle)
 {
-	if (numberOfRounds != 0 || true) {
+	if (munitionGUI->canShoot() != 0) {
 		state = CannonState::WAITING_FOR_RELOAD;
 		reloadAccumulator = 0;
 	}
@@ -97,8 +151,14 @@ void PlayerCannon::onRotationFinished(float angle)
 	}
 }
 
+void PlayerCannon::draw(sf::RenderTarget& target, sf::RenderStates states) const
+{
+	munitionGUI->draw(target, states);
+}
+
 void PlayerCannon::update(float deltaTime)
 {
+	munitionGUI->update(deltaTime);
 	if(state == CannonState::WAITING_FOR_AIM || state == CannonState::WAITING_FOR_RELOAD)
 	{
 		reloadAccumulator += deltaTime;
@@ -107,4 +167,9 @@ void PlayerCannon::update(float deltaTime)
 			shoot();
 		}
 	}
+}
+
+PlayerCannon::~PlayerCannon()
+{
+	munitionGUI.reset();
 }

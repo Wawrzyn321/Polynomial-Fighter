@@ -23,19 +23,21 @@ void AdvancedParticle::applyTransform(float deltaTime)
 
 void AdvancedParticle::applyColorChange(float deltaTime)
 {
-	currentColor = currentColor.lerpTo(endColor, colorChangingSpeed*deltaTime);
+	currentColor = currentColor.lerpTo(endColor, colorChangingSpeed*deltaTime, false);
 	//currentShape->setFillColor(currentColor.toColor());
 	circle.setFillColor(currentColor.toColor());
 }
 
 void AdvancedParticle::checkPulse()
 {
+	/*
 	if (abs(velocity.x) < minValues::minVelocity && abs(velocity.y) < minValues::minVelocity)
 	{
 		isAlive = false;
 		Debug::PrintFormatted("DEAD by speed");
 		parent->informOfDeath();
 	}
+	*/
 
 	/*if (abs(currentShape->getScale().x)<minValues::minScale &&
 		abs(currentShape->getScale().y)<minValues::minScale)*/
@@ -116,11 +118,10 @@ void AdvancedParticle::update(const Time::TimeData &timeData)
 {
 	if (isAlive) {
 		float deltaTime = std::abs(timeData.getScaledDeltaTimeInMili());
-		Debug::PrintFormatted("% % %\n", getPosition().x, getPosition().y, deltaTime);
 		applyTransform(deltaTime);
 		applyDrag(deltaTime);
 		applyColorChange(deltaTime);
-		checkPulse();
+		//checkPulse();
 	}
 }
 
