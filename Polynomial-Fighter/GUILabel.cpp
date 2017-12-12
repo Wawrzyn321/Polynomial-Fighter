@@ -3,11 +3,11 @@
 #include "SoundManager.h"
 
 bool GUILabel::mouseCollideText(const sf::Vector2i &pos) {
-	
-	return (pos.x >= text.getGlobalBounds().left
-		&& pos.x <= text.getGlobalBounds().left + text.getGlobalBounds().width
-		&& pos.y >= text.getGlobalBounds().top
-		&& pos.y <= text.getGlobalBounds().top + text.getGlobalBounds().height);
+	sf::FloatRect bounds = text.getGlobalBounds();
+	return pos.x >= bounds.left
+		&& pos.x <= bounds.left + bounds.width
+		&& pos.y >= bounds.top
+		&& pos.y <= bounds.top + bounds.height;
 }
 
 void GUILabel::playClick()

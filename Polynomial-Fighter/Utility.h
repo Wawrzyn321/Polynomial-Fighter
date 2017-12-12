@@ -8,7 +8,7 @@
 #include "Debug.h"
 #include "RandomGenerator.h"
 
-const float pi = 3.1415926535f;
+const float pi = 3.1415926535f; //TODO: V624 https://www.viva64.com/en/w/V624 The constant 3.1415926535f is being utilized. The resulting value could be inaccurate. Consider using the M_PI constant from <math.h>.
 
 unsigned intLenght(int number);
 

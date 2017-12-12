@@ -30,14 +30,14 @@ void AdvancedParticle::applyColorChange(float deltaTime)
 
 void AdvancedParticle::checkPulse()
 {
-	/*
+	
 	if (abs(velocity.x) < minValues::minVelocity && abs(velocity.y) < minValues::minVelocity)
 	{
 		isAlive = false;
 		Debug::PrintFormatted("DEAD by speed");
 		parent->informOfDeath();
 	}
-	*/
+	
 
 	/*if (abs(currentShape->getScale().x)<minValues::minScale &&
 		abs(currentShape->getScale().y)<minValues::minScale)*/

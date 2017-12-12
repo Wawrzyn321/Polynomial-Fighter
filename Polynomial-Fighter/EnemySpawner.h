@@ -17,10 +17,12 @@ class EnemySpawner
 	void spawnEnemy();
 
 	float calculateInterval() const;
+	
 public:
-	EnemySpawner() {}
 	Delegate<unsigned> OnEnemySpawn;
 	bool isActive;
+
+	EnemySpawner() {}
 
 	EnemySpawner(const sf::IntRect &bounds, GameplayManager *gameplayManager, unsigned difficultyLevel = 0);
 

@@ -49,7 +49,7 @@ public:
 
 	void receiveDamage(float damage, float bonusDamageMultiplier) override;
 
-	void receiveDamage(float damage, sf::Vector2f incoming, float bonusDamageMultiplier) override;
+	void receiveDamage(float damage, const sf::Vector2f incoming, float bonusDamageMultiplier) override;
 
 	Enemy(const Enemy &) = default;
 
