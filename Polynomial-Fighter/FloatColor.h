@@ -21,6 +21,14 @@ public:
 		w = static_cast<float>(color.a)*colorRangeReciproc;
 	}
 
+	FloatColor(const FloatColor &other)
+	{
+		x = other.x;
+		y = other.y;
+		z = other.z;
+		w = other.w;
+	}
+
 	sf::Color toColor() const
 	{
 		float r = x*colorRange;

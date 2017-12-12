@@ -19,7 +19,7 @@ AdvancedParticleSystem* AdvancedParticleSystem::finishBuilding()
 	}
 	particles.clear();
 	if (spawningTime <= 0) {
-		for (size_t i = 0; i < count; i++) {
+		for (int i = 0; i < count; i++) {
 			addParticle();
 		}
 		state = APSState::ONLY_UPDATING;
@@ -119,9 +119,9 @@ void AdvancedParticleSystem::handleWaitingForRevival(float deltaTime)
 void AdvancedParticleSystem::handleUpdatingParticles(const Time::TimeData &timeData)
 {
 	mainAccumulator += timeData.getScaledDeltaTimeInMili();
-	for (unsigned i = 0; i < particles.size(); i++)
+	for (auto &p : particles)
 	{
-		particles[i].update(timeData);
+		p.update(timeData);
 	}
 }
 
@@ -138,8 +138,8 @@ void AdvancedParticleSystem::handleSpawning(float deltaTime)
 
 	if (count <= particles.size())
 	{
-		Debug::PrintFormatted("AdvancedParticleSystem::handleSpawning wszystkie dodane\n");
-			mainAccumulator = 0;
+		Debug::PrintFormatted(""); //don't delete dis
+		mainAccumulator = 0;
 		spawningAccumulator = 0;
 		state = APSState::ONLY_UPDATING;
 	}
@@ -149,7 +149,6 @@ void AdvancedParticleSystem::handleSpawning(float deltaTime)
 
 void AdvancedParticleSystem::revive()
 {
-	Debug::PrintFormatted("Reveive\n");
 	state = APSState::SPAWNING;
 	finishBuilding();
 	for (AdvancedParticle &particle : particles)
@@ -161,7 +160,6 @@ void AdvancedParticleSystem::revive()
 
 void AdvancedParticleSystem::informOfDeath()
 {
-	Debug::PrintFormatted("% ", aliveParticlesCount);
 	aliveParticlesCount--;
 	if (aliveParticlesCount == 0 && state == APSState::ONLY_UPDATING)
 	{
@@ -200,7 +198,6 @@ void AdvancedParticleSystem::update(const Time::TimeData &timeData)
 
 void AdvancedParticleSystem::onDestroy()
 {
-	Debug::PrintFormatted("destr: %\n", count);
 	for (AdvancedParticle &particle : particles)
 	{
 		particle.onDestroy();
@@ -210,7 +207,6 @@ void AdvancedParticleSystem::onDestroy()
 void AdvancedParticleSystem::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	if (state != APSState::OFF) {
-		//Debug::PrintFormatted("% %\n", particles.size(), count);
 		for (unsigned int i = 0; i < particles.size(); i++)
 		{
 			particles[i].draw(target, states);

@@ -110,7 +110,7 @@ void Enemy::receiveDamage(float damage, float bonusDamageMultiplier)
 	cannon->resetAccumulator();
 }
 
-void Enemy::receiveDamage(float damage, sf::Vector2f incoming, float bonusDamageMultiplier)
+void Enemy::receiveDamage(float damage, const sf::Vector2f incoming, float bonusDamageMultiplier)
 {
 	if (pff.getDeg() != 0) {
 		auto aps = APSBuilder::startBuilding(getPosition())

@@ -104,7 +104,7 @@ void PlayerCannon::appendTargets(const std::vector<int>& values, const std::vect
 	if (munitionGUI->canShoot(size)) {
 		munitionGUI->removeRounds(size);
 
-		std::vector<DesignatedTarget> targets;
+		std::vector<DesignatedTarget> designatedTargets;
 		for (auto e : enemies)
 		{
 			for (auto v : shuffledValues)
@@ -114,15 +114,15 @@ void PlayerCannon::appendTargets(const std::vector<int>& values, const std::vect
 				if (enemy->canBeDamagedBy(v))
 				{
 					targetsAdded++;
-					targets.push_back({ enemy->getId(), v });
+					designatedTargets.push_back({ enemy->getId(), v });
 				}
 			}
 		}
 
-		for (auto &t : targets)
+		for (auto &t : designatedTargets)
 		{
-			if (std::find(this->targets.begin(), this->targets.end(), t) == this->targets.end()) {
-				this->targets.push_back(t);
+			if (std::find(targets.begin(), targets.end(), t) == targets.end()) {
+				targets.push_back(t);
 			}
 		}
 		if (state == CannonState::IDLE) {
