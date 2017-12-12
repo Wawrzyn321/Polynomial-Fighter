@@ -23,7 +23,6 @@ class Player : public Entity, public IDamageable
 	void initGraphics();
 
 	void updateRotation(float deltaTime);
-
 public:
 	Delegate<int> DeathEvent;
 	Delegate<float> FinishedRotatingEvent;
@@ -32,7 +31,7 @@ public:
 
 	void setTargetPosition(const sf::Vector2f& position);
 
-	void appendTargets(const std::vector<DesignatedTarget>& targets) const;
+	void appendTargets(const std::vector<int>& values, const std::vector<std::shared_ptr<Entity>> &enemies) const;
 
 	sf::Vector2f getPosition() const override;
 
