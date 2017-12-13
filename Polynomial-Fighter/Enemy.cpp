@@ -45,11 +45,12 @@ bool Enemy::canBeDamagedBy(int value) const
 	return pff.isRoot(value);
 }
 
-void Enemy::decreasePolynomial(int root)
+int Enemy::decreasePolynomial(int root)
 {
 	assert(pff.isRoot(root));
+	size_t degBefore = pff.getDeg();
 	pff.removeFactorsByRoot(root);
-
+	int difference = int(degBefore - pff.getDeg());
 	if (pff.getDeg() == 0) {
 		DeathEvent(id);
 		setToDelete(true);
@@ -58,6 +59,7 @@ void Enemy::decreasePolynomial(int root)
 		name = PolynomialMultipler::generalForm(pff).toString();
 		caption->rebuild(name);
 	}
+	return difference;
 }
 
 #pragma region ITransformable
@@ -117,7 +119,7 @@ void Enemy::receiveDamage(float damage, const sf::Vector2f incoming, float bonus
 			->setMainData(2000, 30)
 			->setIntervals(100, 50, 0)
 			->setColors(sf::Color::Red, 0.7f, sf::Color::White, 0.1f, 0.001f)
-			->setAsCircle(5, 6)
+			->setAsCircle(3* bonusDamageMultiplier, 6)
 			->setVelocity(0.2f * bonusDamageMultiplier, 0.1f, 0.999f)
 			->setScaling(0.999f)
 			->setGravity(true, -incoming*0.05f)

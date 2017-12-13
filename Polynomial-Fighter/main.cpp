@@ -1,10 +1,8 @@
 #include "Timer.h"
 #include "EntityManager.h"
-#include "Bullet.h"
 #include "Player.h"
 #include "AdvancedParticleSystem.h"
 #include "GameplayManager.h"
-#include "Enemy.h"
 #include "InputField.h"
 
 using namespace std;
@@ -60,15 +58,6 @@ int main()
 					t->setTimeScale(1);
 				}
 			}
-
-			/*if(event.type == sf::Event::MouseButtonPressed)
-			{
-				auto p = em->findEntityOfType<Player>();
-				p->setTargetPosition({
-					static_cast<float>(sf::Mouse::getPosition(window).x), 
-					static_cast<float>(sf::Mouse::getPosition(window).y)
-				});
-			}*/
 			inputField.feed(event);
 		}
 

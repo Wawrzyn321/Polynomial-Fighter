@@ -1,6 +1,6 @@
 #include "EnemyCannon.h"
 #include "Enemy.h"
-#include "Bullet.h"
+#include "SimpleBullet.h"
 #include "EntityManager.h"
 #include "Player.h"
 
@@ -9,7 +9,7 @@ void EnemyCannon::shoot()
 	auto player = EntityManager::instance()->findEntityOfType<Player>();
 
 	if (player) {
-		auto b = std::make_shared<Bullet>(enemyReference->getPosition(), bulletRadius, baseBulletDamage, bonusBulletDamage);
+		auto b = std::make_shared<SimpleBullet>(enemyReference->getPosition(), bulletRadius, baseBulletDamage, bonusBulletDamage);
 		b->setTarget(player, bulletSpeed);
 		EntityManager::instance()->addEntity(b);
 	}

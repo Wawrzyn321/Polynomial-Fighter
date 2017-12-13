@@ -37,7 +37,7 @@ public:
 
 	bool canBeDamagedBy(int value) const;
 
-	void decreasePolynomial(int root);
+	int decreasePolynomial(int root);
 
 	sf::Vector2f getPosition() const override;
 

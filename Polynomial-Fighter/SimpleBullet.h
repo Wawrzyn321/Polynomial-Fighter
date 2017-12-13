@@ -1,20 +1,20 @@
-#ifndef SIGNED_BULLET_H
-#define SIGNED_BULLET_H
-#include "Utility.h"
+#ifndef BULLET_H
+#define BULLET_H
+
+#include <SFML/Graphics.hpp>
+#include <memory>
 #include "BulletBase.h"
 
-class SignedBullet : public BulletBase {
-	int load;
-	sf::Text caption;
-	sf::Text symbol;
-	std::shared_ptr<sf::Font> font;
+class SimpleBullet : public BulletBase {
+	sf::CircleShape shape;
+	float damage;
+	float bonusDamageMultiplier;
 
 	void initGraphics();
 
 	void hitTarget(const std::shared_ptr<Entity>& target) override;
 public:
-	sf::IntRect bounds;
-	SignedBullet(const sf::Vector2f& position, float radius, int load);
+	SimpleBullet(const sf::Vector2f& position, float radius, float damage, float bonusDamageMultiplier = 1);
 
 	void setTarget(const std::shared_ptr<Entity>& recipient, float speed);
 
@@ -26,8 +26,7 @@ public:
 
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 private:
-	const float rotationSpeed = 0.7f;
-	const float defaultCollisionRadius = 10.0f;
+	const int pointCount = 16;
 };
 
 #endif
