@@ -33,17 +33,6 @@ void PlayerCannon::shoot()
 	targets.erase(targets.begin());
 	sf::Vector2f muzzlePoint = origin + graphics->computeMuzzleShift();
 
-	auto aps = APSBuilder::startBuilding(muzzlePoint)
-		->setMainData(1000, 30)
-		->setScaling(0.999f)
-		->setVelocity(0.3f, 0.3f, 0.99f)
-		->setIntervals(100, 50, 0)
-		->setAsCircle(3, 16)
-		->setDispersion(30, playerReference->getRotation()-90)
-		->setColors(sf::Color(255, 255, 193), 0.2f, sf::Color::Transparent, 0, 0.005f)
-		->finishBuilding(true);
-	EntityManager::instance()->addEntity(aps);
-
 	auto sb = std::make_shared<SignedBullet>(muzzlePoint, 1.0f, currentTarget.root);
 	sb->name = "Signed bullet with " +
 		std::to_string(currentTarget.root) + " for " +
@@ -54,7 +43,7 @@ void PlayerCannon::shoot()
 		Debug::PrintErrorFormatted("no to sie stac nie powinno %", currentTarget.recipientID);
 	}
 
-	graphics->setShoot();
+	graphics->setShoot(muzzlePoint, playerReference->getRotation());
 
 	sb->setTarget(EntityManager::instance()->findEntityById(currentTarget.recipientID), 0.5f);
 	EntityManager::instance()->addEntity(sb);

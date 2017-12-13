@@ -14,7 +14,7 @@ public:
 
 	sf::Vector2f computeMuzzleShift() const;
 
-	void setShoot();
+	void setShoot(const sf::Vector2f &position, float rotation);
 
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
@@ -24,7 +24,7 @@ public:
 
 private:
 	const unsigned fontSize = 28;
-	const float startingRotationAngleModifier = -20;
+	const float startingRotationAngleModifier = -25;
 	const float minAngleDifference = 1.2f;
 	const float rotationSpeed = 0.01f;
 };
