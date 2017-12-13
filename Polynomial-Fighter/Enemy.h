@@ -11,12 +11,14 @@
 class Player;
 class Enemy : public Entity, public IDamageable
 {
+public:
 	enum class State
 	{
 		CLOSING_IN,
 		ARRIVED,
+		STOPPED,
 	};
-
+private:
 	sf::RectangleShape shape;
 	sf::Vector2f velocity;
 	sf::Vector2f playerPosition;
@@ -38,6 +40,8 @@ public:
 	bool canBeDamagedBy(int value) const;
 
 	int decreasePolynomial(int root);
+
+	void setState(State state);
 
 	sf::Vector2f getPosition() const override;
 

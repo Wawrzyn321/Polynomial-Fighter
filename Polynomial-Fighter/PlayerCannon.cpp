@@ -31,18 +31,20 @@ void PlayerCannon::getNextTarget()
 void PlayerCannon::shoot()
 {
 	targets.erase(targets.begin());
-	/*AdvancedParticleSystem *aps = APSBuilder::startBuilding(origin)
-	->setMainData(1000, 30)
-	->setScaling(1.0f)
-	->setVelocity(1.0f, 0.3f, 0.99f)
-	->setIntervals(0, 0, 0)
-	->setAsCircle(15, 16)
-	->setDispersion(30, -angle)
-	->setColors(sf::Color(193, 193, 193), 0.2f, sf::Color::Transparent, 0, 10)
-	->finishBuilding(true);
-	EntityManager::instance()->addEntity(std::make_shared<AdvancedParticleSystem>(*aps));
-	delete aps;*/
-	auto sb = std::make_shared<SignedBullet>(origin, 1.0f, currentTarget.root);
+	sf::Vector2f muzzlePoint = origin + graphics->computeMuzzleShift();
+
+	auto aps = APSBuilder::startBuilding(muzzlePoint)
+		->setMainData(1000, 30)
+		->setScaling(0.999f)
+		->setVelocity(0.3f, 0.3f, 0.99f)
+		->setIntervals(100, 50, 0)
+		->setAsCircle(3, 16)
+		->setDispersion(30, playerReference->getRotation()-90)
+		->setColors(sf::Color(255, 255, 193), 0.2f, sf::Color::Transparent, 0, 0.005f)
+		->finishBuilding(true);
+	EntityManager::instance()->addEntity(aps);
+
+	auto sb = std::make_shared<SignedBullet>(muzzlePoint, 1.0f, currentTarget.root);
 	sb->name = "Signed bullet with " +
 		std::to_string(currentTarget.root) + " for " +
 		std::to_string(currentTarget.recipientID);
@@ -51,6 +53,8 @@ void PlayerCannon::shoot()
 	{
 		Debug::PrintErrorFormatted("no to sie stac nie powinno %", currentTarget.recipientID);
 	}
+
+	graphics->setShoot();
 
 	sb->setTarget(EntityManager::instance()->findEntityById(currentTarget.recipientID), 0.5f);
 	EntityManager::instance()->addEntity(sb);
@@ -81,17 +85,25 @@ void PlayerCannon::addAfterAppendText(int targetsAdded) const
 	EntityManager::instance()->addEntity(ft);
 }
 
-PlayerCannon::PlayerCannon(Player *playerReference)
+void PlayerCannon::initGraphics()
+{
+	munitionGUI = std::make_shared<MunitionContainer>(
+		sf::Vector2f(GameData::WINDOW_SIZE.x*0.03f, GameData::WINDOW_SIZE.y*0.03f),
+		sf::Vector2f(GameData::WINDOW_SIZE.x*0.3f, GameData::WINDOW_SIZE.y*0.08f));
+
+	graphics = std::make_shared<PlayerCannonGraphics>();
+}
+
+PlayerCannon::PlayerCannon(Player *playerReference, const sf::Vector2f &origin)
 {
 	this->playerReference = playerReference;
-	origin = playerReference->getPosition();
+	this->origin = origin;
 	state = CannonState::IDLE;
 	reloadAccumulator = 0;
 	reloadTime = defaultReloadTime;
 	currentTarget = DesignatedTarget();
 
-	munitionGUI = std::make_shared<MunitionContainer>(sf::Vector2f(GameData::WINDOW_SIZE.x*0.03f, GameData::WINDOW_SIZE.y*0.03f),
-		sf::Vector2f(GameData::WINDOW_SIZE.x*0.3f, GameData::WINDOW_SIZE.y*0.08f ));
+	initGraphics();
 }
 
 void PlayerCannon::appendTargets(const std::vector<int>& values, const std::vector<std::shared_ptr<Entity>> &enemies)
@@ -156,15 +168,26 @@ void PlayerCannon::onRotationFinished(float angle)
 	}
 }
 
+void PlayerCannon::setPosition(const sf::Vector2f &position) const
+{
+	graphics->setPosition(position);
+}
+
 void PlayerCannon::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	munitionGUI->draw(target, states);
+	if (playerReference->getAlive()) {
+		graphics->draw(target, states);
+	}
 }
 
 void PlayerCannon::update(float deltaTime)
 {
 	munitionGUI->update(deltaTime);
-	if(state == CannonState::WAITING_FOR_AIM || state == CannonState::WAITING_FOR_RELOAD)
+
+	graphics->update(deltaTime, playerReference->getRotation());
+
+	if (state == CannonState::WAITING_FOR_AIM || state == CannonState::WAITING_FOR_RELOAD)
 	{
 		reloadAccumulator += deltaTime;
 		if(reloadAccumulator>=reloadTime && state == CannonState::WAITING_FOR_RELOAD)

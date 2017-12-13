@@ -12,6 +12,8 @@ const float pi = 3.1415926535f; //TODO: V624 https://www.viva64.com/en/w/V624 Th
 
 unsigned intLenght(int number);
 
+std::string to_stringWithPrecision(float value, int p);
+
 float minAngleDifference(float from, float to);
 
 void centerTextOrigin(sf::Text &textShape);

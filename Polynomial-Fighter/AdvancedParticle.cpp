@@ -116,7 +116,9 @@ void AdvancedParticle::draw(sf::RenderTarget& target, sf::RenderStates states) c
 
 void AdvancedParticle::update(const Time::TimeData &timeData)
 {
+	Debug::PrintFormatted(""); //don't delete dis
 	if (isAlive) {
+		Debug::PrintFormatted(""); //don't delete dis
 		float deltaTime = std::abs(timeData.getScaledDeltaTimeInMili());
 		applyTransform(deltaTime);
 		applyDrag(deltaTime);

@@ -171,6 +171,7 @@ void AdvancedParticleSystem::informOfDeath()
 
 void AdvancedParticleSystem::update(const Time::TimeData &timeData)
 {
+	Debug::PrintFormatted(""); //don't delete dis
 	//nie switchem.
 	if(state == APSState::PRE_WAITING)
 	{
