@@ -122,7 +122,8 @@
     <ClCompile Include="AdvancedParticleSystem.cpp" />
     <ClCompile Include="APSBuilder.cpp" />
     <ClCompile Include="AssetManager.cpp" />
-    <ClCompile Include="Bullet.cpp" />
+    <ClCompile Include="BulletBase.cpp" />
+    <ClCompile Include="SimpleBullet.cpp" />
     <ClCompile Include="Debug.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyCannon.cpp" />
@@ -158,7 +159,8 @@
     <ClInclude Include="AdvancedParticleSystemData.h" />
     <ClInclude Include="APSBuilder.h" />
     <ClInclude Include="Asset Manager.h" />
-    <ClInclude Include="Bullet.h" />
+    <ClInclude Include="BulletBase.h" />
+    <ClInclude Include="SimpleBullet.h" />
     <ClInclude Include="Debug.h" />
     <ClInclude Include="Delegate.h" />
     <ClInclude Include="Enemy.h" />

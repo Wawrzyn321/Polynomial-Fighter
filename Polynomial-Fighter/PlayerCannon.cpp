@@ -24,13 +24,13 @@ void PlayerCannon::getNextTarget()
 	assert(!targets.empty());
 	state = CannonState::WAITING_FOR_AIM;
 	currentTarget = targets.front();
-	targets.erase(targets.begin());
 	sf::Vector2f pos = EntityManager::instance()->findEntityById(currentTarget.recipientID)->getPosition();
 	playerReference->setTargetPosition(pos);
 }
 
 void PlayerCannon::shoot()
 {
+	targets.erase(targets.begin());
 	/*AdvancedParticleSystem *aps = APSBuilder::startBuilding(origin)
 	->setMainData(1000, 30)
 	->setScaling(1.0f)
@@ -42,7 +42,7 @@ void PlayerCannon::shoot()
 	->finishBuilding(true);
 	EntityManager::instance()->addEntity(std::make_shared<AdvancedParticleSystem>(*aps));
 	delete aps;*/
-	auto sb = std::make_shared<SignedBullet>(origin, 5.0f, 1.0f, currentTarget.root);
+	auto sb = std::make_shared<SignedBullet>(origin, 1.0f, currentTarget.root);
 	sb->name = "Signed bullet with " +
 		std::to_string(currentTarget.root) + " for " +
 		std::to_string(currentTarget.recipientID);
@@ -52,7 +52,7 @@ void PlayerCannon::shoot()
 		Debug::PrintErrorFormatted("no to sie stac nie powinno %", currentTarget.recipientID);
 	}
 
-	sb->setTarget(EntityManager::instance()->findEntityById(currentTarget.recipientID), 1);
+	sb->setTarget(EntityManager::instance()->findEntityById(currentTarget.recipientID), 0.5f);
 	EntityManager::instance()->addEntity(sb);
 	updateState();
 }
@@ -121,7 +121,9 @@ void PlayerCannon::appendTargets(const std::vector<int>& values, const std::vect
 
 		for (auto &t : designatedTargets)
 		{
-			if (std::find(targets.begin(), targets.end(), t) == targets.end()) {
+			bool canAddNewTarget = std::find(targets.begin(), targets.end(), t) == targets.end();
+
+			if (canAddNewTarget) {
 				targets.push_back(t);
 			}
 		}
