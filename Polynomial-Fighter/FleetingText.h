@@ -30,7 +30,7 @@ public:
 
 	FleetingText(const std::string& caption, const sf::Vector2f& position, const sf::Color& color, unsigned fontSize);
 
-	void run(float fadingSpeed, const sf::Vector2f velocity, float waitTime, bool moveWhileWaiting = false);
+	void run(float fadingSpeed, const sf::Vector2f &velocity, float waitTime, bool moveWhileWaiting = false);
 
 	sf::Vector2f getPosition() const override;
 

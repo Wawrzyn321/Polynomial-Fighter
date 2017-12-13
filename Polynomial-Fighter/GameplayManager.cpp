@@ -54,6 +54,14 @@ void GameplayManager::TextSubmitted(const std::string &text) const
 void GameplayManager::PlayerDestroyed()
 {
 	spawner.isActive = false;
+
+	std::vector<std::shared_ptr<Entity>> entities = EntityManager::instance()->findEntitiesByTag(GameData::TAG_ENEMY);
+	for(auto &e : entities)
+	{
+		auto enemy = std::dynamic_pointer_cast<Enemy>(entities.back());
+		assert(enemy);
+		enemy->setState(Enemy::State::STOPPED);
+	}
 }
 
 void GameplayManager::initSpawner()

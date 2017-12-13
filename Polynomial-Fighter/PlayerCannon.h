@@ -1,22 +1,11 @@
 #ifndef PLAYER_CANNON_H
 #define PLAYER_CANNON_H
 #include <vector>
-#include <SFML/System/Vector2.hpp>
-#include "MunitionContainer.h"
 #include <memory>
+#include "PlayerCannonGraphics.h"
+#include "MunitionContainer.h"
 #include "Entity.h"
-
-struct DesignatedTarget
-{
-	unsigned recipientID;
-	int root;
-
-	bool operator==(const DesignatedTarget &other) const
-	{
-		return other.recipientID == recipientID && other.root == root;
-	}
-};
-
+#include "DesignatedTarget.h"
 
 class Player;
 class PlayerCannon : public sf::Drawable
@@ -29,13 +18,13 @@ class PlayerCannon : public sf::Drawable
 	};
 
 	std::vector<DesignatedTarget> targets;
-
     sf::Vector2f origin;
 	CannonState state;
 	DesignatedTarget currentTarget;
 	Player *playerReference;
 
 	std::shared_ptr<MunitionContainer> munitionGUI;
+	std::shared_ptr<PlayerCannonGraphics> graphics;
 
 	float reloadAccumulator;
 	float reloadTime;
@@ -47,11 +36,18 @@ class PlayerCannon : public sf::Drawable
 	void shoot();
 
 	void addAfterAppendText(int targetsAdded) const;
+
+	void initGraphics();
+
 public:
-	PlayerCannon(Player *playerReference);
+	PlayerCannon(){}
+	PlayerCannon(Player *playerReference, const sf::Vector2f &origin);
+
 	void appendTargets(const std::vector<int>& values, const std::vector<std::shared_ptr<Entity>> &enemies);
 
 	void onRotationFinished(float angle);
+
+	void setPosition(const sf::Vector2f& position) const;
 
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 

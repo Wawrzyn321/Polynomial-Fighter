@@ -15,8 +15,8 @@ void SignedBullet::initGraphics()
 	caption = sf::Text(captionText, *font, captionFontSize);
 	centerTextOrigin(caption);
 
-	std::string tst[] = { "+", "-", "/", "*" };
-	std::string symbolText = tst[RandomGenerator::getInt(0, 3)];
+	std::string symbols[] = { "+", "-", "/", "*" };
+	std::string symbolText = symbols[RandomGenerator::getInt(0, 3)];
 	symbol = sf::Text(symbolText, *font, symbolFontSize);
 	centerTextOrigin(symbol);
 }
@@ -27,7 +27,7 @@ void SignedBullet::hitTarget(const std::shared_ptr<Entity>& target)
 	assert(enemy);	
 
 	int rootsRemovedCount = enemy->decreasePolynomial(load);
-	enemy->receiveDamage(1, vectorNormalize(velocity), rootsRemovedCount);
+	enemy->receiveDamage(1.0f, vectorNormalize(velocity), static_cast<float>(rootsRemovedCount));
 }
 
 SignedBullet::SignedBullet(const sf::Vector2f & position, float radius, int load)
@@ -38,7 +38,6 @@ SignedBullet::SignedBullet(const sf::Vector2f & position, float radius, int load
 	recipientID = -1;
 
 	name = "SignedBullet";
-	tag = GameData::TAG_BULLET;
 	bounds = GameData::DEFAULT_BOUNDS;
 	tag = GameData::TAG_SIGNED_BULLET;
 

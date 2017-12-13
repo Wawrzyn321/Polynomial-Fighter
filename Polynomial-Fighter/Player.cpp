@@ -6,8 +6,9 @@
 
 void Player::initGraphics()
 {
-	shape = sf::RectangleShape({ 30, 15 });
-	shape.setOrigin(15, 15 * 0.5f);
+	font = AssetManager::instance()->getDefaultFont();
+	shape = sf::Text("(x)", *font, fontSize);
+	centerTextOrigin(shape);
 
 	healthGUI = std::make_unique<PlayerHealthGUI>(
 		PlayerHealthGUI(
@@ -25,9 +26,9 @@ void Player::updateRotation(float deltaTime)
 	{
 		rotateTowards(shape, targetRotation, deltaTime*speed);
 	}
-	else if (!rotationEventInvoked2)
+	else if (!rotationEventInvoked)
 	{
-		rotationEventInvoked2 = true;
+		rotationEventInvoked = true;
 		shape.setRotation(targetRotation);
 		FinishedRotatingEvent(targetRotation);
 	}
@@ -43,18 +44,18 @@ Player::Player(const sf::Vector2f& position)
 	isAlive = true;
 
 	initGraphics();
-	this->Player::setPosition(position);
-	cannon = std::make_unique<PlayerCannon>(PlayerCannon(this));
-	rotationEventInvoked2 = true;
+	cannon = std::make_unique<PlayerCannon>(PlayerCannon(this, position));
+	rotationEventInvoked = true;
     FinishedRotatingEvent.add(std::bind(&PlayerCannon::onRotationFinished, cannon.get(), std::placeholders::_1));
+	this->Player::setPosition(position);
 }
 
 void Player::setTargetPosition(const sf::Vector2f& position)
 {
-	rotationEventInvoked2 = false;
+	rotationEventInvoked = false;
 	auto diff = position - getPosition();
 	if (position.x != getPosition().x && position.y != getPosition().y) {
-		targetRotation = atan2(diff.y, diff.x)*180.0f / pi;
+		targetRotation = atan2(diff.y, diff.x)*180.0f / pi + 90.0f;
 	}
 }
 
@@ -68,6 +69,11 @@ bool Player::getAlive() const
 	return isAlive;
 }
 
+float Player::getRotation() const
+{
+	return shape.getRotation();
+}
+
 #pragma region ITransformable
 
 sf::Vector2f Player::getPosition() const
@@ -78,6 +84,7 @@ sf::Vector2f Player::getPosition() const
 void Player::setPosition(const sf::Vector2f &position)
 {
 	shape.setPosition(position);
+	cannon->setPosition(position);
 }
 
 #pragma endregion

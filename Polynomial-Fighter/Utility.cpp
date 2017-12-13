@@ -1,4 +1,6 @@
 #include "Utility.h"
+#include <iomanip>
+#include <sstream>
 
 unsigned intLenght(int number) {
 	unsigned int l = 0;
@@ -14,6 +16,13 @@ unsigned intLenght(int number) {
 	}
 
 	return l;
+}
+
+std::string to_stringWithPrecision(float value, int p)
+{
+	std::stringstream stream;
+	stream << std::fixed << std::setprecision(p) << value;
+	return stream.str();
 }
 
 float minAngleDifference(float from, float to) {

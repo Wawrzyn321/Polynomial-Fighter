@@ -62,6 +62,11 @@ int Enemy::decreasePolynomial(int root)
 	return difference;
 }
 
+void Enemy::setState(State state)
+{
+	this->state = state;
+}
+
 #pragma region ITransformable
 
 void Enemy::setPosition(const sf::Vector2f& position)
@@ -97,7 +102,7 @@ void Enemy::update(const Time::TimeData &timeData)
 			cannon->resetAccumulator();
 		}
 	}
-	else
+	else if (state == State::ARRIVED)
 	{
 		cannon->update(timeData.getScaledDeltaTimeInMili());
 	}

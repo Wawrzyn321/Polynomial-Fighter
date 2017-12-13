@@ -13,6 +13,11 @@ void PlayerHealthGUI::initGraphics(const sf::Vector2f &position, const sf::Vecto
 	healthBar.setFillColor(color_healthBar);
 	healthBar.setOrigin(0, healthBar.getSize().y*0.5f);
 	healthBar.setPosition(position + sf::Vector2f(size.y*0.1f, size.y*0.5f));
+
+	font = AssetManager::instance()->getDefaultFont();
+	text = sf::Text("10.0/10.0", *font, unsigned(size.y*0.6f));
+	centerTextOrigin(text);
+	text.setPosition(position + sf::Vector2f(size.x*0.5f, size.y*0.333f));
 }
 
 PlayerHealthGUI::PlayerHealthGUI(const sf::Vector2f &position, const sf::Vector2f &size, float maxHealth)
@@ -30,10 +35,13 @@ void PlayerHealthGUI::updateHealthGraphics(float deltaTime)
 
 	float scale = lerp(healthBar.getScale().x, health / maxHealth, deltaTime*updatingSpeed);
 	healthBar.setScale(scale, 1);
+
+	text.setString(to_stringWithPrecision(health, 1) + "/" + to_stringWithPrecision(maxHealth, 1));
 }
 
 void PlayerHealthGUI::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	target.draw(backgroundRectangle, states);
 	target.draw(healthBar, states);
+	target.draw(text, states);
 }

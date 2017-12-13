@@ -29,7 +29,7 @@ FleetingText::FleetingText(const std::string& caption, const sf::Vector2f& posit
 	currentColor = color;
 }
 
-void FleetingText::run(float fadingSpeed, const sf::Vector2f velocity, float waitTime, bool moveWhileWaiting)
+void FleetingText::run(float fadingSpeed, const sf::Vector2f &velocity, float waitTime, bool moveWhileWaiting)
 {
 	this->fadingSpeed = fadingSpeed;
 	this->velocity = velocity;

@@ -4,6 +4,8 @@
 #include <string>
 #include "GameData.h"
 #include "Debug.h"
+#include "FleetingText.h"
+#include "EntityManager.h"
 
 void InputField::initGraphics()
 {
@@ -70,6 +72,13 @@ void InputField::feed(const sf::Event event)
 		else if (c == '\r') {
 			if (!currentText.empty())
 			{
+				if (currentText == "<3")
+				{
+					auto ft = std::make_shared<FleetingText>("I love you too...",
+						position+sf::Vector2f(size.x*0.5f, 0), sf::Color(255, 15, 15), 30);
+					ft->run(0.0009f, { 0, -0.04f }, 0);
+					EntityManager::instance()->addEntity(ft);
+				}
 				OnTextSubmitted.invoke(text.getString());
 				clear();
 			}

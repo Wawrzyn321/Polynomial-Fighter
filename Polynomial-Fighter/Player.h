@@ -6,11 +6,12 @@
 #include "Delegate.h"
 #include "PlayerHealthGUI.h"
 #include "PlayerCannon.h"
-#include "Debug.h"
 
 class Player : public Entity, public IDamageable
 {
-	sf::RectangleShape shape;
+	sf::Text shape;
+	std::shared_ptr<sf::Font> font;
+
 	float health;
 	float maxHealth;
 	bool isAlive;
@@ -19,7 +20,7 @@ class Player : public Entity, public IDamageable
 	std::unique_ptr<PlayerCannon> cannon;
 
 	float targetRotation = 0;
-	bool rotationEventInvoked2;
+	bool rotationEventInvoked;
 
 	void initGraphics();
 
@@ -35,6 +36,8 @@ public:
 	void appendTargets(const std::vector<int>& values, const std::vector<std::shared_ptr<Entity>> &enemies) const;
 
 	bool getAlive() const;
+
+	float getRotation() const;
 
 	sf::Vector2f getPosition() const override;
 
@@ -52,6 +55,7 @@ public:
 private:
 	const float startingHealth = 10.0f;
 	const float playerCollisionRadius = 10.0f;
+	const unsigned fontSize = 24;
 };
 
 #endif
