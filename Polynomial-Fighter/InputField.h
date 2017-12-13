@@ -28,6 +28,8 @@ public:
 
 	void feed(sf::Event event);
 
+	void disable();
+
 	void clear();
 
 	void setText(const std::string &text);

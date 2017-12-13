@@ -40,6 +40,7 @@ Player::Player(const sf::Vector2f& position)
 	health = startingHealth;
 	maxHealth = startingHealth;
 	collisionRadius = playerCollisionRadius;
+	isAlive = true;
 
 	initGraphics();
 	this->Player::setPosition(position);
@@ -62,6 +63,11 @@ void Player::appendTargets(const std::vector<int>& values, const std::vector<std
 	cannon->appendTargets(values, enemies);
 }
 
+bool Player::getAlive() const
+{
+	return isAlive;
+}
+
 #pragma region ITransformable
 
 sf::Vector2f Player::getPosition() const
@@ -81,14 +87,18 @@ void Player::setPosition(const sf::Vector2f &position)
 void Player::update(const Time::TimeData &timeData)
 {
 	float deltaTime = timeData.getScaledDeltaTimeInMili();
-	cannon->update(deltaTime);
 	healthGUI->updateHealthGraphics(deltaTime);
-	updateRotation(deltaTime);
+	if (isAlive) {
+		updateRotation(deltaTime);
+		cannon->update(deltaTime);
+	}
 }
 
 void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-	target.draw(shape, states);
+	if (isAlive) {
+		target.draw(shape, states);
+	}
 	target.draw(*healthGUI, states);
 	target.draw(*cannon, states);
 }
@@ -103,10 +113,9 @@ void Player::receiveDamage(float damage, float bonusDamageMultiplier)
 	healthGUI->health = health;
 	if (health == 0)
 	{
-		DeathEvent.invoke(0);
-		setEnabled(false);
+		DeathEvent.invoke();
+		isAlive = false;
 		collisionsEnabled = false;
-		setToDelete(true);
 		auto aps = APSBuilder::startBuilding(getPosition())
 			->setMainData(5000, 100)
 			->setIntervals(100, 50, 0)

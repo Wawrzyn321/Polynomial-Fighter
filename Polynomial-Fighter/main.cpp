@@ -29,6 +29,7 @@ int main()
 	{ GameData::WINDOW_SIZE.x*0.3f, GameData::WINDOW_SIZE.y*0.08f }
 	);
 	inputField.OnTextSubmitted.add(std::bind(&GameplayManager::TextSubmitted, &gameplayManager, std::placeholders::_1));
+	em->findEntityOfType<Player>()->DeathEvent.add(std::bind(&InputField::disable, &inputField));
 
 	sf::RenderWindow window(sf::VideoMode(GameData::WINDOW_SIZE.x, GameData::WINDOW_SIZE.y), "pf");
 	while (window.isOpen())

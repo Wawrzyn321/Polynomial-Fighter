@@ -8,7 +8,7 @@ void EnemyCannon::shoot()
 {
 	auto player = EntityManager::instance()->findEntityOfType<Player>();
 
-	if (player) {
+	if (player && player->getAlive()) {
 		auto b = std::make_shared<SimpleBullet>(enemyReference->getPosition(), bulletRadius, baseBulletDamage, bonusBulletDamage);
 		b->setTarget(player, bulletSpeed);
 		EntityManager::instance()->addEntity(b);
