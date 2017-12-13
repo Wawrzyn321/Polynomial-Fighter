@@ -13,6 +13,7 @@ class Player : public Entity, public IDamageable
 	sf::RectangleShape shape;
 	float health;
 	float maxHealth;
+	bool isAlive;
 
 	std::unique_ptr<PlayerHealthGUI> healthGUI;
 	std::unique_ptr<PlayerCannon> cannon;
@@ -24,7 +25,7 @@ class Player : public Entity, public IDamageable
 
 	void updateRotation(float deltaTime);
 public:
-	Delegate<int> DeathEvent;
+	Action DeathEvent;
 	Delegate<float> FinishedRotatingEvent;
 
 	Player(const sf::Vector2f &position);
@@ -32,6 +33,8 @@ public:
 	void setTargetPosition(const sf::Vector2f& position);
 
 	void appendTargets(const std::vector<int>& values, const std::vector<std::shared_ptr<Entity>> &enemies) const;
+
+	bool getAlive() const;
 
 	sf::Vector2f getPosition() const override;
 

@@ -17,7 +17,10 @@ public:
 	void EnemySpawned(unsigned id);
 	void EnemyDestroyed(unsigned id);
 	void TextSubmitted(const std::string &text) const;
-	void PlayerDestroyed(int i);
+	void PlayerDestroyed();
+
+	void initSpawner();
+	void initPlayer();
 
 	GameplayManager();
 

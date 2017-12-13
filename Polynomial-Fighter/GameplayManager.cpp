@@ -51,9 +51,23 @@ void GameplayManager::TextSubmitted(const std::string &text) const
 	player->appendTargets(values, entities);
 }
 
-void GameplayManager::PlayerDestroyed(int i)
+void GameplayManager::PlayerDestroyed()
 {
 	spawner.isActive = false;
+}
+
+void GameplayManager::initSpawner()
+{
+	spawner = EnemySpawner(GameData::DEFAULT_BOUNDS, this, difficultyLevel);
+	spawner.findPlayer();
+	spawner.OnEnemySpawn.add(std::bind(&GameplayManager::EnemySpawned, this, std::placeholders::_1));
+	spawner.isActive = true;
+}
+
+void GameplayManager::initPlayer(){
+	player = std::make_shared<Player>(sf::Vector2f(GameData::WINDOW_SIZE.x*0.5f, GameData::WINDOW_SIZE.y*0.5f));
+	player->DeathEvent.add(std::bind(&GameplayManager::PlayerDestroyed, this));
+	EntityManager::instance()->addEntity(player, true);
 }
 
 GameplayManager::GameplayManager()
@@ -63,14 +77,9 @@ GameplayManager::GameplayManager()
 	targetEnemiesNumber = (difficultyLevel + 1) * 3;
 	alreadySpawnedEnemies = 0;
 
-	player = std::make_shared<Player>(sf::Vector2f(GameData::WINDOW_SIZE.x*0.5f, GameData::WINDOW_SIZE.y*0.5f));
-	player->DeathEvent.add(std::bind(&GameplayManager::PlayerDestroyed, this, std::placeholders::_1));
-	EntityManager::instance()->addEntity(player, true);
+	initPlayer();
 
-	spawner = EnemySpawner(GameData::DEFAULT_BOUNDS, this, difficultyLevel);
-	spawner.findPlayer();
-	spawner.OnEnemySpawn.add(std::bind(&GameplayManager::EnemySpawned, this, std::placeholders::_1));
-	spawner.isActive = true;
+	initSpawner();
 }
 
 void GameplayManager::update(const Time::TimeData &timeData)

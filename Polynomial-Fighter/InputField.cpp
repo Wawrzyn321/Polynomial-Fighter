@@ -89,6 +89,11 @@ void InputField::feed(const sf::Event event)
 	}
 }
 
+void InputField::disable()
+{
+	interactable = false;
+}
+
 void InputField::clear()
 {
 	text.setString("");
