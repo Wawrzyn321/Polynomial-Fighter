@@ -36,7 +36,7 @@ void GameplayManager::EnemyDestroyed(unsigned id)
 {
 	alreadySpawnedEnemies--;
 	points += 100;
-	if(alreadySpawnedEnemies == 0)
+	if (alreadySpawnedEnemies == 0)
 	{
 		startNextLevel();
 	}

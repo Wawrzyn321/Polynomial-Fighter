@@ -44,6 +44,12 @@ T lerp(T from, T to, float amount) {
 	return from+(to - from)*amount;
 }
 
+template <typename T, typename P, typename R>
+auto clamp(T value, P min, R max) -> decltype(value*min*max)
+{
+	return value<min ? min : value>max ? max : value;
+}
+
 template <typename T>
 T clamp(T value, T min, T max)
 {
