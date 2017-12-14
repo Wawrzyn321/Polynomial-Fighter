@@ -3,6 +3,7 @@
 #include "Utility.h"
 #include "EntityManager.h"
 #include "APSBuilder.h"
+#include "ParticleMaster.h"
 
 void Player::initGraphics()
 {
@@ -123,15 +124,7 @@ void Player::receiveDamage(float damage, float bonusDamageMultiplier)
 		DeathEvent.invoke();
 		isAlive = false;
 		collisionsEnabled = false;
-		auto aps = APSBuilder::startBuilding(getPosition())
-			->setMainData(5000, 100)
-			->setIntervals(100, 50, 0)
-			->setColors(sf::Color::Red, 0.1f, sf::Color::White, 0.0f, 0.001f)
-			->setAsCircle(5, 6)
-			->setVelocity(0.5f * bonusDamageMultiplier, 0.1f, 0.995f)
-			->setScaling(0.999f)
-			->finishBuilding();
-		EntityManager::instance()->addEntity(std::shared_ptr<AdvancedParticleSystem>(aps));
+		ParticleMaster::addPlayerDestroyedParticles(getPosition(), bonusDamageMultiplier);
 	}
 }
 
@@ -139,16 +132,7 @@ void Player::receiveDamage(float damage, const sf::Vector2f incoming, float bonu
 {
 	bool wasDestroyed = (health - damage*bonusDamageMultiplier) <= 0;
 	if (!wasDestroyed) {
-		auto aps = APSBuilder::startBuilding(getPosition())
-			->setMainData(2000, 15)
-			->setIntervals(100, 0, 0)
-			->setColors(sf::Color::Red, 0.3f, sf::Color::White, 0.1f, 0.001f)
-			->setAsCircle(4, 6)
-			->setVelocity(0.4f * bonusDamageMultiplier, 0.1f, 0.999f)
-			->setScaling(0.999f)
-			->setDispersion(40 / bonusDamageMultiplier, incoming)
-			->finishBuilding();
-		EntityManager::instance()->addEntity(std::shared_ptr<AdvancedParticleSystem>(aps));
+		ParticleMaster::addPlayerHitParticles(getPosition(), incoming, bonusDamageMultiplier);
 	}
 	receiveDamage(damage, bonusDamageMultiplier);
 }

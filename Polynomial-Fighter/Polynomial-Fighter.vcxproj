@@ -123,6 +123,7 @@
     <ClCompile Include="APSBuilder.cpp" />
     <ClCompile Include="AssetManager.cpp" />
     <ClCompile Include="BulletBase.cpp" />
+    <ClCompile Include="ParticleMaster.cpp" />
     <ClCompile Include="PlayerCannonGraphics.cpp" />
     <ClCompile Include="SimpleBullet.cpp" />
     <ClCompile Include="Debug.cpp" />
@@ -162,6 +163,7 @@
     <ClInclude Include="Asset Manager.h" />
     <ClInclude Include="BulletBase.h" />
     <ClInclude Include="DesignatedTarget.h" />
+    <ClInclude Include="ParticleMaster.h" />
     <ClInclude Include="PlayerCannonGraphics.h" />
     <ClInclude Include="SimpleBullet.h" />
     <ClInclude Include="Debug.h" />

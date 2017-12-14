@@ -4,6 +4,9 @@
 #include "APSBuilder.h"
 #include "EntityManager.h"
 #include "EnemyCannon.h"
+#include "ParticleMaster.h"
+
+class ParticleMaster;
 
 void Enemy::initComponents(const std::string &captionText, float angle)
 {
@@ -120,30 +123,12 @@ void Enemy::receiveDamage(float damage, float bonusDamageMultiplier)
 void Enemy::receiveDamage(float damage, const sf::Vector2f incoming, float bonusDamageMultiplier)
 {
 	if (pff.getDeg() != 0) {
-		auto aps = APSBuilder::startBuilding(getPosition())
-			->setMainData(2000, 30)
-			->setIntervals(100, 50, 0)
-			->setColors(sf::Color::Red, 0.7f, sf::Color::White, 0.1f, 0.001f)
-			->setAsCircle(3* bonusDamageMultiplier, 6)
-			->setVelocity(0.2f * bonusDamageMultiplier, 0.1f, 0.999f)
-			->setScaling(0.999f)
-			->setGravity(true, -incoming*0.05f)
-			->setDispersion(80 / bonusDamageMultiplier, incoming)
-			->finishBuilding();
-		EntityManager::instance()->addEntity(std::shared_ptr<AdvancedParticleSystem>(aps));
+		ParticleMaster::addEnemyHitParticles(getPosition(), incoming, bonusDamageMultiplier);
 		cannon->resetAccumulator();
 	}
 	else
 	{
-		auto aps = APSBuilder::startBuilding(getPosition())
-			->setMainData(4000, 50)
-			->setIntervals(100, 50, 0)
-			->setColors(sf::Color::Red, 0.1f, sf::Color::White, 0.1f, 0.002f)
-			->setAsCircle(10, 12)
-			->setVelocity(0.15f*bonusDamageMultiplier, 0.1f, 0.999f)
-			->setScaling(0.997f)
-			->finishBuilding();
-		EntityManager::instance()->addEntity(std::shared_ptr<AdvancedParticleSystem>(aps));
+		ParticleMaster::addEnemyDestroyedParticles(getPosition(), bonusDamageMultiplier);
 	}
 }
 

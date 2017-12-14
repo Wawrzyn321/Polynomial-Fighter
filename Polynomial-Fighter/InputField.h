@@ -17,16 +17,18 @@ class InputField : public sf::Drawable
 	std::shared_ptr<sf::Font> font;
 
 	void initGraphics();
+
 	static bool isInputCharacterValid(char c);
+
 	void updateCursorPosition();
 
 	const int characterLimit = 11;
 public:
 	Delegate<const std::string&> OnTextSubmitted;
 	bool interactable;
-	InputField(sf::Vector2f position, sf::Vector2f size);
+	InputField(const sf::Vector2f &position, const sf::Vector2f &size);
 
-	void feed(sf::Event event);
+	void feed(const sf::Event &event);
 
 	void disable();
 

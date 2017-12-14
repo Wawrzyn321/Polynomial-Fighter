@@ -43,7 +43,7 @@ void InputField::updateCursorPosition()
 	cursor.setPosition(text.getPosition().x + text.getGlobalBounds().width, text.getPosition().y + size.y*0.64f);
 }
 
-InputField::InputField(sf::Vector2f position, sf::Vector2f size)
+InputField::InputField(const sf::Vector2f &position, const sf::Vector2f &size)
 {
 	this->size = size;
 	this->position = position;
@@ -53,7 +53,7 @@ InputField::InputField(sf::Vector2f position, sf::Vector2f size)
 	interactable = true;
 }
 
-void InputField::feed(const sf::Event event)
+void InputField::feed(const sf::Event &event)
 {
 	if (!interactable) return;
 

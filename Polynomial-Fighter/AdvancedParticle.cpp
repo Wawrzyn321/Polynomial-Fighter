@@ -123,7 +123,7 @@ void AdvancedParticle::update(const Time::TimeData &timeData)
 		applyTransform(deltaTime);
 		applyDrag(deltaTime);
 		applyColorChange(deltaTime);
-		//checkPulse();
+		checkPulse();
 	}
 }
 
