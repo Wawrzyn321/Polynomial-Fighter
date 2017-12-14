@@ -2,6 +2,7 @@
 #include "Utility.h"
 #include "EntityManager.h"
 #include "APSBuilder.h"
+#include "ParticleMaster.h"
 
 PlayerCannonGraphics::PlayerCannonGraphics()
 {
@@ -27,27 +28,8 @@ sf::Vector2f PlayerCannonGraphics::computeMuzzleShift() const
 
 void PlayerCannonGraphics::setShoot(const sf::Vector2f &position, float rotation)
 {
-	auto aps = APSBuilder::startBuilding(position)
-		->setMainData(1000, 30)
-		->setScaling(0.999f)
-		->setVelocity(0.3f, 0.3f, 0.99f)
-		->setIntervals(100, 50, 0)
-		->setAsCircle(3, 16)
-		->setDispersion(30, rotation - 90)
-		->setColors(sf::Color(255, 255, 193), 0.2f, sf::Color::Transparent, 0, 0.005f)
-		->finishBuilding(true);
-	/*
-		->setMainData(1000, 30)
-		->setScaling(0.999f)
-		->setVelocity(0.3f, 0.9f, 0.99f)
-		->setIntervals(100, 50, 0)
-		->setAsCircle(3, 16)
-		->setDispersion(30, rotation - 90)
-		->setColors(sf::Color(255, 255, 193), 0.2f, sf::Color::Transparent, 0.1f, 0.005f)
-		->finishBuilding(true);
-	*/
-	EntityManager::instance()->addEntity(aps);
-
+	ParticleMaster::addPlayerShootParticles(position, rotation);
+	
 	rotationAngleModifier = startingRotationAngleModifier;
 }
 
