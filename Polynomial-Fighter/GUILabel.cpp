@@ -20,7 +20,7 @@ GUILabel::GUILabel(sf::Vector2f position, int fontSize, std::string caption, std
 	action = function;
 
 	auto am = AssetManager::instance();
-	auto font = am->getFont(GameData::PATH_TO_RESOURCES + GameData::PATH_TO_FONTS + GameData::FONT_REGULAR);
+	auto font = am->getDefaultFont();
 
 	text = sf::Text(caption, *font, fontSize);
 	text.setFillColor(color_text_normal);
@@ -42,26 +42,3 @@ void GUILabel::draw(sf::RenderTarget & target, sf::RenderStates states) const
 {
 	target.draw(text, states);
 }
-
-#pragma region IMouseEventsListener implementation
-
-void GUILabel::onMouseClick(sf::Vector2i mousePosition) {
-	if (action != nullptr) {
-		if (mouseCollideText(mousePosition)) {
-			playClick();
-			action();
-		}
-	}
-}
-
-void GUILabel::onMouseMove(sf::Vector2i mousePosition)
-{
-	if (mouseCollideText(mousePosition)) {
-		currentColor = color_text_highlight;
-	}
-	else {
-		currentColor = color_text_normal;
-	}
-}
-
-#pragma endregion
