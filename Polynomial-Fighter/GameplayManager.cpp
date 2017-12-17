@@ -13,13 +13,16 @@
 
 void GameplayManager::startNextLevel()
 {
-	points += 1000;
-	difficultyLevel++;
-	targetEnemiesNumber = (difficultyLevel + 1) * 3;
+	currentStage++;
+	targetEnemiesNumber = (currentStage + 1) * 3;
 	alreadySpawnedEnemies = 0;
 
 	spawner.incrementDifficultyLevel();
 	spawner.isActive = true;
+
+	player->addRounds(RandomGenerator::getInt(2, 5));
+
+	scoreManager.stageFinished();
 }
 
 void GameplayManager::EnemySpawned(unsigned id)
@@ -27,19 +30,20 @@ void GameplayManager::EnemySpawned(unsigned id)
 	alreadySpawnedEnemies++;
 	if(alreadySpawnedEnemies == targetEnemiesNumber)
 	{
-		Debug::PrintFormatted("Skonczyliscmy fale % z % przec, czekam.\n", difficultyLevel, alreadySpawnedEnemies);
+		Debug::PrintFormatted("Skonczyliscmy fale % z % przec, czekam.\n", currentStage, alreadySpawnedEnemies);
 		spawner.isActive = false;
 	}
+	enemiesAlive++;
 }
 
 void GameplayManager::EnemyDestroyed(unsigned id)
 {
-	alreadySpawnedEnemies--;
-	points += 100;
-	if (alreadySpawnedEnemies == 0)
+	enemiesAlive--;
+	if (enemiesAlive == 0 && alreadySpawnedEnemies == targetEnemiesNumber)
 	{
 		startNextLevel();
 	}
+	scoreManager.onEnemyKilled(id);
 }
 
 void GameplayManager::TextSubmitted(const std::string &text) const
@@ -62,11 +66,13 @@ void GameplayManager::PlayerDestroyed()
 		assert(enemy);
 		enemy->setState(Enemy::State::STOPPED);
 	}
+
+	scoreManager.showFinalScore(allDestroyedEnemies);
 }
 
 void GameplayManager::initSpawner()
 {
-	spawner = EnemySpawner(GameData::DEFAULT_BOUNDS, this, difficultyLevel);
+	spawner = EnemySpawner(GameData::DEFAULT_BOUNDS, this, currentStage);
 	spawner.findPlayer();
 	spawner.OnEnemySpawn.add(std::bind(&GameplayManager::EnemySpawned, this, std::placeholders::_1));
 	spawner.isActive = true;
@@ -80,17 +86,26 @@ void GameplayManager::initPlayer(){
 
 GameplayManager::GameplayManager()
 {
-	difficultyLevel = 0;
+	currentStage = 0;
 	points = 0;
-	targetEnemiesNumber = (difficultyLevel + 1) * 3;
+	targetEnemiesNumber = (currentStage + 1) * 3;
 	alreadySpawnedEnemies = 0;
 
 	initPlayer();
 
 	initSpawner();
+
+	scoreManager = ScoreManager();
 }
 
 void GameplayManager::update(const Time::TimeData &timeData)
 {
 	spawner.update(timeData);
+	scoreManager.update(timeData);
 }
+
+void GameplayManager::draw(sf::RenderTarget& target, sf::RenderStates states) const
+{
+	scoreManager.draw(target, states);
+}
+

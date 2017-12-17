@@ -29,6 +29,8 @@ private:
 	std::unique_ptr<PowerfulText> caption;
 	std::unique_ptr<EnemyCannon> cannon;
 
+	unsigned originalDegree;
+
 	void initComponents(const std::string &captionText, float angle);
 public:
 	Delegate<unsigned> DeathEvent;
@@ -40,6 +42,8 @@ public:
 	bool canBeDamagedBy(int value) const;
 
 	int decreasePolynomial(int root);
+
+	unsigned getOriginalDegree() const;
 
 	void setState(State state);
 

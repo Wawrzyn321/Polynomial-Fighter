@@ -39,6 +39,8 @@ public:
 
 	float getRotation() const;
 
+	void addRounds(int roundsToAdd) const;
+
 	sf::Vector2f getPosition() const override;
 
 	void setPosition(const sf::Vector2f &position) override;

@@ -58,12 +58,7 @@ bool MunitionContainer::canShoot(int requiredRounds) const
 
 void MunitionContainer::addRounds(int roundsToAdd)
 {
-	if (currentNumberOfRounds + roundsToAdd > maxNumberOfRounds)
-	{
-		Debug::PrintErrorFormatted("MunitionGUI::decreaseNumberOfRounds: too many rounds!!\n");
-		return;
-	}
-	currentNumberOfRounds += roundsToAdd;
+	currentNumberOfRounds = clamp(currentNumberOfRounds + roundsToAdd, 0, maxNumberOfRounds);
 	refreshUI();
 	addFleetingText("+" + std::to_string(roundsToAdd), color_addRounds);
 }
@@ -72,7 +67,7 @@ void MunitionContainer::removeRounds(int roundsToRemove)
 {
 	if (currentNumberOfRounds - roundsToRemove < 0)
 	{
-		Debug::PrintErrorFormatted("MunitionGUI::decreaseNumberOfRounds: not enough rounds!\n");
+		Debug::PrintErrorFormatted("MunitionGUI::decreaseNumberOfRounds: not enough rounds, check the number by MunitionGUI::canShoot!\n");
 		return;
 	}
 	currentNumberOfRounds -= roundsToRemove;

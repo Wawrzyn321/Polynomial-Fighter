@@ -74,6 +74,7 @@ int main()
 		window.clear();
 		em->draw(window);
 		window.draw(inputField);
+		gameplayManager.draw(window);
 		window.display();
 	}
 	return 0;
