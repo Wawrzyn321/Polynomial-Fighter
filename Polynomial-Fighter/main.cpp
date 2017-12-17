@@ -21,6 +21,7 @@ int main()
 
 	auto em = EntityManager::instance();
 	auto t = Time::Timer::instance();
+	auto am = AssetManager::instance();
 
 	GameplayManager gameplayManager = GameplayManager();
 
@@ -32,6 +33,8 @@ int main()
 	em->findEntityOfType<Player>()->DeathEvent.add(std::bind(&InputField::disable, &inputField));
 
 	sf::RenderWindow window(sf::VideoMode(GameData::WINDOW_SIZE.x, GameData::WINDOW_SIZE.y), "pf");
+    window.setFramerateLimit(120);
+
 	while (window.isOpen())
 	{
 		sf::Event event;
@@ -74,6 +77,16 @@ int main()
 		window.clear();
 		em->draw(window);
 		window.draw(inputField);
+
+		sf::Sprite sprite;
+        if (am == nullptr)
+        {
+            std::cout << "bardzo zle ";
+        }
+        auto texture = am->getTexture("ProfessorRnR.png");
+		sprite.setTexture(*texture);
+		window.draw(sprite);
+
 		window.display();
 	}
 	return 0;
