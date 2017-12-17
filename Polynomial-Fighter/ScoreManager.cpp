@@ -3,6 +3,7 @@
 #include "GameData.h"
 #include <cassert>
 #include "EntityManager.h"
+#include "Enemy.h"
 
 ScoreManager::ScoreManager()
 {

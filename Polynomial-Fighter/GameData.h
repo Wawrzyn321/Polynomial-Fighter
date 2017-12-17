@@ -2,8 +2,6 @@
 #define GAME_DATA_H
 
 #include <SFML/Graphics.hpp>
-#include "PlayerCannon.h"
-#include "Enemy.h"
 
 namespace GameData {
 
@@ -28,6 +26,8 @@ namespace GameData {
 	const std::string PATH_TO_SAVE = "save.dat";
 
 	const std::string SPRITESHEET = "spritesheet.png";
+
+	const std::string SOUND_MENU_CLICK = ""; //@TODO
 
 	const std::string SOUND_PLAYER_SHOOT = "player_shoot.ogg";
 	const std::string SOUND_ENEMY_SHOOT = "enemy_shoot.ogg";
