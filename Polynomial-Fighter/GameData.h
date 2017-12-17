@@ -29,6 +29,8 @@ namespace GameData {
 
 	const std::string SPRITESHEET = "spritesheet.png";
 
+	const std::string SOUND_MENU_CLICK = ""; //@TODO
+
 	const std::string SOUND_PLAYER_SHOOT = "player_shoot.ogg";
 	const std::string SOUND_ENEMY_SHOOT = "enemy_shoot.ogg";
 	const sf::Vector2i WINDOW_SIZE = sf::Vector2i(1024, 768);

@@ -24,7 +24,7 @@ public:
 
 	GameplayManager();
 
-	void GameplayManager::update(const Time::TimeData &timeData);
+	void update(const Time::TimeData &timeData);
 };
 
 
