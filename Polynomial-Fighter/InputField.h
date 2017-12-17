@@ -3,7 +3,7 @@
 
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
-#include "Asset Manager.h"
+#include "AssetManager.h"
 #include "Timer.h"
 #include "Delegate.h"
 

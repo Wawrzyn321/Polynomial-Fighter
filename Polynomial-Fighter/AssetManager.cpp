@@ -1,11 +1,12 @@
-#include "Asset Manager.h"
+#include "AssetManager.h"
 #include "Debug.h"
 
 AssetManager * AssetManager::sInstance = nullptr;
 
 AssetManager * AssetManager::instance()
 {
-    if (sInstance == nullptr) {
+    if (sInstance == nullptr)
+    {
         sInstance = new AssetManager();
     }
 
@@ -14,25 +15,23 @@ AssetManager * AssetManager::instance()
 
 AssetManager::TexturePointer AssetManager::getTexture(const std::string &filename)
 {
-    auto &texMap = sInstance->textures;
-    auto pairFound = texMap.find(filename);
+    auto pairFound = textures.find(filename);
 
-    if (pairFound != texMap.end())
-	{
-		return pairFound->second;
-	}
+    if (pairFound != textures.end())
+    {
+        return pairFound->second;
+    }
     else
-	{
-		TexturePointer texture = std::make_shared<sf::Texture>();
-        
-        if (!texture->loadFromFile(filename))
-		{
-			Debug::PrintFormatted("AssetManager::getTexture: cannot load texture %!", filename);
+    {
+        TexturePointer texture = std::make_shared<sf::Texture>();
 
-            //WAZNE
-            //jak nie zaladuje, to po prostu zwroci pusty asset, przez co program bedzie dalej dzialal bez crasha
-            //wedlug mnie to najlepsze rozwiazanie
-            //Janusz tez lubil, jak programu nie dalo sie wycrashowac (backslash wiecznie zywy)
+        if (!texture->loadFromFile(GameData::PATH_TO_RESOURCES + GameData::PATH_TO_IMAGES + filename))
+        {
+            Debug::PrintFormatted("AssetManager::getTexture: cannot load texture %!", filename);
+        }
+        else
+        {
+            textures[filename] = std::move(texture);
         }
 
         return texture;
@@ -41,20 +40,23 @@ AssetManager::TexturePointer AssetManager::getTexture(const std::string &filenam
 
 AssetManager::FontPointer AssetManager::getFont(const std::string &filename)
 {
-    auto &sFontMap = sInstance->fonts;
-    auto pairFound = sFontMap.find(filename);
+    auto pairFound = fonts.find(filename);
 
-	if (pairFound != sFontMap.end())
+    if (pairFound != fonts.end())
     {
-		return pairFound->second;
-	}
+        return pairFound->second;
+    }
     else
     {
-		FontPointer font = std::make_shared<sf::Font>();
+        FontPointer font = std::make_shared<sf::Font>();
 
-        if (!font->loadFromFile(filename))
+        if (!font->loadFromFile(GameData::PATH_TO_RESOURCES + GameData::PATH_TO_FONTS + filename))
         {
-			Debug::PrintFormatted("AssetManager::getFont: cannot load font %!", filename);
+            Debug::PrintFormatted("AssetManager::getFont: cannot load font %!", filename);
+        }
+        else
+        {
+            fonts[filename] = std::move(font);
         }
 
         return font;
@@ -63,27 +65,30 @@ AssetManager::FontPointer AssetManager::getFont(const std::string &filename)
 
 AssetManager::SoundBufferPointer AssetManager::getSound(const std::string &filename)
 {
-	auto &sSoundMap = sInstance->sounds;
-	auto pairFound = sounds.find(filename);
+    auto pairFound = sounds.find(filename);
 
-	if (pairFound != sSoundMap.end())
+    if (pairFound != sounds.end())
     {
-		return pairFound->second;
-	}
-	else
+        return pairFound->second;
+    }
+    else
     {
-		SoundBufferPointer sound = std::make_shared<sf::SoundBuffer>();
+        SoundBufferPointer soundBuffer = std::make_shared<sf::SoundBuffer>();
 
-		if (!sound->loadFromFile(filename))
+        if (!soundBuffer->loadFromFile(GameData::PATH_TO_RESOURCES + GameData::PATH_TO_SOUNDS + filename))
         {
-			Debug::PrintFormatted("AssetManager::getSound: cannot load sound %!", filename);
-		}
+            Debug::PrintFormatted("AssetManager::getSound: cannot load sound %!", filename);
+        }
+        else
+        {
+            sounds[filename] = std::move(soundBuffer);
+        }
 
-		return sound;
-	}
+        return soundBuffer;
+    }
 }
 
 AssetManager::FontPointer AssetManager::getDefaultFont()
 {
-	return getFont(GameData::PATH_TO_RESOURCES + GameData::PATH_TO_FONTS + GameData::FONT_REGULAR);
+    return getFont(GameData::FONT_REGULAR);
 }

@@ -2,7 +2,7 @@
 #define GUI_LABEL_H
 
 #include <functional>
-#include "Asset Manager.h"
+#include "AssetManager.h"
 #include "Timer.h"
 
 class PauseManager;

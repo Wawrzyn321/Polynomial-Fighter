@@ -20,7 +20,7 @@ GUILabel::GUILabel(sf::Vector2f position, int fontSize, std::string caption, std
 	action = function;
 
 	auto am = AssetManager::instance();
-	auto font = am->getFont(GameData::PATH_TO_RESOURCES + GameData::PATH_TO_FONTS + GameData::FONT_REGULAR);
+	auto font = am->getDefaultFont();
 
 	text = sf::Text(caption, *font, fontSize);
 	text.setFillColor(color_text_normal);
