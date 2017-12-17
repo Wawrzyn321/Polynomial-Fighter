@@ -35,6 +35,11 @@ int main()
 	sf::RenderWindow window(sf::VideoMode(GameData::WINDOW_SIZE.x, GameData::WINDOW_SIZE.y), "pf");
     window.setFramerateLimit(120);
 
+    sf::Sound sound;
+    auto soundBuffer = am->getSound("sound.wav");
+    sound.setBuffer(*soundBuffer);
+    sound.play();
+
 	while (window.isOpen())
 	{
 		sf::Event event;
@@ -79,10 +84,6 @@ int main()
 		window.draw(inputField);
 
 		sf::Sprite sprite;
-        if (am == nullptr)
-        {
-            std::cout << "bardzo zle ";
-        }
         auto texture = am->getTexture("ProfessorRnR.png");
 		sprite.setTexture(*texture);
 		window.draw(sprite);
