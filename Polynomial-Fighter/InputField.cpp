@@ -17,7 +17,7 @@ void InputField::initGraphics()
 
 	AssetManager *am = AssetManager::instance();
 
-	font = am->getFont(GameData::PATH_TO_RESOURCES + GameData::PATH_TO_FONTS + GameData::FONT_REGULAR);
+	font = am->getDefaultFont();
 	text = sf::Text("", *font, static_cast<unsigned int>(size.y * 0.64));
 	text.setFillColor(color_text_normal);
 	text.setPosition(position + sf::Vector2f(size.x / 10, size.y / 10));

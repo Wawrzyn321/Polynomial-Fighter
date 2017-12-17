@@ -4,7 +4,7 @@
 #include <algorithm>
 #include <SFML/Graphics.hpp>
 #include "GameData.h"
-#include "Asset Manager.h"
+#include "AssetManager.h"
 #include "Debug.h"
 #include "RandomGenerator.h"
 
