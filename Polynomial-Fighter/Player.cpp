@@ -75,6 +75,11 @@ float Player::getRotation() const
 	return shape.getRotation();
 }
 
+void Player::addRounds(int roundsToAdd) const
+{
+	cannon->addRounds(roundsToAdd);
+}
+
 #pragma region ITransformable
 
 sf::Vector2f Player::getPosition() const

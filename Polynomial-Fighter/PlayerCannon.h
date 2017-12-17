@@ -23,7 +23,7 @@ class PlayerCannon : public sf::Drawable
 	DesignatedTarget currentTarget;
 	Player *playerReference;
 
-	std::shared_ptr<MunitionContainer> munitionGUI;
+	std::shared_ptr<MunitionContainer> munitionContainer;
 	std::shared_ptr<PlayerCannonGraphics> graphics;
 
 	float reloadAccumulator;
@@ -42,6 +42,8 @@ class PlayerCannon : public sf::Drawable
 public:
 	PlayerCannon(){}
 	PlayerCannon(Player *playerReference, const sf::Vector2f &origin);
+
+	void addRounds(int roundsToAdd) const;
 
 	void appendTargets(const std::vector<int>& values, const std::vector<std::shared_ptr<Entity>> &enemies);
 

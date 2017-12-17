@@ -76,7 +76,7 @@ void PlayerCannon::addAfterAppendText(int targetsAdded) const
 
 void PlayerCannon::initGraphics()
 {
-	munitionGUI = std::make_shared<MunitionContainer>(
+	munitionContainer = std::make_shared<MunitionContainer>(
 		sf::Vector2f(GameData::WINDOW_SIZE.x*0.03f, GameData::WINDOW_SIZE.y*0.03f),
 		sf::Vector2f(GameData::WINDOW_SIZE.x*0.3f, GameData::WINDOW_SIZE.y*0.08f));
 
@@ -95,6 +95,15 @@ PlayerCannon::PlayerCannon(Player *playerReference, const sf::Vector2f &origin)
 	initGraphics();
 }
 
+void PlayerCannon::addRounds(int roundsToAdd) const
+{
+	munitionContainer->addRounds(roundsToAdd);
+	auto ft = std::make_shared<FleetingText>("+"+std::to_string(roundsToAdd)+" rounds",
+		origin + sf::Vector2f(0, -20), sf::Color(193, 255, 193), 20);
+	ft->run(0.001f, { RandomGenerator::getFloat(-0.01f, 0.01f), -0.03f }, 0);
+	EntityManager::instance()->addEntity(ft);
+}
+
 void PlayerCannon::appendTargets(const std::vector<int>& values, const std::vector<std::shared_ptr<Entity>> &enemies)
 {
 	auto shuffledValues = values;
@@ -102,8 +111,8 @@ void PlayerCannon::appendTargets(const std::vector<int>& values, const std::vect
 
 	int targetsAdded = 0;
 	int size = int(shuffledValues.size());
-	if (munitionGUI->canShoot(size)) {
-		munitionGUI->removeRounds(size);
+	if (munitionContainer->canShoot(size)) {
+		munitionContainer->removeRounds(size);
 
 		std::vector<DesignatedTarget> designatedTargets;
 		for (auto e : enemies)
@@ -147,7 +156,7 @@ void PlayerCannon::appendTargets(const std::vector<int>& values, const std::vect
 
 void PlayerCannon::onRotationFinished(float angle)
 {
-	if (munitionGUI->canShoot() != 0) {
+	if (munitionContainer->canShoot() != 0) {
 		state = CannonState::WAITING_FOR_RELOAD;
 		reloadAccumulator = 0;
 	}
@@ -164,7 +173,7 @@ void PlayerCannon::setPosition(const sf::Vector2f &position) const
 
 void PlayerCannon::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-	munitionGUI->draw(target, states);
+	munitionContainer->draw(target, states);
 	if (playerReference->getAlive()) {
 		graphics->draw(target, states);
 	}
@@ -172,7 +181,7 @@ void PlayerCannon::draw(sf::RenderTarget& target, sf::RenderStates states) const
 
 void PlayerCannon::update(float deltaTime)
 {
-	munitionGUI->update(deltaTime);
+	munitionContainer->update(deltaTime);
 
 	graphics->update(deltaTime, playerReference->getRotation());
 
@@ -188,5 +197,5 @@ void PlayerCannon::update(float deltaTime)
 
 PlayerCannon::~PlayerCannon()
 {
-	munitionGUI.reset();
+	munitionContainer.reset();
 }

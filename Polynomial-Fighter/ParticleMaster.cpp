@@ -76,7 +76,7 @@ void ParticleMaster::addPlayerDestroyedParticles(const sf::Vector2f& position, f
 		->setIntervals(100, 50, 0)
 		->setColors(sf::Color::Red, 0.1f, sf::Color::White, 0.0f, 0.001f)
 		->setAsCircle(5, 6)
-		->setVelocity(0.5f * modifier, 0.1f, 0.995f)
+		->setVelocity(0.5f * modifier, 0.2f, 0.995f)
 		->setScaling(0.999f)
 		->finishBuilding();
 	EntityManager::instance()->addEntity(std::shared_ptr<AdvancedParticleSystem>(aps));

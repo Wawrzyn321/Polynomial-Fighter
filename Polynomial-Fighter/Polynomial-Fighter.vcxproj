@@ -125,6 +125,8 @@
     <ClCompile Include="BulletBase.cpp" />
     <ClCompile Include="ParticleMaster.cpp" />
     <ClCompile Include="PlayerCannonGraphics.cpp" />
+    <ClCompile Include="ScoreManager.cpp" />
+    <ClCompile Include="ScoreManagerGUI.cpp" />
     <ClCompile Include="SimpleBullet.cpp" />
     <ClCompile Include="Debug.cpp" />
     <ClCompile Include="Enemy.cpp" />
@@ -165,6 +167,8 @@
     <ClInclude Include="DesignatedTarget.h" />
     <ClInclude Include="ParticleMaster.h" />
     <ClInclude Include="PlayerCannonGraphics.h" />
+    <ClInclude Include="ScoreManager.h" />
+    <ClInclude Include="ScoreManagerGUI.h" />
     <ClInclude Include="SimpleBullet.h" />
     <ClInclude Include="Debug.h" />
     <ClInclude Include="Delegate.h" />

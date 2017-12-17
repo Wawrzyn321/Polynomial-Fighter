@@ -28,6 +28,7 @@ Enemy::Enemy(const sf::Vector2f& position, const sf::Vector2f &playerPosition, f
 	tag = GameData::TAG_ENEMY;
 	state = State::CLOSING_IN;
 	attractionRadiusSqr = enemyInnerRadiusSQR + pff.getDeg() * 30 + RandomGenerator::getFloat(-50,50);
+	originalDegree = unsigned(pff.getDeg());
 
 	sf::Vector2f dir = vectorNormalize(playerPosition - position);
 	velocity = dir * speed;
@@ -63,6 +64,11 @@ int Enemy::decreasePolynomial(int root)
 		caption->rebuild(name);
 	}
 	return difference;
+}
+
+unsigned Enemy::getOriginalDegree() const
+{
+	return originalDegree;
 }
 
 void Enemy::setState(State state)

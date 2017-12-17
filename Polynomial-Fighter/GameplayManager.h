@@ -1,17 +1,23 @@
 #ifndef ENEMY_MANAGER_H
 #define ENEMY_MANAGER_H
 #include "EnemySpawner.h"
+#include "ScoreManager.h"
 #include "Entity.h"
 
 class GameplayManager
 {
-	unsigned difficultyLevel;
+	unsigned currentStage;
 	unsigned points;
+
 	unsigned targetEnemiesNumber;
 	unsigned alreadySpawnedEnemies;
+	unsigned allDestroyedEnemies;
+	unsigned enemiesAlive;
 
 	EnemySpawner spawner;
+	ScoreManager scoreManager;
 	std::shared_ptr<Player> player;
+
 	void startNextLevel();
 public:
 	void EnemySpawned(unsigned id);
@@ -23,8 +29,11 @@ public:
 	void initPlayer();
 
 	GameplayManager();
+	GameplayManager(const GameplayManager &) {}
 
 	void GameplayManager::update(const Time::TimeData &timeData);
+
+	void draw(sf::RenderTarget& target, sf::RenderStates states = sf::RenderStates::Default) const;
 };
 
 
