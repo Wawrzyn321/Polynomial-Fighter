@@ -42,26 +42,3 @@ void GUILabel::draw(sf::RenderTarget & target, sf::RenderStates states) const
 {
 	target.draw(text, states);
 }
-
-#pragma region IMouseEventsListener implementation
-
-void GUILabel::onMouseClick(sf::Vector2i mousePosition) {
-	if (action != nullptr) {
-		if (mouseCollideText(mousePosition)) {
-			playClick();
-			action();
-		}
-	}
-}
-
-void GUILabel::onMouseMove(sf::Vector2i mousePosition)
-{
-	if (mouseCollideText(mousePosition)) {
-		currentColor = color_text_highlight;
-	}
-	else {
-		currentColor = color_text_normal;
-	}
-}
-
-#pragma endregion
