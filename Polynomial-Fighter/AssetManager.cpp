@@ -28,13 +28,13 @@ AssetManager::TexturePointer AssetManager::getTexture(const std::string &filenam
         if (!texture->loadFromFile(GameData::PATH_TO_RESOURCES + GameData::PATH_TO_IMAGES + filename))
         {
             Debug::PrintFormatted("AssetManager::getTexture: cannot load texture %!", filename);
+            return texture;
         }
         else
         {
             textures[filename] = std::move(texture);
+            return textures[filename];
         }
-
-        return texture;
     }
 }
 
@@ -53,13 +53,13 @@ AssetManager::FontPointer AssetManager::getFont(const std::string &filename)
         if (!font->loadFromFile(GameData::PATH_TO_RESOURCES + GameData::PATH_TO_FONTS + filename))
         {
             Debug::PrintFormatted("AssetManager::getFont: cannot load font %!", filename);
+            return font;
         }
         else
         {
             fonts[filename] = std::move(font);
+            return fonts[filename];
         }
-
-        return font;
     }
 }
 
@@ -78,13 +78,13 @@ AssetManager::SoundBufferPointer AssetManager::getSound(const std::string &filen
         if (!soundBuffer->loadFromFile(GameData::PATH_TO_RESOURCES + GameData::PATH_TO_SOUNDS + filename))
         {
             Debug::PrintFormatted("AssetManager::getSound: cannot load sound %!", filename);
+            return soundBuffer;
         }
         else
         {
             sounds[filename] = std::move(soundBuffer);
+            return sounds[filename];
         }
-
-        return soundBuffer;
     }
 }
 
