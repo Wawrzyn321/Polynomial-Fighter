@@ -22,6 +22,7 @@ int main()
 	auto em = EntityManager::instance();
 	auto t = Time::Timer::instance();
 	auto am = AssetManager::instance();
+    auto sm = SoundManager::instance();
 
 	GameplayManager gameplayManager = GameplayManager();
 
@@ -35,10 +36,16 @@ int main()
 	sf::RenderWindow window(sf::VideoMode(GameData::WINDOW_SIZE.x, GameData::WINDOW_SIZE.y), "pf");
     window.setFramerateLimit(120);
 
-    sf::Sound sound;
-    auto soundBuffer = am->getSound("sound.wav");
-    sound.setBuffer(*soundBuffer);
-    sound.play();
+//    sf::Sound sound;
+//    auto soundBuffer = am->getSound("sound.wav");
+//    sound.setBuffer(*soundBuffer);
+//    sound.play();
+
+    sm->playSound("sound.wav");
+
+    sf::Sprite sprite;
+    auto texture = am->getTexture("ProfessorRnR.png");
+    sprite.setTexture(*texture);
 
 	while (window.isOpen())
 	{
@@ -83,9 +90,6 @@ int main()
 		em->draw(window);
 		window.draw(inputField);
 
-		sf::Sprite sprite;
-        auto texture = am->getTexture("ProfessorRnR.png");
-		sprite.setTexture(*texture);
 		window.draw(sprite);
 
 		window.display();
