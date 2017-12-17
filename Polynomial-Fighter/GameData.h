@@ -2,8 +2,6 @@
 #define GAME_DATA_H
 
 #include <SFML/Graphics.hpp>
-#include "PlayerCannon.h"
-#include "Enemy.h"
 
 namespace GameData {
 
