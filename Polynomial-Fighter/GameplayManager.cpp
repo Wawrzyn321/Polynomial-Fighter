@@ -86,7 +86,7 @@ void GameplayManager::initPlayer(){
 	EntityManager::instance()->addEntity(player, true);
 }
 
-GameplayManager::GameplayManager()
+GameplayManager::GameplayManager() : scoreManager(ScoreManager())
 {
 	currentStage = 0;
 	points = 0;
@@ -96,8 +96,6 @@ GameplayManager::GameplayManager()
 	initPlayer();
 
 	initSpawner();
-
-	scoreManager = ScoreManager();
 }
 
 void GameplayManager::update(const Time::TimeData &timeData)
