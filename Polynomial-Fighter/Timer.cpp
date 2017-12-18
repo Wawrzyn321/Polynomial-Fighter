@@ -13,7 +13,7 @@ namespace Time {
         return sInstance;
     }
 
-    sf::Uint64 Timer::getDeltaTime() const
+    sf::Uint64 Timer::getDeltaTime() const //TODO zmieniæ to ³adniej
     {
         return sInstance->deltaTimeTimer->restart().asMicroseconds();
     }
@@ -44,6 +44,7 @@ namespace Time {
         {
             this->timeScale = 0;
         }
+		SoundManager::instance()->setPitch(timeScale);
     }
 
 	void Timer::reset()

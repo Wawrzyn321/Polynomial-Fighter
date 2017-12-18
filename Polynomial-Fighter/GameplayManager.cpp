@@ -68,6 +68,8 @@ void GameplayManager::PlayerDestroyed()
 	}
 
 	scoreManager.showFinalScore(allDestroyedEnemies);
+
+	SoundManager::instance()->playSound(GameData::SOUND_GAME_FAILURE);
 }
 
 void GameplayManager::initSpawner()
