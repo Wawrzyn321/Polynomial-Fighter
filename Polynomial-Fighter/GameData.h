@@ -31,6 +31,7 @@ namespace GameData {
 
 	const std::string SOUND_PLAYER_SHOOT = "player_shoot.ogg";
 	const std::string SOUND_ENEMY_SHOOT = "enemy_shoot.ogg";
+	const std::string SOUND_GAME_FAILURE = "failure.ogg";
 	const sf::Vector2i WINDOW_SIZE = sf::Vector2i(1024, 768);
 	const sf::IntRect DEFAULT_BOUNDS = sf::IntRect({ 0,0 }, WINDOW_SIZE);;
 

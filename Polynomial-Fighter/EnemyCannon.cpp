@@ -12,6 +12,8 @@ void EnemyCannon::shoot()
 		auto b = std::make_shared<SimpleBullet>(enemyReference->getPosition(), bulletRadius, baseBulletDamage, bonusBulletDamage);
 		b->setTarget(player, bulletSpeed);
 		EntityManager::instance()->addEntity(b);
+
+		SoundManager::instance()->playSound(GameData::SOUND_ENEMY_SHOOT);
 	}
 }
 

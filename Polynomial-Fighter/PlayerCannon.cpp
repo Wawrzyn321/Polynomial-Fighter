@@ -48,6 +48,8 @@ void PlayerCannon::shoot()
 	sb->setTarget(EntityManager::instance()->findEntityById(currentTarget.recipientID), 0.5f);
 	EntityManager::instance()->addEntity(sb);
 	updateState();
+
+	SoundManager::instance()->playSound(GameData::SOUND_PLAYER_SHOOT);
 }
 
 void PlayerCannon::addAfterAppendText(int targetsAdded) const
