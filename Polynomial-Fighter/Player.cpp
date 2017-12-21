@@ -122,7 +122,7 @@ void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const
 
 void Player::receiveDamage(float damage, float bonusDamageMultiplier)
 {
-	health = clamp(health - damage*bonusDamageMultiplier, 0.0f, health);
+	health = std::clamp(health - damage*bonusDamageMultiplier, 0.0f, health);
 	healthGUI->health = health;
 	if (health == 0)
 	{

@@ -27,7 +27,7 @@ std::string to_stringWithPrecision(float value, int p)
 
 float minAngleDifference(float from, float to) {
 	float difference = to - from;
-	difference = clamp(static_cast<float>(difference - floor(difference / 360.0f) * 360.0f), 0.0f, 360.0f);
+	difference = std::clamp(static_cast<float>(difference - floor(difference / 360.0f) * 360.0f), 0.0f, 360.0f);
 	return difference > 180.0f ? difference - 360.0f : difference;
 }
 
