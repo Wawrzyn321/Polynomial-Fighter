@@ -14,8 +14,8 @@ void EnemySpawner::spawnEnemy()
 		return;
 	}
 
-	unsigned deg = unsigned(clamp(difficultyLevel + 1, unsigned(1), GameData::MAX_POLYNOMINAL_DEGREE));
-	unsigned valuesRange = unsigned(clamp(difficultyLevel + 1, unsigned(1), GameData::MAX_POLYNOMINAL_VALUE));
+	unsigned deg = unsigned(std::clamp(difficultyLevel + 1, unsigned(1), GameData::MAX_POLYNOMINAL_DEGREE));
+	unsigned valuesRange = unsigned(std::clamp(difficultyLevel + 1, unsigned(1), unsigned(GameData::MAX_POLYNOMINAL_VALUE)));
 	PolynomialProductForm pff = PolynomialGenerator::generatePolynomial(deg, valuesRange);
 	sf::Vector2f position = getPointOnIntRect(bounds);
 

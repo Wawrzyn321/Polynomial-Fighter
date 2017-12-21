@@ -7,6 +7,9 @@
 #include "AssetManager.h"
 #include "Debug.h"
 #include "RandomGenerator.h"
+#include <cmath>
+
+using namespace std;
 
 const float pi = 3.1415926535f; //TODO: V624 https://www.viva64.com/en/w/V624 The constant 3.1415926535f is being utilized. The resulting value could be inaccurate. Consider using the M_PI constant from <math.h>.
 
@@ -45,13 +48,13 @@ T lerp(T from, T to, float amount) {
 }
 
 template <typename T, typename P, typename R>
-auto clamp(T value, P min, R max) -> decltype(value*min*max)
+auto std::clamp(T value, P min, R max) -> decltype(value*min*max)
 {
 	return value<min ? min : value>max ? max : value;
 }
 
 template <typename T>
-T clamp(T value, T min, T max)
+T std::clamp(T value, T min, T max)
 {
 	return value<min ? min : value>max ? max : value;
 }
