@@ -58,7 +58,7 @@ bool MunitionContainer::canShoot(int requiredRounds) const
 
 void MunitionContainer::addRounds(int roundsToAdd)
 {
-	currentNumberOfRounds = clamp(currentNumberOfRounds + roundsToAdd, 0, maxNumberOfRounds);
+	currentNumberOfRounds = std::clamp(currentNumberOfRounds + roundsToAdd, 0, maxNumberOfRounds);
 	refreshUI();
 	addFleetingText("+" + std::to_string(roundsToAdd), color_addRounds);
 }
