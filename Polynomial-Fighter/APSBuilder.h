@@ -7,11 +7,10 @@ class APSBuilder
 	float cachedTime;
 
 	std::shared_ptr<AdvancedParticleSystem> aps;
-
+public:
 	APSBuilder(const sf::Vector2f &position);
 
-public:
-	static APSBuilder* startBuilding(const sf::Vector2f &position);
+	static std::shared_ptr<APSBuilder> startBuilding(const sf::Vector2f &position);
 
 	APSBuilder* setMainData(float time, int count, Space space = Space::SELF, ActionAfterEmmision actionAfterEmmision = ActionAfterEmmision::DESTROY);
 

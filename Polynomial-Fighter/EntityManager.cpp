@@ -103,7 +103,7 @@ std::vector<std::shared_ptr<Entity>> EntityManager::getEntities(bool includeDisa
 void EntityManager::addNewEntitites()
 {
 	if (!entitiesToAdd.empty()) {
-		for (auto &&entity : entitiesToAdd)
+		for (auto &entity : entitiesToAdd)
 		{
 			entities.push_back(entity);
 		}

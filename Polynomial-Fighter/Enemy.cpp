@@ -129,6 +129,7 @@ void Enemy::receiveDamage(float damage, float bonusDamageMultiplier)
 void Enemy::receiveDamage(float damage, const sf::Vector2f incoming, float bonusDamageMultiplier)
 {
 	if (pff.getDeg() != 0) {
+		std::cout << "siema2";
 		ParticleMaster::addEnemyHitParticles(getPosition(), incoming, bonusDamageMultiplier);
 		cannon->resetAccumulator();
 	}

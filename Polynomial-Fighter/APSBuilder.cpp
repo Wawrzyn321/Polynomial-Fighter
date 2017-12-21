@@ -1,9 +1,9 @@
 #include "APSBuilder.h"
 #include "Utility.h"
 
-APSBuilder* APSBuilder::startBuilding(const sf::Vector2f &position)
+std::shared_ptr<APSBuilder> APSBuilder::startBuilding(const sf::Vector2f &position)
 {
-	APSBuilder *builder = new APSBuilder(position); //TODO tu siê bity wylewaj¹
+	auto builder = std::make_shared<APSBuilder>(position); //TODO tu siï¿½ bity wylewajï¿½
 
 	builder->aps->name = GameData::NAME_PARTICLE_SYSTEM;
 

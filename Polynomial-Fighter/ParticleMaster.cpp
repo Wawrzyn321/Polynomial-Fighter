@@ -29,6 +29,7 @@ void ParticleMaster::addPlayerShootParticles(const sf::Vector2f& position, float
 
 void ParticleMaster::addEnemyHitParticles(const sf::Vector2f &position, const sf::Vector2f &incoming, float modifier)
 {
+	std::cout << "siema";
 	auto aps = APSBuilder::startBuilding(position)
 		->setMainData(2000, 300)
 		->setIntervals(100, 50, 0)

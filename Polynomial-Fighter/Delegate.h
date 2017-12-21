@@ -25,7 +25,7 @@ public:
 
 	void invoke()
 	{
-		for (auto && f : content)
+		for (auto & f : content)
 		{
 			f();
 		}
@@ -60,7 +60,7 @@ public:
 
 	void invoke(T param)
 	{
-		for (auto && f : content)
+		for (auto & f : content)
 		{
 			f(param);
 		}
