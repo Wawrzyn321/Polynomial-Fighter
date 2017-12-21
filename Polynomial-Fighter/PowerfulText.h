@@ -38,7 +38,7 @@ public:
 
 	void draw(sf::RenderTarget & target, sf::RenderStates states) const override;
 
-	~PowerfulText() = default;
+	~PowerfulText();
 private:
 	const char UPPER = '^';
 	const char LOWER = '_';

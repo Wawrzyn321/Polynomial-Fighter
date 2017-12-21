@@ -72,7 +72,7 @@ void ParticleMaster::addPlayerHitParticles(const sf::Vector2f &position, const s
 void ParticleMaster::addPlayerDestroyedParticles(const sf::Vector2f& position, float modifier)
 {
 	auto aps = APSBuilder::startBuilding(position)
-		->setMainData(5000, 1000)
+		->setMainData(3000, 1000)
 		->setIntervals(100, 50, 0)
 		->setColors(sf::Color::Red, 0.1f, sf::Color::White, 0.0f, 0.001f)
 		->setAsCircle(5, 6)

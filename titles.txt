@@ -1,0 +1,45 @@
+Chief executive officer
+	PW, BS
+Chief technology officer
+	BS
+Particle Master
+	PW
+Chief brand officer
+	PW, BS
+Copy-paster Executive
+	PW
+Chief commercial officer
+	PW
+Chief creative officer
+	PW, BS
+Major Sound Artist
+	PW
+Chief Evangelist
+	PW
+Chief data officer
+	BS
+Chief content officer
+	PW
+Chief gameplay officer
+	PW
+Chief information officer
+	PW, BS
+Chief operating officer
+	BS
+Chief reputation officer
+	PW
+Chief research officer
+	PW, BS
+Chief visionary officer
+	PW
+Chief testing officer
+	Janczar
+	Halamix2
+Math Specialist
+	BS
+UI/UX Designer
+	PW, BS
+Architecture Creator
+	BS
+Source Control Manager
+	PW

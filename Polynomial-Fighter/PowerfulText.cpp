@@ -132,3 +132,8 @@ void PowerfulText::draw(sf::RenderTarget& target, sf::RenderStates states) const
 		target.draw(text, states);
 	}
 }
+
+PowerfulText::~PowerfulText()
+{
+	font.reset();
+}
