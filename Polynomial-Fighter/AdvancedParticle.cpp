@@ -12,8 +12,8 @@ void AdvancedParticle::applyTransform(float deltaTime)
 	setPosition(getPosition() + velocity*deltaTime);
 	/*currentShape->rotate(angularVelocity*deltaTime);
 	currentShape->scale(scaling, scaling);*/
-	float scaling = lerp(1.0f, this->scaling, deltaTime);
-	circle.scale(scaling, scaling);
+	float currentScaling = lerp(1.0f, scaling, deltaTime);
+	circle.scale(currentScaling, currentScaling);
 
 	if (useGravity)
 	{
@@ -116,9 +116,7 @@ void AdvancedParticle::draw(sf::RenderTarget& target, sf::RenderStates states) c
 
 void AdvancedParticle::update(const Time::TimeData &timeData)
 {
-	Debug::PrintFormatted(""); //don't delete dis
 	if (isAlive) {
-		Debug::PrintFormatted(""); //don't delete dis
 		float deltaTime = std::abs(timeData.getScaledDeltaTimeInMili());
 		applyTransform(deltaTime);
 		applyDrag(deltaTime);

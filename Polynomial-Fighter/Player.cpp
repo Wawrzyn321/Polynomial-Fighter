@@ -124,7 +124,7 @@ void Player::receiveDamage(float damage, float bonusDamageMultiplier)
 {
 	health = clamp(health - damage*bonusDamageMultiplier, 0.0f, health);
 	healthGUI->health = health;
-	if (health == 0)
+	if (health < 0.1f) //a bit of tolerance for fractions and GUI display
 	{
 		DeathEvent.invoke();
 		isAlive = false;

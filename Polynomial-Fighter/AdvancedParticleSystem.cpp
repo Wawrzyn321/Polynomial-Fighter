@@ -13,10 +13,7 @@ AdvancedParticleSystem::AdvancedParticleSystem(const sf::Vector2f &position)
 
 AdvancedParticleSystem* AdvancedParticleSystem::finishBuilding()
 {
-	for (AdvancedParticle &particle : particles)
-	{
-		particle.onDestroy();
-	}
+	onDestroy(); //todo czy to ma sens?
 	particles.clear();
 	if (spawningTime <= 0) {
 		for (int i = 0; i < count; i++) {
@@ -55,11 +52,11 @@ void AdvancedParticleSystem::addParticle()
 	//main data
 	float radius = RandomGenerator::getVariation(circleRadius, shapeSizeVariation);
 	int pointCount = static_cast<int>(RandomGenerator::getVariation(circlePointCount, shapeSizeVariation));
-	particles.push_back(AdvancedParticle(radius, pointCount, this));
-	AdvancedParticle &currentParticle = particles.back();
+	particles.push_back(std::make_shared<AdvancedParticle>(radius, pointCount, this));
+	auto &currentParticle = particles.back();
 
 	//set transform
-	currentParticle.setPosition(position);
+	currentParticle->setPosition(position);
 
 	float baseAngle = direction == sf::Vector2f(0, 0) ? 0
 		: atan2(direction.y, direction.x)*180.0f / pi;
@@ -70,13 +67,13 @@ void AdvancedParticleSystem::addParticle()
 
 	//set color
 	sf::Color color = useRandomColors ? RandomGenerator::getRandomColor() : RandomGenerator::getVariation(startColor, startColorVariation);
-	currentParticle.setColors(color, RandomGenerator::getVariation(endColor, endColorVariation), colorChangingSpeed);
+	currentParticle->setColors(color, RandomGenerator::getVariation(endColor, endColorVariation), colorChangingSpeed);
 
 	//set forces
 	sf::Vector2f vel = sf::Vector2f(cos(currentAngle), sin(currentAngle)) * RandomGenerator::getVariation(startVelocity, startVelocityVariation);
-	currentParticle.setTransform(vel, drag, RandomGenerator::getVariation(startAngularVelocity, startAngularVelocityVariation), angularDrag, overTimeScaling);
+	currentParticle->setTransform(vel, drag, RandomGenerator::getVariation(startAngularVelocity, startAngularVelocityVariation), angularDrag, overTimeScaling);
 
-	currentParticle.setGravity(useGravity, gravity);
+	currentParticle->setGravity(useGravity, gravity);
 
 	aliveParticlesCount++;
 }
@@ -98,9 +95,9 @@ void AdvancedParticleSystem::handleUpdatingOnly(float deltaTime)
 	mainAccumulator += deltaTime;
 	if (mainAccumulator > time)
 	{
-		for (AdvancedParticle &particle : particles)
+		for (auto &particle : particles)
 		{
-			particle.isAlive = false;
+			particle->isAlive = false;
 		}
 		onLiveEnded();
 		mainAccumulator = 0;
@@ -121,7 +118,7 @@ void AdvancedParticleSystem::handleUpdatingParticles(const Time::TimeData &timeD
 	mainAccumulator += timeData.getScaledDeltaTimeInMili();
 	for (auto &p : particles)
 	{
-		p.update(timeData);
+		p->update(timeData);
 	}
 }
 
@@ -138,7 +135,6 @@ void AdvancedParticleSystem::handleSpawning(float deltaTime)
 
 	if (count <= particles.size())
 	{
-		Debug::PrintFormatted(""); //don't delete dis
 		mainAccumulator = 0;
 		spawningAccumulator = 0;
 		state = APSState::ONLY_UPDATING;
@@ -151,9 +147,9 @@ void AdvancedParticleSystem::revive()
 {
 	state = APSState::SPAWNING;
 	finishBuilding();
-	for (AdvancedParticle &particle : particles)
+	for (auto &particle : particles)
 	{
-		particle.isAlive = true;
+		particle->isAlive = true;
 	}
 	mainAccumulator = 0;
 }
@@ -171,7 +167,6 @@ void AdvancedParticleSystem::informOfDeath()
 
 void AdvancedParticleSystem::update(const Time::TimeData &timeData)
 {
-	Debug::PrintFormatted(""); //don't delete dis
 	//nie switchem.
 	if(state == APSState::PRE_WAITING)
 	{
@@ -199,9 +194,10 @@ void AdvancedParticleSystem::update(const Time::TimeData &timeData)
 
 void AdvancedParticleSystem::onDestroy()
 {
-	for (AdvancedParticle &particle : particles)
+	for (auto &particle : particles)
 	{
-		particle.onDestroy();
+		particle->onDestroy();
+		particle.reset();
 	}
 }
 
@@ -210,7 +206,7 @@ void AdvancedParticleSystem::draw(sf::RenderTarget& target, sf::RenderStates sta
 	if (state != APSState::OFF) {
 		for (unsigned int i = 0; i < particles.size(); i++)
 		{
-			particles[i].draw(target, states);
+			particles[i]->draw(target, states);
 		}
 	}
 }
@@ -228,9 +224,9 @@ void AdvancedParticleSystem::setPosition(const sf::Vector2f &position)
 {
 	if (space == Space::SELF) {
 		sf::Vector2f shift = position - this->position;
-		for (AdvancedParticle &particle : particles)
+		for (auto &particle : particles)
 		{
-			particle.move(shift);
+			particle->move(shift);
 		}
 	}
 	this->position = position;

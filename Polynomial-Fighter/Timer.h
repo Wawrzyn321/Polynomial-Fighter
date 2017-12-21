@@ -7,7 +7,7 @@
 namespace Time {
 
     const float MICRO_TO_MILI = 0.001f;
-    const float MICRO_TO_SEC = 0.001f*0.001f;
+    const float MICRO_TO_SEC = 0.001f * 0.001f;
 
     struct TimeData {
         sf::Time deltaTime;
@@ -15,16 +15,15 @@ namespace Time {
         sf::Time elapsedTime;
         float getScaledDeltaTimeInMili() const
         {
-            return deltaTime.asMicroseconds()*timeScale*MICRO_TO_MILI;
+			return deltaTime.asMicroseconds() * timeScale * MICRO_TO_MILI;
         }
         float getScaledDeltaTimeInSec() const
         {
-            return deltaTime.asMicroseconds()*timeScale*MICRO_TO_SEC;
+            return deltaTime.asMicroseconds() * timeScale * MICRO_TO_SEC;
         }
     };
 
     class Timer {
-    private:
         static Timer *sInstance;
         sf::Clock *deltaTimeTimer;
         sf::Clock *timer;
@@ -36,7 +35,7 @@ namespace Time {
         void setTimeScale(float timeScale);
         float getTimeScale() const;
         TimeData getTimeData() const;
-		void reset();
+		void reset() const;
     };
 
 }

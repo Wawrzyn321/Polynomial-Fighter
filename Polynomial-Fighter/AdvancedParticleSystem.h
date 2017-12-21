@@ -11,7 +11,7 @@ class AdvancedParticleSystem : public Entity
 
 	APSState state;
 	sf::Vector2f position;
-	std::vector<AdvancedParticle> particles;
+	std::vector<std::shared_ptr<AdvancedParticle>> particles;
 
 	bool looping = false;
 	float spawningTime = 2000;

@@ -3,7 +3,7 @@
 
 APSBuilder* APSBuilder::startBuilding(const sf::Vector2f &position)
 {
-	APSBuilder *builder = new APSBuilder(position);
+	APSBuilder *builder = new APSBuilder(position); //TODO tu siê bity wylewaj¹
 
 	builder->aps->name = GameData::NAME_PARTICLE_SYSTEM;
 
@@ -33,7 +33,6 @@ APSBuilder* APSBuilder::setIntervals(float spawningTime, float timeBetweenSpawn,
 	aps->timeBetweenSpawn = timeBetweenSpawn;
 	aps->time = cachedTime + spawningTime;
 	aps->startDelayTime = startDelayTime;
-	Debug::PrintFormatted(""); //don't delete dis
 	return this;
 }
 
@@ -75,8 +74,8 @@ APSBuilder* APSBuilder::setDispersion(float dispersionAngle, const sf::Vector2f 
 APSBuilder* APSBuilder::setDispersion(float dispersionAngle, float incomingDeg)
 {
 	aps->dispersionAngle = dispersionAngle;
-	aps->direction = {static_cast<float>(cos(incomingDeg*pi / 180.0f)),
-					  static_cast<float>(sin(incomingDeg*pi / 180.0f))};
+	float angleRad = incomingDeg * pi / 180.0f;
+	aps->direction = { cosf(angleRad),sinf(angleRad) };
 	return this;
 }
 	
@@ -122,6 +121,5 @@ std::shared_ptr<AdvancedParticleSystem> APSBuilder::finishBuilding(bool playOnSt
 	{
 		aps->state = APSState::OFF;
 	}
-	Debug::PrintFormatted(""); //don't delete dis
 	return aps;
 }
