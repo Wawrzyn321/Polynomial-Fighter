@@ -50,8 +50,8 @@ void AdvancedParticleSystem::onLiveEnded()
 void AdvancedParticleSystem::addParticle()
 {
 	//main data
-	float radius = RandomGenerator::getVariation(circleRadius, shapeSizeVariation);
-	int pointCount = static_cast<int>(RandomGenerator::getVariation(circlePointCount, shapeSizeVariation));
+	float radius = RandomGenerator::getVariation(circleRadius, radiusVariation);
+	int pointCount = static_cast<int>(RandomGenerator::getVariation(circlePointCount, radiusVariation));
 	particles.push_back(std::make_shared<AdvancedParticle>(radius, pointCount, this));
 	auto &currentParticle = particles.back();
 
@@ -80,16 +80,6 @@ void AdvancedParticleSystem::addParticle()
 
 #pragma region Handling States
 
-void AdvancedParticleSystem::handleStartDelay(float deltaTime)
-{
-	mainAccumulator += deltaTime;
-	if (mainAccumulator > startDelayTime)
-	{
-		mainAccumulator = 0;
-		state = APSState::SPAWNING;
-	}
-}
-
 void AdvancedParticleSystem::handleUpdatingOnly(float deltaTime)
 {
 	mainAccumulator += deltaTime;
@@ -107,9 +97,10 @@ void AdvancedParticleSystem::handleUpdatingOnly(float deltaTime)
 void AdvancedParticleSystem::handleWaitingForRevival(float deltaTime)
 {
 	mainAccumulator += deltaTime;
-	if (mainAccumulator > timeBetweenSpawn)
+	if (mainAccumulator > timeToRevival)
 	{
 		revive();
+		mainAccumulator = 0;
 	}
 }
 
@@ -167,12 +158,6 @@ void AdvancedParticleSystem::informOfDeath()
 
 void AdvancedParticleSystem::update(const Time::TimeData &timeData)
 {
-	//nie switchem.
-	if(state == APSState::PRE_WAITING)
-	{
-		handleStartDelay(timeData.getScaledDeltaTimeInMili());
-	}
-
 	if (state == APSState::WAITING)
 	{
 		handleWaitingForRevival(timeData.getScaledDeltaTimeInMili());

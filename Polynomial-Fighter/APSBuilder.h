@@ -15,11 +15,11 @@ public:
 
 	APSBuilder* setMainData(float time, int count, Space space = Space::SELF, ActionAfterEmmision actionAfterEmmision = ActionAfterEmmision::DESTROY);
 
-	APSBuilder* setIntervals(float spawningTime, float timeBetweenSpawn, float startDelayTime);
+	APSBuilder* setIntervals(float spawningTime, float timeToRevival = 0);
 
 	APSBuilder* setLooping(bool looping);
 
-	APSBuilder* setAsCircle(float circleRadius, int circlePointCount);
+	APSBuilder* setAsCircle(float circleRadius, int circlePointCount, float radiusVariation = 0);
 
 	APSBuilder *setScaling(float overTimeScaling);
 
@@ -29,7 +29,7 @@ public:
 
 	APSBuilder* setDispersion(float dispersionAngle, float incomingDeg);
 
-	APSBuilder* setColors(sf::Color startColor, float startColorVariation, sf::Color endColor, float endColorVariation, float colorChangingSpeed);
+	APSBuilder* setColors(const sf::Color &startColor, float startColorVariation, const sf::Color &endColor, float endColorVariation, float colorChangingSpeed);
 
 	APSBuilder* setRandomColor(bool useRandomColors);
 

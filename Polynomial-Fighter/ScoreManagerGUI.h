@@ -41,6 +41,7 @@ private:
 	const float minScalingThreshold = 0.01f;
 	sf::Color color_backgroundRectangleInner = sf::Color(193, 193, 193);
 	sf::Color color_backgroundRectangle = sf::Color(63, 63, 63);
+	sf::Color color_text = sf::Color(234, 234, 234);
 };
 
 
