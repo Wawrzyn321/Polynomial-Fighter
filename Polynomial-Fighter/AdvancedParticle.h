@@ -16,7 +16,6 @@ class AdvancedParticleSystem;
 class AdvancedParticle : Entity
 {
 	sf::CircleShape circle;
-	sf::Shape* currentShape;
 
 	AdvancedParticleSystem *parent;
 
@@ -43,8 +42,6 @@ public:
 	bool isAlive;
 
 	AdvancedParticle(float radius, int pointCount, AdvancedParticleSystem *parent);
-
-	//AdvancedParticle(sf::Vector2f size, AdvancedParticleSystem *parent);
 
 	void setTransform(const sf::Vector2f &velocity, float drag, float angularVelocity, float angularDrag, float scaling);
 	void setColors(const sf::Color &startColor, const sf::Color &endColor, float colorChangingSpeed);

@@ -17,6 +17,8 @@ void hideConsole()
 
 int main()
 {
+	SoundManager::instance()->isOn = false;
+
 	hideConsole();
 
 	auto em = EntityManager::instance();

@@ -27,12 +27,11 @@ APSBuilder* APSBuilder::setMainData(float time, int count, Space space, ActionAf
 	return this;
 }
 
-APSBuilder* APSBuilder::setIntervals(float spawningTime, float timeBetweenSpawn, float startDelayTime)
+APSBuilder* APSBuilder::setIntervals(float spawningTime, float timeToRevival)
 {
 	aps->spawningTime = spawningTime;
-	aps->timeBetweenSpawn = timeBetweenSpawn;
+	aps->timeToRevival = timeToRevival;
 	aps->time = cachedTime + spawningTime;
-	aps->startDelayTime = startDelayTime;
 	return this;
 }
 
@@ -42,12 +41,11 @@ APSBuilder* APSBuilder::setLooping(bool looping)
 	return this;
 }
 
-APSBuilder* APSBuilder::setAsCircle(float circleRadius, int circlePointCount)
+APSBuilder* APSBuilder::setAsCircle(float circleRadius, int circlePointCount, float radiusVariation)
 {
 	aps->circleRadius = circleRadius;
 	aps->circlePointCount = circlePointCount;
-
-	//aps->shapeType = CIRCLE;
+	aps->radiusVariation = radiusVariation;
 	return this;
 }
 
@@ -79,7 +77,7 @@ APSBuilder* APSBuilder::setDispersion(float dispersionAngle, float incomingDeg)
 	return this;
 }
 	
-APSBuilder* APSBuilder::setColors(sf::Color startColor, float startColorVariation, sf::Color endColor, float endColorVariation, float colorChangingSpeed)
+APSBuilder* APSBuilder::setColors(const sf::Color &startColor, float startColorVariation, const sf::Color &endColor, float endColorVariation, float colorChangingSpeed)
 {
 	aps->startColor = startColor;
 	aps->startAngularVelocityVariation = startColorVariation;
@@ -115,7 +113,7 @@ std::shared_ptr<AdvancedParticleSystem> APSBuilder::finishBuilding(bool playOnSt
 {
 	aps->finishBuilding();
 	if (playOnStart) {
-		aps->state = APSState::PRE_WAITING;
+		aps->state = APSState::SPAWNING;
 	}
 	else
 	{

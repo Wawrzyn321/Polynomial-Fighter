@@ -17,7 +17,6 @@ enum class ActionAfterEmmision
 
 enum class APSState
 {
-	PRE_WAITING,
 	SPAWNING,
 	ONLY_UPDATING,
 	WAITING,

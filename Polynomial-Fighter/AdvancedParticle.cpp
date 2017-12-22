@@ -10,8 +10,6 @@ void AdvancedParticle::applyDrag(float deltaTime)
 void AdvancedParticle::applyTransform(float deltaTime)
 {
 	setPosition(getPosition() + velocity*deltaTime);
-	/*currentShape->rotate(angularVelocity*deltaTime);
-	currentShape->scale(scaling, scaling);*/
 	float currentScaling = lerp(1.0f, scaling, deltaTime);
 	circle.scale(currentScaling, currentScaling);
 
@@ -24,38 +22,31 @@ void AdvancedParticle::applyTransform(float deltaTime)
 void AdvancedParticle::applyColorChange(float deltaTime)
 {
 	currentColor = currentColor.lerpTo(endColor, colorChangingSpeed*deltaTime, false);
-	//currentShape->setFillColor(currentColor.toColor());
 	circle.setFillColor(currentColor.toColor());
 }
 
 void AdvancedParticle::checkPulse()
 {
-	
 	if (abs(velocity.x) < minValues::minVelocity && abs(velocity.y) < minValues::minVelocity)
 	{
 		isAlive = false;
-		//Debug::PrintFormatted("DEAD by speed");
+		Debug::PrintFormatted("DEAD by speed");
 		parent->informOfDeath();
 	}
-	
 
-	/*if (abs(currentShape->getScale().x)<minValues::minScale &&
-		abs(currentShape->getScale().y)<minValues::minScale)*/
 	if (abs(circle.getScale().x) < minValues::minScale &&
 		abs(circle.getScale().y) < minValues::minScale)
 	{
 		isAlive = false;
-		//Debug::PrintFormatted("DEAD by scale");
+		Debug::PrintFormatted("DEAD by scale");
 		parent->informOfDeath();
 	}
 
-	/*float f = currentColor.calculateMaxDifference(endColor, true);
-	if (f < minValues::minColorDifference)
-	{
-		//Debug::PrintFormatted("DEAD by color");
+	if(currentColor.calculateMaxDifference(endColor, true) < 0.01f) {
 		isAlive = false;
+		Debug::PrintFormatted("DEAD by color");
 		parent->informOfDeath();
-	}*/
+	}
 }
 
 AdvancedParticle::AdvancedParticle(float radius, int pointCount, AdvancedParticleSystem *parent)
@@ -64,17 +55,7 @@ AdvancedParticle::AdvancedParticle(float radius, int pointCount, AdvancedParticl
 
 	circle = sf::CircleShape(radius, pointCount);
 	circle.setOrigin(radius, radius);
-	//currentShape = &circle;
 }
-//
-//AdvancedParticle::AdvancedParticle(sf::Vector2f size, AdvancedParticleSystem *parent)
-//{
-//	this->parent = parent;
-//
-//	rectangle = sf::RectangleShape(size);
-//	rectangle.setOrigin(size*0.5f);
-//	currentShape = &rectangle;
-//}
 
 #pragma region Setting values
 
@@ -89,7 +70,6 @@ void AdvancedParticle::setTransform(const sf::Vector2f &velocity, float drag, fl
 
 void AdvancedParticle::setColors(const sf::Color &startColor, const sf::Color &endColor, float colorChangingSpeed)
 {
-	//currentShape->setFillColor(startColor);
 	circle.setFillColor(startColor);
 	this->currentColor = FloatColor(startColor);
 	this->endColor = FloatColor(endColor);
@@ -109,7 +89,6 @@ void AdvancedParticle::setGravity(bool useGravity, const sf::Vector2f &gravity)
 void AdvancedParticle::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	if (isAlive) {
-		//target.draw(*currentShape, states);
 		target.draw(circle, states);
 	}
 }
@@ -138,12 +117,11 @@ void AdvancedParticle::move(const sf::Vector2f &shift)
 
 sf::Vector2f AdvancedParticle::getPosition() const
 {
-	return circle.getPosition();// currentShape->getPosition();
+	return circle.getPosition();
 }
 
 void AdvancedParticle::setPosition(const sf::Vector2f &position)
 {
-	//currentShape->setPosition(position);
 	circle.setPosition(position);
 }
 

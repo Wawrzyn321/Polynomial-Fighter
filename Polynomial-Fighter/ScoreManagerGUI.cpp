@@ -23,7 +23,7 @@ void ScoreManagerGUI::initGraphics(const sf::Vector2f& position, const sf::Vecto
 
 	font = AssetManager::instance()->getDefaultFont();
 	scoreText = sf::Text("1/0", *font, fontSize);
-	scoreText.setFillColor(color_backgroundRectangleInner);
+	scoreText.setFillColor(color_text);
 	centerTextOrigin(scoreText);
 	scoreText.setPosition(textPosition);
 }

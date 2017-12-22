@@ -15,8 +15,7 @@ class AdvancedParticleSystem : public Entity
 
 	bool looping = false;
 	float spawningTime = 2000;
-	float timeBetweenSpawn = 1000;
-	float startDelayTime = 0;
+	float timeToRevival = 1000;
 
 	int count = 20;
 	float size = 5;
@@ -46,7 +45,7 @@ class AdvancedParticleSystem : public Entity
 
 	float circleRadius = 10.0f;
 	int circlePointCount = 16;
-	float shapeSizeVariation = 0;
+	float radiusVariation = 0;
 
 	float time = 10000;
 	ActionAfterEmmision actionAfterEmmision = ActionAfterEmmision::DESTROY;
@@ -63,7 +62,6 @@ class AdvancedParticleSystem : public Entity
 
 	void addParticle();
 
-	void handleStartDelay(float get_scaled_delta_time_in_mili);
 	void handleUpdatingOnly(float deltaTime);
 	void handleWaitingForRevival(float deltaTime);
 	void handleUpdatingParticles(const Time::TimeData &timeData);

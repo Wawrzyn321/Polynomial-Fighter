@@ -8,7 +8,7 @@ void ParticleMaster::addPlayerShootParticles(const sf::Vector2f& position, float
 		->setMainData(1000, 300)
 		->setScaling(0.999f)
 		->setVelocity(0.3f, 0.3f, 0.99f)
-		->setIntervals(100, 50, 0)
+		->setIntervals(100)
 		->setAsCircle(3, 16)
 		->setDispersion(30, rotation - 90)
 		->setColors(sf::Color(255, 255, 193), 0.2f, sf::Color::Transparent, 0, 0.005f)
@@ -31,7 +31,7 @@ void ParticleMaster::addEnemyHitParticles(const sf::Vector2f &position, const sf
 {
 	auto aps = APSBuilder::startBuilding(position)
 		->setMainData(2000, 300)
-		->setIntervals(100, 50, 0)
+		->setIntervals(100)
 		->setColors(sf::Color::Red, 0.7f, sf::Color::White, 0.1f, 0.001f)
 		->setAsCircle(3 * modifier, 6)
 		->setVelocity(0.2f * modifier, 0.1f, 0.999f)
@@ -46,7 +46,7 @@ void ParticleMaster::addEnemyDestroyedParticles(const sf::Vector2f& position, fl
 {
 	auto aps = APSBuilder::startBuilding(position)
 		->setMainData(4000, 500)
-		->setIntervals(100, 50, 0)
+		->setIntervals(100)
 		->setColors(sf::Color::Red, 0.1f, sf::Color::White, 0.1f, 0.002f)
 		->setAsCircle(10, 12)
 		->setVelocity(0.15f*modifier, 0.1f, 0.999f)
@@ -59,7 +59,7 @@ void ParticleMaster::addPlayerHitParticles(const sf::Vector2f &position, const s
 {
 	auto aps = APSBuilder::startBuilding(position)
 		->setMainData(2000, 150)
-		->setIntervals(100, 0, 0)
+		->setIntervals(100)
 		->setColors(sf::Color::Red, 0.3f, sf::Color::White, 0.1f, 0.001f)
 		->setAsCircle(4, 6)
 		->setVelocity(0.4f * modifier, 0.1f, 0.999f)
@@ -73,7 +73,7 @@ void ParticleMaster::addPlayerDestroyedParticles(const sf::Vector2f& position, f
 {
 	auto aps = APSBuilder::startBuilding(position)
 		->setMainData(3000, 1000)
-		->setIntervals(100, 50, 0)
+		->setIntervals(100)
 		->setColors(sf::Color::Red, 0.1f, sf::Color::White, 0.0f, 0.001f)
 		->setAsCircle(5, 6)
 		->setVelocity(0.5f * modifier, 0.2f, 0.995f)
