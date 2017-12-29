@@ -17,16 +17,16 @@ class AdvancedParticle : Entity
 {
 	sf::CircleShape circle;
 
-	AdvancedParticleSystem *parent;
+	AdvancedParticleSystem *parent{};
 
 	sf::Vector2f velocity;
-	float drag;
-	float angularVelocity;
-	float angularDrag;
-	float scaling;
-	float colorChangingSpeed;
+	float drag{};
+	float angularVelocity{};
+	float angularDrag{};
+	float scaling{};
+	float colorChangingSpeed{};
 
-	bool useGravity;
+	bool useGravity{};
 	sf::Vector2f gravity;
 
 	FloatColor currentColor;
@@ -37,9 +37,9 @@ class AdvancedParticle : Entity
 	void applyColorChange(float deltaTime);
 	void checkPulse();
 
-	AdvancedParticle() {}
+	AdvancedParticle() = default;
 public:
-	bool isAlive;
+	bool isAlive{};
 
 	AdvancedParticle(float radius, int pointCount, AdvancedParticleSystem *parent);
 
