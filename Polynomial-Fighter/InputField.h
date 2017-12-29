@@ -25,7 +25,7 @@ class InputField : public sf::Drawable
 	const int characterLimit = 11;
 public:
 	Delegate<const std::string&> OnTextSubmitted;
-	bool interactable;
+	bool interactable{};
 	InputField(const sf::Vector2f &position, const sf::Vector2f &size);
 
 	void feed(const sf::Event &event);

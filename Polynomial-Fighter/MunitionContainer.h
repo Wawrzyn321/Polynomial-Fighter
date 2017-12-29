@@ -12,12 +12,12 @@ class MunitionContainer : public sf::Drawable
 	sf::RectangleShape roundGraphic;
 
 	sf::Vector2f fleetingTextsOrigin;
-	unsigned fleetingTextFontSize;
+	unsigned fleetingTextFontSize{};
 
 	std::shared_ptr<sf::Font> font;
 
-	int currentNumberOfRounds;
-	float currentReloadPercentage;
+	int currentNumberOfRounds{};
+	float currentReloadPercentage{};
 
 	void addFleetingText(const std::string& caption, const sf::Color& color);
 

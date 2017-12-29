@@ -3,8 +3,8 @@
 
 struct DesignatedTarget
 {
-	unsigned recipientID;
-	int root;
+	unsigned recipientID{};
+	int root{};
 
 	bool operator==(const DesignatedTarget &other) const
 	{

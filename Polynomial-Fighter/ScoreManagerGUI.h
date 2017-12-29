@@ -12,12 +12,12 @@ class ScoreManagerGUI : public sf::Drawable
 
 	sf::Vector2f textPosition;
 
-	float currentPoints;
-	unsigned targetPoints;
-	unsigned stageNo;
-	unsigned fontSize;
+	float currentPoints{};
+	unsigned targetPoints{};
+	unsigned stageNo{};
+	unsigned fontSize{};
 
-	float accumulator;
+	float accumulator{};
 
 	void updateScoreText();
 

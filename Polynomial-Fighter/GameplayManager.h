@@ -6,13 +6,13 @@
 
 class GameplayManager
 {
-	unsigned currentStage;
-	unsigned points;
+	unsigned currentStage{};
+	unsigned points{};
 
-	unsigned targetEnemiesNumber;
-	unsigned alreadySpawnedEnemies;
-	unsigned allDestroyedEnemies;
-	unsigned enemiesAlive;
+	unsigned targetEnemiesNumber{};
+	unsigned alreadySpawnedEnemies{};
+	unsigned allDestroyedEnemies{};
+	unsigned enemiesAlive{};
 
 	EnemySpawner spawner;
 	ScoreManager scoreManager;

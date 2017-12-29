@@ -12,9 +12,9 @@ class PlayerHealthGUI : public sf::Drawable
 
 	void initGraphics(const sf::Vector2f& position, const sf::Vector2f& size);
 
-	float maxHealth;
+	float maxHealth{};
 public:
-	float health;
+	float health{};
 	PlayerHealthGUI(const sf::Vector2f &position, const sf::Vector2f &size, float maxHealth);
 
 	void updateHealthGraphics(float deltaTime);

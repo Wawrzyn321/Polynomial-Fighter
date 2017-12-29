@@ -4,7 +4,7 @@
 #include "BulletBase.h"
 
 class SignedBullet : public BulletBase {
-	int load;
+	int load{};
 	sf::Text caption;
 	sf::Text symbol;
 	std::shared_ptr<sf::Font> font;

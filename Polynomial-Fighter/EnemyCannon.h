@@ -4,11 +4,11 @@
 class Enemy;
 class EnemyCannon
 {
-	float accumulator;
-	float reloadTime;
+	float accumulator{};
+	float reloadTime{};
 
-	Enemy *enemyReference;
-	float bonusBulletDamage;
+	Enemy *enemyReference{};
+	float bonusBulletDamage{};
 
 	void shoot();
 

@@ -4,7 +4,7 @@
 
 class APSBuilder
 {
-	float cachedTime;
+	float cachedTime{};
 
 	std::shared_ptr<AdvancedParticleSystem> aps;
 

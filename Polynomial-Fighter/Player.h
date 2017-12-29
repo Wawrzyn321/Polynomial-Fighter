@@ -12,15 +12,15 @@ class Player : public Entity, public IDamageable
 	sf::Text shape;
 	std::shared_ptr<sf::Font> font;
 
-	float health;
-	float maxHealth;
-	bool isAlive;
+	float health{};
+	float maxHealth{};
+	bool isAlive{};
 
 	std::unique_ptr<PlayerHealthGUI> healthGUI;
 	std::unique_ptr<PlayerCannon> cannon;
 
 	float targetRotation = 0;
-	bool rotationEventInvoked;
+	bool rotationEventInvoked{};
 
 	void initGraphics();
 
@@ -51,9 +51,9 @@ public:
 
 	void receiveDamage(float damage, float bonusDamageMultiplier) override;
 
-	void receiveDamage(float damage, const sf::Vector2f incoming, float bonusDamageMultiplier) override;
+	void receiveDamage(float damage, const sf::Vector2f &incoming, float bonusDamageMultiplier) override;
 
-	~Player();
+	virtual ~Player();
 private:
 	const float startingHealth = 10.0f;
 	const float playerCollisionRadius = 10.0f;

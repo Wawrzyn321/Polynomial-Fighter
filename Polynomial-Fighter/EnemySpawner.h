@@ -9,18 +9,18 @@ class GameplayManager;
 class EnemySpawner
 {
 	sf::FloatRect bounds;
-	float accumulator;
+	float accumulator{};
 	std::shared_ptr<Player> playerReference;
 	GameplayManager *managerReference;
-	float interval;
-	unsigned difficultyLevel;
+	float interval{};
+	unsigned difficultyLevel{};
 	void spawnEnemy();
 
 	float calculateInterval() const;
 	
 public:
 	Delegate<unsigned> OnEnemySpawn;
-	bool isActive;
+	bool isActive{};
 
 	EnemySpawner() {}
 
