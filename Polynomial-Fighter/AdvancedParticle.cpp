@@ -53,7 +53,7 @@ AdvancedParticle::AdvancedParticle(float radius, int pointCount, AdvancedParticl
 {
 	this->parent = parent;
 
-	circle = sf::CircleShape(radius, pointCount);
+	circle = sf::CircleShape(radius, static_cast<size_t>(pointCount));
 	circle.setOrigin(radius, radius);
 }
 

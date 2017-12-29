@@ -38,7 +38,7 @@ ScoreManagerGUI::ScoreManagerGUI(const sf::Vector2f& position, const sf::Vector2
 
 void ScoreManagerGUI::setTargetPoints(int targetPoints)
 {
-	this->targetPoints = targetPoints;
+	this->targetPoints = static_cast<unsigned int>(targetPoints);
 	scoreText.scale(scaleMultiplier, scaleMultiplier);
 }
 

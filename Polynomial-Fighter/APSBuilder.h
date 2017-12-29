@@ -9,7 +9,7 @@ class APSBuilder
 	std::shared_ptr<AdvancedParticleSystem> aps;
 
 public:
-	APSBuilder(const sf::Vector2f &position);
+    explicit APSBuilder(const sf::Vector2f &position);
 
 	static std::shared_ptr<APSBuilder> startBuilding(const sf::Vector2f &position);
 

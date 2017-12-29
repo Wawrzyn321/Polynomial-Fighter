@@ -13,14 +13,14 @@ namespace Time {
         return sInstance;
     }
 
-    sf::Uint64 Timer::getDeltaTime() const //TODO zmieniæ to ³adniej
+    sf::Uint64 Timer::getDeltaTime() const //TODO zmieniï¿½ to ï¿½adniej
     {
-        return deltaTimeTimer->restart().asMicroseconds();
+        return static_cast<sf::Uint64>(deltaTimeTimer->restart().asMicroseconds());
     }
 
     sf::Uint64 Timer::getElapsedTime() const
     {
-        return timer->getElapsedTime().asMicroseconds();
+        return static_cast<sf::Uint64>(timer->getElapsedTime().asMicroseconds());
     }
 
     float Timer::getTimeScale() const

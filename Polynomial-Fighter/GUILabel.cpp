@@ -1,4 +1,6 @@
 #include "GUILabel.h"
+
+#include <utility>
 #include "Debug.h"
 #include "SoundManager.h"
 
@@ -17,12 +19,12 @@ void GUILabel::playClick()
 
 GUILabel::GUILabel(sf::Vector2f position, int fontSize, std::string caption, std::function<void(void)> function) {
 
-	action = function;
+	action = std::move(function);
 
 	auto am = AssetManager::instance();
 	auto font = am->getDefaultFont();
 
-	text = sf::Text(caption, *font, fontSize);
+	text = sf::Text(caption, *font, static_cast<unsigned int>(fontSize));
 	text.setFillColor(color_text_normal);
 	centerTextOrigin(text);
 	text.setPosition(position);

@@ -52,7 +52,7 @@ RequestValue EmptyStringHandler::handleImplementation(const std::string& input) 
 
 bool SingleNumberStringHandler::canHandleRequest(const std::string& input) const
 {
-	return input.size() > 0 &&
+	return !input.empty() &&
 		!RequestSubprocessor::hasInequalityCharacters(input) &&
 		!RequestSubprocessor::hasSlash(input) && 
 		RequestSubprocessor::isNumber(input);

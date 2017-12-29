@@ -3,7 +3,7 @@
 
 void BulletBase::checkCollisions()
 {
-	auto target = EntityManager::instance()->findEntityById(recipientID);
+	auto target = EntityManager::instance()->findEntityById(static_cast<unsigned long>(recipientID));
 	if (checkCollision(target))
 	{
 		hitTarget(target);

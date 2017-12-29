@@ -14,8 +14,8 @@ void EnemySpawner::spawnEnemy()
 		return;
 	}
 
-	unsigned deg = unsigned(clamp(difficultyLevel + 1, unsigned(1), GameData::MAX_POLYNOMINAL_DEGREE));
-	unsigned valuesRange = unsigned(clamp(difficultyLevel + 1, unsigned(1), GameData::MAX_POLYNOMINAL_VALUE));
+    auto deg = clamp(difficultyLevel + 1, unsigned(1), GameData::MAX_POLYNOMINAL_DEGREE);
+	auto valuesRange = clamp(difficultyLevel + 1, unsigned(1), GameData::MAX_POLYNOMINAL_VALUE);
 	PolynomialProductForm pff = PolynomialGenerator::generatePolynomial(deg, valuesRange);
 	sf::Vector2f position = getPointOnIntRect(bounds);
 
@@ -31,7 +31,7 @@ void EnemySpawner::spawnEnemy()
 float EnemySpawner::calculateInterval() const
 {
 	// f(x) = 1000 * (4.5 + 0.1x) / (1 + 0.1x) -> (1000, 4500>
-	float f = (4.5f + difficultyLevel*0.1f) / float(1 + difficultyLevel*0.1f);
+	float f = (4.5f + difficultyLevel*0.1f) / (1 + difficultyLevel * 0.1f);
 	float multiplier = 1 / Time::MICRO_TO_MILI;
 	return multiplier * f;
 }

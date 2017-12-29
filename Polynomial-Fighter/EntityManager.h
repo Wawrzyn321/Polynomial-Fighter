@@ -128,10 +128,9 @@ std::shared_ptr<T> EntityManager::findEntityById(unsigned long id)
 template <class T>
 std::shared_ptr<T> EntityManager::findEntityOfType(bool includeDisabled)
 {
-	for (unsigned i = 0; i < entities.size(); i++)
-	{
-		if (entities[i]->getEnabled() || includeDisabled) {
-			auto e = std::dynamic_pointer_cast<T>(entities[i]);
+	for (auto &entitie : entities) {
+		if (entitie->getEnabled() || includeDisabled) {
+			auto e = std::dynamic_pointer_cast<T>(entitie);
 			if (e != nullptr)
 			{
 				return e;

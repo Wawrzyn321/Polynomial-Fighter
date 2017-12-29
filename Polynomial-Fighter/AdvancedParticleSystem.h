@@ -67,7 +67,7 @@ class AdvancedParticleSystem : public Entity
 	void handleUpdatingParticles(const Time::TimeData &timeData);
 	void handleSpawning(float deltaTime);
 public:
-	AdvancedParticleSystem(const sf::Vector2f &position);
+	explicit AdvancedParticleSystem(const sf::Vector2f &position);
 
 	Space space = Space::SELF;
 

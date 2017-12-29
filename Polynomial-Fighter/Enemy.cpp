@@ -54,7 +54,7 @@ int Enemy::decreasePolynomial(int root)
 	assert(pff.isRoot(root));
 	size_t degBefore = pff.getDeg();
 	pff.removeFactorsByRoot(root);
-	int difference = int(degBefore - pff.getDeg());
+    auto difference = int(degBefore - pff.getDeg());
 	if (pff.getDeg() == 0) {
 		DeathEvent(id);
 		setToDelete(true);
@@ -98,7 +98,7 @@ sf::Vector2f Enemy::getPosition() const
 void Enemy::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	target.draw(shape, states);
-	target.draw(*caption.get(), states);
+	target.draw(*caption, states);
 }
 
 void Enemy::update(const Time::TimeData &timeData)

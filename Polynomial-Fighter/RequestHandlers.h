@@ -14,7 +14,7 @@ protected:
 
 	RequestValue passFurther(const std::string& input) const;
 public:
-	RequestHandler(RequestHandler* succesor);
+    explicit RequestHandler(RequestHandler* succesor);
 
 	RequestValue handle(const std::string& input) const;
 
@@ -24,7 +24,7 @@ public:
 class EmptyStringHandler : public RequestHandler
 {
 public:
-	EmptyStringHandler(RequestHandler *succesor) : RequestHandler(succesor) { }
+	explicit EmptyStringHandler(RequestHandler *succesor) : RequestHandler(succesor) { }
 
 protected:
 	bool canHandleRequest(const std::string& input) const override;
@@ -35,7 +35,7 @@ protected:
 class SingleNumberStringHandler : public RequestHandler
 {
 public:
-	SingleNumberStringHandler(RequestHandler *succesor) : RequestHandler(succesor) { }
+	explicit SingleNumberStringHandler(RequestHandler *succesor) : RequestHandler(succesor) { }
 
 protected:
 	bool canHandleRequest(const std::string& input) const override;
@@ -46,7 +46,7 @@ protected:
 class LHSInequalityStringHandler : public RequestHandler
 {
 public:
-	LHSInequalityStringHandler(RequestHandler *succesor) : RequestHandler(succesor) { }
+	explicit LHSInequalityStringHandler(RequestHandler *succesor) : RequestHandler(succesor) { }
 
 protected:
 	bool canHandleRequest(const std::string& input) const override;
@@ -58,7 +58,7 @@ protected:
 class RHSInequalityStringHandler : public RequestHandler
 {
 public:
-	RHSInequalityStringHandler(RequestHandler *succesor) : RequestHandler(succesor) { }
+	explicit RHSInequalityStringHandler(RequestHandler *succesor) : RequestHandler(succesor) { }
 
 protected:
 	bool canHandleRequest(const std::string& input) const override;
@@ -70,7 +70,7 @@ protected:
 class ListStringHandler : public RequestHandler
 {
 public:
-	ListStringHandler(RequestHandler *succesor) : RequestHandler(succesor) { }
+	explicit ListStringHandler(RequestHandler *succesor) : RequestHandler(succesor) { }
 
 protected:
 	bool canHandleRequest(const std::string& input) const override;
@@ -85,7 +85,7 @@ private:
 class DivisorStringHandler : public RequestHandler
 {
 public:
-	DivisorStringHandler(RequestHandler *succesor) : RequestHandler(succesor) { }
+	explicit DivisorStringHandler(RequestHandler *succesor) : RequestHandler(succesor) { }
 
 protected:
 	bool canHandleRequest(const std::string& input) const override;

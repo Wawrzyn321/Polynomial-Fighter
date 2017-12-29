@@ -34,7 +34,8 @@ int main()
 	inputField.OnTextSubmitted.add(std::bind(&GameplayManager::TextSubmitted, &gameplayManager, std::placeholders::_1));
 	em->findEntityOfType<Player>()->DeathEvent.add(std::bind(&InputField::disable, &inputField));
 
-	sf::RenderWindow window(sf::VideoMode(GameData::WINDOW_SIZE.x, GameData::WINDOW_SIZE.y), "pf");
+	sf::RenderWindow window(sf::VideoMode(static_cast<unsigned int>(GameData::WINDOW_SIZE.x),
+                                          static_cast<unsigned int>(GameData::WINDOW_SIZE.y)), "pf");
     window.setFramerateLimit(120);
 
 	while (window.isOpen())

@@ -9,7 +9,7 @@
 
 void PlayerCannon::updateState()
 {
-	if (targets.size() == 0)
+	if (targets.empty())
 	{
 		state = CannonState::IDLE;
 	}
@@ -112,12 +112,12 @@ void PlayerCannon::appendTargets(const std::vector<int>& values, const std::vect
 	std::random_shuffle(shuffledValues.begin(), shuffledValues.end());
 
 	int targetsAdded = 0;
-	int size = int(shuffledValues.size());
+	auto size = int(shuffledValues.size());
 	if (munitionContainer->canShoot(size)) {
 		munitionContainer->removeRounds(size);
 
 		std::vector<DesignatedTarget> designatedTargets;
-		for (auto e : enemies)
+		for (const auto &e : enemies)
 		{
 			for (auto v : shuffledValues)
 			{

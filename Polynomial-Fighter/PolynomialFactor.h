@@ -10,7 +10,7 @@ private:
     bool isInteger(double n) const;
 
 public:
-    PolynomialFactor(int x = 0, int constant = 0);
+    explicit PolynomialFactor(int x = 0, int constant = 0);
     int getX() const;
     void setX(int x);
     int getConstant() const;
