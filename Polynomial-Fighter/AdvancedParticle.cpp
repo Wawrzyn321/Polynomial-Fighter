@@ -30,7 +30,7 @@ void AdvancedParticle::checkPulse()
 	if (abs(velocity.x) < minValues::minVelocity && abs(velocity.y) < minValues::minVelocity)
 	{
 		isAlive = false;
-		Debug::PrintFormatted("DEAD by speed");
+		//Debug::PrintFormatted("DEAD by speed");
 		parent->informOfDeath();
 	}
 
@@ -38,13 +38,13 @@ void AdvancedParticle::checkPulse()
 		abs(circle.getScale().y) < minValues::minScale)
 	{
 		isAlive = false;
-		Debug::PrintFormatted("DEAD by scale");
+		//Debug::PrintFormatted("DEAD by scale");
 		parent->informOfDeath();
 	}
 
 	if(currentColor.calculateMaxDifference(endColor, true) < 0.01f) {
 		isAlive = false;
-		Debug::PrintFormatted("DEAD by color");
+		//Debug::PrintFormatted("DEAD by color");
 		parent->informOfDeath();
 	}
 }
@@ -52,6 +52,7 @@ void AdvancedParticle::checkPulse()
 AdvancedParticle::AdvancedParticle(float radius, int pointCount, AdvancedParticleSystem *parent)
 {
 	this->parent = parent;
+	isAlive = true;
 
 	circle = sf::CircleShape(radius, static_cast<size_t>(pointCount));
 	circle.setOrigin(radius, radius);
