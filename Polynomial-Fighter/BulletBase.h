@@ -6,8 +6,8 @@ class BulletBase : public Entity
 {
 protected:
 	sf::Vector2f velocity;
-	long recipientID;
-	float radius;
+	long recipientID{};
+	float radius{};
 	
 	void checkCollisions();
 

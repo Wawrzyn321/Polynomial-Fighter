@@ -93,12 +93,6 @@ void rotateTowards(sf::Transformable &sprite, sf::Vector2<T> target, float time 
 	sprite.setRotation(nextRotation*180.0f/pi);
 }
 
-template<class T>
-const T& customClamp(const T &x, const T &upper, const T &lower)
-{
-    return std::min(upper, std::max(x, lower)); //mam stare gcc i nie chce mi sie aktualizowac... na linuksie to trudne
-}
-
 #pragma endregion
 
 #endif

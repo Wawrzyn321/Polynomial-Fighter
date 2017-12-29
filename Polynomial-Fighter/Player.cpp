@@ -133,7 +133,7 @@ void Player::receiveDamage(float damage, float bonusDamageMultiplier)
 	}
 }
 
-void Player::receiveDamage(float damage, const sf::Vector2f incoming, float bonusDamageMultiplier)
+void Player::receiveDamage(float damage, const sf::Vector2f &incoming, float bonusDamageMultiplier)
 {
 	bool wasDestroyed = (health - damage*bonusDamageMultiplier) <= 0;
 	if (!wasDestroyed) {

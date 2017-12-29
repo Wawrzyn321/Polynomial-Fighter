@@ -50,11 +50,11 @@ class AdvancedParticleSystem : public Entity
 	float time = 10000;
 	ActionAfterEmmision actionAfterEmmision = ActionAfterEmmision::DESTROY;
 
-	float mainAccumulator;
-	float spawningAccumulator;
-	float singleSpawnTime;
-	int spawnedParticles;
-	int aliveParticlesCount;
+	float mainAccumulator{};
+	float spawningAccumulator{};
+	float singleSpawnTime{};
+	int spawnedParticles{};
+	int aliveParticlesCount{};
 
 	AdvancedParticleSystem* finishBuilding();
 

@@ -7,8 +7,8 @@
 
 class SimpleBullet : public BulletBase {
 	sf::CircleShape shape;
-	float damage;
-	float bonusDamageMultiplier;
+	float damage{};
+	float bonusDamageMultiplier{};
 
 	void initGraphics();
 

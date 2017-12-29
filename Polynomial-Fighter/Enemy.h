@@ -22,14 +22,14 @@ private:
 	sf::RectangleShape shape;
 	sf::Vector2f velocity;
 	sf::Vector2f playerPosition;
-	float attractionRadiusSqr;
+	float attractionRadiusSqr{};
 	State state;
 
 	PolynomialProductForm pff;
 	std::unique_ptr<PowerfulText> caption;
 	std::unique_ptr<EnemyCannon> cannon;
 
-	unsigned originalDegree;
+	unsigned originalDegree{};
 
 	void initComponents(const std::string &captionText, float angle);
 public:
@@ -57,11 +57,11 @@ public:
 
 	void receiveDamage(float damage, float bonusDamageMultiplier) override;
 
-	void receiveDamage(float damage, const sf::Vector2f incoming, float bonusDamageMultiplier) override;
+	void receiveDamage(float damage, const sf::Vector2f &incoming, float bonusDamageMultiplier) override;
 
 	Enemy(const Enemy &) = default;
 
-	~Enemy(); 
+	virtual ~Enemy();
 
 	Enemy(Enemy&&) = default;
 private:

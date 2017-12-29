@@ -17,11 +17,11 @@ class FleetingText : public Entity
 	State state;
 
 	FloatColor currentColor;
-	float accumulator;
-	float fadingSpeed;
-	float waitTime;
+	float accumulator{};
+	float fadingSpeed{};
+	float waitTime{};
 	sf::Vector2f velocity;
-	bool moveWhileWaiting;
+	bool moveWhileWaiting{};
 
 	void fadeText(float deltaTime);
 

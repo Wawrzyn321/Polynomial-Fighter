@@ -21,15 +21,15 @@ class PlayerCannon : public sf::Drawable
 
 	std::vector<DesignatedTarget> targets;
     sf::Vector2f origin;
-	CannonState state;
+	CannonState state{};
 	DesignatedTarget currentTarget;
-	Player *playerReference;
+	Player *playerReference{};
 
 	std::shared_ptr<MunitionContainer> munitionContainer;
 	std::shared_ptr<PlayerCannonGraphics> graphics;
 
-	float reloadAccumulator;
-	float reloadTime;
+	float reloadAccumulator{};
+	float reloadTime{};
 
 	void updateState();
 
@@ -42,7 +42,8 @@ class PlayerCannon : public sf::Drawable
 	void initGraphics();
 
 public:
-	PlayerCannon(){}
+	PlayerCannon() = default;
+
 	PlayerCannon(Player *playerReference, const sf::Vector2f &origin);
 
 	void addRounds(int roundsToAdd) const;
@@ -57,7 +58,7 @@ public:
 
 	void update(float deltaTime);
 
-	~PlayerCannon();
+	virtual ~PlayerCannon();
 private:
 	const float defaultReloadTime = 400.0f;
 };

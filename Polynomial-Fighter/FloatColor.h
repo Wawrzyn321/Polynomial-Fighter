@@ -9,7 +9,7 @@ class FloatColor
 	const float colorRange = 255.0f;
 	const float colorRangeReciproc = 1 / colorRange;
 public:
-	float x, y, z, w;
+	float x{}, y{}, z{}, w{};
 
 	FloatColor() : x(0), y(0), z(0), w(0) {}
 

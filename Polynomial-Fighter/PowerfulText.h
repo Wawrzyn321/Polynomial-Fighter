@@ -9,17 +9,17 @@ class PowerfulText : public sf::Drawable
 {
 	sf::Color color;
 	sf::Vector2f position;
-	unsigned characterSize;
+	unsigned characterSize{};
 
 	std::string script;
 	std::vector<sf::Text> texts;
 	std::shared_ptr<sf::Font> font;
 
-	float overallLength;
-	bool isCentered;
+	float overallLength{};
+	bool isCentered{};
 public:
 
-	PowerfulText(){}
+	PowerfulText() = default;
 
 	PowerfulText(const std::string& script, const std::shared_ptr<sf::Font> &font, unsigned characterSize = 30);
 
@@ -38,7 +38,7 @@ public:
 
 	void draw(sf::RenderTarget & target, sf::RenderStates states) const override;
 
-	~PowerfulText();
+	virtual ~PowerfulText();
 private:
 	const char UPPER = '^';
 	const char LOWER = '_';

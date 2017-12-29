@@ -8,7 +8,7 @@ class PlayerCannonGraphics : public sf::Drawable
 {
 	sf::Text cannon;
 	std::shared_ptr<sf::Font> font;
-	float rotationAngleModifier;
+	float rotationAngleModifier{};
 public:
 	PlayerCannonGraphics();
 

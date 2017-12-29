@@ -11,7 +11,7 @@ namespace Time {
 
     struct TimeData {
         sf::Time deltaTime;
-        float timeScale;
+        float timeScale{};
         sf::Time elapsedTime;
         float getScaledDeltaTimeInMili() const
         {
@@ -25,8 +25,8 @@ namespace Time {
 
     class Timer {
         static Timer *sInstance;
-        sf::Clock *deltaTimeTimer;
-        sf::Clock *timer;
+        sf::Clock *deltaTimeTimer{};
+        sf::Clock *timer{};
         float timeScale = 1;
     public:
         static Timer* instance();
