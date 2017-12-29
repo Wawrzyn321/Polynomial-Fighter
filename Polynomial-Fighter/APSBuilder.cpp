@@ -1,9 +1,9 @@
 #include "APSBuilder.h"
 #include "Utility.h"
 
-APSBuilder* APSBuilder::startBuilding(const sf::Vector2f &position)
+std::shared_ptr<APSBuilder> APSBuilder::startBuilding(const sf::Vector2f &position)
 {
-	APSBuilder *builder = new APSBuilder(position); //TODO tu siê bity wylewaj¹
+	auto builder = std::make_shared<APSBuilder>(position);
 
 	builder->aps->name = GameData::NAME_PARTICLE_SYSTEM;
 
@@ -16,7 +16,7 @@ APSBuilder::APSBuilder(const sf::Vector2f &position)
 	cachedTime = 0;
 }
 
-APSBuilder* APSBuilder::setMainData(float time, int count, Space space, ActionAfterEmmision actionAfterEmmision)
+APSBuilder & APSBuilder::setMainData(float time, int count, Space space, ActionAfterEmmision actionAfterEmmision)
 {
 	aps->time = time;
 	aps->count = count;
@@ -24,89 +24,89 @@ APSBuilder* APSBuilder::setMainData(float time, int count, Space space, ActionAf
 	aps->actionAfterEmmision = actionAfterEmmision;
 
 	cachedTime = time;
-	return this;
+	return *this;
 }
 
-APSBuilder* APSBuilder::setIntervals(float spawningTime, float timeToRevival)
+APSBuilder & APSBuilder::setIntervals(float spawningTime, float timeToRevival)
 {
 	aps->spawningTime = spawningTime;
 	aps->timeToRevival = timeToRevival;
 	aps->time = cachedTime + spawningTime;
-	return this;
+	return *this;
 }
 
-APSBuilder* APSBuilder::setLooping(bool looping)
+APSBuilder & APSBuilder::setLooping(bool looping)
 {
 	aps->looping = looping;
-	return this;
+	return *this;
 }
 
-APSBuilder* APSBuilder::setAsCircle(float circleRadius, int circlePointCount, float radiusVariation)
+APSBuilder & APSBuilder::setAsCircle(float circleRadius, int circlePointCount, float radiusVariation)
 {
 	aps->circleRadius = circleRadius;
 	aps->circlePointCount = circlePointCount;
 	aps->radiusVariation = radiusVariation;
-	return this;
+	return *this;
 }
 
-APSBuilder* APSBuilder::setScaling(float overTimeScaling)
+APSBuilder & APSBuilder::setScaling(float overTimeScaling)
 {
 	aps->overTimeScaling = overTimeScaling;
-	return this;
+	return *this;
 }
 
-APSBuilder* APSBuilder::setGravity(bool useGravity, const sf::Vector2f &gravity)
+APSBuilder & APSBuilder::setGravity(bool useGravity, const sf::Vector2f &gravity)
 {
 	aps->useGravity = useGravity;
 	aps->gravity = gravity;
-	return this;
+	return *this;
 }
 
-APSBuilder* APSBuilder::setDispersion(float dispersionAngle, const sf::Vector2f &direction)
+APSBuilder & APSBuilder::setDispersion(float dispersionAngle, const sf::Vector2f &direction)
 {
 	aps->dispersionAngle = dispersionAngle;
 	aps->direction = direction;
-	return this;
+	return *this;
 }
 
-APSBuilder* APSBuilder::setDispersion(float dispersionAngle, float incomingDeg)
+APSBuilder & APSBuilder::setDispersion(float dispersionAngle, float incomingDeg)
 {
 	aps->dispersionAngle = dispersionAngle;
 	float angleRad = incomingDeg * pi / 180.0f;
 	aps->direction = { cosf(angleRad),sinf(angleRad) };
-	return this;
+	return *this;
 }
-	
-APSBuilder* APSBuilder::setColors(const sf::Color &startColor, float startColorVariation, const sf::Color &endColor, float endColorVariation, float colorChangingSpeed)
+
+APSBuilder & APSBuilder::setColors(const sf::Color &startColor, float startColorVariation, const sf::Color &endColor, float endColorVariation, float colorChangingSpeed)
 {
 	aps->startColor = startColor;
 	aps->startAngularVelocityVariation = startColorVariation;
 	aps->endColor = endColor;
 	aps->endColorVariation = endColorVariation;
 	aps->colorChangingSpeed = colorChangingSpeed;
-	return this;
+	return *this;
 }
 
-APSBuilder* APSBuilder::setRandomColor(bool useRandomColors)
+APSBuilder & APSBuilder::setRandomColor(bool useRandomColors)
 {
 	aps->useRandomColors = useRandomColors;
-	return this;
+	return *this;
 }
 
-APSBuilder* APSBuilder::setVelocity(float startVelocity, float startVelocityVariation, float drag)
+APSBuilder & APSBuilder::setVelocity(float startVelocity, float startVelocityVariation, float drag)
 {
 	aps->startVelocity = startVelocity;
 	aps->startVelocityVariation = startVelocityVariation;
 	aps->drag = drag;
-	return this;
+	return *this;
 }
 
-APSBuilder* APSBuilder::setAngularVelocity(float startAngularVelocity, float startAngularVelocityVariation, float angularDrag)
+APSBuilder & APSBuilder::setAngularVelocity(float startAngularVelocity, float startAngularVelocityVariation, float angularDrag)
 {
 	aps->startAngularVelocity = startAngularVelocity;
 	aps->startAngularVelocityVariation = startAngularVelocityVariation;
 	aps->angularDrag = angularDrag;
-	return this;
+	return *this;
 }
 
 std::shared_ptr<AdvancedParticleSystem> APSBuilder::finishBuilding(bool playOnStart) const
