@@ -13,6 +13,7 @@
 
 void GameplayManager::startNextLevel()
 {
+	Debug::PrintFormatted("startujemy nowego levela\n");
 	currentStage++;
 	targetEnemiesNumber = (currentStage + 1) * 3;
 	alreadySpawnedEnemies = 0;
@@ -28,6 +29,7 @@ void GameplayManager::startNextLevel()
 void GameplayManager::EnemySpawned(unsigned id)
 {
 	alreadySpawnedEnemies++;
+	Debug::PrintFormatted("spawn enemisa %/%\n", alreadySpawnedEnemies, targetEnemiesNumber);
 	if(alreadySpawnedEnemies == targetEnemiesNumber)
 	{
 		Debug::PrintFormatted("Skonczyliscmy fale % z % przec, czekam.\n", currentStage, alreadySpawnedEnemies);
@@ -39,6 +41,7 @@ void GameplayManager::EnemySpawned(unsigned id)
 void GameplayManager::EnemyDestroyed(unsigned id)
 {
 	enemiesAlive--;
+	Debug::PrintFormatted("umar, zosta³o %/%, wciaz spawnujemy: %\n", enemiesAlive, targetEnemiesNumber, alreadySpawnedEnemies != targetEnemiesNumber);
 	if (enemiesAlive == 0 && alreadySpawnedEnemies == targetEnemiesNumber)
 	{
 		startNextLevel();
