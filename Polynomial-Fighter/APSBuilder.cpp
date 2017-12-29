@@ -109,7 +109,7 @@ APSBuilder & APSBuilder::setAngularVelocity(float startAngularVelocity, float st
 	return *this;
 }
 
-std::shared_ptr<AdvancedParticleSystem> APSBuilder::finishBuilding(bool playOnStart) const
+std::shared_ptr<AdvancedParticleSystem> APSBuilder::finishBuilding(bool playOnStart)
 {
 	aps->finishBuilding();
 	if (playOnStart) {
