@@ -41,7 +41,7 @@ void GameplayManager::EnemySpawned(unsigned id)
 void GameplayManager::EnemyDestroyed(unsigned id)
 {
 	enemiesAlive--;
-	Debug::PrintFormatted("umar, zosta³o %/%, wciaz spawnujemy: %\n", enemiesAlive, targetEnemiesNumber, alreadySpawnedEnemies != targetEnemiesNumber);
+	Debug::PrintFormatted("umar, zostaï¿½o %/%, wciaz spawnujemy: %\n", enemiesAlive, targetEnemiesNumber, alreadySpawnedEnemies != targetEnemiesNumber);
 	if (enemiesAlive == 0 && alreadySpawnedEnemies == targetEnemiesNumber)
 	{
 		startNextLevel();
@@ -93,6 +93,7 @@ GameplayManager::GameplayManager() : scoreManager(ScoreManager())
 {
 	currentStage = 0;
 	points = 0;
+	enemiesAlive = 0;
 	targetEnemiesNumber = (currentStage + 1) * 3;
 	alreadySpawnedEnemies = 0;
 
