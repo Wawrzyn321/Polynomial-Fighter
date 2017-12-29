@@ -3,7 +3,7 @@ project(Polynomial_Fighter)
 
 set(CMAKE_CXX_STANDARD 17)
 
-link_libraries(GL sfml-network sfml-audio sfml-graphics sfml-window sfml-system)
+link_libraries(sfml-network sfml-audio sfml-graphics sfml-window sfml-system)
 
 file(GLOB SOURCE_FILES "Polynomial-Fighter/*.cpp")
 

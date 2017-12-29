@@ -7,8 +7,9 @@
 #include "AssetManager.h"
 #include "Debug.h"
 #include "RandomGenerator.h"
+#include <cmath>
 
-const float pi = 3.1415926535f; //TODO: V624 https://www.viva64.com/en/w/V624 The constant 3.1415926535f is being utilized. The resulting value could be inaccurate. Consider using the M_PI constant from <math.h>.
+const float pi = 3.1415926535f; //TODO: V624 https://www.viva64.com/en/w/V624 The constant 3.1415926535f is being utilized. The resulting value could be inaccurate. Consider ustd::sing the M_PI constant from <math.h>.
 
 unsigned intLenght(int number);
 
@@ -85,8 +86,8 @@ void rotateTowards(sf::Transformable &sprite, sf::Vector2<T> target, float time 
 	float from = sprite.getRotation()*pi / 180.0f;
 	float to = atan2(sprite.getPosition().y - target.y, sprite.getPosition().x - target.x);
 
-	float xRotation = (1 - time)*cos(from) + time*cos(to);
-	float yRotation = (1 - time)*sin(from) + time*sin(to);
+	float xRotation = (1 - time)*std::cos(from) + time*std::cos(to);
+	float yRotation = (1 - time)*std::sin(from) + time*std::sin(to);
 	float nextRotation = atan2(yRotation, xRotation);
 
 	sprite.setRotation(nextRotation*180.0f/pi);
