@@ -6,15 +6,15 @@
 
 class ScoreManager
 {
-	unsigned enemiesKilledCount;
-	unsigned points;
-	unsigned stageNo;
+	unsigned enemiesKilledCount{};
+	unsigned points{};
+	unsigned stageNo{};
 
 	std::unique_ptr<ScoreManagerGUI> gui;
 public:
 	ScoreManager();
 	ScoreManager(const ScoreManager &) {}
-	ScoreManager &operator=(ScoreManager& sm) { return sm; }
+	ScoreManager &operator=(const ScoreManager& sm) { return *this; }
 
 	void onEnemyKilled(unsigned id);
 
