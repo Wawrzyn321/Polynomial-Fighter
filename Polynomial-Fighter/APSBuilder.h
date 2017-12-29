@@ -8,34 +8,34 @@ class APSBuilder
 
 	std::shared_ptr<AdvancedParticleSystem> aps;
 
+public:
 	APSBuilder(const sf::Vector2f &position);
 
-public:
-	static APSBuilder* startBuilding(const sf::Vector2f &position);
+	static std::shared_ptr<APSBuilder> startBuilding(const sf::Vector2f &position);
 
-	APSBuilder* setMainData(float time, int count, Space space = Space::SELF, ActionAfterEmmision actionAfterEmmision = ActionAfterEmmision::DESTROY);
+	APSBuilder & setMainData(float time, int count, Space space = Space::SELF, ActionAfterEmmision actionAfterEmmision = ActionAfterEmmision::DESTROY);
 
-	APSBuilder* setIntervals(float spawningTime, float timeToRevival = 0);
+    APSBuilder & setIntervals(float spawningTime, float timeToRevival = 0);
 
-	APSBuilder* setLooping(bool looping);
+    APSBuilder & setLooping(bool looping);
 
-	APSBuilder* setAsCircle(float circleRadius, int circlePointCount, float radiusVariation = 0);
+    APSBuilder & setAsCircle(float circleRadius, int circlePointCount, float radiusVariation = 0);
 
-	APSBuilder *setScaling(float overTimeScaling);
+    APSBuilder & setScaling(float overTimeScaling);
 
-	APSBuilder *setGravity(bool useGravity, const sf::Vector2f& gravity = sf::Vector2f(0, 0.981f));
+    APSBuilder & setGravity(bool useGravity, const sf::Vector2f& gravity = sf::Vector2f(0, 0.981f));
 
-	APSBuilder* setDispersion(float dispersionAngle, const sf::Vector2f& direction);
+    APSBuilder & setDispersion(float dispersionAngle, const sf::Vector2f& direction);
 
-	APSBuilder* setDispersion(float dispersionAngle, float incomingDeg);
+    APSBuilder & setDispersion(float dispersionAngle, float incomingDeg);
 
-	APSBuilder* setColors(const sf::Color &startColor, float startColorVariation, const sf::Color &endColor, float endColorVariation, float colorChangingSpeed);
+    APSBuilder & setColors(const sf::Color &startColor, float startColorVariation, const sf::Color &endColor, float endColorVariation, float colorChangingSpeed);
 
-	APSBuilder* setRandomColor(bool useRandomColors);
+    APSBuilder & setRandomColor(bool useRandomColors);
 
-	APSBuilder* setVelocity(float startVelocity, float startVelocityVariation, float drag);
+    APSBuilder & setVelocity(float startVelocity, float startVelocityVariation, float drag);
 
-	APSBuilder* setAngularVelocity(float startAngularVelocity, float startAngularVelocityVariation, float angularDrag);
+    APSBuilder & setAngularVelocity(float startAngularVelocity, float startAngularVelocityVariation, float angularDrag);
 
 	std::shared_ptr<AdvancedParticleSystem> finishBuilding(bool playOnStart = true) const;
 
