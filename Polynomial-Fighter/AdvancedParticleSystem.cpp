@@ -168,7 +168,8 @@ void AdvancedParticleSystem::update(const Time::TimeData &timeData)
 		handleSpawning(timeData.getScaledDeltaTimeInMili());
 	}
 
-	if (state == APSState::ONLY_UPDATING) {
+	if (state == APSState::ONLY_UPDATING) 
+	{
 		handleUpdatingOnly(timeData.getScaledDeltaTimeInMili());
 	}
 
