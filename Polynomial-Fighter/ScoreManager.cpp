@@ -29,7 +29,6 @@ void ScoreManager::onEnemyKilled(unsigned id)
 
 void ScoreManager::stageFinished()
 {
-	Debug::PrintFormatted("finnish");
 	points += pointsStageFinished;
 	stageNo++;
 	gui->updateStageNo(stageNo, pointsStageFinished);
