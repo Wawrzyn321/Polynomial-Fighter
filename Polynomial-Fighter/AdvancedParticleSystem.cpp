@@ -51,7 +51,7 @@ void AdvancedParticleSystem::addParticle()
 {
 	//main data
 	float radius = RandomGenerator::getVariation(circleRadius, radiusVariation);
-	int pointCount = static_cast<int>(RandomGenerator::getVariation(circlePointCount, radiusVariation));
+    auto pointCount = RandomGenerator::getVariation(circlePointCount, radiusVariation);
 	particles.push_back(std::make_shared<AdvancedParticle>(radius, pointCount, this));
 	auto &currentParticle = particles.back();
 
@@ -189,9 +189,8 @@ void AdvancedParticleSystem::onDestroy()
 void AdvancedParticleSystem::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	if (state != APSState::OFF) {
-		for (unsigned int i = 0; i < particles.size(); i++)
-		{
-			particles[i]->draw(target, states);
+		for (const auto &particle : particles) {
+			particle->draw(target, states);
 		}
 	}
 }

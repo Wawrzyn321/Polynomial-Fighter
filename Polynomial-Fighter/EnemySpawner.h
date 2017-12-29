@@ -11,7 +11,7 @@ class EnemySpawner
 	sf::FloatRect bounds;
 	float accumulator{};
 	std::shared_ptr<Player> playerReference;
-	GameplayManager *managerReference;
+	GameplayManager *managerReference{};
 	float interval{};
 	unsigned difficultyLevel{};
 	void spawnEnemy();
@@ -22,7 +22,7 @@ public:
 	Delegate<unsigned> OnEnemySpawn;
 	bool isActive{};
 
-	EnemySpawner() {}
+	EnemySpawner() = default;
 
 	EnemySpawner(const sf::IntRect &bounds, GameplayManager *gameplayManager, unsigned difficultyLevel = 0);
 

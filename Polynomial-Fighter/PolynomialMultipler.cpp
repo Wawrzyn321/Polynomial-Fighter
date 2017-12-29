@@ -62,7 +62,9 @@ PolynomialMultipler::multiplyGenerals(const PolynomialGeneralForm &general1, con
     //algorytm wziety ze stacka, zaskakujaco prosty
     for (int i = 0; i != (general1.getDeg() + 1); i++)
         for (int j = 0; j != (general2.getDeg() + 1); j++)
-            result.setCoefficient(i + j, result.getCoefficient(i + j) + general1.getCoefficient(i) * general2.getCoefficient(j));
+            result.setCoefficient(static_cast<unsigned int>(i + j), result.getCoefficient(
+                    static_cast<unsigned int>(i + j)) + general1.getCoefficient(static_cast<unsigned int>(i)) * general2.getCoefficient(
+                    static_cast<unsigned int>(j)));
 
     return result;
 }

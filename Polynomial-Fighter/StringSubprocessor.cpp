@@ -22,7 +22,7 @@ std::string RequestSubprocessor::removeTrailingSpaces(const std::string& input)
 {
 	unsigned start = 0;
 	while (start < input.size() && input[start] == ' ') start++;
-	unsigned end = static_cast<int>(input.size()) - 1;
+	unsigned end = static_cast<unsigned int>(static_cast<int>(input.size()) - 1);
 	while (end > start && input[end] == ' ') end--;
 	return input.substr(start, end - start + 1);
 }

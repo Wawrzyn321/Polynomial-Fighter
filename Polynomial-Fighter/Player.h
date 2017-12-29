@@ -29,7 +29,7 @@ public:
 	Action DeathEvent;
 	Delegate<float> FinishedRotatingEvent;
 
-	Player(const sf::Vector2f &position);
+	explicit Player(const sf::Vector2f &position);
 
 	void setTargetPosition(const sf::Vector2f& position);
 

@@ -7,7 +7,7 @@
 
 void SimpleBullet::initGraphics()
 {
-	shape = sf::CircleShape(radius, pointCount);
+	shape = sf::CircleShape(radius, (size_t) pointCount);
 	shape.setOrigin(radius, radius);
 }
 

@@ -23,7 +23,7 @@ public:
 	std::string tag;
 	bool collisionsEnabled = true;
 
-	Entity(const std::string &name = "", const std::string &tag = "") :
+	explicit Entity(const std::string &name = "", const std::string &tag = "") :
 			name(name), tag(tag), id(getCurrentId()) {};
 
     virtual void update(const Time::TimeData &timeData) {};
