@@ -37,7 +37,7 @@ public:
 
     APSBuilder & setAngularVelocity(float startAngularVelocity, float startAngularVelocityVariation, float angularDrag);
 
-	std::shared_ptr<AdvancedParticleSystem> finishBuilding(bool playOnStart = true) const;
+	std::shared_ptr<AdvancedParticleSystem> finishBuilding(bool playOnStart = true);
 
 };
 
