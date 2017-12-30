@@ -6,12 +6,11 @@
 class PauseManager;
 
 class SoundManager {
-private:
-	static SoundManager* sInstance;
+	static SoundManager* sInstance;	
 
 	std::vector<std::shared_ptr<sf::Sound>> players;
 
-	AssetManager *assetManagerInstance;
+	AssetManager *assetManagerInstance = nullptr;
 
 	void play(std::shared_ptr<sf::Sound> sound, std::shared_ptr<sf::SoundBuffer> buffer);
 
