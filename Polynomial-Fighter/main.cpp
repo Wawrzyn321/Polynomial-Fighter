@@ -23,13 +23,12 @@ int main()
 
 	auto em = EntityManager::instance();
 	auto t = Time::Timer::instance();
-	auto am = AssetManager::instance();
-
-	GameplayManager gameplayManager = GameplayManager();
 
 	sf::RenderWindow window(sf::VideoMode(static_cast<unsigned int>(GameData::WINDOW_SIZE.x),
                                           static_cast<unsigned int>(GameData::WINDOW_SIZE.y)), "pf");
     window.setFramerateLimit(120);
+
+	GameplayManager gameplayManager = GameplayManager(&window);
 
 	while (window.isOpen())
 	{

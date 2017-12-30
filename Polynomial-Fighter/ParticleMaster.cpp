@@ -1,6 +1,8 @@
 #include "ParticleMaster.h"
 #include "APSBuilder.h"
 #include "EntityManager.h"
+#include "Enemy.h"
+#include "ParticleTrail.h"
 
 void ParticleMaster::addPlayerShootParticles(const sf::Vector2f& position, float rotation)
 {
@@ -90,4 +92,20 @@ void ParticleMaster::addPlayerDestroyedParticles(const sf::Vector2f& position, f
 		.setScaling(0.999f)
 		.finishBuilding();
 	EntityManager::instance()->addEntity(std::shared_ptr<AdvancedParticleSystem>(aps));
+}
+
+std::shared_ptr<ParticleTrail> ParticleMaster::addEnemyTrail(Entity &target)
+{
+	auto aps = APSBuilder::startBuilding(target.getPosition())
+		->setMainData(50, 150, Space::WORLD)
+		.setLooping(true)
+		.setColors(sf::Color::White, 0.4f, sf::Color::Transparent, 0.0f, 0.006f)
+		.setAsCircle(1, 4)
+		.setVelocity(0.04f, 0.2f, 0.995f)
+		.setScaling(0.996f)
+		.finishBuilding();
+	EntityManager::instance()->addEntity(std::shared_ptr<AdvancedParticleSystem>(aps));
+	auto pt = std::make_shared<ParticleTrail>(aps, target);
+	EntityManager::instance()->addEntity(pt);
+	return pt;
 }

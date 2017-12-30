@@ -123,7 +123,9 @@
     <ClCompile Include="APSBuilder.cpp" />
     <ClCompile Include="AssetManager.cpp" />
     <ClCompile Include="BulletBase.cpp" />
+    <ClCompile Include="CameraShake.cpp" />
     <ClCompile Include="ParticleMaster.cpp" />
+    <ClCompile Include="ParticleTrail.cpp" />
     <ClCompile Include="PlayerCannonGraphics.cpp" />
     <ClCompile Include="ScoreManager.cpp" />
     <ClCompile Include="ScoreManagerGUI.cpp" />
@@ -164,8 +166,10 @@
     <ClInclude Include="APSBuilder.h" />
     <ClInclude Include="Asset Manager.h" />
     <ClInclude Include="BulletBase.h" />
+    <ClInclude Include="CameraShake.h" />
     <ClInclude Include="DesignatedTarget.h" />
     <ClInclude Include="ParticleMaster.h" />
+    <ClInclude Include="ParticleTrail.h" />
     <ClInclude Include="PlayerCannonGraphics.h" />
     <ClInclude Include="ScoreManager.h" />
     <ClInclude Include="ScoreManagerGUI.h" />

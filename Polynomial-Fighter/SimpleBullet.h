@@ -4,9 +4,11 @@
 #include <SFML/Graphics.hpp>
 #include <memory>
 #include "BulletBase.h"
+#include "ParticleTrail.h"
 
 class SimpleBullet : public BulletBase {
 	sf::CircleShape shape;
+	std::shared_ptr<ParticleTrail> trail;
 	float damage{};
 	float bonusDamageMultiplier{};
 
@@ -25,6 +27,7 @@ public:
 	void update(const Time::TimeData &timeData) override;
 
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+
 private:
 	const int pointCount = 16;
 };

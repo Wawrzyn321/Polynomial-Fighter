@@ -39,6 +39,7 @@ void GameplayManager::EnemySpawned(unsigned id)
 
 void GameplayManager::EnemyDestroyed(unsigned id)
 {
+	cameraShake.shake(2, 70);
 	enemiesAlive--;
 	if (enemiesAlive == 0 && alreadySpawnedEnemies == targetEnemiesNumber)
 	{
@@ -58,6 +59,7 @@ void GameplayManager::TextSubmitted(const std::string &text) const
 
 void GameplayManager::PlayerDestroyed()
 {
+	cameraShake.shake(5, 150);
 	spawner.isActive = false;
 
 	std::vector<std::shared_ptr<Entity>> entities = EntityManager::instance()->findEntitiesByTag(GameData::TAG_ENEMY);
@@ -104,7 +106,7 @@ void GameplayManager::initInputField()
 
 #pragma endregion
 
-GameplayManager::GameplayManager() : scoreManager(ScoreManager())
+GameplayManager::GameplayManager(sf::RenderWindow* window) : scoreManager(ScoreManager())
 {
 	currentStage = 0;
 	points = 0;
@@ -112,6 +114,7 @@ GameplayManager::GameplayManager() : scoreManager(ScoreManager())
 	targetEnemiesNumber = (currentStage + 1) * 3;
 	alreadySpawnedEnemies = 0;
 
+	cameraShake.connectWindow(window);
 	initPlayer();
 	initSpawner();
 	initInputField();
@@ -127,6 +130,7 @@ void GameplayManager::update(const Time::TimeData &timeData)
 	spawner.update(timeData);
 	scoreManager.update(timeData);
 	inputField.update(timeData);
+	cameraShake.update(timeData);
 }
 
 void GameplayManager::draw(sf::RenderTarget& target, sf::RenderStates states) const
