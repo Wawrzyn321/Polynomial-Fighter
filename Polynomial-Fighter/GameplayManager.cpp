@@ -18,7 +18,7 @@ void GameplayManager::startNextLevel()
 	spawner.isActive = true;
 
 	player->addRounds(RandomGenerator::getInt(2, 5));
-	if (currentStage % 3 == 0) {
+	if (currentStage % 2 == 0) {
 		player->addHealthCapacity(1.0f, true);
 	}
 
