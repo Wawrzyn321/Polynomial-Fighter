@@ -42,7 +42,7 @@ void AdvancedParticle::checkPulse()
 		parent->informOfDeath();
 	}
 
-	if(currentColor.calculateMaxDifference(endColor, true) < 0.01f) {
+	if(currentColor.calculateMaxDifference(endColor, true) < minValues::minColorDifference) {
 		isAlive = false;
 		//Debug::PrintFormatted("DEAD by color");
 		parent->informOfDeath();

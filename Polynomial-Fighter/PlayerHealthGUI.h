@@ -15,7 +15,10 @@ class PlayerHealthGUI : public sf::Drawable
 	float maxHealth{};
 public:
 	float health{};
+
 	PlayerHealthGUI(const sf::Vector2f &position, const sf::Vector2f &size, float maxHealth);
+
+	void setMaximumHealth(float maxHealth);
 
 	void updateHealthGraphics(float deltaTime);
 

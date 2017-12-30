@@ -26,6 +26,7 @@ class InputField : public sf::Drawable
 public:
 	Delegate<const std::string&> OnTextSubmitted;
 	bool interactable{};
+	InputField(){}
 	InputField(const sf::Vector2f &position, const sf::Vector2f &size);
 
 	void feed(const sf::Event &event);
@@ -40,6 +41,7 @@ public:
 
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
+	InputField& operator=(const InputField rhs);;
 private:
 	sf::Color color_fieldOutline = sf::Color(127, 127, 127);
 	sf::Color color_fieldBackground = sf::Color::Black;

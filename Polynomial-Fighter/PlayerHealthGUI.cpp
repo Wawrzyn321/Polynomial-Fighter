@@ -29,6 +29,11 @@ PlayerHealthGUI::PlayerHealthGUI(const sf::Vector2f &position, const sf::Vector2
 	updateHealthGraphics(1.0f);
 }
 
+void PlayerHealthGUI::setMaximumHealth(float maxHealth)
+{
+	this->maxHealth = maxHealth;
+}
+
 void PlayerHealthGUI::updateHealthGraphics(float deltaTime)
 {
 	const float updatingSpeed = 0.01f;

@@ -6,8 +6,6 @@
 #include "EnemyCannon.h"
 #include "ParticleMaster.h"
 
-class ParticleMaster;
-
 void Enemy::initComponents(const std::string &captionText, float angle)
 {
 	const unsigned textSize = 20;

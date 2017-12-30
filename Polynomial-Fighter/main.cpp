@@ -27,13 +27,6 @@ int main()
 
 	GameplayManager gameplayManager = GameplayManager();
 
-	InputField inputField = InputField(
-	{ GameData::WINDOW_SIZE.x *0.67f, GameData::WINDOW_SIZE.y*0.89f },
-	{ GameData::WINDOW_SIZE.x*0.3f, GameData::WINDOW_SIZE.y*0.08f }
-	);
-	inputField.OnTextSubmitted.add(std::bind(&GameplayManager::TextSubmitted, &gameplayManager, std::placeholders::_1));
-	em->findEntityOfType<Player>()->DeathEvent.add(std::bind(&InputField::disable, &inputField));
-
 	sf::RenderWindow window(sf::VideoMode(static_cast<unsigned int>(GameData::WINDOW_SIZE.x),
                                           static_cast<unsigned int>(GameData::WINDOW_SIZE.y)), "pf");
     window.setFramerateLimit(120);
@@ -65,13 +58,12 @@ int main()
 					t->setTimeScale(1);
 				}
 			}
-			inputField.feed(event);
+			gameplayManager.feed(event);
 		}
 
 		auto deltaTime = t->getTimeData();
 
 		gameplayManager.update(deltaTime);
-		inputField.update(deltaTime);
 
 		em->update(deltaTime);
 		em->removeMarked();
@@ -79,7 +71,6 @@ int main()
 
 		window.clear();
 		em->draw(window);
-		window.draw(inputField);
 		gameplayManager.draw(window);
 
 		window.display();
