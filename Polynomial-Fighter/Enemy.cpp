@@ -49,7 +49,7 @@ bool Enemy::canBeDamagedBy(int value) const
 
 int Enemy::decreasePolynomial(int root)
 {
-	assert(pff.isRoot(root));
+	if (!pff.isRoot(root)) return 0;
 	size_t degBefore = pff.getDeg();
 	pff.removeFactorsByRoot(root);
     auto difference = int(degBefore - pff.getDeg());

@@ -81,12 +81,14 @@ void Player::addRounds(int roundsToAdd) const
 void Player::addHealthCapacity(float additionalCapacity, bool showFleetingText)
 {
 	maxHealth += additionalCapacity;
-	health = maxHealth;
+	health += additionalCapacity;
 	healthGUI->setMaximumHealth(maxHealth);
-	auto ft = std::make_shared<FleetingText>("Health upgrade!",
-		healthGUIPosition + sf::Vector2f(healthGUISize.x*0.5f, 0), sf::Color(31, 255, 31), 30);
-	ft->run(0.0007f, { 0, -0.045f }, 0);
-	EntityManager::instance()->addEntity(ft);
+	if (showFleetingText) {
+		auto ft = std::make_shared<FleetingText>("Health upgrade!",
+			healthGUIPosition + sf::Vector2f(healthGUISize.x*0.5f, 0), sf::Color(31, 255, 31), 24);
+		ft->run(0.0007f, { 0, -0.045f }, 0);
+		EntityManager::instance()->addEntity(ft);
+	}
 }
 
 void Player::heal(float healthPoints)
