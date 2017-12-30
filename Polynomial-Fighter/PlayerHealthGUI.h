@@ -25,6 +25,10 @@ public:
 	void draw(sf::RenderTarget& target, sf::RenderStates states = sf::RenderStates::Default) const override;
 		
 private:
+	const float fillingSpeed = 0.05f;
+	const float unscalingSpeed = 0.01f;
+	const float scaleMultiplier = 1.3f;
+	const float minScalingThreshold = 0.01f;
 	sf::Color color_backgroundRectangle = sf::Color(63, 63, 63);
 	sf::Color color_backgroundRectangleOutline = sf::Color(193, 193, 193);
 	sf::Color color_healthBar = sf::Color::Red;
