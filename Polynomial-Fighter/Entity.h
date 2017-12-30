@@ -24,7 +24,13 @@ public:
 	bool collisionsEnabled = true;
 
 	explicit Entity(const std::string &name = "", const std::string &tag = "") :
-			name(name), tag(tag), id(getCurrentId()) {};
+			name(name), tag(tag), id(getCurrentId()) {}
+
+	Entity& operator=(const Entity& entity)
+	{
+		this->setPosition(entity.getPosition());
+		return *this;
+	}
 
     virtual void update(const Time::TimeData &timeData) {};
 

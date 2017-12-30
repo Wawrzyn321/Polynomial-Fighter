@@ -4,6 +4,7 @@
 #include "ScoreManager.h"
 #include "Entity.h"
 #include "InputField.h"
+#include "CameraShake.h"
 
 class GameplayManager
 {
@@ -18,6 +19,7 @@ class GameplayManager
 	EnemySpawner spawner;
 	ScoreManager scoreManager;
 	InputField inputField;
+	CameraShake cameraShake;
 	std::shared_ptr<Player> player;
 
 	void startNextLevel();
@@ -31,7 +33,7 @@ public:
 	void initPlayer();
 	void initInputField();
 
-	GameplayManager();
+	GameplayManager(sf::RenderWindow* window);
 	GameplayManager(const GameplayManager &) {}
 
 	void feed(const sf::Event& event);

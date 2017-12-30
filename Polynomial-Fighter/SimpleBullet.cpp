@@ -4,6 +4,7 @@
 #include "GameData.h"
 #include "Debug.h"
 #include <cassert>
+#include "ParticleMaster.h"
 
 void SimpleBullet::initGraphics()
 {
@@ -16,6 +17,8 @@ void SimpleBullet::hitTarget(const std::shared_ptr<Entity>& target)
 	auto d = std::dynamic_pointer_cast<IDamageable>(target);
 	assert(d);
 	d->receiveDamage(damage, vectorNormalize(velocity), bonusDamageMultiplier);
+	trail->setEnabled(false);
+	trail->setToDelete(true);
 }
 
 SimpleBullet::SimpleBullet(const sf::Vector2f& position, float radius, float damage, float bonusDamageMultiplier)
@@ -44,6 +47,7 @@ void SimpleBullet::setTarget(const std::shared_ptr<Entity> &recipient, float spe
 
 	sf::Vector2f currentTargetPosition = recipient->getPosition();
 	velocity = vectorNormalize(currentTargetPosition - getPosition()) * speed;
+	trail = ParticleMaster::addEnemyTrail(*dynamic_cast<Entity*>(this));
 }
 
 sf::Vector2f SimpleBullet::getPosition() const
@@ -68,3 +72,4 @@ void SimpleBullet::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	target.draw(shape, states);
 }
+
