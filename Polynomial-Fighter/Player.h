@@ -21,7 +21,6 @@ class Player : public Entity, public IDamageable
 
 	float targetRotation = 0;
 	bool rotationEventInvoked{};
-
 	void initGraphics();
 
 	void updateRotation(float deltaTime);
@@ -41,6 +40,10 @@ public:
 
 	void addRounds(int roundsToAdd) const;
 
+	void addHealthCapacity(float additionalCapacity, bool showFleetingText = false);
+
+	void heal(float healthPoints);
+
 	sf::Vector2f getPosition() const override;
 
 	void setPosition(const sf::Vector2f &position) override;
@@ -58,6 +61,9 @@ private:
 	const float startingHealth = 10.0f;
 	const float playerCollisionRadius = 10.0f;
 	const unsigned fontSize = 24;
+	sf::Vector2f healthGUIPosition = { GameData::WINDOW_SIZE.x*0.03f, GameData::WINDOW_SIZE.y*0.89f };
+	sf::Vector2f healthGUISize = { GameData::WINDOW_SIZE.x*0.3f, GameData::WINDOW_SIZE.y*0.08f };
+
 };
 
 #endif

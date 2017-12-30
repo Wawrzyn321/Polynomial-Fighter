@@ -6,14 +6,10 @@
 #include "InputFieldParser.h"
 #include "Enemy.h"
 #include <cassert>
-
-//todo funkcje zapewniajace dane liczbowe?
-// osobiscie uwazam, ze najlepszym momentem dla programisty jest usuwanie przeklenstw
-// z kodu po tym, jak juz skonczy debugowanie i wszystko dziala.
+#include "FleetingText.h"
 
 void GameplayManager::startNextLevel()
 {
-	Debug::PrintFormatted("startujemy nowego levela\n");
 	currentStage++;
 	targetEnemiesNumber = (currentStage + 1) * 3;
 	alreadySpawnedEnemies = 0;
@@ -22,17 +18,20 @@ void GameplayManager::startNextLevel()
 	spawner.isActive = true;
 
 	player->addRounds(RandomGenerator::getInt(2, 5));
+	if (currentStage % 3 == 0) {
+		player->addHealthCapacity(1.0f, true);
+	}
 
 	scoreManager.stageFinished();
 }
 
+#pragma region Events
+
 void GameplayManager::EnemySpawned(unsigned id)
 {
 	alreadySpawnedEnemies++;
-	Debug::PrintFormatted("spawn enemisa %/%\n", alreadySpawnedEnemies, targetEnemiesNumber);
-	if(alreadySpawnedEnemies == targetEnemiesNumber)
+	if (alreadySpawnedEnemies == targetEnemiesNumber)
 	{
-		Debug::PrintFormatted("Skonczyliscmy fale % z % przec, czekam.\n", currentStage, alreadySpawnedEnemies);
 		spawner.isActive = false;
 	}
 	enemiesAlive++;
@@ -41,7 +40,6 @@ void GameplayManager::EnemySpawned(unsigned id)
 void GameplayManager::EnemyDestroyed(unsigned id)
 {
 	enemiesAlive--;
-	Debug::PrintFormatted("umar, zosta�o %/%, wciaz spawnujemy: %\n", enemiesAlive, targetEnemiesNumber, alreadySpawnedEnemies != targetEnemiesNumber);
 	if (enemiesAlive == 0 && alreadySpawnedEnemies == targetEnemiesNumber)
 	{
 		startNextLevel();
@@ -63,7 +61,7 @@ void GameplayManager::PlayerDestroyed()
 	spawner.isActive = false;
 
 	std::vector<std::shared_ptr<Entity>> entities = EntityManager::instance()->findEntitiesByTag(GameData::TAG_ENEMY);
-	for(auto &e : entities)
+	for (auto &e : entities)
 	{
 		auto enemy = std::dynamic_pointer_cast<Enemy>(entities.back());
 		assert(enemy);
@@ -75,6 +73,10 @@ void GameplayManager::PlayerDestroyed()
 	SoundManager::instance()->playSound(GameData::SOUND_GAME_FAILURE);
 }
 
+#pragma endregion
+
+#pragma region Initializing members
+
 void GameplayManager::initSpawner()
 {
 	spawner = EnemySpawner(GameData::DEFAULT_BOUNDS, this, currentStage);
@@ -83,11 +85,24 @@ void GameplayManager::initSpawner()
 	spawner.isActive = true;
 }
 
-void GameplayManager::initPlayer(){
+void GameplayManager::initPlayer() {
 	player = std::make_shared<Player>(sf::Vector2f(GameData::WINDOW_SIZE.x*0.5f, GameData::WINDOW_SIZE.y*0.5f));
 	player->DeathEvent.add(std::bind(&GameplayManager::PlayerDestroyed, this));
 	EntityManager::instance()->addEntity(player, true);
 }
+
+void GameplayManager::initInputField()
+{
+	inputField = InputField(
+	{ GameData::WINDOW_SIZE.x * 0.67f, GameData::WINDOW_SIZE.y * 0.89f },
+	{ GameData::WINDOW_SIZE.x * 0.3f, GameData::WINDOW_SIZE.y * 0.08f }
+	);
+	inputField.OnTextSubmitted.add(std::bind(&GameplayManager::TextSubmitted, this, std::placeholders::_1));
+	EntityManager::instance()->findEntityOfType<Player>()->DeathEvent.add(std::bind(&InputField::disable, &inputField));
+	inputField.interactable = true;
+}
+
+#pragma endregion
 
 GameplayManager::GameplayManager() : scoreManager(ScoreManager())
 {
@@ -98,18 +113,25 @@ GameplayManager::GameplayManager() : scoreManager(ScoreManager())
 	alreadySpawnedEnemies = 0;
 
 	initPlayer();
-
 	initSpawner();
+	initInputField();
+}
+
+void GameplayManager::feed(const sf::Event& event)
+{
+	inputField.feed(event);
 }
 
 void GameplayManager::update(const Time::TimeData &timeData)
 {
 	spawner.update(timeData);
 	scoreManager.update(timeData);
+	inputField.update(timeData);
 }
 
 void GameplayManager::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	scoreManager.draw(target, states);
+	inputField.draw(target, states);
 }
 

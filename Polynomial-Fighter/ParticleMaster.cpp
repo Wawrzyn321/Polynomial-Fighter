@@ -7,7 +7,7 @@ void ParticleMaster::addPlayerShootParticles(const sf::Vector2f& position, float
 	auto aps = APSBuilder::startBuilding(position)
 		->setMainData(1000, 30)
 		.setScaling(0.999f)
-		.setVelocity(0.3f, 0.3f, 0.99f)
+		.setVelocity(0.3f, 0.4f, 0.99f)
 		.setIntervals(100)
 		.setAsCircle(3, 16)
 		.setDispersion(30, rotation - 90)
@@ -38,6 +38,16 @@ void ParticleMaster::addEnemyHitParticles(const sf::Vector2f &position, const sf
 		.setScaling(0.999f)
 		.setGravity(true, -incoming*0.05f)
 		.setDispersion(80 / modifier, incoming)
+		.finishBuilding();
+	EntityManager::instance()->addEntity(std::shared_ptr<AdvancedParticleSystem>(aps));
+	aps = APSBuilder::startBuilding(position)
+		->setMainData(1500, 15)
+		.setIntervals(100)
+		.setColors(sf::Color::Red, 0.7f, sf::Color::White, 0.1f, 0.002f)
+		.setAsCircle(10 * modifier, 5)
+		.setVelocity(0.04f * modifier, 0.1f, 0.998f)
+		.setScaling(0.998f)
+		.setDispersion(80 / modifier, -incoming)
 		.finishBuilding();
 	EntityManager::instance()->addEntity(std::shared_ptr<AdvancedParticleSystem>(aps));
 }

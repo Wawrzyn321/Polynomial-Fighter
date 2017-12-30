@@ -3,6 +3,7 @@
 #include "EnemySpawner.h"
 #include "ScoreManager.h"
 #include "Entity.h"
+#include "InputField.h"
 
 class GameplayManager
 {
@@ -16,6 +17,7 @@ class GameplayManager
 
 	EnemySpawner spawner;
 	ScoreManager scoreManager;
+	InputField inputField;
 	std::shared_ptr<Player> player;
 
 	void startNextLevel();
@@ -27,9 +29,12 @@ public:
 
 	void initSpawner();
 	void initPlayer();
+	void initInputField();
 
 	GameplayManager();
 	GameplayManager(const GameplayManager &) {}
+
+	void feed(const sf::Event& event);
 
 	void update(const Time::TimeData &timeData);
 

@@ -4,6 +4,7 @@
 #include "EntityManager.h"
 #include "APSBuilder.h"
 #include "ParticleMaster.h"
+#include "FleetingText.h"
 
 void Player::initGraphics()
 {
@@ -12,10 +13,7 @@ void Player::initGraphics()
 	centerTextOrigin(shape);
 
 	healthGUI = std::make_unique<PlayerHealthGUI>(
-		PlayerHealthGUI(
-	{ GameData::WINDOW_SIZE.x*0.03f, GameData::WINDOW_SIZE.y*0.89f },
-	{ GameData::WINDOW_SIZE.x*0.3f, GameData::WINDOW_SIZE.y*0.08f },
-			maxHealth));
+		PlayerHealthGUI(healthGUIPosition, healthGUISize, maxHealth));
 }
 
 void Player::updateRotation(float deltaTime)
@@ -78,6 +76,22 @@ float Player::getRotation() const
 void Player::addRounds(int roundsToAdd) const
 {
 	cannon->addRounds(roundsToAdd);
+}
+
+void Player::addHealthCapacity(float additionalCapacity, bool showFleetingText)
+{
+	maxHealth += additionalCapacity;
+	health = maxHealth;
+	healthGUI->setMaximumHealth(maxHealth);
+	auto ft = std::make_shared<FleetingText>("Health upgrade!",
+		healthGUIPosition + sf::Vector2f(healthGUISize.x*0.5f, 0), sf::Color(31, 255, 31), 30);
+	ft->run(0.0007f, { 0, -0.045f }, 0);
+	EntityManager::instance()->addEntity(ft);
+}
+
+void Player::heal(float healthPoints)
+{
+	health += healthPoints;
 }
 
 #pragma region ITransformable

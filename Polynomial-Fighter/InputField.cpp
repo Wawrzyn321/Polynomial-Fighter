@@ -1,9 +1,7 @@
 #include "InputField.h"
 #include <array>
-#include <iostream>
 #include <string>
 #include "GameData.h"
-#include "Debug.h"
 #include "FleetingText.h"
 #include "EntityManager.h"
 
@@ -128,4 +126,17 @@ void InputField::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	target.draw(background, states);
 	target.draw(cursor, states);
 	target.draw(text, states);
+}
+
+InputField& InputField::operator=(const InputField rhs)
+{
+	this->position = rhs.position;
+	this->size = rhs.size;
+	this->background = rhs.background;
+	this->text = rhs.text;
+	this->cursor = rhs.cursor;
+	this->font = rhs.font;
+	this->interactable = rhs.interactable;
+
+	return *this;
 }
