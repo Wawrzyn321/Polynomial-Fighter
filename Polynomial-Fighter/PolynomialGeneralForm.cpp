@@ -89,3 +89,23 @@ void PolynomialGeneralForm::generateString()
         stringRepresentation += temp;
     }
 }
+
+bool PolynomialGeneralForm::divideCoefficients(int divider)
+{
+    for (const auto &i : coefficients)
+    {
+        if (i % divider != 0)
+        {
+            return false;
+        }
+    }
+
+    for (auto &i : coefficients)
+    {
+        i /= divider;
+    }
+
+    generateString();
+
+    return true;
+}
