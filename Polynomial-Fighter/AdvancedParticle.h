@@ -4,6 +4,7 @@
 #include "Entity.h"
 #include "AdvancedParticleSystemData.h"
 #include "FloatColor.h"
+#include <cmath>
 
 namespace minValues
 {

@@ -27,15 +27,15 @@ void AdvancedParticle::applyColorChange(float deltaTime)
 
 void AdvancedParticle::checkPulse()
 {
-	if (abs(velocity.x) < minValues::minVelocity && abs(velocity.y) < minValues::minVelocity)
+	if (std::fabs(velocity.x) < minValues::minVelocity && std::fabs(velocity.y) < minValues::minVelocity)
 	{
 		isAlive = false;
 		//Debug::PrintFormatted("DEAD by speed");
 		parent->informOfDeath();
 	}
 
-	if (abs(circle.getScale().x) < minValues::minScale &&
-		abs(circle.getScale().y) < minValues::minScale)
+	if (std::fabs(circle.getScale().x) < minValues::minScale &&
+        std::fabs(circle.getScale().y) < minValues::minScale)
 	{
 		isAlive = false;
 		//Debug::PrintFormatted("DEAD by scale");
@@ -97,7 +97,7 @@ void AdvancedParticle::draw(sf::RenderTarget& target, sf::RenderStates states) c
 void AdvancedParticle::update(const Time::TimeData &timeData)
 {
 	if (isAlive) {
-		float deltaTime = std::abs(timeData.getScaledDeltaTimeInMili());
+		float deltaTime = std::fabs(timeData.getScaledDeltaTimeInMili());
 		applyTransform(deltaTime);
 		applyDrag(deltaTime);
 		applyColorChange(deltaTime);
