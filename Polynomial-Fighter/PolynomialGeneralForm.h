@@ -15,6 +15,7 @@ public:
     void setCoefficient(unsigned int deg, int value);
     int getCoefficient(unsigned int deg) const;
     std::string toString() const;
+    bool divideCoefficients(int divider); //podzieli tylko i wylacznie, gdy wszystkie sie calkowicie dziela
 };
 
 
