@@ -1,5 +1,6 @@
 #include <iostream>
 #include "PolynomialGeneralForm.h"
+#include <algorithm>
 
 int PolynomialGeneralForm::getDeg() const
 {
@@ -88,6 +89,13 @@ void PolynomialGeneralForm::generateString()
 
         stringRepresentation += temp;
     }
+}
+
+bool PolynomialGeneralForm::canDivideCoefficients(int divider) const
+{
+	//ALE ON TO ZROBIL
+	return std::all_of(coefficients.begin(), coefficients.end(), 
+		[divider](int c) {return c % divider == 0; });
 }
 
 bool PolynomialGeneralForm::divideCoefficients(int divider)

@@ -22,7 +22,7 @@ void ScoreManager::onEnemyKilled(unsigned id)
 	auto enemy = std::dynamic_pointer_cast<Enemy>(e);
 	assert(enemy);
 
-	points += pointsEnemyDestroyed*enemy->getOriginalDegree();
+	points += pointsEnemyDestroyed*enemy->getPolynomial()->getOriginalDegree();
 	enemiesKilledCount++;
 	gui->setTargetPoints(points);
 }

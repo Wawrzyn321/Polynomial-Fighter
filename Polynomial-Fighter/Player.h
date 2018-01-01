@@ -7,6 +7,7 @@
 #include "PlayerHealthGUI.h"
 #include "PlayerCannon.h"
 
+class RequestValue;
 class Player : public Entity, public IDamageable
 {
 	sf::Text shape;
@@ -32,7 +33,7 @@ public:
 
 	void setTargetPosition(const sf::Vector2f& position);
 
-	void appendTargets(const std::vector<int>& values, const std::vector<std::shared_ptr<Entity>> &enemies) const;
+	void processConsoleInput(const RequestValue& value, const std::vector<std::shared_ptr<Entity>> &enemies) const;
 
 	bool getAlive() const;
 

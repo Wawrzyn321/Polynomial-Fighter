@@ -124,6 +124,7 @@
     <ClCompile Include="AssetManager.cpp" />
     <ClCompile Include="BulletBase.cpp" />
     <ClCompile Include="CameraShake.cpp" />
+    <ClCompile Include="EnemyPolynomialAdapter.cpp" />
     <ClCompile Include="ParticleMaster.cpp" />
     <ClCompile Include="ParticleTrail.cpp" />
     <ClCompile Include="PlayerCannonGraphics.cpp" />
@@ -168,6 +169,7 @@
     <ClInclude Include="BulletBase.h" />
     <ClInclude Include="CameraShake.h" />
     <ClInclude Include="DesignatedTarget.h" />
+    <ClInclude Include="EnemyPolynomialAdapter.h" />
     <ClInclude Include="ParticleMaster.h" />
     <ClInclude Include="ParticleTrail.h" />
     <ClInclude Include="PlayerCannonGraphics.h" />

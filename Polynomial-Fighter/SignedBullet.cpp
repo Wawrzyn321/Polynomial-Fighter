@@ -26,7 +26,7 @@ void SignedBullet::hitTarget(const std::shared_ptr<Entity>& target)
 	auto enemy = std::dynamic_pointer_cast<Enemy>(target);
 	assert(enemy);	
 
-	int rootsRemovedCount = enemy->decreasePolynomial(load);
+	int rootsRemovedCount = enemy->getPolynomial()->decreasePolynomialByRoot(load);
 	enemy->receiveDamage(1.0f, vectorNormalize(velocity), static_cast<float>(rootsRemovedCount));
 }
 

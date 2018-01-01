@@ -20,8 +20,8 @@ void EnemySpawner::spawnEnemy()
 	sf::Vector2f position = getPointOnIntRect(bounds);
 
 	float speed = 0.1f + difficultyLevel*0.01f;
-	auto e = std::make_shared<Enemy>(Enemy(position, playerReference->getPosition(), speed, pff));
-	e->initCannon();
+	auto e = std::make_shared<Enemy>(Enemy());
+	e->init(position, playerReference->getPosition(), speed, pff);
 	e->DeathEvent.add(std::bind(&GameplayManager::EnemyDestroyed, managerReference, std::placeholders::_1));
 	EntityManager::instance()->addEntity(e);
 

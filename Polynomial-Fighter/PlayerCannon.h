@@ -50,6 +50,8 @@ public:
 
 	void appendTargets(const std::vector<int>& values, const std::vector<std::shared_ptr<Entity>> &enemies);
 
+	void reduce(const int divisor, const std::vector<std::shared_ptr<Entity>>& enemies);
+
 	void onRotationFinished(float angle);
 
 	void setPosition(const sf::Vector2f& position) const;
