@@ -6,7 +6,7 @@
 #include "EnemyCannon.h"
 #include "ParticleMaster.h"
 
-void Enemy::initComponents(const std::string &captionText, float angle)
+void Enemy::initComponents(float angle, PolynomialProductForm pff)
 {
 	const unsigned textSize = 20;
 
@@ -14,59 +14,51 @@ void Enemy::initComponents(const std::string &captionText, float angle)
 	shape.setOrigin(5, 5);
 	shape.setRotation(angle);
 
-	caption = std::make_unique<PowerfulText>(captionText, AssetManager::instance()->getDefaultFont(), textSize);
+	caption = std::make_unique<PowerfulText>(PolynomialMultipler::generalForm(pff).toString(), AssetManager::instance()->getDefaultFont(), textSize);
 	caption->center();
+
+	polynomial = std::make_shared<EnemyPolynomialAdapter>(this, pff);
+
+	cannon = std::make_unique<EnemyCannon>(this, int(polynomial->getOriginalDegree()));
 }
 
-Enemy::Enemy(const sf::Vector2f& position, const sf::Vector2f &playerPosition, float speed, PolynomialProductForm pff)
+Enemy::Enemy()
 {
-	this->name = PolynomialMultipler::generalForm(pff).toString();
-	this->pff = pff;
-	this->playerPosition = playerPosition;
+	this->name = "Unnamed Enemy";
 	tag = GameData::TAG_ENEMY;
+}
+
+void Enemy::init(const sf::Vector2f& position, const sf::Vector2f &playerPosition, float speed, PolynomialProductForm pff)
+{
+	this->playerPosition = playerPosition;
+	this->name = PolynomialMultipler::generalForm(pff).toString();
 	state = State::CLOSING_IN;
-	attractionRadiusSqr = enemyInnerRadiusSQR + pff.getDeg() * 30 + RandomGenerator::getFloat(-50,50);
-	originalDegree = unsigned(pff.getDeg());
+
+	attractionRadiusSqr = enemyInnerRadiusSQR + pff.getDeg() * 30 + RandomGenerator::getFloat(-50, 50);
+	collisionRadius = enemyCollisionRadius;
 
 	sf::Vector2f dir = vectorNormalize(playerPosition - position);
 	velocity = dir * speed;
+	initComponents(atan2f(dir.y, dir.x)*180.0f / pi, pff);
 
-	initComponents(this->name, atan2f(dir.y, dir.x)*180.0f/pi);
-	collisionRadius = enemyCollisionRadius;
 	Enemy::setPosition(position);
 }
 
-void Enemy::initCannon()
+std::shared_ptr<EnemyPolynomialAdapter> &Enemy::getPolynomial()
 {
-	cannon = std::make_unique<EnemyCannon>(this, int(pff.getDeg()));
-
+	return polynomial;
 }
 
-bool Enemy::canBeDamagedBy(int value) const
+void Enemy::invokeDeathEvent()
 {
-	return pff.isRoot(value);
+	DeathEvent(id);
+	setToDelete(true);
 }
 
-int Enemy::decreasePolynomial(int root)
+void Enemy::setName(const std::string& name)
 {
-	if (!pff.isRoot(root)) return 0;
-	size_t degBefore = pff.getDeg();
-	pff.removeFactorsByRoot(root);
-    auto difference = int(degBefore - pff.getDeg());
-	if (pff.getDeg() == 0) {
-		DeathEvent(id);
-		setToDelete(true);
-	}
-	else {
-		name = PolynomialMultipler::generalForm(pff).toString();
-		caption->rebuild(name);
-	}
-	return difference;
-}
-
-unsigned Enemy::getOriginalDegree() const
-{
-	return originalDegree;
+	this->name = name;
+	caption->rebuild(name);
 }
 
 void Enemy::setState(State state)
@@ -126,7 +118,7 @@ void Enemy::receiveDamage(float damage, float bonusDamageMultiplier)
 
 void Enemy::receiveDamage(float damage, const sf::Vector2f &incoming, float bonusDamageMultiplier)
 {
-	if (pff.getDeg() != 0) {
+	if (polynomial->getDeg() != 0) {
 		ParticleMaster::addEnemyHitParticles(getPosition(), incoming, bonusDamageMultiplier);
 		cannon->resetAccumulator();
 	}
@@ -139,6 +131,7 @@ void Enemy::receiveDamage(float damage, const sf::Vector2f &incoming, float bonu
 Enemy::~Enemy() {
 	caption.reset();
 	cannon.reset();
+	polynomial.reset();
 }
 
 #pragma endregion

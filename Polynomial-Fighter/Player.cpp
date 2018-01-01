@@ -2,7 +2,7 @@
 #include "GameData.h"
 #include "Utility.h"
 #include "EntityManager.h"
-#include "APSBuilder.h"
+#include "Request.h"
 #include "ParticleMaster.h"
 #include "FleetingText.h"
 
@@ -58,9 +58,17 @@ void Player::setTargetPosition(const sf::Vector2f& position)
 	}
 }
 
-void Player::appendTargets(const std::vector<int>& values, const std::vector<std::shared_ptr<Entity>> &enemies) const
+void Player::processConsoleInput(const RequestValue& value, const std::vector<std::shared_ptr<Entity>> &enemies) const
 {
-	cannon->appendTargets(values, enemies);
+	if (value.message == RH_Codes::ROOTS) {
+		cannon->appendTargets(value.result, enemies);
+	}
+	else if (value.message == RH_Codes::DIVISOR) {
+		cannon->reduce(value.result[0], enemies);
+	}
+	else if (value.message != RH_Codes::EMPTY) {
+		//Debug::PrintErrorFormatted("Player::processConsoleInput: Bad value.message!: <%>\n", value.message);
+	}
 }
 
 bool Player::getAlive() const

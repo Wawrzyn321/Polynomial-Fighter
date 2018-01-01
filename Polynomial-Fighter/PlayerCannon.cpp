@@ -123,7 +123,7 @@ void PlayerCannon::appendTargets(const std::vector<int>& values, const std::vect
 			{
 				std::shared_ptr<Enemy> enemy = std::dynamic_pointer_cast<Enemy>(e);
 				assert(enemy);
-				if (enemy->canBeDamagedBy(v))
+				if (enemy->getPolynomial()->canBeDamagedBy(v))
 				{
 					targetsAdded++;
 					designatedTargets.push_back({ enemy->getId(), v });
@@ -153,6 +153,30 @@ void PlayerCannon::appendTargets(const std::vector<int>& values, const std::vect
 			origin + sf::Vector2f(0, -20), sf::Color(255, 233, 233), 20);
 		ft->run(0.001f, { RandomGenerator::getFloat(-0.01f, 0.01f), -0.03f }, 0);
 		EntityManager::instance()->addEntity(ft);
+	}
+}
+
+void PlayerCannon::reduce(const int divisor, const std::vector<std::shared_ptr<Entity>>& enemies)
+{
+	if(divisor != 0)
+	{
+		int ile = 0;
+		for (const std::shared_ptr<Entity> e : enemies)
+		{
+			std::shared_ptr<Enemy> enemy = std::dynamic_pointer_cast<Enemy>(e);
+			assert(enemy);
+			Debug::PrintFormatted("% %\n", enemy->getPolynomial()->canBeReducedBy(divisor), divisor);
+			if(enemy->getPolynomial()->canBeReducedBy(divisor))
+			{
+				ile++;
+				enemy->getPolynomial()->reduceCoefficientsBy(divisor);
+			}
+			Debug::PrintFormatted("ILE:%:ILE\n", ile);
+		}
+	}
+	else
+	{
+		Debug::PrintFormatted("PlayerCannon::reduce: divisior = 0, tu powinny dziac sie rzeczy\n");
 	}
 }
 

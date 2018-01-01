@@ -7,6 +7,7 @@
 #include "PowerfulText.h"
 #include "Delegate.h"
 #include "EnemyCannon.h"
+#include "EnemyPolynomialAdapter.h"
 
 class Player;
 class Enemy : public Entity, public IDamageable
@@ -25,25 +26,25 @@ private:
 	float attractionRadiusSqr{};
 	State state;
 
-	PolynomialProductForm pff;
 	std::unique_ptr<PowerfulText> caption;
 	std::unique_ptr<EnemyCannon> cannon;
+	std::shared_ptr<EnemyPolynomialAdapter> polynomial;
 
 	unsigned originalDegree{};
 
-	void initComponents(const std::string &captionText, float angle);
+	void initComponents(float angle, PolynomialProductForm pff);
 public:
 	Delegate<unsigned> DeathEvent;
 
-	Enemy(const sf::Vector2f& position, const sf::Vector2f &playerPosition, float speed, PolynomialProductForm pff);
+	Enemy();
 
-	void initCannon();
+	void init(const sf::Vector2f& position, const sf::Vector2f& playerPosition, float speed, PolynomialProductForm pff);
 
-	bool canBeDamagedBy(int value) const;
+	std::shared_ptr<EnemyPolynomialAdapter> &getPolynomial();
 
-	int decreasePolynomial(int root);
+	void invokeDeathEvent();
 
-	unsigned getOriginalDegree() const;
+	void setName(const std::string& name);
 
 	void setState(State state);
 

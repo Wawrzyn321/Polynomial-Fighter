@@ -3,9 +3,8 @@
 #include "RequestHandlers.h"
 #include "StringSubprocessor.h"
 #include "Debug.h"
-#include "Request.h"
 
-std::vector<int> InputFieldParser::parse(const std::string& input)
+RequestValue InputFieldParser::parse(const std::string& input)
 {
 	//preprocess input
 	std::string unraw = RequestSubprocessor::removePeriods(input);
@@ -41,7 +40,7 @@ std::vector<int> InputFieldParser::parse(const std::string& input)
 	std::cout << std::endl;
 	*/
 	delete chain;
-	return r.result;
+	return r;
 }
 
 void InputFieldParser::runTests()

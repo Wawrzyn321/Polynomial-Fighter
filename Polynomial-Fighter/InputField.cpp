@@ -30,7 +30,7 @@ bool InputField::isInputCharacterValid(char c)
 {
 	auto allowedCharacters = {
 		'0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
-		'-', ',', ' ', '>', '<'
+		'-', ',', ' ', '>', '<', '/'
 	};
 
 	return std::find(allowedCharacters.begin(), allowedCharacters.end(), c) != allowedCharacters.end();

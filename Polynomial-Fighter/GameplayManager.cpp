@@ -50,11 +50,11 @@ void GameplayManager::EnemyDestroyed(unsigned id)
 
 void GameplayManager::TextSubmitted(const std::string &text) const
 {
-	auto values = InputFieldParser::parse(text);
+	RequestValue value = InputFieldParser::parse(text);
 
 	std::vector<std::shared_ptr<Entity>> entities = EntityManager::instance()->findEntitiesByTag(GameData::TAG_ENEMY);
 
-	player->appendTargets(values, entities);
+	player->processConsoleInput(value, entities);
 }
 
 void GameplayManager::PlayerDestroyed()

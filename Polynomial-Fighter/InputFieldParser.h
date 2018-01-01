@@ -1,13 +1,13 @@
 #ifndef INPUT_FIELD_PARSER_H
 #define INPUT_FIELD_PARSER_H
 
-#include <vector>
 #include <string>
+#include "Request.h"
 
 class InputFieldParser
 {
 public:
-	static std::vector<int> parse(const std::string& input);
+	static RequestValue parse(const std::string& input);
 
 	static void runTests();
 };
