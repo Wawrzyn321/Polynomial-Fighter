@@ -36,6 +36,8 @@ public:
 	GameplayManager(sf::RenderWindow* window);
 	GameplayManager(const GameplayManager &) {}
 
+	void reset();
+
 	void feed(const sf::Event& event);
 
 	void update(const Time::TimeData &timeData);

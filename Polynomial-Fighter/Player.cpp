@@ -42,8 +42,11 @@ Player::Player(const sf::Vector2f& position)
 	collisionRadius = playerCollisionRadius;
 	isAlive = true;
 
+	FinishedRotatingEvent.clear();
+	DeathEvent.clear();
+
 	initGraphics();
-	cannon = std::make_unique<PlayerCannon>(PlayerCannon(this, position));
+	cannon = std::make_unique<PlayerCannon>(this, position);
 	rotationEventInvoked = true;
     FinishedRotatingEvent.add(std::bind(&PlayerCannon::onRotationFinished, cannon.get(), std::placeholders::_1));
 	this->Player::setPosition(position);

@@ -41,7 +41,7 @@ public:
 
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
-	InputField& operator=(const InputField rhs);;
+	InputField& operator=(const InputField rhs);
 private:
 	sf::Color color_fieldOutline = sf::Color(127, 127, 127);
 	sf::Color color_fieldBackground = sf::Color::Black;
