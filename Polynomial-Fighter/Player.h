@@ -26,7 +26,7 @@ class Player : public Entity, public IDamageable
 
 	void updateRotation(float deltaTime);
 public:
-	Action DeathEvent;
+	Delegate<void> DeathEvent;
 	Delegate<float> FinishedRotatingEvent;
 
 	explicit Player(const sf::Vector2f &position);
