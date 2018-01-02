@@ -6,6 +6,7 @@
 #include "Player.h"
 #include <cassert>
 #include "FleetingText.h"
+#include "ReductionWave.h"
 
 void PlayerCannon::updateState()
 {
@@ -156,23 +157,12 @@ void PlayerCannon::appendTargets(const std::vector<int>& values, const std::vect
 	}
 }
 
-void PlayerCannon::reduce(const int divisor, const std::vector<std::shared_ptr<Entity>>& enemies)
+void PlayerCannon::reduce(int divisor, const std::vector<std::shared_ptr<Entity>>& enemies)
 {
 	if(divisor != 0)
 	{
-		int ile = 0;
-		for (const std::shared_ptr<Entity> e : enemies)
-		{
-			std::shared_ptr<Enemy> enemy = std::dynamic_pointer_cast<Enemy>(e);
-			assert(enemy);
-			Debug::PrintFormatted("% %\n", enemy->getPolynomial()->canBeReducedBy(divisor), divisor);
-			if(enemy->getPolynomial()->canBeReducedBy(divisor))
-			{
-				ile++;
-				enemy->getPolynomial()->reduceCoefficientsBy(divisor);
-			}
-			Debug::PrintFormatted("ILE:%:ILE\n", ile);
-		}
+		auto rw = std::make_shared<ReductionWave>(playerReference->getPosition(), divisor, enemies);
+		EntityManager::instance()->addEntity(rw);
 	}
 	else
 	{

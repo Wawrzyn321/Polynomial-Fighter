@@ -17,8 +17,6 @@ void SimpleBullet::hitTarget(const std::shared_ptr<Entity>& target)
 	auto d = std::dynamic_pointer_cast<IDamageable>(target);
 	assert(d);
 	d->receiveDamage(damage, vectorNormalize(velocity), bonusDamageMultiplier);
-	trail->setEnabled(false);
-	trail->setToDelete(true);
 }
 
 SimpleBullet::SimpleBullet(const sf::Vector2f& position, float radius, float damage, float bonusDamageMultiplier)
@@ -68,8 +66,13 @@ void SimpleBullet::update(const Time::TimeData &timeData)
 	checkBounds();
 }
 
+void SimpleBullet::onDestroy()
+{
+	trail->setEnabled(false);
+	trail->setToDelete(true);
+}
+
 void SimpleBullet::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	target.draw(shape, states);
 }
-
