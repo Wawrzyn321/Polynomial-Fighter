@@ -26,6 +26,8 @@ public:
 
 	void update(const Time::TimeData &timeData) override;
 
+	void onDestroy() override;
+
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
 private:
