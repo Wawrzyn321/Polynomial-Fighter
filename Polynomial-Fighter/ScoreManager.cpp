@@ -40,6 +40,13 @@ void ScoreManager::showFinalScore(unsigned destroyedEnemies) const
 	gui->showFinalScore();
 }
 
+void ScoreManager::reset()
+{
+	enemiesKilledCount = 0;
+	points = 0;
+	gui->reset();
+}
+
 void ScoreManager::update(const Time::TimeData &timeData) const
 {
 	gui->update(timeData);

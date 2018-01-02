@@ -26,6 +26,7 @@ Enemy::Enemy()
 {
 	this->name = "Unnamed Enemy";
 	tag = GameData::TAG_ENEMY;
+	DeathEvent.clear();
 }
 
 void Enemy::init(const sf::Vector2f& position, const sf::Vector2f &playerPosition, float speed, PolynomialProductForm pff)

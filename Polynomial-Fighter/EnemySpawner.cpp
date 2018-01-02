@@ -40,10 +40,13 @@ EnemySpawner::EnemySpawner(const sf::IntRect& bounds, GameplayManager* gameplayM
 {
 	this->bounds = sf::FloatRect(bounds);
 	this->difficultyLevel = difficultyLevel;
+
 	managerReference = gameplayManager;
 	interval = calculateInterval();
 	accumulator = interval*0.5f;
 	isActive = true;
+
+	OnEnemySpawn.clear();
 }
 
 void EnemySpawner::incrementDifficultyLevel()

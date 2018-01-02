@@ -42,14 +42,14 @@ void ScoreManagerGUI::setTargetPoints(int targetPoints)
 	scoreText.scale(scaleMultiplier, scaleMultiplier);
 }
 
-void ScoreManagerGUI::updateStageNo(unsigned stageNo, unsigned pointsStageFinished)
+void ScoreManagerGUI::updateStageNo(unsigned stageNo, unsigned pointsToAdd)
 {
 	this->stageNo = stageNo;
 
-	if (pointsStageFinished)
+	if (pointsToAdd > 0)
 	{
-		targetPoints += pointsStageFinished;
-		auto ft = std::make_shared<FleetingText>("+" + std::to_string(pointsStageFinished), 
+		targetPoints += pointsToAdd;
+		auto ft = std::make_shared<FleetingText>("+" + std::to_string(pointsToAdd), 
 			textPosition, sf::Color::White, fontSize);
 		ft->run(0.0009f, { 0, -0.04f }, 0);
 		EntityManager::instance()->addEntity(ft);
@@ -61,6 +61,15 @@ void ScoreManagerGUI::updateStageNo(unsigned stageNo, unsigned pointsStageFinish
 void ScoreManagerGUI::showFinalScore()
 {
 	currentPoints = float(targetPoints);
+}
+
+void ScoreManagerGUI::reset()
+{
+	currentPoints = 0;
+	targetPoints = 0;
+	stageNo = 1;
+	accumulator = 0;
+	updateStageNo(stageNo);
 }
 
 void ScoreManagerGUI::update(const Time::TimeData& timeData)

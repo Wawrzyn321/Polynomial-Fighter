@@ -31,6 +31,8 @@ public:
 
 	void showFinalScore();
 
+	void reset();
+
 	void update(const Time::TimeData& timeData);
 
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;

@@ -47,6 +47,7 @@ InputField::InputField(const sf::Vector2f &position, const sf::Vector2f &size)
 	this->position = position;
 
 	initGraphics();
+	OnTextSubmitted.clear();
 
 	interactable = true;
 }

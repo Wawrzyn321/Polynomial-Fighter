@@ -22,6 +22,8 @@ public:
 
 	void showFinalScore(unsigned destroyedEnemies) const;
 
+	void reset();
+
 	void update(const Time::TimeData& timeData) const;
 
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const;
