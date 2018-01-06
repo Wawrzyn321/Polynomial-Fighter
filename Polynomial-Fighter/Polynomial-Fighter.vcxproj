@@ -75,6 +75,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -82,6 +83,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -91,6 +93,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -105,6 +108,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>C:\SFML\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -114,14 +118,31 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AdvancedParticle.cpp" />
+    <ClCompile Include="AdvancedParticleSystem.cpp" />
+    <ClCompile Include="APSBuilder.cpp" />
     <ClCompile Include="AssetManager.cpp" />
+    <ClCompile Include="BulletBase.cpp" />
+    <ClCompile Include="ParticleMaster.cpp" />
+    <ClCompile Include="PlayerCannonGraphics.cpp" />
+    <ClCompile Include="ScoreManager.cpp" />
+    <ClCompile Include="ScoreManagerGUI.cpp" />
+    <ClCompile Include="SimpleBullet.cpp" />
     <ClCompile Include="Debug.cpp" />
+    <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="EnemyCannon.cpp" />
+    <ClCompile Include="FleetingText.cpp" />
+    <ClCompile Include="GameplayManager.cpp" />
+    <ClCompile Include="EnemySpawner.cpp" />
+    <ClCompile Include="Entity.cpp" />
     <ClCompile Include="EntityManager.cpp" />
-    <ClCompile Include="EquationProvider.cpp" />
-    <ClCompile Include="GUILabel.cpp" />
     <ClCompile Include="InputField.cpp" />
     <ClCompile Include="InputFieldParser.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MunitionContainer.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PlayerCannon.cpp" />
+    <ClCompile Include="PlayerHealthGUI.cpp" />
     <ClCompile Include="PolynomialFactor.cpp" />
     <ClCompile Include="PolynomialGeneralForm.cpp" />
     <ClCompile Include="PolynomialGenerator.cpp" />
@@ -130,28 +151,43 @@
     <ClCompile Include="PowerfulText.cpp" />
     <ClCompile Include="RandomGenerator.cpp" />
     <ClCompile Include="RequestHandlers.cpp" />
-    <ClCompile Include="ScoresManager.cpp" />
-    <ClCompile Include="ScoresManagerGUI.cpp" />
+    <ClCompile Include="SignedBullet.cpp" />
     <ClCompile Include="SoundManager.cpp" />
-    <ClCompile Include="StringPreprocessor.cpp" />
+    <ClCompile Include="StringSubprocessor.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="Utility.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AdvancedParticle.h" />
+    <ClInclude Include="AdvancedParticleSystem.h" />
+    <ClInclude Include="AdvancedParticleSystemData.h" />
+    <ClInclude Include="APSBuilder.h" />
     <ClInclude Include="Asset Manager.h" />
+    <ClInclude Include="BulletBase.h" />
+    <ClInclude Include="DesignatedTarget.h" />
+    <ClInclude Include="ParticleMaster.h" />
+    <ClInclude Include="PlayerCannonGraphics.h" />
+    <ClInclude Include="ScoreManager.h" />
+    <ClInclude Include="ScoreManagerGUI.h" />
+    <ClInclude Include="SimpleBullet.h" />
     <ClInclude Include="Debug.h" />
     <ClInclude Include="Delegate.h" />
+    <ClInclude Include="Enemy.h" />
+    <ClInclude Include="EnemyCannon.h" />
+    <ClInclude Include="FleetingText.h" />
+    <ClInclude Include="GameplayManager.h" />
+    <ClInclude Include="EnemySpawner.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="EntityManager.h" />
-    <ClInclude Include="EquationProvider.h" />
-    <ClInclude Include="ExampleEntities.h" />
+    <ClInclude Include="FloatColor.h" />
     <ClInclude Include="GameData.h" />
-    <ClInclude Include="GUILabel.h" />
     <ClInclude Include="IDamageable.h" />
-    <ClInclude Include="IMouseEventsListener.h" />
     <ClInclude Include="InputField.h" />
     <ClInclude Include="InputFieldParser.h" />
-    <ClInclude Include="ITransformable.h" />
+    <ClInclude Include="MunitionContainer.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="PlayerCannon.h" />
+    <ClInclude Include="PlayerHealthGUI.h" />
     <ClInclude Include="PolynomialFactor.h" />
     <ClInclude Include="PolynomialGeneralForm.h" />
     <ClInclude Include="PolynomialGenerator.h" />
@@ -161,10 +197,9 @@
     <ClInclude Include="RandomGenerator.h" />
     <ClInclude Include="Request.h" />
     <ClInclude Include="RequestHandlers.h" />
-    <ClInclude Include="ScoresManager.h" />
-    <ClInclude Include="ScoresManagerGUI.h" />
+    <ClInclude Include="SignedBullet.h" />
     <ClInclude Include="SoundManager.h" />
-    <ClInclude Include="StringPreprocessor.h" />
+    <ClInclude Include="StringSubprocessor.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="Utility.h" />
   </ItemGroup>

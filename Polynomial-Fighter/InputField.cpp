@@ -4,6 +4,8 @@
 #include <string>
 #include "GameData.h"
 #include "Debug.h"
+#include "FleetingText.h"
+#include "EntityManager.h"
 
 void InputField::initGraphics()
 {
@@ -15,7 +17,7 @@ void InputField::initGraphics()
 
 	AssetManager *am = AssetManager::instance();
 
-	font = am->getFont(GameData::PATH_TO_RESOURCES + GameData::PATH_TO_FONTS + GameData::FONT_REGULAR);
+	font = am->getDefaultFont();
 	text = sf::Text("", *font, static_cast<unsigned int>(size.y * 0.64));
 	text.setFillColor(color_text_normal);
 	text.setPosition(position + sf::Vector2f(size.x / 10, size.y / 10));
@@ -41,7 +43,7 @@ void InputField::updateCursorPosition()
 	cursor.setPosition(text.getPosition().x + text.getGlobalBounds().width, text.getPosition().y + size.y*0.64f);
 }
 
-InputField::InputField(sf::Vector2f position, sf::Vector2f size)
+InputField::InputField(const sf::Vector2f &position, const sf::Vector2f &size)
 {
 	this->size = size;
 	this->position = position;
@@ -51,7 +53,7 @@ InputField::InputField(sf::Vector2f position, sf::Vector2f size)
 	interactable = true;
 }
 
-void InputField::feed(const sf::Event event)
+void InputField::feed(const sf::Event &event)
 {
 	if (!interactable) return;
 
@@ -70,6 +72,13 @@ void InputField::feed(const sf::Event event)
 		else if (c == '\r') {
 			if (!currentText.empty())
 			{
+				if (currentText == "<3")
+				{
+					auto ft = std::make_shared<FleetingText>("I love you too...",
+						position+sf::Vector2f(size.x*0.5f, 0), sf::Color(255, 15, 15), 30);
+					ft->run(0.0009f, { 0, -0.04f }, 0);
+					EntityManager::instance()->addEntity(ft);
+				}
 				OnTextSubmitted.invoke(text.getString());
 				clear();
 			}
@@ -87,6 +96,11 @@ void InputField::feed(const sf::Event event)
 		}
 		updateCursorPosition();
 	}
+}
+
+void InputField::disable()
+{
+	interactable = false;
 }
 
 void InputField::clear()

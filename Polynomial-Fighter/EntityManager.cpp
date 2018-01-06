@@ -1,8 +1,9 @@
 #include "EntityManager.h"
+#include "Debug.h"
 
 EntityManager *EntityManager::sInstance = nullptr;
 
-EntityManager * EntityManager::instance()
+EntityManager *EntityManager::instance()
 {
     if (sInstance == nullptr)
     {
@@ -12,9 +13,16 @@ EntityManager * EntityManager::instance()
     return sInstance;
 }
 
-void EntityManager::addEntity(const std::shared_ptr<Entity> &entity)
+std::shared_ptr<Entity>& EntityManager::addEntity(const std::shared_ptr<Entity>& entity, bool instantly)
 {
-	entities.push_back(entity);
+	if (instantly) {
+		entities.push_back(entity);
+		return entities.back();
+	}
+	else {
+		entitiesToAdd.push_back(entity);
+		return entitiesToAdd.back();
+	}
 }
 
 void EntityManager::deleteEntitiesByTag(const std::string &tag)
@@ -52,11 +60,11 @@ void EntityManager::deleteEntityByName(const std::string &name)
     }
 }
 
-void EntityManager::deleteEntity(const std::weak_ptr<Entity> &entity)
+void EntityManager::deleteEntity(const std::shared_ptr<Entity> &entity)
 {
     for (int i = 0; i < entities.size(); i++)
     {
-        if (entities[i] == entity.lock())
+        if (entities[i] == entity)
         {
             if (entities[i]->getEnabled())
             {
@@ -70,54 +78,65 @@ void EntityManager::deleteEntity(const std::weak_ptr<Entity> &entity)
     }
 }
 
-std::vector<std::weak_ptr<Entity>> EntityManager::getEntities(bool includeDisabled)
+std::vector<std::shared_ptr<Entity>> EntityManager::getEntities(bool includeDisabled)
 {
-    std::vector<std::weak_ptr<Entity>> weakPtrs;
-
-	for (auto &entitie : entities)
+    if (includeDisabled)
     {
-        if (!includeDisabled)
-        {
-            if (!entitie->getEnabled())
-            {
-                continue;
-            }
-        }
-
-        std::weak_ptr<Entity> weakPtr = entitie;
-        weakPtrs.push_back(weakPtr);
+        return entities;
     }
 
-    return weakPtrs;
+    std::vector<std::shared_ptr<Entity>> toReturn;
+
+	for (auto &entity : entities)
+    {
+        if (!entity->getEnabled())
+        {
+            continue;
+        }
+
+        toReturn.push_back(entity);
+    }
+
+    return toReturn;
+}
+
+void EntityManager::addNewEntitites()
+{
+	if (!entitiesToAdd.empty()) {
+		for (auto &&entity : entitiesToAdd)
+		{
+			entities.push_back(entity);
+		}
+		entitiesToAdd.clear();
+	}
 }
 
 #pragma region Searching the list
 
-std::weak_ptr<Entity> EntityManager::findEntityByName(const std::string &name)
+std::shared_ptr<Entity> EntityManager::findEntityByName(const std::string &name)
 {
-	for (auto &entitie : entities)
+	for (auto &entity : entities)
     {
-		if (entitie->name == name)
+		if (entity->name == name)
         {
-            std::weak_ptr<Entity> weakPtr = entitie;
-			return weakPtr;
+			return entity;
 		}
 	}
-    //Debug::PrintFormatted("EntityManager::findEntityByName: could not find object of name <%>!\n", name);
-    return std::weak_ptr<Entity>(); //sprawdza sie to std::weak_ptr::expired(), bo nie da sie nullptr
+
+    return {};
 }
 
-std::vector<std::weak_ptr<Entity>> EntityManager::findEntitiesByTag(const std::string &tag, bool includeDisabled)
+std::vector<std::shared_ptr<Entity>> EntityManager::findEntitiesByTag(const std::string &tag, bool includeDisabled)
 {
-	std::vector<std::weak_ptr<Entity>> entitiesFound;
+	std::vector<std::shared_ptr<Entity>> entitiesFound;
 
-	for (auto &entitie : entities)
+	for (auto &entity : entities)
     {
-		if (entitie->tag == tag)
+		if (entity->tag == tag)
         {
-			if (!includeDisabled && !entitie->getEnabled()) continue;
-            std::weak_ptr<Entity> weakPtr = entitie;
-			entitiesFound.push_back(weakPtr);
+			if (!includeDisabled && !entity->getEnabled()) continue;
+
+			entitiesFound.push_back(entity);
 		}
 	}
 
@@ -126,35 +145,36 @@ std::vector<std::weak_ptr<Entity>> EntityManager::findEntitiesByTag(const std::s
 
 #pragma endregion
 
-void EntityManager::update(const Time::TimeData timeData)
+void EntityManager::update(const Time::TimeData &timeData)
 {
-	for (auto &entitie : entities)
+	for (auto &entity : entities)
     {
-		if (entitie->getEnabled())
+		if (entity->getEnabled())
         {
-			entitie->update(timeData);
+			entity->update(timeData);
 		}
 	}
 }
 
 void EntityManager::draw(sf::RenderTarget& target, sf::RenderStates states)
 {
-	for (auto &entitie : entities)
+	for (auto &entity : entities)
     {
-		if (entitie == nullptr)
+		if (entity == nullptr)
         {
 			Debug::PrintErrorFormatted("EntityManager::draw: supplied entity is NULL!");
 			continue;
 		}
-		if (entitie->getEnabled()) {
 
-			//todo uzmienni?
+		if (entity->getEnabled())
+        {
+			//todo uzmiennic
 			/*glEnable(GL_SCISSOR_TEST);
 			glScissor((GLint)GameData::SCENE_BOUNDS.left,
 				(GLint)GameData::SCENE_BOUNDS.top,
 				(GLint)GameData::SCENE_BOUNDS.width,
 				(GLint)GameData::SCENE_BOUNDS.height);*/
-			entitie->draw(target, states);
+			entity->draw(target, states);
 			//glDisable(GL_SCISSOR_TEST);
 		}
 	}
@@ -192,13 +212,13 @@ EntityManager::~EntityManager()
 
 void EntityManager::removeMarked()
 {
-    std::vector<std::weak_ptr<Entity>> toDelete;
+    std::vector<std::shared_ptr<Entity>> toDelete;
 
-    for (auto &entitie : entities)
+    for (auto &entity : entities)
     {
-        if (entitie->getToDelete())
+        if (entity->getToDelete())
         {
-            toDelete.emplace_back(std::weak_ptr<Entity>(entitie));
+            toDelete.push_back(entity);
         }
     }
 
@@ -210,6 +230,7 @@ void EntityManager::removeMarked()
         }
     }
 }
+
 void EntityManager::deleteEntityById(unsigned long id)
 {
     for (int i = 0; i < entities.size(); i++)
@@ -227,16 +248,16 @@ void EntityManager::deleteEntityById(unsigned long id)
         }
     }
 }
-std::weak_ptr<Entity> EntityManager::findEntityById(unsigned long id)
+
+std::shared_ptr<Entity> EntityManager::findEntityById(unsigned long id)
 {
-    for (auto &entitie : entities)
+    for (auto &entity : entities)
     {
-        if (entitie->getId() == id)
+        if (entity->getId() == id)
         {
-            std::weak_ptr<Entity> weakPtr = entitie;
-            return weakPtr;
+            return entity;
         }
     }
 
-    return std::weak_ptr<Entity>(); //sprawdza sie to std::weak_ptr::expired(), bo nie da sie nullptr
+    return {};
 }

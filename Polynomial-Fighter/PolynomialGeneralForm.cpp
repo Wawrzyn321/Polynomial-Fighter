@@ -38,12 +38,12 @@ void PolynomialGeneralForm::setCoefficient(unsigned int deg, int value)
 
 void PolynomialGeneralForm::generateString()
 {
-    stringRepresentation = "";
+	stringRepresentation.clear();
     auto iterator = coefficients.end();
 
     for (int i = 0; i < coefficients.size(); i++)
     {
-        iterator--;
+        iterator--; //TODO: V803 https://www.viva64.com/en/w/V803 Decreased performance. In case 'iterator' is iterator it's more effective to use prefix form of decrement. Replace iterator-- with --iterator.
         if (*iterator == 0) continue;
 
         int deg = coefficients.size() - 1 - i;

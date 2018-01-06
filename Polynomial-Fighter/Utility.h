@@ -1,14 +1,21 @@
 #ifndef UTILITY_H
 #define UTILITY_H
 
+#include <algorithm>
 #include <SFML/Graphics.hpp>
 #include "GameData.h"
-#include "Asset Manager.h"
+#include "AssetManager.h"
 #include "Debug.h"
+#include "RandomGenerator.h"
+#include <cmath>
 
-const float pi = 3.1415926535f;
+const float pi = 3.1415926535f; //TODO: V624 https://www.viva64.com/en/w/V624 The constant 3.1415926535f is being utilized. The resulting value could be inaccurate. Consider ustd::sing the M_PI constant from <math.h>.
 
 unsigned intLenght(int number);
+
+std::string to_stringWithPrecision(float value, int p);
+
+float minAngleDifference(float from, float to);
 
 void centerTextOrigin(sf::Text &textShape);
 
@@ -22,7 +29,9 @@ sf::Color lerp(sf::Color from, sf::Color to, float amount);
 
 sf::FloatRect getCenteredFloatRect(float width, float height, float xShift = 0, float yShift = 0);
 
-int getLastCharacterPosition(std::string text, char c);
+void rotateTowards(sf::Transformable& sprite, float angleDeg, float time = 1.0f);
+
+sf::Vector2f getPointOnIntRect(const sf::FloatRect& bounds);
 
 #pragma region Template functions
 
@@ -34,6 +43,12 @@ float squaredDistance(sf::Vector2<T> a, sf::Vector2<R> b) {
 template <typename T>
 T lerp(T from, T to, float amount) {
 	return from+(to - from)*amount;
+}
+
+template <typename T, typename P, typename R>
+auto clamp(T value, P min, R max) -> decltype(value*min*max)
+{
+	return value<min ? min : value>max ? max : value;
 }
 
 template <typename T>
@@ -56,18 +71,23 @@ sf::Vector2<T> vectorNormalize(sf::Vector2<T> vec) {
 	return vec;
 }
 
+template <typename T1, typename T2>
+auto lerp(T1 from, T2 to, float amount) -> decltype(typeid(float)*(from + to)) {
+	return from + (to - from)*amount;
+}
+
 template <typename T, typename R>
 sf::Vector2<T> operator*(const sf::Vector2<T> &vec, R a) {
 	return sf::Vector2<T>((T)(vec.x*a), (T)(vec.y*a));
 }
 
 template <typename T>
-void rotateTowards(sf::Sprite &sprite, sf::Vector2<T> target, float time = 1.0f) {
+void rotateTowards(sf::Transformable &sprite, sf::Vector2<T> target, float time = 1.0f) {
 	float from = sprite.getRotation()*pi / 180.0f;
 	float to = atan2(sprite.getPosition().y - target.y, sprite.getPosition().x - target.x);
 
-	float xRotation = (1 - time)*cos(from) + time*cos(to);
-	float yRotation = (1 - time)*sin(from) + time*sin(to);
+	float xRotation = (1 - time)*std::cos(from) + time*std::cos(to);
+	float yRotation = (1 - time)*std::sin(from) + time*std::sin(to);
 	float nextRotation = atan2(yRotation, xRotation);
 
 	sprite.setRotation(nextRotation*180.0f/pi);

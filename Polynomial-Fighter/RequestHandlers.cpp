@@ -1,14 +1,14 @@
 #include "RequestHandlers.h"
-#include "StringPreprocessor.h"
 #include <sstream>
-#include <iterator>
 #include <algorithm>
+#include "Debug.h"
+#include "StringSubprocessor.h"
 
-Request RequestHandler::passFurther(const std::string& input) const
+RequestValue RequestHandler::passFurther(const std::string& input) const
 {
 	if (succesor == nullptr)
 	{
-		return { {}, RH_ErrorCodes::SUCCESOR_NULL };
+		return { {}, RH_Codes::SUCCESOR_NULL };
 	}
 	else
 	{
@@ -21,7 +21,7 @@ RequestHandler::RequestHandler(RequestHandler* succesor)
 	this->succesor = succesor;
 }
 
-Request RequestHandler::handle(const std::string& input) const
+RequestValue RequestHandler::handle(const std::string& input) const
 {
 	if (canHandleRequest(input))
 	{
@@ -44,35 +44,38 @@ bool EmptyStringHandler::canHandleRequest(const std::string& input) const
 	return input.empty();
 }
 
-Request EmptyStringHandler::handleImplementation(const std::string& input) const
+RequestValue EmptyStringHandler::handleImplementation(const std::string& input) const
 {
-	return {};
+	return { {}, RH_Codes::EMPTY };
 }
 
 
 bool SingleNumberStringHandler::canHandleRequest(const std::string& input) const
 {
-	return RequestPreprocessor::isNumber(input);
+	return !input.empty() &&
+		!RequestSubprocessor::hasInequalityCharacters(input) &&
+		!RequestSubprocessor::hasSlash(input) && 
+		RequestSubprocessor::isNumber(input);
 }
 
-Request SingleNumberStringHandler::handleImplementation(const std::string& input) const
+RequestValue SingleNumberStringHandler::handleImplementation(const std::string& input) const
 {
 	try
 	{
 		//check for incorrect characters
-		if (!RequestPreprocessor::isNumber(input))
+		if (!RequestSubprocessor::isNumber(input))
 		{
-			return { {}, RH_ErrorCodes::NOT_A_NUMBER };
+			return { {}, RH_Codes::NOT_A_NUMBER };
 		}
 		int p = stoi(input);
 		//check range
-		if (RequestPreprocessor::isInRangeInclusive(p))
+		if (RequestSubprocessor::isInRangeInclusive(p))
 		{
-			return { { p }, "" };
+			return { { p }, RH_Codes::ROOTS };
 		}
 		else
 		{
-			return { { p }, RH_ErrorCodes::OUT_OF_RANGE };
+			return { { p }, RH_Codes::OUT_OF_RANGE };
 		}
 	}
 	//stoi error
@@ -86,46 +89,47 @@ Request SingleNumberStringHandler::handleImplementation(const std::string& input
 bool LHSInequalityStringHandler::canHandleRequest(const std::string& input) const
 {
 	//the characters after then inequality sign cannot be other inequality
-	return input.size() > 1 && (input[0] == '<' || input[0] == '>') && 
-		!RequestPreprocessor::hasInequalityCharacters(input.substr(1));
+	return input.size() > 1 && (input[0] == '<' || input[0] == '>') &&
+		!RequestSubprocessor::hasSlash(input) &&
+		!RequestSubprocessor::hasInequalityCharacters(input.substr(1));
 }
 
-Request LHSInequalityStringHandler::handleImplementation(const std::string& input) const
+RequestValue LHSInequalityStringHandler::handleImplementation(const std::string& input) const
 {
 	try
 	{
 		//check for incorrect characters
-		if (!RequestPreprocessor::isNumber(input.substr(1)))
+		if (!RequestSubprocessor::isNumber(input.substr(1)))
 		{
-			return { {}, RH_ErrorCodes::NOT_A_NUMBER };
+			return { {}, RH_Codes::NOT_A_NUMBER };
 		}
 		int p = stoi(input.substr(1));
 		//check range
-		if (!RequestPreprocessor::isInRangeInclusive(p))
+		if (!RequestSubprocessor::isInRangeInclusive(p))
 		{
-			return { { p }, RH_ErrorCodes::OUT_OF_RANGE };
+			return { { p }, RH_Codes::OUT_OF_RANGE };
 		}
 
 		if (input[0] == '<')
 		{
 			//grab items <p
 			std::vector<int> result;
-			for (int i = -RequestPreprocessor::maxNumber; i < p; i++)
+			for (int i = -RequestSubprocessor::maxNumber; i < p; i++)
 			{
 				result.push_back(i);
 			}
-			return { result, "" };
+			return { result, RH_Codes::ROOTS };
 		}
 		//provided by canHandleRequest, there're no other cases than '>'
 		else
 		{
 			//grab items >p
 			std::vector<int> result;
-			for (int i = p + 1; i <= RequestPreprocessor::maxNumber; i++)
+			for (int i = p + 1; i <= RequestSubprocessor::maxNumber; i++)
 			{
 				result.push_back(i);
 			}
-			return { result, "" };
+			return { result, RH_Codes::ROOTS };
 		}
 	}
 	//stoi error
@@ -140,44 +144,45 @@ bool RHSInequalityStringHandler::canHandleRequest(const std::string& input) cons
 {
 	//the characters before then inequality sign cannot be other inequality
 	return input.size() > 1 && (input.back() == '<' || input.back() == '>') &&
-		!RequestPreprocessor::hasInequalityCharacters(input.substr(0, input.size() - 1));
+		!RequestSubprocessor::hasSlash(input) &&
+		!RequestSubprocessor::hasInequalityCharacters(input.substr(0, input.size() - 1));
 }
 
-Request RHSInequalityStringHandler::handleImplementation(const std::string& input) const
+RequestValue RHSInequalityStringHandler::handleImplementation(const std::string& input) const
 {
 	try
 	{
 		//check for incorrect characters
-		if (!RequestPreprocessor::isNumber(input.substr(0, input.size() - 1)))
+		if (!RequestSubprocessor::isNumber(input.substr(0, input.size() - 1)))
 		{
-			return { {}, RH_ErrorCodes::NOT_A_NUMBER };
+			return { {}, RH_Codes::NOT_A_NUMBER };
 		}
 		int p = stoi(input.substr(0, input.size() - 1));
 		//check range
-		if (!RequestPreprocessor::isInRangeInclusive(p))
+		if (!RequestSubprocessor::isInRangeInclusive(p))
 		{
-			return { { p }, RH_ErrorCodes::OUT_OF_RANGE };
+			return { { p }, RH_Codes::OUT_OF_RANGE };
 		}
 
 		if (input.back() == '<')
 		{
 			//grab items >p
 			std::vector<int> result;
-			for (int i = p + 1; i <= RequestPreprocessor::maxNumber; i++)
+			for (int i = p + 1; i <= RequestSubprocessor::maxNumber; i++)
 			{
 				result.push_back(i);
 			}
-			return {result, ""};
+			return { result, RH_Codes::ROOTS  };
 		}
 		else //provided by canHandleRequest, there're no other cases than '>'
 		{
 			//grab items <p
 			std::vector<int> result;
-			for (int i = -RequestPreprocessor::maxNumber; i < p; i++)
+			for (int i = -RequestSubprocessor::maxNumber; i < p; i++)
 			{
 				result.push_back(i);
 			}
-			return { result, "" };
+			return { result, RH_Codes::ROOTS };
 		}
 	}
 	//stoi error
@@ -190,10 +195,12 @@ Request RHSInequalityStringHandler::handleImplementation(const std::string& inpu
 
 bool ListStringHandler::canHandleRequest(const std::string& input) const
 {
-	return true;
+	return input.size() > 1 &&
+		!RequestSubprocessor::hasSlash(input) &&
+		!RequestSubprocessor::hasInequalityCharacters(input);
 }
 
-Request ListStringHandler::handleImplementation(const std::string& input) const
+RequestValue ListStringHandler::handleImplementation(const std::string& input) const
 {
 	std::vector<int> v;
 	try
@@ -204,13 +211,13 @@ Request ListStringHandler::handleImplementation(const std::string& input) const
 		for (auto&& result : results)
 		{
 			//check for incorrect characters
-			if (!RequestPreprocessor::isNumber(result))
+			if (!RequestSubprocessor::isNumber(result))
 			{
 				return { { v }, "Not a number @" + std::to_string(v.size() + 1) + "!" };
 			}
 			int p = stoi(result);
 			//check range
-			if (RequestPreprocessor::isInRangeInclusive(p))
+			if (RequestSubprocessor::isInRangeInclusive(p))
 			{
 				//no duplicates!
 				if (find(v.begin(), v.end(), p) == v.end()) {
@@ -222,11 +229,51 @@ Request ListStringHandler::handleImplementation(const std::string& input) const
 			}
 		}
 		sort(v.begin(), v.end());
-		return { v, "" };
+		return { v, RH_Codes::ROOTS };
 	}
 	//stoi error
 	catch (std::invalid_argument &invalidArgumentException)
 	{
 		return { {}, "Invalid character @" + std::to_string(v.size() + 1) + "!" };
+	}
+}
+
+bool DivisorStringHandler::canHandleRequest(const std::string& input) const
+{
+	return input.size() > 1 &&
+		input[0] == '/' &&
+		!RequestSubprocessor::hasInequalityCharacters(input);
+}
+
+RequestValue DivisorStringHandler::handleImplementation(const std::string& input) const
+{
+	try
+	{
+		std::string unraw = input.substr(1);
+		//check for incorrect characters
+		if (!RequestSubprocessor::isNumber(unraw))
+		{
+			return { {}, RH_Codes::NOT_A_NUMBER };
+		}
+		int p = stoi(unraw);
+		//obvious division by zero
+		if (p == 0)
+		{
+			return { { p }, RH_Codes::DIVISION_BY_ZERO };
+		}
+		//check range
+		if (RequestSubprocessor::isInRangeInclusive(p))
+		{
+			return { { p }, RH_Codes::DIVISOR };
+		}
+		else
+		{
+			return { { p }, RH_Codes::OUT_OF_RANGE };
+		}
+	}
+	//stoi error
+	catch (std::invalid_argument &invalidArgumentException)
+	{
+		return passFurther(input);
 	}
 }

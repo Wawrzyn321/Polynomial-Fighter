@@ -3,7 +3,7 @@
 
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
-#include "Asset Manager.h"
+#include "AssetManager.h"
 #include "Timer.h"
 #include "Delegate.h"
 
@@ -17,22 +17,26 @@ class InputField : public sf::Drawable
 	std::shared_ptr<sf::Font> font;
 
 	void initGraphics();
+
 	static bool isInputCharacterValid(char c);
+
 	void updateCursorPosition();
 
-	const int characterLimit = 20;
+	const int characterLimit = 11;
 public:
 	Delegate<const std::string&> OnTextSubmitted;
-	bool interactable;
-	InputField(sf::Vector2f position, sf::Vector2f size);
+	bool interactable{};
+	InputField(const sf::Vector2f &position, const sf::Vector2f &size);
 
-	void feed(sf::Event event);
+	void feed(const sf::Event &event);
+
+	void disable();
 
 	void clear();
 
 	void setText(const std::string &text);
 
-	void update(const Time::TimeData& timeData); //resharper tak zaproponowa³, mo¿na to uogólniæ do entities
+	void update(const Time::TimeData& timeData);
 
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 

@@ -4,7 +4,7 @@ namespace Time {
 
     Timer *Timer::sInstance = nullptr;
 
-    Timer* Time::Timer::instance() {
+    Timer* Timer::instance() {
         if (sInstance == nullptr) {
             sInstance = new Timer();
             sInstance->deltaTimeTimer = new sf::Clock();
@@ -13,14 +13,14 @@ namespace Time {
         return sInstance;
     }
 
-    sf::Uint64 Timer::getDeltaTime() const
+    sf::Uint64 Timer::getDeltaTime() const //TODO zmieni� to �adniej
     {
-        return sInstance->deltaTimeTimer->restart().asMicroseconds();
+        return static_cast<sf::Uint64>(deltaTimeTimer->restart().asMicroseconds());
     }
 
     sf::Uint64 Timer::getElapsedTime() const
     {
-        return sInstance->timer->getElapsedTime().asMicroseconds();
+        return static_cast<sf::Uint64>(timer->getElapsedTime().asMicroseconds());
     }
 
     float Timer::getTimeScale() const
@@ -31,9 +31,9 @@ namespace Time {
     TimeData Timer::getTimeData() const
     {
         return {
-			sInstance->deltaTimeTimer->restart(),
-			sInstance->timeScale,
-			sInstance->timer->getElapsedTime()
+			deltaTimeTimer->restart(),
+			timeScale,
+			timer->getElapsedTime()
 		};
     }
 
@@ -44,12 +44,13 @@ namespace Time {
         {
             this->timeScale = 0;
         }
+		SoundManager::instance()->setPitch(timeScale);
     }
 
-	void Timer::reset()
-    {
-		sInstance->deltaTimeTimer = new sf::Clock();
-		sInstance->timer = new sf::Clock();
+	void Timer::reset() const
+	{
+		deltaTimeTimer->restart();
+		timer->restart();
 	}
 
 }

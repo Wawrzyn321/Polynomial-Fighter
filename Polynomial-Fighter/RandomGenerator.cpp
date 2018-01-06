@@ -9,6 +9,15 @@ int RandomGenerator::getInt(int min, int max)
     return dis(gen);
 }
 
+int RandomGenerator::getBoolean()
+{
+	std::random_device rd;
+	std::mt19937 gen(rd());
+	std::uniform_int_distribution<int> dis(0, 1);
+
+	return dis(gen);
+}
+
 double RandomGenerator::getDouble(double min, double max)
 {
 	std::random_device rd;

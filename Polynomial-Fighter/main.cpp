@@ -1,97 +1,88 @@
-#include <iostream>
-#include "InputField.h"
-#include "RandomGenerator.h"
 #include "Timer.h"
-#include "InputFieldParser.h"
-#include "PolynomialProductForm.h"
-#include "PolynomialGenerator.h"
-#include "PolynomialMultipler.h"
+#include "EntityManager.h"
+#include "Player.h"
+#include "AdvancedParticleSystem.h"
+#include "GameplayManager.h"
+#include "InputField.h"
 
 using namespace std;
 
-void showVector(vector<int> v) {
-	for (const auto &i : v) { //todo ładne
-		cout << i << " ";
-	}
-	cout << endl;
+void hideConsole()
+{
+	//#ifdef  _WIN32
+	//	//hide console
+	//#pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
+	//#endif
 }
 
-PolynomialProductForm pf;
-
-void fun(const string &str)
+int main()
 {
-	InputFieldParser p = InputFieldParser();
-	auto v = p.parse(str);
+	SoundManager::instance()->isOn = false;
 
-	system("cls");
-	for (int root : v)
-	{
-		if(pf.isRoot(root))
-		{
-			cout << root << " to pierwiasnetek" << endl;
-			pf.removeFactorsByRoot(root);
-		}
-	}
-	if(pf.getRoots().size() == 0)
-	{
-		cout << "to juz wszystko, nowy wielomian: " << endl;
-		pf = PolynomialGenerator::generatePolynomial(3);
-	}
+	hideConsole();
 
-	cout << PolynomialMultipler::generalForm(pf).toString() << endl;
+	auto em = EntityManager::instance();
+	auto t = Time::Timer::instance();
+	auto am = AssetManager::instance();
 
-}
+	GameplayManager gameplayManager = GameplayManager();
 
-void inputFieldTest()
-{
-	cout << endl;
-	sf::RenderWindow window(sf::VideoMode(GameData::WINDOW_SIZE.x, GameData::WINDOW_SIZE.y), "IF");
+	InputField inputField = InputField(
+	{ GameData::WINDOW_SIZE.x *0.67f, GameData::WINDOW_SIZE.y*0.89f },
+	{ GameData::WINDOW_SIZE.x*0.3f, GameData::WINDOW_SIZE.y*0.08f }
+	);
+	inputField.OnTextSubmitted.add(std::bind(&GameplayManager::TextSubmitted, &gameplayManager, std::placeholders::_1));
+	em->findEntityOfType<Player>()->DeathEvent.add(std::bind(&InputField::disable, &inputField));
 
-	Time::Timer *t = Time::Timer::instance();
-
-	InputField f = InputField({ 200, 100 }, { 200, 50 });
-	
-	f.OnTextSubmitted.add(fun);
-	f.interactable = true;
+	sf::RenderWindow window(sf::VideoMode(static_cast<unsigned int>(GameData::WINDOW_SIZE.x),
+                                          static_cast<unsigned int>(GameData::WINDOW_SIZE.y)), "pf");
+    window.setFramerateLimit(120);
 
 	while (window.isOpen())
 	{
 		sf::Event event;
 		while (window.pollEvent(event))
 		{
-			if (event.type == sf::Event::Closed)
+			if (event.type == sf::Event::Closed) {
 				window.close();
-
-			if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Escape) {
-				f.interactable = !f.interactable;
+				return 0;
+			}
+			if (event.type == sf::Event::LostFocus) {
+				t->setTimeScale(0);
 			}
 
-			f.feed(event);
+			if (event.type == sf::Event::GainedFocus) {
+				t->setTimeScale(1);
+			}
+			if (event.type == sf::Event::MouseWheelMoved)
+			{
+				t->setTimeScale(t->getTimeScale() + event.mouseWheel.delta*0.1f);
+			}
+			if (event.type == sf::Event::MouseButtonPressed)
+			{
+				if (event.mouseButton.button == sf::Mouse::Middle)
+				{
+					t->setTimeScale(1);
+				}
+			}
+			inputField.feed(event);
 		}
-		Time::TimeData timeData = t->getTimeData();
 
-		f.update(timeData);
+		auto deltaTime = t->getTimeData();
 
-		window.clear(sf::Color(127,127,127));
-		window.draw(f);
+		gameplayManager.update(deltaTime);
+		inputField.update(deltaTime);
+
+		em->update(deltaTime);
+		em->removeMarked();
+		em->addNewEntitites();
+
+		window.clear();
+		em->draw(window);
+		window.draw(inputField);
+		gameplayManager.draw(window);
+
 		window.display();
 	}
-}
-
-int main()
-{
-//#ifdef  _WIN32
-//	//hide console
-//#pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
-//#endif
-
-	pf = PolynomialGenerator::generatePolynomial(5);
-
-	cout << PolynomialMultipler::generalForm(pf).toString() << endl;
-
-	InputFieldParser::runTests();
-	inputFieldTest();
-
-	system("pause");
 	return 0;
 }

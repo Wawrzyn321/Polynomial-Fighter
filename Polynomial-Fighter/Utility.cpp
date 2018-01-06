@@ -1,4 +1,6 @@
 #include "Utility.h"
+#include <iomanip>
+#include <sstream>
 
 unsigned intLenght(int number) {
 	unsigned int l = 0;
@@ -14,6 +16,19 @@ unsigned intLenght(int number) {
 	}
 
 	return l;
+}
+
+std::string to_stringWithPrecision(float value, int p)
+{
+	std::stringstream stream;
+	stream << std::fixed << std::setprecision(p) << value;
+	return stream.str();
+}
+
+float minAngleDifference(float from, float to) {
+	float difference = to - from;
+	difference = clamp(static_cast<float>(difference - floor(difference / 360.0f) * 360.0f), 0.0f, 360.0f);
+	return difference > 180.0f ? difference - 360.0f : difference;
 }
 
 void centerTextOrigin(sf::Text & textShape)
@@ -54,11 +69,31 @@ sf::FloatRect getCenteredFloatRect(float width, float height, float xShift, floa
 	return sf::FloatRect(left, top, width, height);
 }
 
-int getLastCharacterPosition(std::string text, char c) {
-	for (size_t i = text.size()-1; i >=0; i--) {
-		if (text[i] == c) {
-			return (int)i;
-		}
+void rotateTowards(sf::Transformable& transformable, float angleDeg, float time)
+{
+	float from = transformable.getRotation() * pi / 180.0f;
+	float to = angleDeg * pi / 180.0f;
+
+	float xRotation = (1 - time) * cos(from) + time * cos(to);
+	float yRotation = (1 - time) * sin(from) + time * sin(to);
+	float nextRotation = atan2(yRotation, xRotation);
+
+	transformable.setRotation(nextRotation * 180.0f / pi);
+}
+
+sf::Vector2f getPointOnIntRect(const sf::FloatRect& bounds)
+{
+	bool horizontal = RandomGenerator::getBoolean();
+	if(horizontal)
+	{
+		float latitude = RandomGenerator::getFloat(0, bounds.width);
+		bool left = RandomGenerator::getBoolean();
+		return { latitude, (left ? 0 : bounds.height) };
 	}
-	return -1;
+	else
+	{
+		float altitude = RandomGenerator::getFloat(0, bounds.height);
+		bool top = RandomGenerator::getBoolean();
+		return { (top ? bounds.width : 0), altitude };
+	}
 }

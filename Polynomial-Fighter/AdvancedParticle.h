@@ -4,6 +4,7 @@
 #include "Entity.h"
 #include "AdvancedParticleSystemData.h"
 #include "FloatColor.h"
+#include <cmath>
 
 namespace minValues
 {
@@ -16,18 +17,17 @@ class AdvancedParticleSystem;
 class AdvancedParticle : Entity
 {
 	sf::CircleShape circle;
-	sf::Shape* currentShape;
 
-	AdvancedParticleSystem *parent;
+	AdvancedParticleSystem *parent{};
 
 	sf::Vector2f velocity;
-	float drag;
-	float angularVelocity;
-	float angularDrag;
-	float scaling;
-	float colorChangingSpeed;
+	float drag{};
+	float angularVelocity{};
+	float angularDrag{};
+	float scaling{};
+	float colorChangingSpeed{};
 
-	bool useGravity;
+	bool useGravity{};
 	sf::Vector2f gravity;
 
 	FloatColor currentColor;
@@ -38,26 +38,23 @@ class AdvancedParticle : Entity
 	void applyColorChange(float deltaTime);
 	void checkPulse();
 
-	AdvancedParticle() {}
+	AdvancedParticle() = default;
 public:
-	bool isAlive;
+	bool isAlive{};
 
 	AdvancedParticle(float radius, int pointCount, AdvancedParticleSystem *parent);
 
-	//AdvancedParticle(sf::Vector2f size, AdvancedParticleSystem *parent);
-
-	void setTransform(sf::Vector2f velocity, float drag, float angularVelocity, float angularDrag, float scaling);
-	void setColors(sf::Color startColor, sf::Color endColor, float colorChangingSpeed);
-	void setGravity(bool useGravity, sf::Vector2f gravity);
+	void setTransform(const sf::Vector2f &velocity, float drag, float angularVelocity, float angularDrag, float scaling);
+	void setColors(const sf::Color &startColor, const sf::Color &endColor, float colorChangingSpeed);
+	void setGravity(bool useGravity, const sf::Vector2f &gravity);
 
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
-	void update(Time::TimeData timeData) override;
+	void update(const Time::TimeData &timeData) override;
 	void onDestroy() override;
 
-	void move(sf::Vector2f shift);
-	sf::Vector2f getPosition() override;
-	void setPosition(sf::Vector2f position) override;
-
+	void move(const sf::Vector2f &shift);
+	sf::Vector2f getPosition() const override;
+	void setPosition(const sf::Vector2f &position) override;
 };
 
 #endif

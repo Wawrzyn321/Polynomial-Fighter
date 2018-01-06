@@ -1,5 +1,6 @@
 #include <cmath>
 #include "PolynomialFactor.h"
+#include "Debug.h"
 
 PolynomialFactor::PolynomialFactor(int x, int constant) : x(x), constant(constant) {}
 
@@ -25,7 +26,7 @@ void PolynomialFactor::setConstant(int constant)
 
 int PolynomialFactor::getRoot() const
 {
-    return -constant / x;
+	return x == 0 ? 0 : -constant / x;
 }
 
 bool PolynomialFactor::isInteger(double n) const

@@ -2,22 +2,31 @@
 #define FLOAT_COLOR_H
 
 #include "Utility.h"
+#include <sstream>
 
 class FloatColor
 {
 	const float colorRange = 255.0f;
 	const float colorRangeReciproc = 1 / colorRange;
 public:
-	float x, y, z, w;
+	float x{}, y{}, z{}, w{};
 
-	FloatColor(){}
+	FloatColor() : x(0), y(0), z(0), w(0) {}
 
-	FloatColor(const sf::Color color)
+	FloatColor(const sf::Color &color)
 	{
 		x = static_cast<float>(color.r)*colorRangeReciproc;
 		y = static_cast<float>(color.g)*colorRangeReciproc;
 		z = static_cast<float>(color.b)*colorRangeReciproc;
 		w = static_cast<float>(color.a)*colorRangeReciproc;
+	}
+
+	FloatColor(const FloatColor &other)
+	{
+		x = other.x;
+		y = other.y;
+		z = other.z;
+		w = other.w;
 	}
 
 	sf::Color toColor() const
@@ -29,10 +38,11 @@ public:
 		return sf::Color((sf::Uint8)r, (sf::Uint8)g, (sf::Uint8)b, (sf::Uint8)a);
 	}
 
-	FloatColor lerpTo(const FloatColor to, float t, bool clampT = true)
+	FloatColor lerpTo(const FloatColor &to, float t, bool clampT = true)
 	{
-		if (clampT) {
-			t = clamp(t, 0.0f, 1.0f);
+		if (clampT)
+		{
+			t = clamp01(t);
 		}
 		x += (to.x - x)*t;
 		y += (to.y - y)*t;
@@ -65,7 +75,12 @@ public:
 		else {
 			return std::max(std::max(r, g), b);
 		}
+	}
 
+	friend std::ostream& operator<<(std::ostream& os, const FloatColor& color)
+	{
+		os << color.x << " " << color.y << " " << color.z << " " << color.w;
+		return os;
 	}
 };
 

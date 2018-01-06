@@ -4,7 +4,7 @@ PolynomialProductForm PolynomialGenerator::generatePolynomial(unsigned int deg, 
 {
     PolynomialProductForm polynomial;
 
-    for (int i = 0; i < deg; i++)
+    for (unsigned i = 0; i < deg; i++)
     {
         PolynomialFactor factor;
         do
@@ -19,7 +19,7 @@ PolynomialProductForm PolynomialGenerator::generatePolynomial(unsigned int deg, 
             factor.setConstant(RandomGenerator::getInt(-static_cast<int>(valuesRange), valuesRange));
         }
         while (!factor.isRootInteger());
-        std::cout << "Wylosowany factor: x = " << factor.getX() << " const = " << factor.getConstant() << " root = " << factor.getRoot() << std::endl;
+        //std::cout << "Wylosowany factor: x = " << factor.getX() << " const = " << factor.getConstant() << " root = " << factor.getRoot() << std::endl;
         polynomial.addFactor(factor);
     }
 
