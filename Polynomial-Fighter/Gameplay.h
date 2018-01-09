@@ -3,7 +3,7 @@
 #include "GameplayManager.h"
 
 class EntityManager;
-class GamePlay {
+class Gameplay {
 	EntityManager* em;
 	GameplayManager *gameplayManager;
 	sf::RenderWindow* window;
@@ -15,11 +15,11 @@ class GamePlay {
 
 	void draw() const;
 public:
-	GamePlay(sf::RenderWindow* window);
+	Gameplay(sf::RenderWindow* window);
 
 	void mainLoop();
 
-	~GamePlay();
+	~Gameplay();
 };
 
 #endif

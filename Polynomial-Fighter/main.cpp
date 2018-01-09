@@ -19,12 +19,16 @@ int main()
     window.setFramerateLimit(120);
 	SoundManager::instance()->isOn = false;
 
-
-
-	while (true) {
-		GamePlay g(&window);
-		g.mainLoop();
+	while (true)
+	{
+		
 	}
+
+
+	/*while (true) {
+		Gameplay g(&window);
+		g.mainLoop();
+	}*/
 	
 	return 0;
 }

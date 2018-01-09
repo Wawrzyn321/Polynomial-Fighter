@@ -3,7 +3,7 @@
 #include "GameplayManager.h"
 #include "EntityManager.h"
 
-void GamePlay::handleEvents()
+void Gameplay::handleEvents()
 {
 	auto t = Time::Timer::instance();
 
@@ -40,7 +40,7 @@ void GamePlay::handleEvents()
 	}
 }
 
-void GamePlay::update() const
+void Gameplay::update() const
 {
 	auto deltaTime = Time::Timer::instance()->getTimeData();
 
@@ -51,7 +51,7 @@ void GamePlay::update() const
 	em->addNewEntitites();
 }
 
-void GamePlay::draw() const
+void Gameplay::draw() const
 {
 	window->clear();
 	em->draw(*window);
@@ -61,7 +61,7 @@ void GamePlay::draw() const
 	window->display();
 }
 
-GamePlay::GamePlay(sf::RenderWindow* window)
+Gameplay::Gameplay(sf::RenderWindow* window)
 {
 	this->window = window;
 
@@ -73,7 +73,7 @@ GamePlay::GamePlay(sf::RenderWindow* window)
 	isRunning = true;
 }
 
-void GamePlay::mainLoop()
+void Gameplay::mainLoop()
 {
 	while (isRunning && window->isOpen())
 	{
@@ -85,7 +85,7 @@ void GamePlay::mainLoop()
 	}
 }
 
-GamePlay::~GamePlay()
+Gameplay::~Gameplay()
 {
 	delete gameplayManager;
 }
