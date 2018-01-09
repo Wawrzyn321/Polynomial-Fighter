@@ -95,14 +95,19 @@ void GameplayManager::initPlayer() {
 
 void GameplayManager::initInputField()
 {
-	inputField = InputField(
+	if (inputField != nullptr)
+	{
+		delete inputField;
+	}
+
+	inputField = new InputField(
 	{ GameData::WINDOW_SIZE.x * 0.67f, GameData::WINDOW_SIZE.y * 0.89f },
 	{ GameData::WINDOW_SIZE.x * 0.3f, GameData::WINDOW_SIZE.y * 0.08f }
 	);
-	inputField.OnTextSubmitted.clear();
-	inputField.OnTextSubmitted.add(std::bind(&GameplayManager::TextSubmitted, this, std::placeholders::_1));
-	EntityManager::instance()->findEntityOfType<Player>()->DeathEvent.add(std::bind(&InputField::disable, &inputField));
-	inputField.interactable = true;
+	inputField->OnTextSubmitted.clear();
+	inputField->OnTextSubmitted.add(std::bind(&GameplayManager::TextSubmitted, this, std::placeholders::_1));
+	EntityManager::instance()->findEntityOfType<Player>()->DeathEvent.add(std::bind(&InputField::disable, inputField));
+	inputField->interactable = true;
 }
 
 #pragma endregion
@@ -133,29 +138,35 @@ void GameplayManager::reset()
 
 void GameplayManager::feed(const sf::Event& event)
 {
-	if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::R)
+	if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::R)
 	{
 		reset();
 	}
 
-	inputField.feed(event);
+	inputField->feed(event);
 }
 
 void GameplayManager::update(const Time::TimeData &timeData)
 {
-
 	assert(EntityManager::instance()->findEntitiesByTag(GameData::TAG_PLAYER, true).size() == 1);
 
 
 	spawner.update(timeData);
 	scoreManager.update(timeData);
-	inputField.update(timeData);
+	inputField->update(timeData);
 	cameraShake.update(timeData);
 }
 
 void GameplayManager::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	scoreManager.draw(target, states);
-	inputField.draw(target, states);
+	if (inputField != nullptr) {
+		inputField->draw(target, states);
+	}
+}
+
+GameplayManager::~GameplayManager()
+{
+	delete inputField;
 }
 

@@ -128,16 +128,3 @@ void InputField::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	target.draw(cursor, states);
 	target.draw(text, states);
 }
-
-InputField& InputField::operator=(const InputField rhs)
-{
-	this->position = rhs.position;
-	this->size = rhs.size;
-	this->background = rhs.background;
-	this->text = rhs.text;
-	this->cursor = rhs.cursor;
-	this->font = rhs.font;
-	this->interactable = rhs.interactable;
-
-	return *this;
-}
