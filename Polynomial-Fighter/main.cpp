@@ -1,4 +1,4 @@
-#include "Gameplay.h"
+#include "MainMenu.h"
 
 using namespace std;
 
@@ -21,7 +21,8 @@ int main()
 
 	while (true)
 	{
-		
+		MainMenu m(&window);
+		m.mainLoop();
 	}
 
 
