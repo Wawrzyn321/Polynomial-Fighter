@@ -14,10 +14,16 @@ HighscoresGUI::HighscoresGUI(const sf::Vector2f& center)
 
 void HighscoresGUI::initTexts(const std::vector<std::string> &texts)
 {
+	for (RollingListEntry* t : entries)
+	{
+		//czy to nie wywali czegos w powietrze?
+		delete t;
+	}
+	entries.clear();
 	if (texts.size() == 0)
 	{
 		entries.push_back(new RollingListEntry(
-			sf::Text("No scores!", *font, fontSize), center));
+			sf::Text("No scores yet!", *font, fontSize), center));
 		centerTextOrigin(entries.back()->text);
 	}
 	else
@@ -29,5 +35,6 @@ void HighscoresGUI::initTexts(const std::vector<std::string> &texts)
 		}
 	}
 
+	currentlyCentered = 0;
 	updateTargets();
 }

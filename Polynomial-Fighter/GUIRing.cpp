@@ -36,7 +36,7 @@ void GUIRing::update(float deltaTime)
 		state = State::IDLE;
 	}
 
-	sf::Color color = colorWithAlpha(Colors::ringColor, state != State::TO_GAME ? 255 : 111);
+	sf::Color color = colorWithAlpha(Colors::ringColor, state != State::TO_GAME ? 255 : 63);
 	shape.setOutlineColor(lerp(shape.getOutlineColor(), color, deltaTime*0.01f));
 }
 

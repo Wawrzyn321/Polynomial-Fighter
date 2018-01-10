@@ -1,42 +1,71 @@
 #include "RollingList.h"
 #include "Colors.h"
 #include "Utility.h"
+#include <cassert>
 
-void RollingList::updateTargets()
+void RollingList::layNEntriesOut()
+{
+	int indexDec = currentlyCentered - 1;
+	if (indexDec < 0)
+	{
+		indexDec = unsigned(entries.size() - 1);
+	}
+	unsigned indexInc = (currentlyCentered + 1) % entries.size();
+
+	for (unsigned i = 0; i < unsigned(indexDec); i++)
+	{
+		entries[i]->targetColor = sf::Color::Transparent;
+		entries[i]->targetPosition = center - sf::Vector2f(0.0f, positionShift);
+		entries[i]->targetScale = 0.0f;
+	}
+	entries[indexDec]->targetColor = lerp(sf::Color::Transparent, sf::Color::White, 0.5f);
+	entries[indexDec]->targetPosition = center - sf::Vector2f(0.0f, positionShift * 0.5f);
+	entries[indexDec]->targetScale = 0.707f;
+
+	entries[currentlyCentered]->targetPosition = center;
+	entries[currentlyCentered]->targetColor = Colors::textLitColor;
+	entries[currentlyCentered]->targetScale = 1.0f;
+
+	entries[indexInc]->targetColor = lerp(sf::Color::Transparent, sf::Color::White, 0.5f);
+	entries[indexInc]->targetPosition = center + sf::Vector2f(0.0f, positionShift * 0.5f);
+	entries[indexInc]->targetScale = 0.707f;
+
+	for (unsigned i = indexInc + 1; i < entries.size() && i != indexDec; i++)
+	{
+		entries[i]->targetColor = sf::Color::Transparent;
+		entries[i]->targetPosition = center + sf::Vector2f(0.0f, positionShift);
+		entries[i]->targetScale = 0.0f;
+	}
+}
+
+void RollingList::updateTargets(int delta)
 {
 	if (state == State::MOVING) {
 
-		int indexDec = currentlyCentered - 1;
-		if (indexDec < 0)
+		assert(entries.size() != 0);
+
+		if (entries.size() == 1)
 		{
-			indexDec = unsigned(entries.size() - 1);
+			entries[0]->targetColor = Colors::textLitColor;
+			entries[0]->targetPosition = center;
+			entries[0]->targetScale = 1.0f;
+			entries[0]->text.setPosition(center + sf::Vector2f(0.0f, delta * oneEntryShift));
 		}
-		unsigned indexInc = (currentlyCentered + 1) % entries.size();
-
-		for (unsigned i = 0; i < unsigned(indexDec); i++)
+		else if(entries.size() == 2)
 		{
-			entries[i]->targetColor = sf::Color::Transparent;
-			entries[i]->targetPosition = center - sf::Vector2f(0.0f, positionShift);
-			entries[i]->targetScale = 0.0f;
+			entries[currentlyCentered]->targetColor = Colors::textLitColor;
+			entries[currentlyCentered]->targetPosition = center - sf::Vector2f(0.0f, twoEntriesShift*(1 + twoEntriesMultiplier));
+			entries[currentlyCentered]->targetScale = 1.0f;
+
+			entries[1-currentlyCentered]->targetColor = colorWithAlpha(Colors::ringColor, 111);
+			entries[1-currentlyCentered]->targetPosition = center + sf::Vector2f(0.0f, twoEntriesShift*(1 + twoEntriesMultiplier));
+			entries[1-currentlyCentered]->targetScale = 0.7f;
 		}
-		entries[indexDec]->targetColor = lerp(sf::Color::Transparent, sf::Color::White, 0.5f);
-		entries[indexDec]->targetPosition = center - sf::Vector2f(0.0f, positionShift * 0.5f);
-		entries[indexDec]->targetScale = 0.707f;
-
-		entries[currentlyCentered]->targetPosition = center;
-		entries[currentlyCentered]->targetColor = Colors::textLitColor;
-		entries[currentlyCentered]->targetScale = 1.0f;
-
-		entries[indexInc]->targetColor = lerp(sf::Color::Transparent, sf::Color::White, 0.5f);
-		entries[indexInc]->targetPosition = center + sf::Vector2f(0.0f, positionShift * 0.5f);
-		entries[indexInc]->targetScale = 0.707f;
-
-		for (unsigned i = indexInc + 1; i < entries.size() && i != indexDec; i++)
+		else
 		{
-			entries[i]->targetColor = sf::Color::Transparent;
-			entries[i]->targetPosition = center + sf::Vector2f(0.0f, positionShift);
-			entries[i]->targetScale = 0.0f;
+			layNEntriesOut();
 		}
+		
 	}
 	else if (state == State::HIDING)
 	{
@@ -57,14 +86,14 @@ void RollingList::moveUp()
 		currentlyCentered = unsigned(entries.size()) - 1;
 	}
 	state = State::MOVING;
-	updateTargets();
+	updateTargets(-1);
 }
 
 void RollingList::moveDown()
 {
 	currentlyCentered = (currentlyCentered + 1) % entries.size();
 	state = State::MOVING;
-	updateTargets();
+	updateTargets(1);
 }
 
 void RollingList::setVisible(bool visible)

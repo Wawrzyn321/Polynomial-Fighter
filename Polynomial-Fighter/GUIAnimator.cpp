@@ -3,6 +3,7 @@
 #include "MainMenu.h"
 #include "GUIRing.h"
 #include "HelpProvider.h"
+#include "HighscoresService.h"
 
 void GUIAnimator::initGraphics()
 {
@@ -18,7 +19,7 @@ void GUIAnimator::initGraphics()
 	optionsRing = new GUIRingOptions(center);
 
 	highscores = new HighscoresGUI(center);
-	highscores->initTexts({"1", "2"});
+	highscores->initTexts(HighscoreService::getFormattedHighscores());
 	howTo = new HowToGUI(center);
 	howTo->initTexts(std::vector<std::string>(HelpProvider::texts, HelpProvider::texts + HelpProvider::len));
 }
@@ -81,6 +82,7 @@ void GUIAnimator::setExiting() const
 {
 	title->state = TitleText::State::EXITING;
 	ring->state = GUIRing::State::EXITING;
+	optionsRing->setExiting();
 }
 
 void GUIAnimator::setToGame()
@@ -111,6 +113,9 @@ void GUIAnimator::moveHighscoresDown() const
 }
 
 void GUIAnimator::setHighscoresVisible(bool visible) const{
+	if(visible){
+		highscores->initTexts(HighscoreService::getFormattedHighscores());
+	}
 	highscores->setVisible(visible);
 }
 

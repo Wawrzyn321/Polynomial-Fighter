@@ -22,6 +22,14 @@ int main()
 	MainMenu m(&window);
 	m.mainLoop();
 
+	while(window.getSize().x > 100)
+	{
+		int x = int(window.getSize().x);
+		window.setSize({
+			unsigned(lerp(x, 0, 0.001f)),
+			unsigned(lerp(int(window.getSize().y), 0, 0.001f))
+		});
+	}
 
 	/*while (true) {
 		Gameplay g(&window);

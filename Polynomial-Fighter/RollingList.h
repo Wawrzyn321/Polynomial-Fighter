@@ -20,7 +20,9 @@ protected:
 	int currentlyCentered = 0;
 	sf::Vector2f center;
 
-	void updateTargets();
+	void layNEntriesOut();
+
+	void updateTargets(int delta = 0);
 
 public:
 
@@ -39,6 +41,9 @@ public:
 	virtual ~RollingList();
 protected:
 	const float positionShift = GameData::WINDOW_SIZE.x*0.4f;
+	const float oneEntryShift = GameData::WINDOW_SIZE.x*0.02f;
+	const float twoEntriesShift = GameData::WINDOW_SIZE.x*0.05f;
+	const float twoEntriesMultiplier = 0.2f;
 };
 
 #endif

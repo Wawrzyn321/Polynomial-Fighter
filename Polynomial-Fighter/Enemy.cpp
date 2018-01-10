@@ -1,7 +1,5 @@
 #include "Enemy.h"
 #include "PolynomialMultipler.h"
-#include <cassert>
-#include "APSBuilder.h"
 #include "EntityManager.h"
 #include "EnemyCannon.h"
 #include "ParticleMaster.h"

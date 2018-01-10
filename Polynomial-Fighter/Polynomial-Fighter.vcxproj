@@ -134,6 +134,7 @@
     <ClCompile Include="AdvancedParticleSystem.cpp" />
     <ClCompile Include="HelpProvider.h" />
     <ClCompile Include="HighscoresGUI.cpp" />
+    <ClCompile Include="HighscoresService.cpp" />
     <ClCompile Include="HighscoressGUI.cpp" />
     <ClCompile Include="HowToGUI.cpp" />
     <ClCompile Include="RollingList.cpp" />
@@ -191,6 +192,7 @@
     <ClInclude Include="AdvancedParticleSystem.h" />
     <ClInclude Include="AdvancedParticleSystemData.h" />
     <ClInclude Include="HighscoresGUI.h" />
+    <ClInclude Include="HighscoresService.h" />
     <ClInclude Include="HowToGUI.h" />
     <ClInclude Include="RollingList.h" />
     <ClInclude Include="RollingListEntry.h" />

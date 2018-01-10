@@ -1,0 +1,88 @@
+#include "HighscoresService.h"
+#include "Debug.h"
+
+std::vector<unsigned> HighscoreService::loadedScores;
+bool HighscoreService::scoresAreLoaded = false;
+
+HighscoreService::HighscoreService()
+{
+}
+
+void HighscoreService::loadHighScores()
+{
+	std::fstream fIn = std::fstream(GameData::PATH_TO_RESOURCES + GameData::PATH_TO_SAVE, std::ios::in);
+	if (fIn.good()) {
+		unsigned i = 0;
+		while (!fIn.eof() && i < maxScoresCount)
+		{
+			std::string t;
+			fIn >> t;
+
+			if (t == "") continue;
+
+			try {
+				int p = stoi(t);
+				loadedScores.push_back(unsigned(p));
+			}
+			catch (std::invalid_argument) {}
+			i++;
+		}
+		fIn.close();
+	}
+	scoresAreLoaded = true;
+}
+
+void HighscoreService::saveHighScores()
+{
+	std::fstream fOut = std::fstream(GameData::PATH_TO_RESOURCES + GameData::PATH_TO_SAVE, std::ios::out);
+	for (unsigned score : loadedScores)
+	{
+		fOut << score << std::endl;
+	}
+	fOut.close();
+}
+
+std::vector<std::string> HighscoreService::getFormattedHighscores()
+{
+	if (!scoresAreLoaded)
+	{
+		loadHighScores();
+	}
+
+	std::vector<std::string> v;
+	for (unsigned i = 0; i < loadedScores.size(); i++)
+	{
+		v.push_back(std::to_string(i + 1) + ": " + std::to_string(loadedScores[i]));
+	}
+	return v;
+}
+
+bool HighscoreService::addScore(unsigned score)
+{
+	if (score == 0)
+	{
+		return false;
+	}
+	if (!scoresAreLoaded)
+	{
+		loadHighScores();
+	}
+
+	unsigned i;
+	for (i = 0; i < loadedScores.size() && score < loadedScores[i]; i++)
+	{
+	}
+	if (i == 0 || i != loadedScores.size())
+	{
+		loadedScores.insert(loadedScores.begin() + i, score);
+		if (loadedScores.size() > maxScoresCount) {
+			loadedScores.resize(maxScoresCount);
+		}
+		saveHighScores();
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}

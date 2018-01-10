@@ -289,3 +289,5 @@ __pycache__/
 
 cmake-build-debug
 *.dll
+
+Polynomial_Fighter/res/save.dat

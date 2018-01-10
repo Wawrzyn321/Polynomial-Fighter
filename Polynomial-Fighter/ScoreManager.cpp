@@ -4,6 +4,7 @@
 #include <cassert>
 #include "EntityManager.h"
 #include "Enemy.h"
+#include "HighscoresService.h"
 
 ScoreManager::ScoreManager()
 {
@@ -37,6 +38,9 @@ void ScoreManager::stageFinished()
 
 void ScoreManager::showFinalScore(unsigned destroyedEnemies) const
 {
+	Debug::PrintFormatted("%\n", points);
+	HighscoreService::addScore(points);
+
 	gui->showFinalScore();
 }
 
