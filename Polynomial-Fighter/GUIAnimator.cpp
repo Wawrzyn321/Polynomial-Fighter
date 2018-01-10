@@ -2,6 +2,7 @@
 #include "TitleText.h"
 #include "MainMenu.h"
 #include "GUIRing.h"
+#include "HelpProvider.h"
 
 void GUIAnimator::initGraphics()
 {
@@ -13,9 +14,13 @@ void GUIAnimator::initGraphics()
 	title->setStateValues(center, { center.x, GameData::WINDOW_SIZE.y*0.16f });
 
 	ring = new GUIRing(center);
+
 	optionsRing = new GUIRingOptions(center);
+
 	highscores = new HighscoresGUI(center);
+	highscores->initTexts({"2:2", "232131", "dupa", "ble", "eer"});
 	howTo = new HowToGUI(center);
+	highscores->initTexts(std::vector<std::string>(HelpProvider::texts, HelpProvider::texts + HelpProvider::len));
 }
 
 GUIAnimator::GUIAnimator(MainMenu* menuReference)

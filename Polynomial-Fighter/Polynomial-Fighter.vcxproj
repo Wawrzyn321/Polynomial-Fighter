@@ -132,9 +132,12 @@
   <ItemGroup>
     <ClCompile Include="AdvancedParticle.cpp" />
     <ClCompile Include="AdvancedParticleSystem.cpp" />
+    <ClCompile Include="HelpProvider.h" />
     <ClCompile Include="HighscoresGUI.cpp" />
     <ClCompile Include="HighscoressGUI.cpp" />
     <ClCompile Include="HowToGUI.cpp" />
+    <ClCompile Include="RollingList.cpp" />
+    <ClCompile Include="RollingListEntry.cpp" />
     <ClCompile Include="Stopwatch.cpp" />
     <ClCompile Include="TitleText.cpp" />
     <ClCompile Include="APSBuilder.cpp" />
@@ -189,6 +192,8 @@
     <ClInclude Include="AdvancedParticleSystemData.h" />
     <ClInclude Include="HighscoresGUI.h" />
     <ClInclude Include="HowToGUI.h" />
+    <ClInclude Include="RollingList.h" />
+    <ClInclude Include="RollingListEntry.h" />
     <ClInclude Include="StopWatch.h" />
     <ClInclude Include="TitleText.h" />
     <ClInclude Include="APSBuilder.h" />
