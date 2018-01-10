@@ -17,41 +17,82 @@ void MainMenu::handleEvents()
 			t->setTimeScale(0);
 		}
 
-
-		tGUI.handleEvent(event);
-
-		if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::O)
+		if (event.type == sf::Event::KeyPressed && state == State::SPLASH)
 		{
-			animator->ring.majorValues.center.y += 20.0f;
-			animator->ring.state = GUIRing::State::TO_MAJOR;
-			Debug::PrintFormatted("% %\n", animator->ring.majorValues.center.y, animator->ring.majorValues.radius);
+			animator->setMenu(true);
+			state = State::MENU;
 		}
-		if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::L)
+		else if (state == State::HIGHSCORES)
 		{
-			animator->ring.majorValues.center.y -= 20.0f;
-			animator->ring.state = GUIRing::State::TO_MAJOR;
-			Debug::PrintFormatted("% %\n", animator->ring.majorValues.center.y, animator->ring.majorValues.radius);
+			if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::W)
+			{
+				animator->moveHighscoresUp();
+			}
+			else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::S)
+			{
+				animator->moveHighscoresDown();
+			}
+			else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
+			{
+				animator->setMenu(false);
+				animator->setHighscoresVisible(false);
+				state = State::MENU;
+			}
 		}
-
-		if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::I)
+		else if (state == State::HOW_TO)
 		{
-			animator->ring.majorValues.radius = animator->ring.shape.getRadius() + 20.0f;
-			animator->ring.state = GUIRing::State::TO_MAJOR;
-			Debug::PrintFormatted("% %\n", animator->ring.majorValues.center.y, animator->ring.majorValues.radius);
+			if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::W)
+			{
+				animator->moveHowToUp();
+			}
+			else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::S)
+			{
+				animator->moveHowToUp();
+			}
 		}
-		if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::J)
-		{
-			animator->ring.majorValues.radius = animator->ring.shape.getRadius() - 20.0f;
-			animator->ring.state = GUIRing::State::TO_MAJOR;
-			Debug::PrintFormatted("% %\n", animator->ring.majorValues.center.y, animator->ring.majorValues.radius);
-		}
-		if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::S)
-		{
-			animator->ring.state = GUIRing::State::TO_MAJOR;
-		}
-		if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::W)
-		{
-			animator->ring.state = GUIRing::State::TO_MINOR;
+		else if (state == State::MENU) {
+			if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape && state == State::MENU)
+			{
+				animator->setSplash();
+				state = State::SPLASH;
+			}
+			else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::A)
+			{
+				animator->rotateRingRight();
+			}
+			else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::D)
+			{
+				animator->rotateRingLeft();
+			}
+			else if (event.type == sf::Event::KeyPressed && (event.key.code == sf::Keyboard::Space || event.key.code == sf::Keyboard::Return)) {
+				animator->setHowToVisible(false);
+				animator->setHighscoresVisible(false);
+				switch (animator->getRingOption()) {
+				case GUIRingOptions::Option::PLAY:
+					Debug::PrintFormatted("PLAY\n");
+					break;
+				case GUIRingOptions::Option::HOW_TO:
+					animator->setEmptyCenter();
+					animator->setHowToVisible(true);
+					state = State::HOW_TO;
+					break;
+				case GUIRingOptions::Option::HIGHSCORES:
+					animator->setEmptyCenter();
+					animator->setHighscoresVisible(true);
+					state = State::HIGHSCORES;
+					break;
+				case GUIRingOptions::Option::EXIT:
+					animator->setExiting();
+					state = State::EXITING;
+					stopWatch->reset(800, true);
+					stopWatch->OnTime.add(std::bind(&MainMenu::finish, this));
+					break;
+				case GUIRingOptions::Option::SOUND:
+					SoundManager::instance()->isOn = !SoundManager::instance()->isOn;
+					animator->setSound(SoundManager::instance()->isOn);
+					break;
+				}
+			}
 		}
 
 
@@ -69,28 +110,21 @@ void MainMenu::handleEvents()
 				t->setTimeScale(1);
 			}
 		}
-		if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::D)
-		{
-			isRunning = false;
-		}
 	}
 }
 
-void MainMenu::update()
+void MainMenu::update() const
 {
 	auto deltaTime = Time::Timer::instance()->getTimeData();
 
+	stopWatch->update(deltaTime);
 	animator->update(deltaTime);
 }
 
-void MainMenu::draw()
+void MainMenu::finish()
 {
-	window->clear();
-
-	tGUI.draw();
-	animator->draw(*window);
-
-	window->display();
+	isRunning = false;
+	stopWatch->OnTime.clear();
 }
 
 MainMenu::MainMenu(sf::RenderWindow* window)
@@ -99,10 +133,11 @@ MainMenu::MainMenu(sf::RenderWindow* window)
 
 	Time::Timer::instance()->reset();
 
-	tGUI.setWindow(*window);
-	animator = new GUIAnimator(&tGUI);
+	stopWatch = new StopWatch();
+	animator = new GUIAnimator(this);
 
 	isRunning = true;
+	state = State::SPLASH;
 }
 
 void MainMenu::mainLoop()
@@ -117,7 +152,17 @@ void MainMenu::mainLoop()
 	}
 }
 
+void MainMenu::draw() const
+{
+	window->clear();
+
+	animator->draw(*window);
+
+	window->display();
+}
+
 MainMenu::~MainMenu()
 {
 	delete animator;
+	delete stopWatch;
 }

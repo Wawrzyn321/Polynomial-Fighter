@@ -56,27 +56,29 @@ public:
 		IDLE,
 		TO_MINOR,
 		TO_MAJOR,
+		EXITING,
 	};
 
 	sf::CircleShape shape;
-
-public:
 	State state;
-	GUIRing();
+public:
+	GUIRing(const sf::Vector2f &center);
 
-	void update(const Time::TimeData &timeData);
+	void update(float deltaTime);
 
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 private:
-public:
 	RingValues minorValues = {
 		0.44f,
 		sf::Vector2f(0.5f , 0.5f),
 	};
-
 	RingValues majorValues = {
 		1.07f,
 		sf::Vector2f(0.5f, 1.71875f),
+	};
+	RingValues exitingValues = {
+		0.0f,
+		sf::Vector2f(0.5f, 0.5f),
 	};
 
 	const float initialRadius = 1.0f;

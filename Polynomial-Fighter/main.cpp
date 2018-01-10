@@ -19,11 +19,8 @@ int main()
     window.setFramerateLimit(120);
 	SoundManager::instance()->isOn = false;
 
-	while (true)
-	{
-		MainMenu m(&window);
-		m.mainLoop();
-	}
+	MainMenu m(&window);
+	m.mainLoop();
 
 
 	/*while (true) {

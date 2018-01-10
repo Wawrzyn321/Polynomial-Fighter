@@ -1,19 +1,19 @@
 #include "GUIRing.h"
+#include "Colors.h"
 
-GUIRing::GUIRing()
+GUIRing::GUIRing(const sf::Vector2f &center)
 {
 	state = State::TO_MINOR;
 
 	shape = sf::CircleShape(initialRadius, 128);
 	shape.setFillColor(sf::Color::Transparent);
 	shape.setOrigin(initialRadius, initialRadius);
-	shape.setOutlineColor(sf::Color::Red);
+	shape.setOutlineColor(Colors::ringColor);
+	shape.setPosition(center);
 }
 
-void GUIRing::update(const Time::TimeData& timeData)
+void GUIRing::update(float deltaTime)
 {
-	float deltaTime = timeData.getScaledDeltaTimeInMili();
-
 	switch (state) {
 	case State::TO_MINOR:
 		if (minorValues.lerpBody(shape, deltaTime))
@@ -26,6 +26,13 @@ void GUIRing::update(const Time::TimeData& timeData)
 		if (majorValues.lerpBody(shape, deltaTime))
 		{
 			majorValues.finish(shape);
+			state = State::IDLE;
+		}
+		break;
+	case State::EXITING:
+		if (exitingValues.lerpBody(shape, deltaTime))
+		{
+			exitingValues.finish(shape);
 			state = State::IDLE;
 		}
 		break;

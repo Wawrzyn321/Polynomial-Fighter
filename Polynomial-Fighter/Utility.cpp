@@ -81,6 +81,17 @@ void rotateTowards(sf::Transformable& transformable, float angleDeg, float time)
 	transformable.setRotation(nextRotation * 180.0f / pi);
 }
 
+float lerpAngle(float from, float to, float t)
+{
+	from *= pi / 180.0f;
+	to *= pi / 180.0f;
+
+	float xRotation = (1 - t) * cos(from) + t * cos(to);
+	float yRotation = (1 - t) * sin(from) + t * sin(to);
+
+	return atan2(yRotation, xRotation)* 180.0f / pi;
+}
+
 sf::Vector2f getPointOnIntRect(const sf::FloatRect& bounds)
 {
 	bool horizontal = RandomGenerator::getBoolean();

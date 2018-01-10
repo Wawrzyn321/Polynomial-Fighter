@@ -27,6 +27,8 @@ void setAlpha(sf::Text &text, float alpha);
 
 sf::Color lerp(sf::Color from, sf::Color to, float amount);
 
+float lerpAngle(float from, float to, float t);
+
 sf::FloatRect getCenteredFloatRect(float width, float height, float xShift = 0, float yShift = 0);
 
 void rotateTowards(sf::Transformable& sprite, float angleDeg, float time = 1.0f);

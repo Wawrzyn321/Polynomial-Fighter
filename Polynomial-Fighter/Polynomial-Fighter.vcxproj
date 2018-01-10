@@ -132,6 +132,11 @@
   <ItemGroup>
     <ClCompile Include="AdvancedParticle.cpp" />
     <ClCompile Include="AdvancedParticleSystem.cpp" />
+    <ClCompile Include="HighscoresGUI.cpp" />
+    <ClCompile Include="HighscoressGUI.cpp" />
+    <ClCompile Include="HowToGUI.cpp" />
+    <ClCompile Include="Stopwatch.cpp" />
+    <ClCompile Include="TitleText.cpp" />
     <ClCompile Include="APSBuilder.cpp" />
     <ClCompile Include="AssetManager.cpp" />
     <ClCompile Include="BulletBase.cpp" />
@@ -139,6 +144,7 @@
     <ClCompile Include="EnemyPolynomialAdapter.cpp" />
     <ClCompile Include="Gameplay.cpp" />
     <ClCompile Include="GUIAnimator.cpp" />
+    <ClCompile Include="GUIRingOptions.cpp" />
     <ClCompile Include="GUIRing.cpp" />
     <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="ParticleMaster.cpp" />
@@ -181,14 +187,20 @@
     <ClInclude Include="AdvancedParticle.h" />
     <ClInclude Include="AdvancedParticleSystem.h" />
     <ClInclude Include="AdvancedParticleSystemData.h" />
+    <ClInclude Include="HighscoresGUI.h" />
+    <ClInclude Include="HowToGUI.h" />
+    <ClInclude Include="StopWatch.h" />
+    <ClInclude Include="TitleText.h" />
     <ClInclude Include="APSBuilder.h" />
     <ClInclude Include="Asset Manager.h" />
     <ClInclude Include="BulletBase.h" />
     <ClInclude Include="CameraShake.h" />
+    <ClInclude Include="Colors.h" />
     <ClInclude Include="DesignatedTarget.h" />
     <ClInclude Include="EnemyPolynomialAdapter.h" />
     <ClInclude Include="Gameplay.h" />
     <ClInclude Include="GUIAnimator.h" />
+    <ClInclude Include="GUIRingOptions.h" />
     <ClInclude Include="GUIRing.h" />
     <ClInclude Include="MainMenu.h" />
     <ClInclude Include="ParticleMaster.h" />
