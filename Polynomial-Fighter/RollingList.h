@@ -14,7 +14,7 @@ public:
 		MOVING,
 	};
 protected:
-	State state;
+	State state{};
 	std::vector<RollingListEntry*> entries;
 	std::shared_ptr<sf::Font> font;
 	int currentlyCentered = 0;

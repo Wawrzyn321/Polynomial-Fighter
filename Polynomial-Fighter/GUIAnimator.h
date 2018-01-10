@@ -35,6 +35,8 @@ public:
 
 	void setExiting() const;
 
+	void setToGame();
+
 	void rotateRingLeft() const;
 
 	void rotateRingRight() const;

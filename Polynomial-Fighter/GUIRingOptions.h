@@ -43,6 +43,7 @@ private:
 	bool isVisible = false;
 	bool isExiting = false;
 public:
+	bool isToGame = false;
 	GUIRingOptions(const sf::Vector2f &center);
 
 	void handleDistanceMoving(float deltaTime);

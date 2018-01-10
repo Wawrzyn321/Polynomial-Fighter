@@ -1,6 +1,92 @@
 #include "MainMenu.h"
 #include "Timer.h"
 
+void MainMenu::handleHighScoreKeys(sf::Keyboard::Key key)
+{
+	switch (key)
+	{
+	case sf::Keyboard::W:
+		animator->moveHighscoresUp();
+		break;
+	case sf::Keyboard::S:
+		animator->moveHighscoresDown();
+		break;
+	case sf::Keyboard::Escape:
+		animator->setMenu(false);
+		animator->setHighscoresVisible(false);
+		state = State::MENU;
+		break;
+	}
+}
+
+void MainMenu::handleMenuEvents(sf::Keyboard::Key key)
+{
+	switch (key)
+	{
+	case sf::Keyboard::Escape:
+		animator->setSplash();
+		state = State::SPLASH;
+		break;
+	case sf::Keyboard::A:
+		animator->rotateRingRight();
+		break;
+	case sf::Keyboard::D:
+		animator->rotateRingLeft();
+		break;
+	case sf::Keyboard::Space:
+	case sf::Keyboard::Return:
+		animator->setHowToVisible(false);
+		animator->setHighscoresVisible(false);
+		switch (animator->getRingOption()) {
+		case GUIRingOptions::Option::PLAY:
+		{
+			animator->setToGame();
+			state = State::TO_GAME;
+			stopWatch->reset(900, true);
+			stopWatch->OnTime.add(std::bind(&MainMenu::onGame, this));
+		}
+		break;
+		case GUIRingOptions::Option::HOW_TO:
+			animator->setEmptyCenter();
+			animator->setHowToVisible(true);
+			state = State::HOW_TO;
+			break;
+		case GUIRingOptions::Option::HIGHSCORES:
+			animator->setEmptyCenter();
+			animator->setHighscoresVisible(true);
+			state = State::HIGHSCORES;
+			break;
+		case GUIRingOptions::Option::EXIT:
+			animator->setExiting();
+			state = State::EXITING;
+			stopWatch->reset(800, true);
+			stopWatch->OnTime.add(std::bind(&MainMenu::exitGame, this));
+			break;
+		case GUIRingOptions::Option::SOUND:
+			SoundManager::instance()->isOn = !SoundManager::instance()->isOn;
+			animator->setSound(SoundManager::instance()->isOn);
+			break;
+		}
+	}
+}
+
+void MainMenu::handleHowToKeys(sf::Keyboard::Key key)
+{
+	switch (key)
+	{
+	case sf::Keyboard::W:
+		animator->moveHowToUp();
+		break;
+	case sf::Keyboard::S:
+		animator->moveHowToDown();
+		break;
+	case sf::Keyboard::Escape:
+		animator->setMenu(false);
+		animator->setHowToVisible(false);
+		state = State::MENU;
+		break;
+	}
+}
 
 void MainMenu::handleEvents()
 {
@@ -17,84 +103,23 @@ void MainMenu::handleEvents()
 			t->setTimeScale(0);
 		}
 
-		if (event.type == sf::Event::KeyPressed && state == State::SPLASH)
-		{
-			animator->setMenu(true);
-			state = State::MENU;
-		}
-		else if (state == State::HIGHSCORES)
-		{
-			if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::W)
-			{
-				animator->moveHighscoresUp();
-			}
-			else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::S)
-			{
-				animator->moveHighscoresDown();
-			}
-			else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
-			{
-				animator->setMenu(false);
-				animator->setHighscoresVisible(false);
+		if (event.type == sf::Event::KeyPressed) {
+			switch (state) {
+			case State::SPLASH:
+				animator->setMenu(true);
 				state = State::MENU;
+				break;
+			case State::MENU:
+				handleMenuEvents(event.key.code);
+				break;
+			case State::HIGHSCORES:
+				handleHighScoreKeys(event.key.code);
+				break;
+			case State::HOW_TO:
+				handleHowToKeys(event.key.code);
+				break;
 			}
 		}
-		else if (state == State::HOW_TO)
-		{
-			if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::W)
-			{
-				animator->moveHowToUp();
-			}
-			else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::S)
-			{
-				animator->moveHowToUp();
-			}
-		}
-		else if (state == State::MENU) {
-			if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape && state == State::MENU)
-			{
-				animator->setSplash();
-				state = State::SPLASH;
-			}
-			else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::A)
-			{
-				animator->rotateRingRight();
-			}
-			else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::D)
-			{
-				animator->rotateRingLeft();
-			}
-			else if (event.type == sf::Event::KeyPressed && (event.key.code == sf::Keyboard::Space || event.key.code == sf::Keyboard::Return)) {
-				animator->setHowToVisible(false);
-				animator->setHighscoresVisible(false);
-				switch (animator->getRingOption()) {
-				case GUIRingOptions::Option::PLAY:
-					Debug::PrintFormatted("PLAY\n");
-					break;
-				case GUIRingOptions::Option::HOW_TO:
-					animator->setEmptyCenter();
-					animator->setHowToVisible(true);
-					state = State::HOW_TO;
-					break;
-				case GUIRingOptions::Option::HIGHSCORES:
-					animator->setEmptyCenter();
-					animator->setHighscoresVisible(true);
-					state = State::HIGHSCORES;
-					break;
-				case GUIRingOptions::Option::EXIT:
-					animator->setExiting();
-					state = State::EXITING;
-					stopWatch->reset(800, true);
-					stopWatch->OnTime.add(std::bind(&MainMenu::finish, this));
-					break;
-				case GUIRingOptions::Option::SOUND:
-					SoundManager::instance()->isOn = !SoundManager::instance()->isOn;
-					animator->setSound(SoundManager::instance()->isOn);
-					break;
-				}
-			}
-		}
-
 
 		if (event.type == sf::Event::GainedFocus) {
 			t->setTimeScale(1);
@@ -121,10 +146,21 @@ void MainMenu::update() const
 	animator->update(deltaTime);
 }
 
-void MainMenu::finish()
+void MainMenu::exitGame()
 {
 	isRunning = false;
 	stopWatch->OnTime.clear();
+}
+
+void MainMenu::onGame()
+{
+	stopWatch->OnTime.clear();
+
+	Gameplay g = Gameplay(window);
+	g.mainLoop();
+
+	animator->setMenu(true);
+	state = State::MENU;
 }
 
 MainMenu::MainMenu(sf::RenderWindow* window)

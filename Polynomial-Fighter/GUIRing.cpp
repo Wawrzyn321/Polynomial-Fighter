@@ -14,31 +14,30 @@ GUIRing::GUIRing(const sf::Vector2f &center)
 
 void GUIRing::update(float deltaTime)
 {
+	RingValues *vals = nullptr;
 	switch (state) {
 	case State::TO_MINOR:
-		if (minorValues.lerpBody(shape, deltaTime))
-		{
-			minorValues.finish(shape);
-			state = State::IDLE;
-		}
+		vals = &minorValues;
 		break;
 	case State::TO_MAJOR:
-		if (majorValues.lerpBody(shape, deltaTime))
-		{
-			majorValues.finish(shape);
-			state = State::IDLE;
-		}
+		vals = &majorValues;
 		break;
 	case State::EXITING:
-		if (exitingValues.lerpBody(shape, deltaTime))
-		{
-			exitingValues.finish(shape);
-			state = State::IDLE;
-		}
+		vals = &exitingValues;
 		break;
-	default:
+	case State::TO_GAME:
+		vals = &toGameValues;
 		break;
 	}
+
+	if(vals && vals->lerpBody(shape, deltaTime))
+	{
+		vals->finish(shape);
+		state = State::IDLE;
+	}
+
+	sf::Color color = colorWithAlpha(Colors::ringColor, state != State::TO_GAME ? 255 : 111);
+	shape.setOutlineColor(lerp(shape.getOutlineColor(), color, deltaTime*0.01f));
 }
 
 void GUIRing::draw(sf::RenderTarget& target, sf::RenderStates states) const

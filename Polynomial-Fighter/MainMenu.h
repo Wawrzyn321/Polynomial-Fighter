@@ -24,11 +24,19 @@ private:
 	StopWatch *stopWatch;
 	bool isRunning;
 
+	void handleHighScoreKeys(sf::Keyboard::Key key);
+
+	void handleMenuEvents(sf::Keyboard::Key key);
+
+	void handleHowToKeys(sf::Keyboard::Key key);
+
 	void handleEvents();
 
 	void update() const;
 
-	void finish();
+	void exitGame();
+
+	void onGame();
 
 public:
 	State state;

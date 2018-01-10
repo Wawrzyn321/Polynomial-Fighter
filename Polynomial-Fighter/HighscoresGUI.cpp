@@ -10,25 +10,6 @@ HighscoresGUI::HighscoresGUI(const sf::Vector2f& center)
 	font = AssetManager::instance()->getDefaultFont();
 	currentlyCentered = 0;
 	state = State::HIDING;
-
-	std::vector<int> exe = { 2, 4, 55, 122, 14,12, 123 };
-	if (exe.size() == 0)
-	{
-		entries.push_back(new RollingListEntry(
-			sf::Text("No scores!", *font, fontSize), center));
-		centerTextOrigin(entries.back()->text);
-	}
-	else
-	{
-		for (unsigned i = 0; i < exe.size(); i++)
-		{
-			std::string text = std::to_string(i + 1) + ": "+ std::to_string(exe[i]);
-			entries.push_back(new RollingListEntry(sf::Text(text, *font, fontSize), center));
-			centerTextOrigin(entries.back()->text);
-		}
-	}
-
-	updateTargets();
 }
 
 void HighscoresGUI::initTexts(const std::vector<std::string> &texts)

@@ -57,11 +57,13 @@ public:
 		TO_MINOR,
 		TO_MAJOR,
 		EXITING,
+		TO_GAME,
 	};
-
+private:
 	sf::CircleShape shape;
-	State state;
 public:
+	State state;
+
 	GUIRing(const sf::Vector2f &center);
 
 	void update(float deltaTime);
@@ -78,6 +80,10 @@ private:
 	};
 	RingValues exitingValues = {
 		0.0f,
+		sf::Vector2f(0.5f, 0.5f),
+	};
+	RingValues toGameValues = {
+		0.25f,
 		sf::Vector2f(0.5f, 0.5f),
 	};
 

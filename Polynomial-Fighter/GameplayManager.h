@@ -19,6 +19,7 @@ class GameplayManager
 	EnemySpawner spawner;
 	ScoreManager scoreManager;
 	CameraShake cameraShake;
+	sf::CircleShape ring;
 	InputField *inputField;
 	std::shared_ptr<Player> player;
 
@@ -29,6 +30,7 @@ public:
 	void TextSubmitted(const std::string &text) const;
 	void PlayerDestroyed();
 
+	void initGraphics();
 	void initSpawner();
 	void initPlayer();
 	void initInputField();

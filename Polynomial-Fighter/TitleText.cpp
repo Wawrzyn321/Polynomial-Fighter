@@ -9,7 +9,7 @@ TitleText::TitleText(const std::string& caption, const sf::Vector2f &position, u
 	centerTextOrigin(text);
 	text.setPosition(position);
 
-	state = TripleState::IDLE;
+	state = State::IDLE;
 }
 
 void TitleText::setStateValues(const sf::Vector2f &pos1, const sf::Vector2f &pos2)
@@ -20,14 +20,14 @@ void TitleText::setStateValues(const sf::Vector2f &pos1, const sf::Vector2f &pos
 
 void TitleText::update(float deltaTime)
 {
-	if (state != TripleState::IDLE) {
+	if (state != State::IDLE) {
 
 		sf::Vector2f dest;
-		if (state == TripleState::UP)
+		if (state == State::UP)
 		{
 			dest = {text.getPosition().x, -GameData::WINDOW_SIZE.y*0.2f};
 		}
-		else if (state == TripleState::EXITING || state == TripleState::MENU)
+		else if (state == State::EXITING || state == State::SPLASH)
 		{
 			dest = pos1;
 		}
@@ -39,15 +39,14 @@ void TitleText::update(float deltaTime)
 
 		text.setPosition(pos);
 		
-		if(abs(dest.x - pos.x) < lerpThreshold && abs(dest.y - pos.y) < lerpThreshold
-			&& state != TripleState::EXITING)
+		if(abs(dest.x - pos.x) < lerpThreshold && abs(dest.y - pos.y) < lerpThreshold && state != State::EXITING)
 		{
 			text.setPosition(dest);
-			state = TripleState::IDLE;
+			state = State::IDLE;
 		}
 	}
 
-	if(state == TripleState::EXITING)
+	if(state == State::EXITING)
 	{
 		sf::Vector2f scale = lerp(text.getScale(), { 0,0 }, deltaTime*0.01f);
 		text.setScale(scale);

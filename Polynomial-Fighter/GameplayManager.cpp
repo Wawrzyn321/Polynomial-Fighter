@@ -7,6 +7,7 @@
 #include "Enemy.h"
 #include <cassert>
 #include "FleetingText.h"
+#include "Colors.h"
 
 void GameplayManager::startNextLevel()
 {
@@ -79,6 +80,17 @@ void GameplayManager::PlayerDestroyed()
 
 #pragma region Initializing members
 
+void GameplayManager::initGraphics()
+{
+	float r = 0.2f*GameData::WINDOW_SIZE.x*0.9f;
+	ring = sf::CircleShape(r, 32);
+	ring.setOrigin(r, r);
+	ring.setOutlineThickness(r*0.1f);
+	ring.setPosition({ GameData::WINDOW_SIZE.x *0.5f, GameData::WINDOW_SIZE.y *0.5f });
+	ring.setFillColor(sf::Color::Transparent);
+	ring.setOutlineColor(colorWithAlpha(Colors::ringColor, 111));
+}
+
 void GameplayManager::initSpawner()
 {
 	spawner = EnemySpawner(GameData::DEFAULT_BOUNDS, this, currentStage);
@@ -116,6 +128,8 @@ GameplayManager::GameplayManager(sf::RenderWindow* window) : scoreManager(ScoreM
 {
 	cameraShake.connectWindow(window);
 
+	initGraphics();
+
 	reset();
 }
 
@@ -150,7 +164,6 @@ void GameplayManager::update(const Time::TimeData &timeData)
 {
 	assert(EntityManager::instance()->findEntitiesByTag(GameData::TAG_PLAYER, true).size() == 1);
 
-
 	spawner.update(timeData);
 	scoreManager.update(timeData);
 	inputField->update(timeData);
@@ -159,6 +172,7 @@ void GameplayManager::update(const Time::TimeData &timeData)
 
 void GameplayManager::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
+	target.draw(ring, states);
 	scoreManager.draw(target, states);
 	if (inputField != nullptr) {
 		inputField->draw(target, states);

@@ -10,7 +10,7 @@ namespace Time {
 class TitleText : public sf::Drawable
 {
 public:
-	enum class TripleState
+	enum class State
 	{
 		IDLE,
 		MENU,
@@ -25,7 +25,7 @@ private:
 	sf::Text text;
 	std::shared_ptr<sf::Font> font;
 public:
-	TripleState state;
+	State state;
 	TitleText(const std::string &caption, const sf::Vector2f& position, unsigned fontSize);
 
 	void setStateValues(const sf::Vector2f& pos1, const sf::Vector2f& pos2);

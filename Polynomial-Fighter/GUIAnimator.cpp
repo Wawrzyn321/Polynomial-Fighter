@@ -18,9 +18,9 @@ void GUIAnimator::initGraphics()
 	optionsRing = new GUIRingOptions(center);
 
 	highscores = new HighscoresGUI(center);
-	highscores->initTexts({"2:2", "232131", "dupa", "ble", "eer"});
+	highscores->initTexts({"1", "2"});
 	howTo = new HowToGUI(center);
-	highscores->initTexts(std::vector<std::string>(HelpProvider::texts, HelpProvider::texts + HelpProvider::len));
+	howTo->initTexts(std::vector<std::string>(HelpProvider::texts, HelpProvider::texts + HelpProvider::len));
 }
 
 GUIAnimator::GUIAnimator(MainMenu* menuReference)
@@ -58,29 +58,36 @@ GUIRingOptions::Option GUIAnimator::getRingOption() const
 void GUIAnimator::setSplash() const
 {
 	ring->state = GUIRing::State::TO_MINOR;
-	title->state = TitleText::TripleState::MENU;
+	title->state = TitleText::State::SPLASH;
 	optionsRing->setVisible(false, false);
 }
 
 void GUIAnimator::setMenu(bool resetCurrentOption) const
 {
 	ring->state = GUIRing::State::TO_MAJOR;
-	title->state = TitleText::TripleState::SPLASH;
+	title->state = TitleText::State::MENU;
 	optionsRing->setVisible(true, resetCurrentOption);
+	optionsRing->isToGame = false;
 }
 
 void GUIAnimator::setEmptyCenter() const
 {
 	ring->state = GUIRing::State::TO_MINOR;
-	title->state = TitleText::TripleState::UP;
+	title->state = TitleText::State::UP;
 	optionsRing->setVisible(false, false);
 }
 
 void GUIAnimator::setExiting() const
 {
-	optionsRing->setExiting();
-	title->state = TitleText::TripleState::EXITING;
+	title->state = TitleText::State::EXITING;
 	ring->state = GUIRing::State::EXITING;
+}
+
+void GUIAnimator::setToGame()
+{
+	title->state = TitleText::State::UP;
+	ring->state = GUIRing::State::TO_GAME;
+	optionsRing->isToGame = true;
 }
 
 void GUIAnimator::rotateRingLeft() const

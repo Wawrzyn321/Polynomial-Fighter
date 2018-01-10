@@ -11,6 +11,7 @@ GUIRingOptions::GUIRingOptions(const sf::Vector2f &center)
 	isVisible = false;
 	isUpdatngRotation = true;
 	isExiting = false;
+	isToGame = false;
 
 	font = AssetManager::instance()->getDefaultFont();
 
@@ -18,7 +19,7 @@ GUIRingOptions::GUIRingOptions(const sf::Vector2f &center)
 	button_howto = new sf::Text("How to play", *font, fontSize);
 	button_highscores = new sf::Text("Highscores", *font, fontSize);
 	button_exit = new sf::Text("Exit", *font, fontSize);
-	button_sound = new sf::Text("Sound:", *font, fontSize);
+	button_sound = new sf::Text("Sound: On", *font, fontSize);
 
 	buttons = {
 		button_play, button_howto,
@@ -77,6 +78,7 @@ void GUIRingOptions::handleColoring(float deltaTime)
 		sf::Color color;
 
 		if (isExiting) { color = sf::Color::Transparent; }
+		else if (isToGame) { color = sf::Color::Transparent; }
 		else if (i == currentOption) { color = Colors::textLitColor; }
 		else { color = sf::Color::White; }
 
@@ -134,7 +136,7 @@ void GUIRingOptions::setVisible(bool isVisible, bool resetCurrentOption)
 
 void GUIRingOptions::setSoundOn(bool isOn) const
 {
-	button_sound->setString("Sound: O" + isOn ?  "n" : "f");
+	button_sound->setString("Sound: O" + std::string(isOn ?  "n" : "ff"));
 }
 
 GUIRingOptions::Option GUIRingOptions::getCurrentOption() const

@@ -10,10 +10,15 @@ HowToGUI::HowToGUI(const sf::Vector2f& center)
 	font = AssetManager::instance()->getDefaultFont();
 	currentlyCentered = 0;
 	state = State::HIDING;
-
 }
 
 void HowToGUI::initTexts(const std::vector<std::string> &texts)
 {
+	for (unsigned i = 0; i < texts.size(); i++)
+	{
+		entries.push_back(new RollingListEntry(sf::Text(texts[i], *font, unsigned(GameData::WINDOW_SIZE.x*0.05f)), center));
+		centerTextOrigin(entries.back()->text);
+	}
+
 	updateTargets();
 }

@@ -108,3 +108,8 @@ sf::Vector2f getPointOnIntRect(const sf::FloatRect& bounds)
 		return { (top ? bounds.width : 0), altitude };
 	}
 }
+
+sf::Color colorWithAlpha(const sf::Color &color, int alpha)
+{
+	return sf::Color(color.r, color.g, color.b, alpha);
+}
