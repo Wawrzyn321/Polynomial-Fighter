@@ -37,7 +37,7 @@ public:
 
 	void setExiting() const;
 
-	void setToGame();
+	void setToGame() const;
 
 	void rotateRingLeft() const;
 

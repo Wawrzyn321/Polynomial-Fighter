@@ -3,6 +3,8 @@
 #include "Enemy.h"
 #include <cassert>
 #include "EntityManager.h"
+#include "AssetManager.h"
+#include "RandomGenerator.h"
 
 void SignedBullet::initGraphics()
 {

@@ -168,14 +168,7 @@ void EntityManager::draw(sf::RenderTarget& target, sf::RenderStates states)
 
 		if (entity->getEnabled())
         {
-			//todo uzmiennic
-			/*glEnable(GL_SCISSOR_TEST);
-			glScissor((GLint)GameData::SCENE_BOUNDS.left,
-				(GLint)GameData::SCENE_BOUNDS.top,
-				(GLint)GameData::SCENE_BOUNDS.width,
-				(GLint)GameData::SCENE_BOUNDS.height);*/
 			entity->draw(target, states);
-			//glDisable(GL_SCISSOR_TEST);
 		}
 	}
 }

@@ -1,5 +1,6 @@
 #include "FleetingText.h"
 #include "Utility.h"
+#include "AssetManager.h"
 
 void FleetingText::fadeText(float deltaTime)
 {

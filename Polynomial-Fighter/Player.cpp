@@ -5,6 +5,7 @@
 #include "Request.h"
 #include "ParticleMaster.h"
 #include "FleetingText.h"
+#include "AssetManager.h"
 
 void Player::initGraphics()
 {

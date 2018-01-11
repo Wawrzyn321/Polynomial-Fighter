@@ -2,13 +2,11 @@
 #define ENTITY_MANAGER_H
 
 #include "Entity.h"
-#include "Debug.h"
 #include <SFML/OpenGL.hpp>
 #include <vector>
 
 class EntityManager
 {
-private:
 	EntityManager() = default;
 
     static EntityManager *sInstance;

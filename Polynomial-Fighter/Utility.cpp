@@ -1,4 +1,5 @@
 #include "Utility.h"
+#include "RandomGenerator.h"
 #include <iomanip>
 #include <sstream>
 

@@ -1,13 +1,10 @@
 #ifndef PLAYER_CANNON_H
 #define PLAYER_CANNON_H
 
-#include <vector>
-#include <memory>
 #include "PlayerCannonGraphics.h"
 #include "MunitionContainer.h"
 #include "Entity.h"
 #include "DesignatedTarget.h"
-#include "Enemy.h"
 
 class Player;
 class PlayerCannon : public sf::Drawable

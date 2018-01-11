@@ -1,13 +1,9 @@
 #ifndef UTILITY_H
 #define UTILITY_H
 
-#include <algorithm>
 #include <SFML/Graphics.hpp>
 #include "GameData.h"
-#include "AssetManager.h"
 #include "Debug.h"
-#include "RandomGenerator.h"
-#include "Colors.h"
 #include <cmath>
 
 const float pi = 3.1415926535f; //TODO: V624 https://www.viva64.com/en/w/V624 The constant 3.1415926535f is being utilized. The resulting value could be inaccurate. Consider ustd::sing the M_PI constant from <math.h>.

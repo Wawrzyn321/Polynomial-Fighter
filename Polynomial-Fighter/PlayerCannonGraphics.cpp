@@ -1,7 +1,6 @@
 #include "PlayerCannonGraphics.h"
 #include "Utility.h"
-#include "EntityManager.h"
-#include "APSBuilder.h"
+#include "AssetManager.h"
 #include "ParticleMaster.h"
 
 PlayerCannonGraphics::PlayerCannonGraphics()

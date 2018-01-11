@@ -8,6 +8,7 @@
 #include <cassert>
 #include "FleetingText.h"
 #include "Colors.h"
+#include "RandomGenerator.h"
 
 void GameplayManager::startNextLevel()
 {

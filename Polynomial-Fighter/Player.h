@@ -6,6 +6,7 @@
 #include "Delegate.h"
 #include "PlayerHealthGUI.h"
 #include "PlayerCannon.h"
+#include "GameData.h"
 
 class RequestValue;
 class Player : public Entity, public IDamageable

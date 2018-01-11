@@ -1,5 +1,5 @@
 #include "Entity.h"
-#include "Debug.h"
+#include "Utility.h"
 
 bool Entity::checkCollision(const std::shared_ptr<Entity> &other)
 {

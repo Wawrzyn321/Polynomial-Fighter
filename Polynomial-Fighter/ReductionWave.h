@@ -2,6 +2,8 @@
 #define REDUCTION_WAVE_H
 #include "Entity.h"
 #include "Enemy.h"
+#include "Utility.h"
+#include "Colors.h"
 
 class ReductionWave : public Entity
 {

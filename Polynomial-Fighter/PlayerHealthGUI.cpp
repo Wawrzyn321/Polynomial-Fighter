@@ -1,5 +1,7 @@
 #include "PlayerHealthGUI.h"
 #include "Utility.h"
+#include "Colors.h"
+#include "AssetManager.h"
 
 void PlayerHealthGUI::initGraphics(const sf::Vector2f &position, const sf::Vector2f &size)
 {

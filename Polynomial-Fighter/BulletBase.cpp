@@ -1,5 +1,6 @@
 #include "BulletBase.h"
 #include "EntityManager.h"
+#include "GameData.h"
 
 void BulletBase::checkCollisions()
 {

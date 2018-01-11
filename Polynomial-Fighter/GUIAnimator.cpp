@@ -91,7 +91,7 @@ void GUIAnimator::setExiting() const
 	optionsRing->setExiting();
 }
 
-void GUIAnimator::setToGame()
+void GUIAnimator::setToGame() const
 {
 	title->state = TitleText::State::UP;
 	ring->state = GUIRing::State::TO_GAME;

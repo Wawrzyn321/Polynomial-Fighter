@@ -1,6 +1,7 @@
 #include "TitleText.h"
 #include "Utility.h"
-#include "Timer.h"
+#include "AssetManager.h"
+#include "Colors.h"
 
 TitleText::TitleText(const std::string& caption, const sf::Vector2f &position, unsigned fontSize)
 {

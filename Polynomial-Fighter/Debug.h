@@ -2,7 +2,6 @@
 #define DEBUGGER_H
 
 #include <iostream>
-#include "Utility.h"
 
 class Debug {
 public:

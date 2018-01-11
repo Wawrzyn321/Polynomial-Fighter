@@ -2,6 +2,8 @@
 #include "Debug.h"
 #include "FleetingText.h"
 #include "EntityManager.h"
+#include "Colors.h"
+#include "AssetManager.h"
 
 MunitionContainer::MunitionContainer(const sf::Vector2f& position, const sf::Vector2f& size)
 {

@@ -2,7 +2,6 @@
 #define FLOAT_COLOR_H
 
 #include "Utility.h"
-#include <sstream>
 
 class FloatColor
 {

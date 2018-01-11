@@ -2,6 +2,8 @@
 #include "Utility.h"
 #include "EntityManager.h"
 #include "FleetingText.h"
+#include "AssetManager.h"
+#include "Colors.h"
 
 void ScoreManagerGUI::updateScoreText()
 {

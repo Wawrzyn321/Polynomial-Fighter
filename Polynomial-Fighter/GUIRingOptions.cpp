@@ -2,6 +2,7 @@
 #include "FleetingText.h"
 #include "Utility.h"
 #include "Colors.h"
+#include "AssetManager.h"
 
 GUIRingOptions::GUIRingOptions(const sf::Vector2f &center)
 {

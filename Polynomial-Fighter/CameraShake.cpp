@@ -1,21 +1,21 @@
 #include "CameraShake.h"
-#include "Utility.h"
+#include "RandomGenerator.h"
 
 sf::Vector2f CameraShake::getShakeAmount(float percentageCompleted) const
 {
-	float damper = 1.0f - clamp(4.0f * percentageCompleted - 3.0f, 0.0f, 1.0f);
+	float damper = 1.5f - percentageCompleted;
 	float x = RandomGenerator::getFloat(0.0f, 1.0f) * 2.0f - 1.0f;
 	float y = RandomGenerator::getFloat(0.0f, 1.0f) * 2.0f - 1.0f;
 	x *= force * damper;
 	y *= force * damper;
 
-	return { defaultView.getCenter().x + x, defaultView.getCenter().y + y };
+	return { x, y };
 }
 
 void CameraShake::shakeCamera() const
 {
-	sf::Vector2f shake = getShakeAmount(durationAccumulator / duration);
-	sf::View view = sf::View(shake, defaultView.getSize());
+	sf::Vector2f center = defaultView.getCenter() + getShakeAmount(durationAccumulator / duration);
+	sf::View view = sf::View(center, defaultView.getSize());
 	window->setView(view);
 }
 

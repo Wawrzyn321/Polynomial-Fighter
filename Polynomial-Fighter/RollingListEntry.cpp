@@ -1,5 +1,6 @@
 #include "RollingListEntry.h"
 #include "Utility.h"
+#include "Colors.h"
 
 RollingListEntry::RollingListEntry(sf::Text text, sf::Vector2f targetPosition)
 {

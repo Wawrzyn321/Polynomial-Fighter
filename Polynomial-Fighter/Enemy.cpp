@@ -3,6 +3,7 @@
 #include "EntityManager.h"
 #include "EnemyCannon.h"
 #include "ParticleMaster.h"
+#include "AssetManager.h"
 
 void Enemy::initComponents(float angle, PolynomialProductForm pff)
 {

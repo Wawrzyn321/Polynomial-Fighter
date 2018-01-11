@@ -2,7 +2,6 @@
 #define GUI_RING_H
 #include <SFML/Graphics.hpp>
 #include "GameData.h"
-#include "Timer.h"
 #include "Utility.h"
 
 struct RingValues
