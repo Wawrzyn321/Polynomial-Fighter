@@ -2,6 +2,7 @@
 #define ADVANCED_PARTICLE_SYSTEM_DATA_H
 
 #include <SFML/Graphics.hpp>
+#include "Colors.h"
 
 enum class Space
 {
@@ -58,9 +59,9 @@ namespace APSDefaultValues {
 
 	//colors
 	const bool useRandomColors = false;
-	const sf::Color startColor = sf::Color::White;
+	const sf::Color startColor = Colors::WHITE;
 	const float startColorVariation = 0;
-	const sf::Color endColor = sf::Color::White;
+	const sf::Color endColor = Colors::WHITE;
 	const float endColorVariation = 0;
 	const float colorChangingSpeed = 1.0f;
 

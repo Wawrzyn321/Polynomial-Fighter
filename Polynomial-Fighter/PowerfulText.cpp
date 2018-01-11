@@ -1,12 +1,12 @@
 #include "PowerfulText.h"
-#include <iostream>
+#include "Colors.h"
 
 PowerfulText::PowerfulText(const std::string& script, const std::shared_ptr<sf::Font> &font, unsigned characterSize)
 {
 	this->script = script;
 	this->font = font;
 	this->characterSize = characterSize;
-	this->color = sf::Color::White;
+	this->color = Colors::WHITE;
 	this->position = { 0,0 };
 
 	rebuild(script);

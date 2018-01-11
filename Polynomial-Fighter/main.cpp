@@ -1,4 +1,5 @@
 #include "MainMenu.h"
+#include "Utility.h"
 
 using namespace std;
 
@@ -12,6 +13,8 @@ void hideConsole()
 
 int main()
 {
+	Colors::load();
+
 	hideConsole();
 	
 	sf::RenderWindow window(sf::VideoMode(static_cast<unsigned int>(GameData::WINDOW_SIZE.x),
@@ -22,12 +25,12 @@ int main()
 	MainMenu m(&window);
 	m.mainLoop();
 
-	while(window.getSize().x > 100)
+	while(window.getSize().x > 100 && window.isOpen())
 	{
-		int x = int(window.getSize().x);
+		float x = float(window.getSize().x);
 		window.setSize({
-			unsigned(lerp(x, 0, 0.001f)),
-			unsigned(lerp(int(window.getSize().y), 0, 0.001f))
+			unsigned(lerp(x, 0.0f, 0.001f)),
+			unsigned(lerp(float(window.getSize().y), 0.0f, 0.001f))
 		});
 	}
 

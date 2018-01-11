@@ -50,7 +50,7 @@ void ScoreManagerGUI::updateStageNo(unsigned stageNo, unsigned pointsToAdd)
 	{
 		targetPoints += pointsToAdd;
 		auto ft = std::make_shared<FleetingText>("+" + std::to_string(pointsToAdd), 
-			textPosition, sf::Color::White, fontSize);
+			textPosition, Colors::WHITE, fontSize);
 		ft->run(0.0009f, { 0, -0.04f }, 0);
 		EntityManager::instance()->addEntity(ft);
 	}

@@ -1,7 +1,6 @@
 #ifndef HIGHSCORE_SERVICE_H
 #define HIGHSCORE_SERVICE_H
 #include <vector>
-#include <fstream>
 #include "GameData.h"
 
 class HighscoreService

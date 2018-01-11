@@ -34,9 +34,9 @@ class AdvancedParticleSystem : public Entity
 	float overTimeScaling = 0.999f;
 
 	bool useRandomColors = false;
-	sf::Color startColor = sf::Color::White;
+	sf::Color startColor = Colors::WHITE;
 	float startColorVariation = 0;
-	sf::Color endColor = sf::Color::White;
+	sf::Color endColor = Colors::WHITE;
 	float endColorVariation = 0;
 	float colorChangingSpeed = 1.0f;
 

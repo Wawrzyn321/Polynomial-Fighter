@@ -77,10 +77,9 @@ void GUIRingOptions::handleColoring(float deltaTime)
 	{
 		sf::Color color;
 
-		if (isExiting) { color = sf::Color::Transparent; }
-		else if (isToGame) { color = sf::Color::Transparent; }
-		else if (i == currentOption) { color = Colors::textLitColor; }
-		else { color = sf::Color::White; }
+		if (isExiting || isToGame) { color = sf::Color::Transparent; }
+		else if (i == currentOption) { color = Colors::FIFTH; }
+		else { color = Colors::THIRD; }
 
 		lerping(buttons[i], color , deltaTime * 0.003f);
 	}

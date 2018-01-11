@@ -132,6 +132,7 @@
   <ItemGroup>
     <ClCompile Include="AdvancedParticle.cpp" />
     <ClCompile Include="AdvancedParticleSystem.cpp" />
+    <ClCompile Include="Colors.cpp" />
     <ClCompile Include="HelpProvider.h" />
     <ClCompile Include="HighscoresGUI.cpp" />
     <ClCompile Include="HighscoresService.cpp" />

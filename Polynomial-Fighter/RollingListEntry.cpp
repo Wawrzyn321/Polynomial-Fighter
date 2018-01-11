@@ -7,7 +7,7 @@ RollingListEntry::RollingListEntry(sf::Text text, sf::Vector2f targetPosition)
 	this->targetPosition = targetPosition;
 
 	targetScale = 1;
-	targetColor = sf::Color::White;
+	targetColor = Colors::WHITE;
 }
 
 void RollingListEntry::update(float deltaTime)

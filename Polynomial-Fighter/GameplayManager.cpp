@@ -88,7 +88,7 @@ void GameplayManager::initGraphics()
 	ring.setOutlineThickness(r*0.1f);
 	ring.setPosition({ GameData::WINDOW_SIZE.x *0.5f, GameData::WINDOW_SIZE.y *0.5f });
 	ring.setFillColor(sf::Color::Transparent);
-	ring.setOutlineColor(colorWithAlpha(Colors::ringColor, 63));
+	ring.setOutlineColor(colorWithAlpha(Colors::FIRST, 63));
 }
 
 void GameplayManager::initSpawner()

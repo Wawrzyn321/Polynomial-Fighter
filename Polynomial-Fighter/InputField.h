@@ -6,6 +6,7 @@
 #include "AssetManager.h"
 #include "Timer.h"
 #include "Delegate.h"
+#include "Colors.h"
 
 class InputField : public sf::Drawable
 {
@@ -43,10 +44,8 @@ public:
 
 private:
 	sf::Color color_fieldOutline = sf::Color(127, 127, 127);
-	sf::Color color_fieldBackground = sf::Color::Black;
-	sf::Color color_text_normal = sf::Color::White;
-	sf::Color color_text_invalid = sf::Color::Red;
-	sf::Color color_text_unavailable = sf::Color(255, 0, 63);
+	sf::Color color_fieldBackground = Colors::BLACK;
+	sf::Color color_text_normal = Colors::WHITE;
 	sf::Color color_cursor = sf::Color(240, 240, 240, 255);
 };
 

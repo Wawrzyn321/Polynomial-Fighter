@@ -1,7 +1,6 @@
 #ifndef CAMERA_SHAKE
 #define CAMERA_SHAKE
 #include "Timer.h"
-#include "Debug.h"
 
 class CameraShake
 {

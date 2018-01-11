@@ -69,7 +69,7 @@ void PlayerCannon::addAfterAppendText(int targetsAdded) const
 	}
 	else {
 		caption = std::to_string(targetsAdded) + " new targets";
-		color = sf::Color::White;
+		color = Colors::WHITE;
 	}
 
 	auto ft = std::make_shared<FleetingText>(caption, origin + sf::Vector2f(0, -20), color, 20);

@@ -8,6 +8,7 @@ TitleText::TitleText(const std::string& caption, const sf::Vector2f &position, u
 	text = sf::Text(caption, *font, fontSize);
 	centerTextOrigin(text);
 	text.setPosition(position);
+	text.setFillColor(Colors::SECOND);
 
 	state = State::IDLE;
 }

@@ -8,7 +8,7 @@ GUIRing::GUIRing(const sf::Vector2f &center)
 	shape = sf::CircleShape(initialRadius, 128);
 	shape.setFillColor(sf::Color::Transparent);
 	shape.setOrigin(initialRadius, initialRadius);
-	shape.setOutlineColor(Colors::ringColor);
+	shape.setOutlineColor(Colors::FIRST);
 	shape.setPosition(center);
 }
 
@@ -36,7 +36,7 @@ void GUIRing::update(float deltaTime)
 		state = State::IDLE;
 	}
 
-	sf::Color color = colorWithAlpha(Colors::ringColor, state != State::TO_GAME ? 255 : 63);
+	sf::Color color = colorWithAlpha(Colors::FIRST, state != State::TO_GAME ? 255 : 63);
 	shape.setOutlineColor(lerp(shape.getOutlineColor(), color, deltaTime*0.01f));
 }
 

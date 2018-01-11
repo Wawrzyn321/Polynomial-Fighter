@@ -1,4 +1,5 @@
 #include "CameraShake.h"
+#include "Utility.h"
 
 sf::Vector2f CameraShake::getShakeAmount(float percentageCompleted) const
 {

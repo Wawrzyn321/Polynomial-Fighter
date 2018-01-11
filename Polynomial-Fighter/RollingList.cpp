@@ -18,7 +18,7 @@ void RollingList::layNEntriesOut()
 		entries[i]->targetPosition = center - sf::Vector2f(0.0f, positionShift);
 		entries[i]->targetScale = 0.0f;
 	}
-	entries[indexDec]->targetColor = lerp(sf::Color::Transparent, sf::Color::White, 0.5f);
+	entries[indexDec]->targetColor = lerp(sf::Color::Transparent, Colors::WHITE, 0.5f);
 	entries[indexDec]->targetPosition = center - sf::Vector2f(0.0f, positionShift * 0.5f);
 	entries[indexDec]->targetScale = 0.707f;
 
@@ -26,7 +26,7 @@ void RollingList::layNEntriesOut()
 	entries[currentlyCentered]->targetColor = Colors::textLitColor;
 	entries[currentlyCentered]->targetScale = 1.0f;
 
-	entries[indexInc]->targetColor = lerp(sf::Color::Transparent, sf::Color::White, 0.5f);
+	entries[indexInc]->targetColor = lerp(sf::Color::Transparent, Colors::WHITE, 0.5f);
 	entries[indexInc]->targetPosition = center + sf::Vector2f(0.0f, positionShift * 0.5f);
 	entries[indexInc]->targetScale = 0.707f;
 
@@ -57,7 +57,7 @@ void RollingList::updateTargets(int delta)
 			entries[currentlyCentered]->targetPosition = center - sf::Vector2f(0.0f, twoEntriesShift*(1 + twoEntriesMultiplier));
 			entries[currentlyCentered]->targetScale = 1.0f;
 
-			entries[1-currentlyCentered]->targetColor = colorWithAlpha(Colors::ringColor, 111);
+			entries[1-currentlyCentered]->targetColor = colorWithAlpha(Colors::FIRST, 111);
 			entries[1-currentlyCentered]->targetPosition = center + sf::Vector2f(0.0f, twoEntriesShift*(1 + twoEntriesMultiplier));
 			entries[1-currentlyCentered]->targetScale = 0.7f;
 		}

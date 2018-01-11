@@ -190,7 +190,7 @@ void MainMenu::mainLoop()
 
 void MainMenu::draw() const
 {
-	window->clear();
+	window->clear(Colors::backgroundColor);
 
 	animator->draw(*window);
 

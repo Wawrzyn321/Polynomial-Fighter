@@ -24,6 +24,7 @@ namespace GameData {
 	const std::string PATH_TO_FONTS = "fonts/";
 	const std::string PATH_TO_SOUNDS = "sounds/";
 	const std::string PATH_TO_SAVE = "save.dat";
+	const std::string PATH_TO_COLOR_SCHEME = "colorScheme.dat";
 
 	const std::string SPRITESHEET = "spritesheet.png";
 
