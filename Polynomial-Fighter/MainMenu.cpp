@@ -1,5 +1,6 @@
 #include "MainMenu.h"
 #include "Timer.h"
+#include "SoundManager.h"
 
 void MainMenu::handleHighScoreKeys(sf::Keyboard::Key key)
 {
@@ -190,7 +191,7 @@ void MainMenu::mainLoop()
 
 void MainMenu::draw() const
 {
-	window->clear(Colors::backgroundColor);
+	window->clear(Colors::screenBackgroundColor);
 
 	animator->draw(*window);
 

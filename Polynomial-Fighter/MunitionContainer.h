@@ -42,8 +42,6 @@ private:
 	const int maxNumberOfRounds = 30;
 	const int defaultNumberOfRounds = 5;
 	const float roundRefillSpeed = 0.0004f;
-	sf::Color color_backgroundRectangleInner = sf::Color(63, 63, 63);
-	sf::Color color_backgroundRectangle = sf::Color(193, 193, 193);
 	sf::Color color_addRounds = sf::Color(63,63,255);
 	sf::Color color_removeRounds = sf::Color(255, 159, 159);
 };

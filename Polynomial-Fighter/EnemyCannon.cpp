@@ -2,6 +2,7 @@
 #include "Enemy.h"
 #include "SimpleBullet.h"
 #include "EntityManager.h"
+#include "SoundManager.h"
 #include "Player.h"
 
 void EnemyCannon::shoot()

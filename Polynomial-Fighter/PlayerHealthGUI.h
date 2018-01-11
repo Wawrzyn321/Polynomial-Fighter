@@ -1,7 +1,7 @@
 #ifndef PLAYER_HEALTH_GUI
 #define PLAYER_HEALTH_GUI
 #include <SFML/Graphics.hpp>
-#include "Timer.h"
+#include <memory>
 
 class PlayerHealthGUI : public sf::Drawable
 {
@@ -29,9 +29,6 @@ private:
 	const float unscalingSpeed = 0.01f;
 	const float scaleMultiplier = 1.3f;
 	const float minScalingThreshold = 0.01f;
-	sf::Color color_backgroundRectangle = sf::Color(63, 63, 63);
-	sf::Color color_backgroundRectangleOutline = sf::Color(193, 193, 193);
-	sf::Color color_healthBar = sf::Color::Red;
 	const int defaultNumberOfRounds = 5;
 };
 

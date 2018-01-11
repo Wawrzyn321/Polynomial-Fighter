@@ -16,14 +16,14 @@ void ScoreManagerGUI::initGraphics(const sf::Vector2f& position, const sf::Vecto
 	fontSize = unsigned(size.y*0.6f);
 
 	backgroundRectangle = sf::RectangleShape(size);
-	backgroundRectangle.setFillColor(color_backgroundRectangle);
+	backgroundRectangle.setFillColor(Colors::backgroundColor);
 	backgroundRectangle.setOutlineThickness(size.y*0.1f);
-	backgroundRectangle.setOutlineColor(color_backgroundRectangleInner);
+	backgroundRectangle.setOutlineColor(Colors::outlineColor);
 	backgroundRectangle.setPosition(position);
 
 	font = AssetManager::instance()->getDefaultFont();
 	scoreText = sf::Text("1/0", *font, fontSize);
-	scoreText.setFillColor(color_text);
+	scoreText.setFillColor(Colors::textColor);
 	centerTextOrigin(scoreText);
 	scoreText.setPosition(textPosition);
 }

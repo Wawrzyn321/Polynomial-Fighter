@@ -7,6 +7,7 @@
 #include <cassert>
 #include "FleetingText.h"
 #include "ReductionWave.h"
+#include "SoundManager.h"
 
 void PlayerCannon::updateState()
 {

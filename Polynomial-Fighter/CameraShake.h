@@ -1,5 +1,6 @@
 #ifndef CAMERA_SHAKE
 #define CAMERA_SHAKE
+#include <SFML/Graphics.hpp>
 #include "Timer.h"
 
 class CameraShake

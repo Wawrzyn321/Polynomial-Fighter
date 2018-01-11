@@ -1,4 +1,5 @@
 #include "Timer.h"
+#include "SoundManager.h"
 
 namespace Time {
 
@@ -13,16 +14,6 @@ namespace Time {
         return sInstance;
     }
 
-    sf::Uint64 Timer::getDeltaTime() const //TODO zmieni� to �adniej
-    {
-        return static_cast<sf::Uint64>(deltaTimeTimer->restart().asMicroseconds());
-    }
-
-    sf::Uint64 Timer::getElapsedTime() const
-    {
-        return static_cast<sf::Uint64>(timer->getElapsedTime().asMicroseconds());
-    }
-
     float Timer::getTimeScale() const
     {
         return timeScale;
@@ -30,8 +21,13 @@ namespace Time {
 
     TimeData Timer::getTimeData() const
     {
+		sf::Time deltaTime = deltaTimeTimer->restart();
+		if (deltaTime.asMilliseconds() > maximumTimestep)
+		{
+			deltaTime = sf::milliseconds(maximumTimestep);
+		}
         return {
-			deltaTimeTimer->restart(),
+			deltaTime,
 			timeScale,
 			timer->getElapsedTime()
 		};

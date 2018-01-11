@@ -2,10 +2,10 @@
 #define SCORE_MANAGER_GUI
 #include <SFML/Graphics.hpp>
 #include "Timer.h"
+#include <memory>
 
 class ScoreManagerGUI : public sf::Drawable
 {
-
 	sf::RectangleShape backgroundRectangle;
 	sf::Text scoreText;
 	std::shared_ptr<sf::Font> font;
@@ -41,9 +41,6 @@ private:
 	const float unscalingSpeed = 0.01f;
 	const float scaleMultiplier = 1.3f;
 	const float minScalingThreshold = 0.01f;
-	sf::Color color_backgroundRectangleInner = sf::Color(193, 193, 193);
-	sf::Color color_backgroundRectangle = sf::Color(63, 63, 63);
-	sf::Color color_text = sf::Color(234, 234, 234);
 };
 
 

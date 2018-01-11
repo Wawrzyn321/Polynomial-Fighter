@@ -4,19 +4,20 @@
 void PlayerHealthGUI::initGraphics(const sf::Vector2f &position, const sf::Vector2f &size)
 {
 	backgroundRectangle = sf::RectangleShape(size);	
-	backgroundRectangle.setFillColor(color_backgroundRectangle);
+	backgroundRectangle.setFillColor(Colors::backgroundColor);
 	backgroundRectangle.setOutlineThickness(size.y*0.1f);
-	backgroundRectangle.setOutlineColor(color_backgroundRectangleOutline);
+	backgroundRectangle.setOutlineColor(Colors::FIRST);
 	backgroundRectangle.setPosition(position);
 
 	healthBar = sf::RectangleShape(size - sf::Vector2f(size.y*0.2f, size.y*0.2f));
-	healthBar.setFillColor(color_healthBar);
+	healthBar.setFillColor(Colors::THIRD);
 	healthBar.setOrigin(0, healthBar.getSize().y*0.5f);
 	healthBar.setPosition(position + sf::Vector2f(size.y*0.1f, size.y*0.5f));
 
 	font = AssetManager::instance()->getDefaultFont();
 	text = sf::Text("10.0/10.0", *font, unsigned(size.y*0.6f));
 	centerTextOrigin(text);
+	text.setFillColor(Colors::textColor);
 	text.setPosition(position + sf::Vector2f(size.x*0.5f, size.y*0.333f));
 }
 

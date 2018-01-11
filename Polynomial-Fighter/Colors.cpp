@@ -12,7 +12,10 @@ sf::Color Colors::WHITE;
 sf::Color Colors::BLACK;
 
 sf::Color Colors::textLitColor;
+sf::Color Colors::screenBackgroundColor;
 sf::Color Colors::backgroundColor;
+sf::Color Colors::outlineColor;
+sf::Color Colors::textColor;
 
 void Colors::load()
 {
@@ -49,5 +52,8 @@ void Colors::load()
 	pIn.close();
 
 	textLitColor = SECOND;
-	backgroundColor = lerp(FOURTH, BLACK, 0.9f);
+	screenBackgroundColor = lerp(FOURTH, BLACK, 0.9f);
+	backgroundColor = lerp(FOURTH, BLACK, 0.8f);
+	outlineColor = lerp(FIRST, BLACK, 0.1f);
+	textColor = lerp(WHITE, THIRD, 0.2f);
 }

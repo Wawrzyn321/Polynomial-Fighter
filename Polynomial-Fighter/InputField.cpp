@@ -9,15 +9,15 @@ void InputField::initGraphics()
 {
 	background = sf::RectangleShape(size);
 	background.setPosition(position);
-	background.setFillColor(color_fieldBackground);
-	background.setOutlineThickness(2);
-	background.setOutlineColor(color_fieldOutline);
+	background.setFillColor(Colors::backgroundColor);
+	background.setOutlineThickness(size.y*0.1f);
+	background.setOutlineColor(Colors::outlineColor);
 
 	AssetManager *am = AssetManager::instance();
 
 	font = am->getDefaultFont();
 	text = sf::Text("", *font, static_cast<unsigned int>(size.y * 0.64));
-	text.setFillColor(color_text_normal);
+	text.setFillColor(Colors::textColor);
 	text.setPosition(position + sf::Vector2f(size.x / 10, size.y / 10));
 
 	cursor = sf::RectangleShape(sf::Vector2f(size.y*0.3f, size.y*0.09f));

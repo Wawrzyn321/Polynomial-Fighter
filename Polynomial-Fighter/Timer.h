@@ -2,12 +2,12 @@
 #define TIMER_H
 
 #include <SFML/System.hpp>
-#include "SoundManager.h"
 
 namespace Time {
 
     const float MICRO_TO_MILI = 0.001f;
     const float MICRO_TO_SEC = 0.001f * 0.001f;
+	const sf::Int64 maximumTimestep = 30;
 
     struct TimeData {
         sf::Time deltaTime;
@@ -30,8 +30,6 @@ namespace Time {
         float timeScale = 1;
     public:
         static Timer* instance();
-        sf::Uint64 getDeltaTime() const;
-        sf::Uint64 getElapsedTime() const;
         void setTimeScale(float timeScale);
         float getTimeScale() const;
         TimeData getTimeData() const;

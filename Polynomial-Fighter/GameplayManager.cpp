@@ -1,7 +1,7 @@
 #include "GameplayManager.h"
 #include "GameData.h"
-#include "Debug.h"
 #include "Player.h"
+#include "SoundManager.h"
 #include "EntityManager.h"
 #include "InputFieldParser.h"
 #include "Enemy.h"

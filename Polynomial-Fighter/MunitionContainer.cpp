@@ -26,23 +26,24 @@ void MunitionContainer::refreshUI()
 void MunitionContainer::initGraphics(const sf::Vector2f& position, const sf::Vector2f& size)
 {
 	backgroundRectangle = sf::RectangleShape(size);
-	backgroundRectangle.setFillColor(color_backgroundRectangleInner);
+	backgroundRectangle.setFillColor(Colors::screenBackgroundColor);
 	backgroundRectangle.setOutlineThickness(size.y*0.1f);
-	backgroundRectangle.setOutlineColor(color_backgroundRectangle);
+	backgroundRectangle.setOutlineColor(Colors::outlineColor);
 	backgroundRectangle.setPosition(position);
 
 	reloadingRectangle = sf::RectangleShape({ size.x*0.75f*0.8f, size.y*0.8f });
-	reloadingRectangle.setFillColor(color_backgroundRectangle);
+	reloadingRectangle.setFillColor(Colors::SECOND);
 	reloadingRectangle.setOrigin(reloadingRectangle.getSize()*0.5f);
 	reloadingRectangle.setPosition(position + sf::Vector2f(size.x*0.5f*0.75f, size.y*0.5f));
 
 	roundGraphic = sf::RectangleShape({size.x*0.05f, size.y*0.5f});
 	roundGraphic.setOrigin(roundGraphic.getSize()*0.5f);
-	roundGraphic.setFillColor(color_backgroundRectangle);
+	roundGraphic.setFillColor(Colors::SECOND);
 	roundGraphic.setPosition(position + sf::Vector2f(size.x*0.85f, size.y*0.5f));
 
 	font = AssetManager::instance()->getDefaultFont();
 	roundsCountText = sf::Text("x0", *font, unsigned(size.y*0.35f));
+	roundsCountText.setFillColor(Colors::textColor);
 	roundsCountText.setPosition(roundGraphic.getPosition()+ sf::Vector2f(size.x*0.03f, size.y*0.01f));
 
 	fleetingTextsOrigin = roundsCountText.getPosition() + sf::Vector2f(size.x*0.05f, size.y*0.01f);

@@ -28,8 +28,8 @@ public:
 private:
 	const float radiusDelta = 1.1f;
 	const float outlinePercentage = 0.09f;
-	sf::Color waveColor = sf::Color(255, 255, 255, 7);
-	sf::Color outlineColor = sf::Color(255, 255, 255, 31);
+	sf::Color waveColor = colorWithAlpha(Colors::WHITE, 7);
+	sf::Color outlineColor = colorWithAlpha(Colors::WHITE, 31);
 };
 
 

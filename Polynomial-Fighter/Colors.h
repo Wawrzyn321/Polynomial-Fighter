@@ -16,7 +16,10 @@ public:
 	static sf::Color BLACK;
 
 	static sf::Color textLitColor;
+	static sf::Color screenBackgroundColor;
 	static sf::Color backgroundColor;
+	static sf::Color outlineColor;
+	static sf::Color textColor;
 
 	static void load();
 };

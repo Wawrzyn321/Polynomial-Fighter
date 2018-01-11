@@ -3,6 +3,8 @@
 
 #include "Timer.h"
 #include "Delegate.h"
+#include <memory>
+#include <SFML/Graphics.hpp>
 
 class Player;
 class GameplayManager;

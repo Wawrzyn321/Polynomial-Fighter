@@ -43,9 +43,6 @@ public:
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
 private:
-	sf::Color color_fieldOutline = sf::Color(127, 127, 127);
-	sf::Color color_fieldBackground = Colors::BLACK;
-	sf::Color color_text_normal = Colors::WHITE;
 	sf::Color color_cursor = sf::Color(240, 240, 240, 255);
 };
 
