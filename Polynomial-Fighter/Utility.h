@@ -20,11 +20,11 @@ float minAngleDifference(float from, float to);
 
 void centerTextOrigin(sf::Text &textShape);
 
-void setAlpha(sf::Shape &shape, float alpha);
+void setAlpha(sf::Shape &shape, const sf::Uint8 &alpha);
 
-void setAlpha(sf::Sprite &sprite, float alpha);
+void setAlpha(sf::Sprite &sprite, const sf::Uint8 &alpha);
 
-void setAlpha(sf::Text &text, float alpha);
+void setAlpha(sf::Text &text, const sf::Uint8 &alpha);
 
 sf::Color lerp(sf::Color from, sf::Color to, float amount);
 

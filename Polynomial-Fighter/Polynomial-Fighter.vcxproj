@@ -138,6 +138,7 @@
     <ClCompile Include="HighscoresService.cpp" />
     <ClCompile Include="HighscoressGUI.cpp" />
     <ClCompile Include="HowToGUI.cpp" />
+    <ClCompile Include="HowToImageViewer.cpp" />
     <ClCompile Include="RollingList.cpp" />
     <ClCompile Include="RollingListEntry.cpp" />
     <ClCompile Include="Stopwatch.cpp" />
@@ -195,6 +196,7 @@
     <ClInclude Include="HighscoresGUI.h" />
     <ClInclude Include="HighscoresService.h" />
     <ClInclude Include="HowToGUI.h" />
+    <ClInclude Include="HowToImageViewer.h" />
     <ClInclude Include="RollingList.h" />
     <ClInclude Include="RollingListEntry.h" />
     <ClInclude Include="StopWatch.h" />

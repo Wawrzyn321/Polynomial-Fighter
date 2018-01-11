@@ -58,6 +58,8 @@ public:
 		TO_MAJOR,
 		EXITING,
 		TO_GAME,
+		TO_MEDIUM,
+		TO_RIGHT_MEDIUM,
 	};
 private:
 	sf::CircleShape shape;
@@ -85,6 +87,14 @@ private:
 	RingValues toGameValues = {
 		0.25f,
 		sf::Vector2f(0.5f, 0.5f),
+	};
+	RingValues toRightMediumValues = {
+		0.4f,
+		sf::Vector2f(0.7f, 0.5f),
+	};
+	RingValues toMediumValues = {
+		0.35f,
+		sf::Vector2f(0.5f, 0.6f),
 	};
 
 	const float initialRadius = 1.0f;

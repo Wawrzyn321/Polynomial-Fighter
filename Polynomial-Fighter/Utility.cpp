@@ -36,21 +36,21 @@ void centerTextOrigin(sf::Text & textShape)
 	textShape.setOrigin(textShape.getLocalBounds().width / 2, textShape.getLocalBounds().height / 2);
 }
 
-void setAlpha(sf::Shape &shape, float alpha)
+void setAlpha(sf::Shape &shape, const sf::Uint8 &alpha)
 {
 	sf::Color c = shape.getFillColor();
-	shape.setFillColor(sf::Color((sf::Uint8)c.r, (sf::Uint8)c.g, (sf::Uint8)c.b, (sf::Uint8)alpha));
+	shape.setFillColor(sf::Color(c.r, c.g, c.b, alpha));
 }
 
-void setAlpha(sf::Sprite &sprite, float alpha)
+void setAlpha(sf::Sprite &sprite, const sf::Uint8 &alpha)
 {
 	sf::Color c = sprite.getColor();
-	sprite.setColor(sf::Color((sf::Uint8)c.r, (sf::Uint8)c.g, (sf::Uint8)c.b, (sf::Uint8)alpha));
+	sprite.setColor(sf::Color(c.r, c.g, c.b, alpha));
 }
 
-void setAlpha(sf::Text &text, float alpha) {
+void setAlpha(sf::Text &text, const sf::Uint8 &alpha) {
 	sf::Color c = text.getFillColor();
-	text.setFillColor(sf::Color((sf::Uint8)c.r, (sf::Uint8)c.g, (sf::Uint8)c.b, (sf::Uint8)alpha));
+	text.setFillColor(sf::Color(c.r, c.g, c.b, alpha));
 }
 
 sf::Color lerp(sf::Color from, sf::Color to, float amount)

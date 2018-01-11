@@ -119,7 +119,7 @@ void InputField::update(const Time::TimeData& timeData)
 	if (!interactable) return;
 
 	float alpha = (sin(timeData.elapsedTime.asMicroseconds()*3.0f *Time::MICRO_TO_SEC*timeData.timeScale) + 1) * 128;
-	setAlpha(cursor, alpha*0.75f+64);
+	setAlpha(cursor, static_cast<sf::Uint8>(alpha * 0.75f + 64));
 }
 
 void InputField::draw(sf::RenderTarget& target, sf::RenderStates states) const

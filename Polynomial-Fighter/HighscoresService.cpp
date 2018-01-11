@@ -1,5 +1,6 @@
 #include "HighscoresService.h"
 #include "Debug.h"
+#include <fstream>
 
 std::vector<unsigned> HighscoreService::loadedScores;
 bool HighscoreService::scoresAreLoaded = false;

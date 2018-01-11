@@ -10,7 +10,7 @@ public:
 
 	void initTexts(const std::vector<std::string> &texts) override;
 private:
-	const unsigned fontSize = unsigned(GameData::WINDOW_SIZE.x*0.08f);
+	const unsigned fontSize = unsigned(GameData::WINDOW_SIZE.x*0.07f);
 };
 
 

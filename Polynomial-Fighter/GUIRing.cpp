@@ -28,6 +28,12 @@ void GUIRing::update(float deltaTime)
 	case State::TO_GAME:
 		vals = &toGameValues;
 		break;
+	case State::TO_MEDIUM:
+		vals = &toMediumValues;
+		break;
+	case State::TO_RIGHT_MEDIUM:
+		vals = &toRightMediumValues;
+		break;
 	}
 
 	if(vals && vals->lerpBody(shape, deltaTime))

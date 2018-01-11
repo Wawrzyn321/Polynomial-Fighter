@@ -3,17 +3,18 @@
 
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
+#include "GameData.h"
 #include <unordered_map>
 #include <memory>
 
 class AssetManager
 {
-private:
-	AssetManager() = default;
-
+public:
 	using TexturePointer = std::shared_ptr <sf::Texture>;
 	using FontPointer = std::shared_ptr<sf::Font>;
 	using SoundBufferPointer = std::shared_ptr<sf::SoundBuffer>;
+private:
+	AssetManager() = default;
 
     std::unordered_map<std::string, TexturePointer> textures;
 	std::unordered_map<std::string, FontPointer> fonts;

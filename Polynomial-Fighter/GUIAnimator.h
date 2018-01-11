@@ -8,12 +8,14 @@
 class MainMenu;
 class GUIRing;
 class TitleText;
+class HowToImageViewer;
 class GUIAnimator
 {
 	GUIRing *ring;
 	TitleText *title;
 	GUIRingOptions *optionsRing;
 	MainMenu* menuReference;
+	HowToImageViewer* howToViewer;
 	HighscoresGUI *highscores;
 	HowToGUI *howTo;
 

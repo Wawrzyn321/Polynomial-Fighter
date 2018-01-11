@@ -18,9 +18,8 @@ int main()
 	hideConsole();
 	
 	sf::RenderWindow window(sf::VideoMode(static_cast<unsigned int>(GameData::WINDOW_SIZE.x),
-                                          static_cast<unsigned int>(GameData::WINDOW_SIZE.y)), "pf");
+                                          static_cast<unsigned int>(GameData::WINDOW_SIZE.y)), "Polynomial Fighter");
     window.setFramerateLimit(120);
-	SoundManager::instance()->isOn = false;
 
 	MainMenu m(&window);
 	m.mainLoop();

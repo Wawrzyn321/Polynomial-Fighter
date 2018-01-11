@@ -4,23 +4,26 @@
 #include "GUIRing.h"
 #include "HelpProvider.h"
 #include "HighscoresService.h"
+#include "HowToImageViewer.h"
 
 void GUIAnimator::initGraphics()
 {
-	sf::Vector2f center = {
-		GameData::WINDOW_SIZE.x*0.5f,
-		GameData::WINDOW_SIZE.y*0.5f,
-	};
-	title = new TitleText("Polynomial\n    Fighter", center, unsigned(GameData::WINDOW_SIZE.y*0.14f));
-	title->setStateValues(center, { center.x, GameData::WINDOW_SIZE.y*0.16f });
+	sf::Vector2f size = { float(GameData::WINDOW_SIZE.x) , float(GameData::WINDOW_SIZE.y) };
+	sf::Vector2f center = { size.x*0.5f,size.y*0.5f };
+
+	title = new TitleText("Polynomial\n    Fighter", center, unsigned(size.y*0.14f));
+	title->setStateValues(center, { center.x, size.y*0.16f });
 
 	ring = new GUIRing(center);
 
 	optionsRing = new GUIRingOptions(center);
 
-	highscores = new HighscoresGUI(center);
+	howToViewer = new HowToImageViewer(center);
+
+	highscores = new HighscoresGUI(center + sf::Vector2f(0, size.x*0.11f));
 	highscores->initTexts(HighscoreService::getFormattedHighscores());
-	howTo = new HowToGUI(center);
+
+	howTo = new HowToGUI(center + sf::Vector2f(size.x*0.2f, size.y*0.05f), howToViewer);
 	howTo->initTexts(std::vector<std::string>(HelpProvider::texts, HelpProvider::texts + HelpProvider::len));
 }
 
@@ -40,6 +43,7 @@ void GUIAnimator::update(const Time::TimeData& timeData) const
 	optionsRing->update(deltaTime);
 	highscores->update(deltaTime);
 	howTo->update(deltaTime);
+	howToViewer->update(deltaTime);
 }
 
 void GUIAnimator::draw(sf::RenderTarget& target, sf::RenderStates states) const
@@ -49,6 +53,7 @@ void GUIAnimator::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	target.draw(*optionsRing, states);
 	target.draw(*highscores, states);
 	target.draw(*howTo, states);
+	target.draw(*howToViewer, states);
 }
 
 GUIRingOptions::Option GUIAnimator::getRingOption() const
@@ -69,6 +74,7 @@ void GUIAnimator::setMenu(bool resetCurrentOption) const
 	title->state = TitleText::State::MENU;
 	optionsRing->setVisible(true, resetCurrentOption);
 	optionsRing->isToGame = false;
+	howToViewer->hideAll();
 }
 
 void GUIAnimator::setEmptyCenter() const
@@ -115,6 +121,7 @@ void GUIAnimator::moveHighscoresDown() const
 void GUIAnimator::setHighscoresVisible(bool visible) const{
 	if(visible){
 		highscores->initTexts(HighscoreService::getFormattedHighscores());
+		ring->state = GUIRing::State::TO_MEDIUM;
 	}
 	highscores->setVisible(visible);
 }
@@ -130,6 +137,10 @@ void GUIAnimator::moveHowToDown() const
 }
 
 void GUIAnimator::setHowToVisible(bool visible) const {
+	if(visible){
+		ring->state = GUIRing::State::TO_RIGHT_MEDIUM;
+		howToViewer->show(0);
+	}
 	howTo->setVisible(visible);
 }
 
@@ -145,5 +156,5 @@ GUIAnimator::~GUIAnimator()
 	delete optionsRing;
 	delete highscores;
 	delete howTo;
+	delete howToViewer;
 }
-

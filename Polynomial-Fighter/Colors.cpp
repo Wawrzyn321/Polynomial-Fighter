@@ -1,5 +1,7 @@
 #include "Colors.h"
 #include "Utility.h"
+#include <fstream>
+#include "GameData.h"
 
 sf::Color Colors::FIRST;
 sf::Color Colors::SECOND;
