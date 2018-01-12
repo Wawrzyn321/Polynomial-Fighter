@@ -4,6 +4,7 @@
 #include <cassert>
 #include "EntityManager.h"
 #include "Enemy.h"
+#include "Debug.h"
 #include "HighscoresService.h"
 
 ScoreManager::ScoreManager()

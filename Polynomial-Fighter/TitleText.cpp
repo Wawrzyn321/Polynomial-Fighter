@@ -41,7 +41,7 @@ void TitleText::update(float deltaTime)
 
 		text.setPosition(pos);
 		
-		if(abs(dest.x - pos.x) < lerpThreshold && abs(dest.y - pos.y) < lerpThreshold && state != State::EXITING)
+		if(abs(dest.x - pos.x) < vector2Threshold && abs(dest.y - pos.y) < vector2Threshold && state != State::EXITING)
 		{
 			text.setPosition(dest);
 			state = State::IDLE;

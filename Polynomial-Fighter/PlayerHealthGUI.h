@@ -23,13 +23,6 @@ public:
 	void updateHealthGraphics(float deltaTime);
 
 	void draw(sf::RenderTarget& target, sf::RenderStates states = sf::RenderStates::Default) const override;
-		
-private:
-	const float fillingSpeed = 0.05f;
-	const float unscalingSpeed = 0.01f;
-	const float scaleMultiplier = 1.3f;
-	const float minScalingThreshold = 0.01f;
-	const int defaultNumberOfRounds = 5;
 };
 
 #endif

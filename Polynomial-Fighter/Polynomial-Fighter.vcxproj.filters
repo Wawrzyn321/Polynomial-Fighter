@@ -209,9 +209,6 @@
     <ClInclude Include="Debug.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Asset Manager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="IDamageable.h">
       <Filter>Header Files</Filter>
     </ClInclude>

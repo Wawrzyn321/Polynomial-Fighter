@@ -262,14 +262,7 @@ RequestValue DivisorStringHandler::handleImplementation(const std::string& input
 			return { { p }, RH_Codes::DIVISION_BY_ZERO };
 		}
 		//check range
-		if (RequestSubprocessor::isInRangeInclusive(p))
-		{
-			return { { p }, RH_Codes::DIVISOR };
-		}
-		else
-		{
-			return { { p }, RH_Codes::OUT_OF_RANGE };
-		}
+		return { { p }, RH_Codes::DIVISOR };
 	}
 	//stoi error
 	catch (std::invalid_argument &invalidArgumentException)

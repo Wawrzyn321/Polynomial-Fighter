@@ -36,11 +36,6 @@ public:
 	void update(const Time::TimeData& timeData);
 
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
-private:
-	const float fillingSpeed = 0.05f;
-	const float unscalingSpeed = 0.01f;
-	const float scaleMultiplier = 1.3f;
-	const float minScalingThreshold = 0.01f;
 };
 
 

@@ -202,7 +202,6 @@
     <ClInclude Include="StopWatch.h" />
     <ClInclude Include="TitleText.h" />
     <ClInclude Include="APSBuilder.h" />
-    <ClInclude Include="Asset Manager.h" />
     <ClInclude Include="BulletBase.h" />
     <ClInclude Include="CameraShake.h" />
     <ClInclude Include="Colors.h" />

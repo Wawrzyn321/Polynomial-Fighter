@@ -35,7 +35,7 @@ PlayerHealthGUI::PlayerHealthGUI(const sf::Vector2f &position, const sf::Vector2
 void PlayerHealthGUI::setMaximumHealth(float maxHealth)
 {
 	this->maxHealth = maxHealth;
-	text.scale(scaleMultiplier, scaleMultiplier);
+	text.scale(GameData::scaleMultiplier, GameData::scaleMultiplier);
 }
 
 void PlayerHealthGUI::updateHealthGraphics(float deltaTime)
@@ -48,9 +48,9 @@ void PlayerHealthGUI::updateHealthGraphics(float deltaTime)
 	text.setString(to_stringWithPrecision(health, 1) + "/" + to_stringWithPrecision(maxHealth, 1));
 
 	float textScale = text.getScale().x;
-	if (abs(textScale - 1) > minScalingThreshold)
+	if (abs(textScale - 1) > GameData::minScalingThreshold)
 	{
-		textScale = lerp(textScale, 1.0f, deltaTime*unscalingSpeed);
+		textScale = lerp(textScale, 1.0f, deltaTime*GameData::unscalingSpeed);
 		text.setScale(textScale, textScale);
 	}
 	else

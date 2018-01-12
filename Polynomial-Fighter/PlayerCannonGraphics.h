@@ -2,7 +2,7 @@
 #define PLAYER_CANNON_GRAPHICS_H
 #include <SFML/Graphics.hpp>
 #include <memory>
-
+#include "AssetManager.h"
 
 class PlayerCannonGraphics : public sf::Drawable
 {
@@ -23,7 +23,7 @@ public:
 	void setPosition(const sf::Vector2f &position);
 
 private:
-	const unsigned fontSize = 28;
+	const unsigned fontSize = unsigned(GameData::WINDOW_SIZE.x*0.24f);
 	const float startingRotationAngleModifier = -25;
 	const float minAngleDifference = 1.2f;
 	const float rotationSpeed = 0.01f;

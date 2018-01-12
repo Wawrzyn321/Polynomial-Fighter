@@ -2,12 +2,12 @@
 #define ENEMY_H
 #include "Entity.h"
 #include "IDamageable.h"
-#include "Debug.h"
 #include "PolynomialProductForm.h"
 #include "PowerfulText.h"
 #include "Delegate.h"
 #include "EnemyCannon.h"
 #include "EnemyPolynomialAdapter.h"
+#include "AssetManager.h"
 
 class Player;
 class Enemy : public Entity, public IDamageable
@@ -67,7 +67,7 @@ public:
 	Enemy(Enemy&&) = default;
 private:
 	const float enemyCollisionRadius = 10.0f;
-	const float enemyInnerRadiusSQR = 180 * 180;
+	const float enemyInnerRadiusSQR = (GameData::WINDOW_SIZE.x* 0.176f)*(GameData::WINDOW_SIZE.x* 0.176f);
 };
 
 #endif

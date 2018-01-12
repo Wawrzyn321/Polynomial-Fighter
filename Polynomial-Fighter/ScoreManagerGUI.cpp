@@ -41,7 +41,7 @@ ScoreManagerGUI::ScoreManagerGUI(const sf::Vector2f& position, const sf::Vector2
 void ScoreManagerGUI::setTargetPoints(int targetPoints)
 {
 	this->targetPoints = static_cast<unsigned int>(targetPoints);
-	scoreText.scale(scaleMultiplier, scaleMultiplier);
+	scoreText.scale(GameData::scaleMultiplier, GameData::scaleMultiplier);
 }
 
 void ScoreManagerGUI::updateStageNo(unsigned stageNo, unsigned pointsToAdd)
@@ -77,9 +77,9 @@ void ScoreManagerGUI::reset()
 void ScoreManagerGUI::update(const Time::TimeData& timeData)
 {
 	float scale = scoreText.getScale().x;
-	if (abs(scale - 1) > minScalingThreshold)
+	if (abs(scale - 1) > GameData::minScalingThreshold)
 	{
-		scale = lerp(scale, 1.0f, timeData.getScaledDeltaTimeInMili()*unscalingSpeed);
+		scale = lerp(scale, 1.0f, timeData.getScaledDeltaTimeInMili()*GameData::unscalingSpeed);
 		scoreText.setScale(scale, scale);
 	}
 	else
@@ -89,7 +89,7 @@ void ScoreManagerGUI::update(const Time::TimeData& timeData)
 
 	if (targetPoints > currentPoints)
 	{
-		currentPoints = lerp(currentPoints, float(targetPoints), timeData.getScaledDeltaTimeInMili()*fillingSpeed);
+		currentPoints = lerp(currentPoints, float(targetPoints), timeData.getScaledDeltaTimeInMili()*GameData::fillingSpeed);
 		if (targetPoints - currentPoints < 1)
 		{
 			currentPoints = float(targetPoints);

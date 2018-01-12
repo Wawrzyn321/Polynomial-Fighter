@@ -4,15 +4,6 @@
 #include "GameData.h"
 #include <memory>
 
-/*
-play
-howto
-snd on off
-scores
-exit
- */
-
-
 class GUIRingOptions : public sf::Drawable
 {
 public:
@@ -75,6 +66,5 @@ private:
 	const float rotationSpeed = 0.008f;
 	const float rotationThreshold = 0.002f;
 };
-
 
 #endif

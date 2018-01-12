@@ -59,8 +59,11 @@ void HowToImageViewer::update(float deltaTime)
 {
 	deltaTime = clamp01(deltaTime);
 	deltaTime *= 0.1f;
-	setAlpha(image1, lerp(static_cast<int>(image1.getColor().a), alpha1, deltaTime));
-	setAlpha(image2, lerp(static_cast<int>(image2.getColor().a), alpha2, deltaTime));
+
+	float newAlpha1 = lerp(float(image1.getColor().a), float(alpha1), deltaTime);
+	float newAlpha2 = lerp(float(image2.getColor().a), float(alpha2), deltaTime);
+	setAlpha(image1, int(newAlpha1));
+	setAlpha(image2, int(newAlpha2));
 }
 
 void HowToImageViewer::draw(sf::RenderTarget& target, sf::RenderStates states) const

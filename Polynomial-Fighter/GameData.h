@@ -37,6 +37,11 @@ namespace GameData {
 	const sf::Vector2i WINDOW_SIZE = sf::Vector2i(1024, 768);
 	const sf::IntRect DEFAULT_BOUNDS = sf::IntRect({ 0,0 }, WINDOW_SIZE);;
 
+	const float fillingSpeed = 0.05f;
+	const float unscalingSpeed = 0.01f;
+	const float scaleMultiplier = 1.3f;
+	const float minScalingThreshold = 0.01f;
+
 	const unsigned MAX_POLYNOMINAL_DEGREE = 7;
 	const unsigned MAX_POLYNOMINAL_VALUE = 5;
 }

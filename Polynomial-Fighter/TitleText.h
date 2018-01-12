@@ -36,7 +36,7 @@ public:
 
 private:
 	const float lerpSpeed = 0.007f;
-	const float lerpThreshold = 0.1f;
+	const float vector2Threshold = 0.1f;
 	const float outlineThickness = 0.1f;
 };
 
