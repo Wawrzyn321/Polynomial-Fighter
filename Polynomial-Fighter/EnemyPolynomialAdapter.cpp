@@ -28,7 +28,8 @@ void EnemyPolynomialAdapter::reduceCoefficientsBy(int divisor)
 	bool canReduce = pgf.divideCoefficients(commonDivisor);
 	if (!canReduce)
 	{
-		Debug::PrintFormatted("Enemy::reduceBy: cannot reduce by %\n", divisor);
+		//Debug::PrintFormatted("Enemy::reduceBy: cannot reduce by %\n", divisor);
+		return;
 	}
 	commonDivisor *= divisor;
 	pgf.divideCoefficients(commonDivisor);

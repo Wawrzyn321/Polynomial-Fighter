@@ -189,6 +189,9 @@
     <ClCompile Include="TextsProvider.h">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="PauseController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameData.h">
@@ -375,6 +378,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="HowToList.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PauseController.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

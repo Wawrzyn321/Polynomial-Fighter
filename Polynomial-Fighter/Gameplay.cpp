@@ -3,7 +3,7 @@
 #include "GameplayManager.h"
 #include "EntityManager.h"
 
-void Gameplay::handleEvents()
+void Gameplay::handleEvents() const
 {
 	auto t = Time::Timer::instance();
 
@@ -13,28 +13,6 @@ void Gameplay::handleEvents()
 		if (event.type == sf::Event::Closed) {
 			window->close();
 			return;
-		}
-		if (event.type == sf::Event::LostFocus) {
-			t->setTimeScale(0);
-		}
-
-		if (event.type == sf::Event::GainedFocus) {
-			t->setTimeScale(1);
-		}
-		if (event.type == sf::Event::MouseWheelMoved)
-		{
-			t->setTimeScale(t->getTimeScale() + event.mouseWheel.delta*0.1f);
-		}
-		if (event.type == sf::Event::MouseButtonPressed)
-		{
-			if (event.mouseButton.button == sf::Mouse::Middle)
-			{
-				t->setTimeScale(1);
-			}
-		}
-		if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::D)
-		{
-			isRunning = false;
 		}
 		gameplayManager->feed(event);
 	}
@@ -69,6 +47,7 @@ Gameplay::Gameplay(sf::RenderWindow* window)
 
 	em = EntityManager::instance();
 	gameplayManager = new GameplayManager(window);
+	gameplayManager->bindExitAction(this);
 
 	isRunning = true;
 }
@@ -83,6 +62,8 @@ void Gameplay::mainLoop()
 
 		draw();
 	}
+
+	Time::Timer::instance()->setTimeScale(1.0f);
 }
 
 Gameplay::~Gameplay()

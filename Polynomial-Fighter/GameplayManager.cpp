@@ -6,7 +6,7 @@
 #include "InputFieldParser.h"
 #include "Enemy.h"
 #include <cassert>
-#include "FleetingText.h"
+#include "Gameplay.h"
 #include "Colors.h"
 #include "RandomGenerator.h"
 
@@ -134,6 +134,14 @@ GameplayManager::GameplayManager(sf::RenderWindow* window) : scoreManager(ScoreM
 	reset();
 }
 
+void GameplayManager::bindExitAction(Gameplay *game)
+{
+	pauseController.OnExitRequested.add(std::bind([](Gameplay *game)
+	{
+		game->isRunning = false;
+	}, game));
+}
+
 void GameplayManager::reset()
 {
 	currentStage = 0;
@@ -159,6 +167,7 @@ void GameplayManager::feed(const sf::Event& event)
 	}
 
 	inputField->feed(event);
+	pauseController.feed(event);
 }
 
 void GameplayManager::update(const Time::TimeData &timeData)
@@ -169,12 +178,14 @@ void GameplayManager::update(const Time::TimeData &timeData)
 	scoreManager.update(timeData);
 	inputField->update(timeData);
 	cameraShake.update(timeData);
+	pauseController.update(timeData);
 }
 
 void GameplayManager::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	target.draw(ring, states);
 	scoreManager.draw(target, states);
+	pauseController.draw(target, states);
 	if (inputField != nullptr) {
 		inputField->draw(target, states);
 	}

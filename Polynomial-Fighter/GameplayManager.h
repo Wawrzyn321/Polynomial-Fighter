@@ -5,7 +5,9 @@
 #include "Entity.h"
 #include "CameraShake.h"
 #include "InputField.h"
+#include "PauseController.h"
 
+class Gameplay;
 class GameplayManager
 {
 	unsigned currentStage{};
@@ -19,6 +21,7 @@ class GameplayManager
 	EnemySpawner spawner;
 	ScoreManager scoreManager;
 	CameraShake cameraShake;
+	PauseController pauseController;
 	sf::CircleShape ring;
 	InputField *inputField;
 	std::shared_ptr<Player> player;
@@ -38,6 +41,8 @@ public:
 	GameplayManager(){}
 	GameplayManager(sf::RenderWindow* window);
 	GameplayManager(const GameplayManager &) {}
+
+	void bindExitAction(Gameplay* game);
 
 	void reset();
 

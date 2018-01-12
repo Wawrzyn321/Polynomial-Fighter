@@ -34,7 +34,7 @@ namespace TextsProvider
 		"Source Control Manager\n                   P.W",
 		"UI/UX Designer\n           P.W.",
 		"Copy-paste Executive\n                 P.W.",
-		"Chief testing officers\n   Halamix2, Janczar",
+		"   Chief testing officers\nHalamix2, Janczar, Noras",
 	};
 }
 

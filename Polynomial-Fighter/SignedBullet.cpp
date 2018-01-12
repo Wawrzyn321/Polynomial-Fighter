@@ -51,7 +51,9 @@ void SignedBullet::setTarget(const std::shared_ptr<Entity> &recipient, float spe
 {
 	if (!recipient)
 	{
-		Debug::PrintErrorFormatted("Bullet::setTarget: recipient is null!\n");
+		//Debug::PrintErrorFormatted("Bullet::setTarget: recipient is null!\n");
+		setToDelete(true);
+		setEnabled(false);
 		return;
 	}
 	this->recipientID = recipient->getId();
@@ -85,6 +87,5 @@ void SignedBullet::update(const Time::TimeData &timeData)
 
 void SignedBullet::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-	//target.draw(caption, states);
 	target.draw(symbol, states);
 }

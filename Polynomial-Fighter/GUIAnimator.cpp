@@ -26,7 +26,7 @@ void GUIAnimator::initGraphics()
 	highscores = new HighscoresList(center + sf::Vector2f(0, size.y*0.15f));
 	highscores->initTexts(HighscoreService::getFormattedHighscores());
 
-	howTo = new HowToList(center + sf::Vector2f(size.x*0.2f, size.y*0.1f), howToViewer);
+	howTo = new HowToList(center + sf::Vector2f(size.x*0.2f, size.y*0.15f), howToViewer);
 	howTo->initTexts(TextsProvider::howTo);
 
 	highscores = new HighscoresList(center + sf::Vector2f(0, size.y*0.15f));

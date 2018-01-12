@@ -1,5 +1,6 @@
 #include "Timer.h"
 #include "SoundManager.h"
+#include "Debug.h"
 
 namespace Time {
 

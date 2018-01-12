@@ -32,6 +32,11 @@ void PlayerCannon::getNextTarget()
 
 void PlayerCannon::shoot()
 {
+	if (!EntityManager::instance()->findEntityById(currentTarget.recipientID))
+	{
+		return;
+	}
+
 	targets.erase(targets.begin());
 	sf::Vector2f muzzlePoint = origin + graphics->computeMuzzleShift();
 
@@ -39,11 +44,6 @@ void PlayerCannon::shoot()
 	sb->name = "Signed bullet with " +
 		std::to_string(currentTarget.root) + " for " +
 		std::to_string(currentTarget.recipientID);
-
-	if (!EntityManager::instance()->findEntityById(currentTarget.recipientID))
-	{
-		Debug::PrintErrorFormatted("no to sie stac nie powinno %", currentTarget.recipientID);
-	}
 
 	graphics->setShoot(muzzlePoint, playerReference->getRotation());
 

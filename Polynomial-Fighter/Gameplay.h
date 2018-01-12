@@ -7,14 +7,14 @@ class Gameplay {
 	EntityManager* em;
 	GameplayManager *gameplayManager;
 	sf::RenderWindow* window;
-	bool isRunning;
 
-	void handleEvents();
+	void handleEvents() const;
 
 	void update() const;
 
 	void draw() const;
 public:
+	bool isRunning;
 	Gameplay(sf::RenderWindow* window);
 
 	void mainLoop();

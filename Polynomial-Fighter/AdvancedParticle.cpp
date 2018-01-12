@@ -30,7 +30,6 @@ void AdvancedParticle::checkPulse()
 	if (std::fabs(velocity.x) < minValues::minVelocity && std::fabs(velocity.y) < minValues::minVelocity)
 	{
 		isAlive = false;
-		//Debug::PrintFormatted("DEAD by speed");
 		parent->informOfDeath();
 	}
 
@@ -38,13 +37,11 @@ void AdvancedParticle::checkPulse()
         std::fabs(circle.getScale().y) < minValues::minScale)
 	{
 		isAlive = false;
-		//Debug::PrintFormatted("DEAD by scale");
 		parent->informOfDeath();
 	}
 
 	if(currentColor.calculateMaxDifference(endColor, true) < minValues::minColorDifference) {
 		isAlive = false;
-		//Debug::PrintFormatted("DEAD by color");
 		parent->informOfDeath();
 	}
 }

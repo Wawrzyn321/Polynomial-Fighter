@@ -56,4 +56,9 @@ void Colors::load()
 	backgroundColor = lerp(FOURTH, BLACK, 0.8f);
 	outlineColor = lerp(FIRST, BLACK, 0.1f);
 	textColor = lerp(WHITE, THIRD, 0.2f);
+	/*Debug::PrintFormatted("% % %\n", (int)FIRST.r, (int)FIRST.g, (int)FIRST.b);
+	Debug::PrintFormatted("% % %\n", (int)SECOND.r, (int)SECOND.g, (int)SECOND.b);
+	Debug::PrintFormatted("% % %\n", (int)THIRD.r, (int)THIRD.g, (int)THIRD.b);
+	Debug::PrintFormatted("% % %\n", (int)FOURTH.r, (int)FOURTH.g, (int)FOURTH.b);
+	Debug::PrintFormatted("% % %\n", (int)FIFTH.r, (int)FIFTH.g, (int)FIFTH.b);*/
 }
