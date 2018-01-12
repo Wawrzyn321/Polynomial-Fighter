@@ -26,6 +26,7 @@ void HighscoresGUI::initTexts(const std::vector<std::string> &texts)
 		entries.push_back(new RollingListEntry(
 			sf::Text("No scores yet!", *font, fontSize), center));
 		centerTextOrigin(entries.back()->text);
+		entries.back()->text.setPosition(center);
 	}
 	else
 	{
@@ -33,6 +34,7 @@ void HighscoresGUI::initTexts(const std::vector<std::string> &texts)
 		{
 			entries.push_back(new RollingListEntry(sf::Text(texts[i], *font, fontSize), center));
 			centerTextOrigin(entries.back()->text);
+			entries.back()->text.setPosition(center);
 		}
 	}
 

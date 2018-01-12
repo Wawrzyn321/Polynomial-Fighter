@@ -9,10 +9,6 @@ GUIRingOptions::GUIRingOptions(const sf::Vector2f &center)
 	currentOption = 0;
 	commonRotation = 0;
 	currentPosition = 0;
-	isVisible = false;
-	isUpdatngRotation = true;
-	isExiting = false;
-	isToGame = false;
 
 	font = AssetManager::instance()->getDefaultFont();
 
@@ -38,7 +34,20 @@ GUIRingOptions::GUIRingOptions(const sf::Vector2f &center)
 
 void GUIRingOptions::handleDistanceMoving(float deltaTime)
 {
-	float y = isVisible ? GameData::WINDOW_SIZE.y*1.71875f : GameData::WINDOW_SIZE.y*0.8f;
+	float y;
+	if (isVisible)
+	{
+		y = GameData::WINDOW_SIZE.y*1.71875f;
+	}
+	else if (isZoomed)
+	{
+		y = GameData::WINDOW_SIZE.y*1.25f;
+	}
+	else
+	{
+		y = GameData::WINDOW_SIZE.y*0.8f;
+	}
+
 	for (sf::Text* b : buttons)
 	{
 		b->setPosition(lerp(b->getPosition(), { b->getPosition().x, y }, rotationSpeed*deltaTime));
@@ -78,7 +87,7 @@ void GUIRingOptions::handleColoring(float deltaTime)
 	{
 		sf::Color color;
 
-		if (isExiting || isToGame) { color = sf::Color::Transparent; }
+		if (isExiting || isTransitioningToGame) { color = sf::Color::Transparent; }
 		else if (i == currentOption) { color = Colors::FIFTH; }
 		else { color = Colors::THIRD; }
 

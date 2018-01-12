@@ -18,12 +18,12 @@ void GUIAnimator::initGraphics()
 
 	optionsRing = new GUIRingOptions(center);
 
-	howToViewer = new HowToImageViewer(center);
+	howToViewer = new HowToImageViewer(center + sf::Vector2f(0, size.y*0.05f));
 
-	highscores = new HighscoresGUI(center + sf::Vector2f(0, size.x*0.11f));
+	highscores = new HighscoresGUI(center + sf::Vector2f(0, size.y*0.15f));
 	highscores->initTexts(HighscoreService::getFormattedHighscores());
 
-	howTo = new HowToGUI(center + sf::Vector2f(size.x*0.2f, size.y*0.05f), howToViewer);
+	howTo = new HowToGUI(center + sf::Vector2f(size.x*0.2f, size.y*0.1f), howToViewer);
 	howTo->initTexts(std::vector<std::string>(HelpProvider::texts, HelpProvider::texts + HelpProvider::len));
 }
 
@@ -73,7 +73,7 @@ void GUIAnimator::setMenu(bool resetCurrentOption) const
 	ring->state = GUIRing::State::TO_MAJOR;
 	title->state = TitleText::State::MENU;
 	optionsRing->setVisible(true, resetCurrentOption);
-	optionsRing->isToGame = false;
+	optionsRing->isTransitioningToGame = false;
 	howToViewer->hideAll();
 }
 
@@ -95,7 +95,7 @@ void GUIAnimator::setToGame() const
 {
 	title->state = TitleText::State::UP;
 	ring->state = GUIRing::State::TO_GAME;
-	optionsRing->isToGame = true;
+	optionsRing->isTransitioningToGame = true;
 }
 
 void GUIAnimator::rotateRingLeft() const
@@ -119,10 +119,11 @@ void GUIAnimator::moveHighscoresDown() const
 }
 
 void GUIAnimator::setHighscoresVisible(bool visible) const{
-	if(visible){
+	if (visible){
 		highscores->initTexts(HighscoreService::getFormattedHighscores());
 		ring->state = GUIRing::State::TO_MEDIUM;
 	}
+	optionsRing->isZoomed = visible;
 	highscores->setVisible(visible);
 }
 
@@ -137,10 +138,11 @@ void GUIAnimator::moveHowToDown() const
 }
 
 void GUIAnimator::setHowToVisible(bool visible) const {
-	if(visible){
+	if (visible){
 		ring->state = GUIRing::State::TO_RIGHT_MEDIUM;
 		howToViewer->show(0);
 	}
+	optionsRing->isZoomed = visible;
 	howTo->setVisible(visible);
 }
 

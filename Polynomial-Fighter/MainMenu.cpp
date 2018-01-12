@@ -1,6 +1,7 @@
 #include "MainMenu.h"
 #include "Timer.h"
 #include "SoundManager.h"
+#include "Debug.h"
 
 void MainMenu::handleHighScoreKeys(sf::Keyboard::Key key)
 {

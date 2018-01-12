@@ -1,7 +1,6 @@
 #include "ParticleMaster.h"
 #include "APSBuilder.h"
 #include "EntityManager.h"
-#include "Enemy.h"
 #include "ParticleTrail.h"
 
 void ParticleMaster::addPlayerShootParticles(const sf::Vector2f& position, float rotation)
@@ -45,7 +44,7 @@ void ParticleMaster::addEnemyHitParticles(const sf::Vector2f &position, const sf
 	aps = APSBuilder::startBuilding(position)
 		->setMainData(1500, 15)
 		.setIntervals(100)
-		.setColors(sf::Color::Red, 0.7f, Colors::WHITE, 0.1f, 0.002f)
+		.setColors(Colors::FIRST, 0.7f, Colors::WHITE, 0.1f, 0.002f)
 		.setAsCircle(10 * modifier, 5)
 		.setVelocity(0.04f * modifier, 0.1f, 0.998f)
 		.setScaling(0.998f)
@@ -59,7 +58,7 @@ void ParticleMaster::addEnemyDestroyedParticles(const sf::Vector2f& position, fl
 	auto aps = APSBuilder::startBuilding(position)
 		->setMainData(4000, 50)
 		.setIntervals(100)
-		.setColors(sf::Color::Red, 0.1f, Colors::WHITE, 0.1f, 0.002f)
+		.setColors(Colors::FIRST, 0.1f, Colors::WHITE, 0.1f, 0.002f)
 		.setAsCircle(10, 12)
 		.setVelocity(0.15f*modifier, 0.1f, 0.999f)
 		.setScaling(0.997f)
@@ -72,7 +71,7 @@ void ParticleMaster::addPlayerHitParticles(const sf::Vector2f &position, const s
 	auto aps = APSBuilder::startBuilding(position)
 		->setMainData(2000, 15)
 		.setIntervals(100)
-		.setColors(sf::Color::Red, 0.3f, Colors::WHITE, 0.1f, 0.001f)
+		.setColors(Colors::FIRST, 0.3f, Colors::WHITE, 0.1f, 0.001f)
 		.setAsCircle(4, 6)
 		.setVelocity(0.4f * modifier, 0.1f, 0.999f)
 		.setScaling(0.999f)
@@ -86,7 +85,7 @@ void ParticleMaster::addPlayerDestroyedParticles(const sf::Vector2f& position, f
 	auto aps = APSBuilder::startBuilding(position)
 		->setMainData(3000, 100)
 		.setIntervals(100)
-		.setColors(sf::Color::Red, 0.1f, Colors::WHITE, 0.0f, 0.001f)
+		.setColors(Colors::FIRST, 0.1f, Colors::WHITE, 0.0f, 0.001f)
 		.setAsCircle(5, 6)
 		.setVelocity(0.5f * modifier, 0.2f, 0.995f)
 		.setScaling(0.999f)

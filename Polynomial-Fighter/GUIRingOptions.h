@@ -3,7 +3,6 @@
 #include <array>
 #include "GameData.h"
 #include <memory>
-#include "Timer.h"
 
 /*
 play
@@ -43,7 +42,8 @@ private:
 	bool isVisible = false;
 	bool isExiting = false;
 public:
-	bool isToGame = false;
+	bool isZoomed = false;
+	bool isTransitioningToGame = false;
 	GUIRingOptions(const sf::Vector2f &center);
 
 	void handleDistanceMoving(float deltaTime);

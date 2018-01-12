@@ -89,7 +89,7 @@ private:
 	};
 	RingValues toRightMediumValues = {
 		0.4f,
-		sf::Vector2f(0.7f, 0.5f),
+		sf::Vector2f(0.69f, 0.6f),
 	};
 	RingValues toMediumValues = {
 		0.35f,

@@ -49,7 +49,7 @@ void RollingList::updateTargets(int delta)
 			entries[0]->targetColor = Colors::textLitColor;
 			entries[0]->targetPosition = center;
 			entries[0]->targetScale = 1.0f;
-			entries[0]->text.setPosition(center + sf::Vector2f(0.0f, delta * oneEntryShift));
+			entries[0]->text.setPosition(center + sf::Vector2f(0.0f, clamp01(delta) * oneEntryShift));
 		}
 		else if(entries.size() == 2)
 		{
@@ -98,16 +98,8 @@ void RollingList::moveDown()
 
 void RollingList::setVisible(bool visible)
 {
-	if (visible)
-	{
-		state = State::MOVING;
-		updateTargets();
-	}
-	else
-	{
-		state = State::HIDING;
-		updateTargets();
-	}
+	state = visible ? State::MOVING : State::HIDING;
+	updateTargets();
 }
 
 void RollingList::update(float deltaTime)

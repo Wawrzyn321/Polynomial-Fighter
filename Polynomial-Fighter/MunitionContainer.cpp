@@ -28,7 +28,7 @@ void MunitionContainer::refreshUI()
 void MunitionContainer::initGraphics(const sf::Vector2f& position, const sf::Vector2f& size)
 {
 	backgroundRectangle = sf::RectangleShape(size);
-	backgroundRectangle.setFillColor(Colors::screenBackgroundColor);
+	backgroundRectangle.setFillColor(Colors::backgroundColor);
 	backgroundRectangle.setOutlineThickness(size.y*0.1f);
 	backgroundRectangle.setOutlineColor(Colors::outlineColor);
 	backgroundRectangle.setPosition(position);
