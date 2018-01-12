@@ -3,24 +3,6 @@
 #include "SoundManager.h"
 #include "Debug.h"
 
-void MainMenu::handleHighScoreKeys(sf::Keyboard::Key key)
-{
-	switch (key)
-	{
-	case sf::Keyboard::W:
-		animator->moveHighscoresUp();
-		break;
-	case sf::Keyboard::S:
-		animator->moveHighscoresDown();
-		break;
-	case sf::Keyboard::Escape:
-		animator->setMenu(false);
-		animator->setHighscoresVisible(false);
-		state = State::MENU;
-		break;
-	}
-}
-
 void MainMenu::handleMenuEvents(sf::Keyboard::Key key)
 {
 	switch (key)
@@ -38,7 +20,8 @@ void MainMenu::handleMenuEvents(sf::Keyboard::Key key)
 	case sf::Keyboard::Space:
 	case sf::Keyboard::Return:
 		animator->setHowToVisible(false);
-		animator->setHighscoresVisible(false);
+		animator->setHighscoresVisibles(false);
+		animator->setAuthorsVisible(false);
 		switch (animator->getRingOption()) {
 		case GUIRingOptions::Option::PLAY:
 		{
@@ -55,8 +38,13 @@ void MainMenu::handleMenuEvents(sf::Keyboard::Key key)
 			break;
 		case GUIRingOptions::Option::HIGHSCORES:
 			animator->setEmptyCenter();
-			animator->setHighscoresVisible(true);
+			animator->setHighscoresVisibles(true);
 			state = State::HIGHSCORES;
+			break;
+		case GUIRingOptions::Option::AUTHORS:
+			animator->setEmptyCenter();
+			animator->setAuthorsVisible(true);
+			state = State::AUHTORS;
 			break;
 		case GUIRingOptions::Option::EXIT:
 			animator->setExiting();
@@ -69,6 +57,24 @@ void MainMenu::handleMenuEvents(sf::Keyboard::Key key)
 			animator->setSound(SoundManager::instance()->isOn);
 			break;
 		}
+	}
+}
+
+void MainMenu::handleHighScoreKeys(sf::Keyboard::Key key)
+{
+	switch (key)
+	{
+	case sf::Keyboard::W:
+		animator->moveHighscoresUp();
+		break;
+	case sf::Keyboard::S:
+		animator->moveHighscoresDown();
+		break;
+	case sf::Keyboard::Escape:
+		animator->setMenu(false);
+		animator->setHighscoresVisibles(false);
+		state = State::MENU;
+		break;
 	}
 }
 
@@ -85,6 +91,24 @@ void MainMenu::handleHowToKeys(sf::Keyboard::Key key)
 	case sf::Keyboard::Escape:
 		animator->setMenu(false);
 		animator->setHowToVisible(false);
+		state = State::MENU;
+		break;
+	}
+}
+
+void MainMenu::handleAuthorsKeys(sf::Keyboard::Key key)
+{
+	switch (key)
+	{
+	case sf::Keyboard::W:
+		animator->moveAuthorsUp();
+		break;
+	case sf::Keyboard::S:
+		animator->moveAuthorsDown();
+		break;
+	case sf::Keyboard::Escape:
+		animator->setMenu(false);
+		animator->setAuthorsVisible(false);
 		state = State::MENU;
 		break;
 	}
@@ -119,6 +143,9 @@ void MainMenu::handleEvents()
 				break;
 			case State::HOW_TO:
 				handleHowToKeys(event.key.code);
+				break;
+			case State::AUHTORS:
+				handleAuthorsKeys(event.key.code);
 				break;
 			}
 		}

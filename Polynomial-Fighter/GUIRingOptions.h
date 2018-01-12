@@ -13,6 +13,7 @@ public:
 		HOW_TO,
 		HIGHSCORES,
 		EXIT,
+		AUTHORS,
 		SOUND,
 	};
 private:
@@ -20,10 +21,11 @@ private:
 	sf::Text *button_howto;
 	sf::Text *button_highscores;
 	sf::Text *button_exit;
+	sf::Text *button_authors;
 	sf::Text *button_sound;
 
 	std::shared_ptr<sf::Font> font;
-	std::array<sf::Text*, 5> buttons;
+	std::array<sf::Text*, 6> buttons;
 
 	float commonRotation = 0;
 	int currentOption = 0;

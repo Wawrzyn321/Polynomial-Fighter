@@ -3,10 +3,10 @@
 #include "RollingList.h"
 
 class RollingListEntry;
-class HighscoresGUI : public RollingList
+class HighscoresList : public RollingList
 {
 public:
-	HighscoresGUI(const sf::Vector2f &center);
+	HighscoresList(const sf::Vector2f &center);
 
 	void initTexts(const std::vector<std::string> &texts) override;
 private:

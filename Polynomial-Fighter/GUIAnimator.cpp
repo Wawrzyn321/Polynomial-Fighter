@@ -2,9 +2,12 @@
 #include "TitleText.h"
 #include "MainMenu.h"
 #include "GUIRing.h"
-#include "HelpProvider.h"
 #include "HighscoresService.h"
 #include "HowToImageViewer.h"
+#include "AuthorsList.h"
+#include "HighscoresList.h"
+#include "HowToList.h"
+#include "TextsProvider.h"
 
 void GUIAnimator::initGraphics()
 {
@@ -20,11 +23,17 @@ void GUIAnimator::initGraphics()
 
 	howToViewer = new HowToImageViewer(center + sf::Vector2f(0, size.y*0.05f));
 
-	highscores = new HighscoresGUI(center + sf::Vector2f(0, size.y*0.15f));
+	highscores = new HighscoresList(center + sf::Vector2f(0, size.y*0.15f));
 	highscores->initTexts(HighscoreService::getFormattedHighscores());
 
-	howTo = new HowToGUI(center + sf::Vector2f(size.x*0.2f, size.y*0.1f), howToViewer);
-	howTo->initTexts(std::vector<std::string>(HelpProvider::texts, HelpProvider::texts + HelpProvider::len));
+	howTo = new HowToList(center + sf::Vector2f(size.x*0.2f, size.y*0.1f), howToViewer);
+	howTo->initTexts(TextsProvider::howTo);
+
+	highscores = new HighscoresList(center + sf::Vector2f(0, size.y*0.15f));
+	highscores->initTexts(HighscoreService::getFormattedHighscores());
+
+	authors = new AuthorsList(center + sf::Vector2f(0, size.y*0.15f));
+	authors->initTexts(TextsProvider::authors);
 }
 
 GUIAnimator::GUIAnimator(MainMenu* menuReference)
@@ -44,6 +53,7 @@ void GUIAnimator::update(const Time::TimeData& timeData) const
 	highscores->update(deltaTime);
 	howTo->update(deltaTime);
 	howToViewer->update(deltaTime);
+	authors->update(deltaTime);
 }
 
 void GUIAnimator::draw(sf::RenderTarget& target, sf::RenderStates states) const
@@ -54,6 +64,7 @@ void GUIAnimator::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	target.draw(*highscores, states);
 	target.draw(*howTo, states);
 	target.draw(*howToViewer, states);
+	target.draw(*authors, states);
 }
 
 GUIRingOptions::Option GUIAnimator::getRingOption() const
@@ -118,7 +129,7 @@ void GUIAnimator::moveHighscoresDown() const
 	highscores->moveDown();
 }
 
-void GUIAnimator::setHighscoresVisible(bool visible) const{
+void GUIAnimator::setHighscoresVisibles(bool visible) const{
 	if (visible){
 		highscores->initTexts(HighscoreService::getFormattedHighscores());
 		ring->state = GUIRing::State::TO_MEDIUM;
@@ -146,6 +157,24 @@ void GUIAnimator::setHowToVisible(bool visible) const {
 	howTo->setVisible(visible);
 }
 
+void GUIAnimator::moveAuthorsUp() const
+{
+	authors->moveUp();
+}
+
+void GUIAnimator::moveAuthorsDown() const
+{
+	authors->moveDown();
+}
+
+void GUIAnimator::setAuthorsVisible(bool visible) const {
+	if (visible) {
+		ring->state = GUIRing::State::TO_MEDIUM;
+	}
+	optionsRing->isZoomed = visible;
+	authors->setVisible(visible);
+}
+
 void GUIAnimator::setSound(bool isOn) const
 {
 	optionsRing->setSoundOn(isOn);
@@ -159,4 +188,5 @@ GUIAnimator::~GUIAnimator()
 	delete highscores;
 	delete howTo;
 	delete howToViewer;
+	delete authors;
 }

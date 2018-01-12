@@ -16,6 +16,7 @@ public:
 		EXITING,
 		HIGHSCORES,
 		HOW_TO,
+		AUHTORS,
 	};
 
 private:
@@ -24,11 +25,13 @@ private:
 	StopWatch *stopWatch;
 	bool isRunning;
 
-	void handleHighScoreKeys(sf::Keyboard::Key key);
-
 	void handleMenuEvents(sf::Keyboard::Key key);
 
+	void handleHighScoreKeys(sf::Keyboard::Key key);
+
 	void handleHowToKeys(sf::Keyboard::Key key);
+
+	void handleAuthorsKeys(sf::Keyboard::Key key);
 
 	void handleEvents();
 

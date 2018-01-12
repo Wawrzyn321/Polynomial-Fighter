@@ -17,11 +17,12 @@ GUIRingOptions::GUIRingOptions(const sf::Vector2f &center)
 	button_highscores = new sf::Text("Highscores", *font, fontSize);
 	button_exit = new sf::Text("Exit", *font, fontSize);
 	button_sound = new sf::Text("Sound: On", *font, fontSize);
+	button_authors = new sf::Text("Authors", *font, fontSize);
 
 	buttons = {
 		button_play, button_howto,
 		button_highscores, button_exit,
-		button_sound };
+		button_authors, button_sound };
 
 	for (unsigned i = 0; i < buttons.size(); i++)
 	{

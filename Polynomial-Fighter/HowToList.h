@@ -4,11 +4,11 @@
 #include "HowToImageViewer.h"
 
 class RollingListEntry;
-class HowToGUI : public RollingList
+class HowToList : public RollingList
 {
 	HowToImageViewer* howToViewer;
 public:
-	HowToGUI(const sf::Vector2f &center, HowToImageViewer* howToViewer);
+	HowToList(const sf::Vector2f &center, HowToImageViewer* howToViewer);
 
 	void initTexts(const std::vector<std::string> &texts) override;
 

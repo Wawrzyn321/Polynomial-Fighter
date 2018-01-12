@@ -1,9 +1,8 @@
-#include "HighscoresGUI.h"
+#include "AuthorsList.h"
 #include "AssetManager.h"
-#include "RollingListEntry.h"
-#include "RandomGenerator.h"
+#include "Utility.h"
 
-HighscoresGUI::HighscoresGUI(const sf::Vector2f& center)
+AuthorsList::AuthorsList(const sf::Vector2f& center)
 {
 	this->center = center - sf::Vector2f(0, GameData::WINDOW_SIZE.x * 0.05f);
 
@@ -13,7 +12,7 @@ HighscoresGUI::HighscoresGUI(const sf::Vector2f& center)
 	state = State::HIDING;
 }
 
-void HighscoresGUI::initTexts(const std::vector<std::string> &texts)
+void AuthorsList::initTexts(const std::vector<std::string> &texts)
 {
 	for (RollingListEntry* t : entries)
 	{

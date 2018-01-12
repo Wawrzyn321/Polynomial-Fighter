@@ -132,12 +132,12 @@
   <ItemGroup>
     <ClCompile Include="AdvancedParticle.cpp" />
     <ClCompile Include="AdvancedParticleSystem.cpp" />
+    <ClCompile Include="AuthorsList.cpp" />
     <ClCompile Include="Colors.cpp" />
-    <ClCompile Include="HelpProvider.h" />
-    <ClCompile Include="HighscoresGUI.cpp" />
+    <ClCompile Include="TextsProvider.h" />
+    <ClCompile Include="HighscoresList.cpp" />
     <ClCompile Include="HighscoresService.cpp" />
-    <ClCompile Include="HighscoressGUI.cpp" />
-    <ClCompile Include="HowToGUI.cpp" />
+    <ClCompile Include="HowToList.cpp" />
     <ClCompile Include="HowToImageViewer.cpp" />
     <ClCompile Include="RollingList.cpp" />
     <ClCompile Include="RollingListEntry.cpp" />
@@ -193,9 +193,10 @@
     <ClInclude Include="AdvancedParticle.h" />
     <ClInclude Include="AdvancedParticleSystem.h" />
     <ClInclude Include="AdvancedParticleSystemData.h" />
-    <ClInclude Include="HighscoresGUI.h" />
+    <ClInclude Include="AuthorsList.h" />
+    <ClInclude Include="HighscoresList.h" />
     <ClInclude Include="HighscoresService.h" />
-    <ClInclude Include="HowToGUI.h" />
+    <ClInclude Include="HowToList.h" />
     <ClInclude Include="HowToImageViewer.h" />
     <ClInclude Include="RollingList.h" />
     <ClInclude Include="RollingListEntry.h" />

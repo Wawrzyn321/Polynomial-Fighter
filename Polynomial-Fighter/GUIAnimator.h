@@ -2,13 +2,14 @@
 #define GUI_ANIMATOR_H
 #include "Timer.h"
 #include "GUIRingOptions.h"
-#include "HighscoresGUI.h"
-#include "HowToGUI.h"
 
 class MainMenu;
 class GUIRing;
 class TitleText;
 class HowToImageViewer;
+class AuthorsList;
+class HighscoresList;
+class HowToList;
 class GUIAnimator
 {
 	GUIRing *ring;
@@ -16,8 +17,10 @@ class GUIAnimator
 	GUIRingOptions *optionsRing;
 	MainMenu* menuReference;
 	HowToImageViewer* howToViewer;
-	HighscoresGUI *highscores;
-	HowToGUI *howTo;
+
+	HighscoresList *highscores;
+	HowToList *howTo;
+	AuthorsList *authors;
 
 	void initGraphics();
 public:
@@ -47,13 +50,19 @@ public:
 
 	void moveHighscoresDown() const;
 
-	void setHighscoresVisible(bool visible) const;
+	void setHighscoresVisibles(bool visible) const;
 
 	void moveHowToUp() const;
 
 	void moveHowToDown() const;
 
 	void setHowToVisible(bool visible) const;
+
+	void moveAuthorsUp() const;
+
+	void moveAuthorsDown() const;
+
+	void setAuthorsVisible(bool visible) const;
 
 	void setSound(bool isOn) const;
 
