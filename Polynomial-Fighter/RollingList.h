@@ -32,7 +32,7 @@ public:
 
 	virtual void moveDown();
 
-	void setVisible(bool visible);
+	void setVisible(bool visible, bool resetCurrentlyCentered = true);
 
 	void update(float deltaTime);
 

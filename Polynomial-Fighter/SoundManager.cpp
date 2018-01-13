@@ -4,7 +4,7 @@
 
 SoundManager *SoundManager::sInstance = nullptr;
 
-float SoundManager::menuSoundShift = 0.5f;
+float SoundManager::menuSoundShift = 0.001f;
 
 void SoundManager::play(std::shared_ptr<sf::Sound> sound, std::shared_ptr<sf::SoundBuffer> buffer, const sf::Vector2f &position)
 {

@@ -12,11 +12,11 @@ void MainMenu::handleMenuEvents(sf::Keyboard::Key key)
 		break;
 	case sf::Keyboard::A:
 		animator->rotateRingRight();
-		playVerticalSound(Assets::SOUND_CLICK, SoundManager::menuSoundShift);
+		playVerticalSound(Assets::SOUND_CLICK, -SoundManager::menuSoundShift);
 		break;
 	case sf::Keyboard::D:
 		animator->rotateRingLeft();
-		playVerticalSound(Assets::SOUND_CLICK, -SoundManager::menuSoundShift);
+		playVerticalSound(Assets::SOUND_CLICK, SoundManager::menuSoundShift);
 		break;
 	case sf::Keyboard::Space:
 	case sf::Keyboard::Return:
@@ -178,7 +178,7 @@ void MainMenu::handleEvents()
 		if (event.type == sf::Event::GainedFocus) {
 			t->setTimeScale(1);
 		}
-		if (event.type == sf::Event::MouseWheelMoved)
+		/*if (event.type == sf::Event::MouseWheelMoved)
 		{
 			t->setTimeScale(t->getTimeScale() + event.mouseWheel.delta*0.1f);
 		}
@@ -188,7 +188,7 @@ void MainMenu::handleEvents()
 			{
 				t->setTimeScale(1);
 			}
-		}
+		}*/
 	}
 }
 
@@ -220,8 +220,8 @@ void MainMenu::onGame()
 void MainMenu::playVerticalSound(const std::string& sound, float soundShift)
 {
 	sf::Vector2f position = {
-		GameData::WINDOW_SIZE.x*(0.5f + soundShift),
-		GameData::WINDOW_SIZE.y*0.5f
+		GameData::WINDOW_SIZE.x * (0.5f + soundShift),
+		GameData::WINDOW_SIZE.y * (0.5f + soundShift)
 	};
 	SoundManager::instance()->playSound(sound, position);
 }
