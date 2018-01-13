@@ -67,6 +67,11 @@ int RandomGenerator::getVariation(int value, float percentage)
 	return getInt(value - max, value + max);
 }
 
+int RandomGenerator::getSign()
+{
+	return getFloat(0.0f, 1.0f) > 0.5f;
+}
+
 sf::Color RandomGenerator::getRandomColor(bool includeAlpha)
 {
 	sf::Uint8 r = getInt(0, 255);

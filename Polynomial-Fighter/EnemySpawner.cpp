@@ -17,7 +17,7 @@ void EnemySpawner::spawnEnemy()
     auto deg = clamp(difficultyLevel + 1, unsigned(1), GameData::MAX_POLYNOMINAL_DEGREE);
 	auto valuesRange = clamp(difficultyLevel + 1, unsigned(1), GameData::MAX_POLYNOMINAL_VALUE);
 	PolynomialProductForm pff = PolynomialGenerator::generatePolynomial(deg, valuesRange);
-	sf::Vector2f position = getPointOnIntRect(bounds);
+	sf::Vector2f position = getPointOnIntRect(bounds, 12, 25);
 
 	float speed = 0.1f + difficultyLevel*0.01f;
 	auto e = std::make_shared<Enemy>(Enemy());

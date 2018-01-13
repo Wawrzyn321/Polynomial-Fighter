@@ -15,6 +15,7 @@ public:
     static double getDoubleGauss(double mean, double stdDev = 1.0);
 	static float getVariation(float value, float percentage);
 	static int getVariation(int value, float percentage);
+	static int getSign();
 	static sf::Color getRandomColor(bool includeAlpha = false);
 	static sf::Color getVariation(sf::Color color, float variation, bool includeAlpha = false);
 

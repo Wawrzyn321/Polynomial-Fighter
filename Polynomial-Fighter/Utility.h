@@ -32,6 +32,8 @@ void rotateTowards(sf::Transformable& sprite, float angleDeg, float time = 1.0f)
 
 sf::Vector2f getPointOnIntRect(const sf::FloatRect& bounds);
 
+sf::Vector2f getPointOnIntRect(const sf::FloatRect& bounds, float verticalAngle, float horizontalAngle);
+
 sf::Color colorWithAlpha(const sf::Color &color, int alpha);
 
 #pragma region Template functions

@@ -28,7 +28,7 @@ std::string to_stringWithPrecision(float value, int p)
 
 float minAngleDifference(float from, float to) {
 	float difference = to - from;
-	difference = clamp(static_cast<float>(difference - floor(difference / 360.0f) * 360.0f), 0.0f, 360.0f);
+	difference = clamp(difference - floorf(difference / 360.0f) * 360.0f, 0.0f, 360.0f);
 	return difference > 180.0f ? difference - 360.0f : difference;
 }
 
@@ -96,7 +96,7 @@ float lerpAngle(float from, float to, float t)
 sf::Vector2f getPointOnIntRect(const sf::FloatRect& bounds)
 {
 	bool horizontal = RandomGenerator::getBoolean();
-	if(horizontal)
+	if (horizontal)
 	{
 		float latitude = RandomGenerator::getFloat(0, bounds.width);
 		bool left = RandomGenerator::getBoolean();
@@ -108,6 +108,44 @@ sf::Vector2f getPointOnIntRect(const sf::FloatRect& bounds)
 		bool top = RandomGenerator::getBoolean();
 		return { (top ? bounds.width : 0), altitude };
 	}
+}
+
+sf::Vector2f getPointOnIntRect(const sf::FloatRect& bounds, float verticalAngle, float horizontalAngle)
+{
+	bool horizontal = RandomGenerator::getBoolean();
+	float length = sqrtf(bounds.width*bounds.width + bounds.height*bounds.height);
+	float x, y;
+	if (horizontal)
+	{
+		float a = RandomGenerator::getFloat(-horizontalAngle*0.5f, +horizontalAngle*0.5f)*pi / 180.0f;
+		y = GameData::WINDOW_SIZE.y * 0.5f + length * sinf(a);
+		int sign = RandomGenerator::getSign();
+		if (sign > 0)
+		{
+			x = float(GameData::WINDOW_SIZE.x);
+		}
+		else
+		{
+			x = 0;
+		}
+	}
+	else
+	{
+		float a = RandomGenerator::getFloat(90 -verticalAngle*0.5f, 90 + verticalAngle*0.5f)*pi / 180.0f;
+		x = GameData::WINDOW_SIZE.x *0.5f + length * cosf(a);
+		int sign = RandomGenerator::getSign();
+		if (sign > 0)
+		{
+			y = float(GameData::WINDOW_SIZE.y);
+		}
+		else
+		{
+			y = 0;
+		}
+	}
+	x = clamp(x, 0, GameData::WINDOW_SIZE.x);
+	y = clamp(y, 0, GameData::WINDOW_SIZE.y);
+	return { x,y };
 }
 
 sf::Color colorWithAlpha(const sf::Color &color, int alpha)
