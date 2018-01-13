@@ -82,8 +82,5 @@ bool HighscoreService::addScore(unsigned score)
 		saveHighScores();
 		return true;
 	}
-	else
-	{
-		return false;
-	}
+	return false;
 }
