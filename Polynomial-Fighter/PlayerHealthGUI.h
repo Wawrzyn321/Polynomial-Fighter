@@ -18,6 +18,8 @@ public:
 
 	PlayerHealthGUI(const sf::Vector2f &position, const sf::Vector2f &size, float maxHealth);
 
+	void addHealth(float healthToAdd);
+
 	void setMaximumHealth(float maxHealth);
 
 	void updateHealthGraphics(float deltaTime);

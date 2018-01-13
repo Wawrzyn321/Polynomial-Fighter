@@ -83,6 +83,7 @@ void GUIAnimator::setSplash() const
 
 void GUIAnimator::setMenu(bool resetCurrentOption, bool playSound) const
 {
+	SoundManager::instance()->setListenerDirection(0);
 	ring->state = GUIRing::State::TO_MAJOR;
 	title->state = TitleText::State::MENU;
 	optionsRing->setVisible(true, resetCurrentOption);

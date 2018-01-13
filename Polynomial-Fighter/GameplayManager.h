@@ -23,6 +23,7 @@ class GameplayManager
 	CameraShake cameraShake;
 	PauseController pauseController;
 	sf::CircleShape ring;
+	Gameplay* gameplay;
 	InputField *inputField;
 	std::shared_ptr<Player> player;
 
@@ -39,7 +40,7 @@ public:
 	void initInputField();
 
 	GameplayManager(){}
-	GameplayManager(sf::RenderWindow* window);
+	GameplayManager(Gameplay* gameplay, sf::RenderWindow* window);
 	GameplayManager(const GameplayManager &) {}
 
 	void bindExitAction(Gameplay* game);

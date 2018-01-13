@@ -42,8 +42,19 @@ void GameplayManager::EnemySpawned(unsigned id)
 
 void GameplayManager::EnemyDestroyed(unsigned id)
 {
+	const float healAmount = 0.1f;
+
+	if (player->getAlive()) {
+		auto e = EntityManager::instance()->findEntityById(id);
+		assert(e);
+		auto enemy = std::dynamic_pointer_cast<Enemy>(e);
+		assert(enemy);
+		player->heal(enemy->getPolynomial()->getOriginalDegree()*healAmount);
+	}
+
 	cameraShake.shake(2, 70);
 	enemiesAlive--;
+	allDestroyedEnemies++;
 	if (enemiesAlive == 0 && alreadySpawnedEnemies == targetEnemiesNumber)
 	{
 		startNextLevel();
@@ -73,8 +84,9 @@ void GameplayManager::PlayerDestroyed()
 		enemy->setState(Enemy::State::STOPPED);
 	}
 
+	pauseController.forceSwitchTo(false);
+	gameplay->state = Gameplay::State::Finished;
 	scoreManager.showFinalScore(allDestroyedEnemies);
-
 	SoundManager::instance()->playSound(Assets::SOUND_FAILED);
 }
 
@@ -116,8 +128,8 @@ void GameplayManager::initInputField()
 
 	inputField = new InputField(
 	{ GameData::WINDOW_SIZE.x * 0.67f, GameData::WINDOW_SIZE.y * 0.89f },
-	{ GameData::WINDOW_SIZE.x * 0.3f, GameData::WINDOW_SIZE.y * 0.08f }
-	);
+	{ GameData::WINDOW_SIZE.x * 0.3f, GameData::WINDOW_SIZE.y * 0.08f },
+	&pauseController);
 	inputField->OnTextSubmitted.clear();
 	inputField->OnTextSubmitted.add(std::bind(&GameplayManager::TextSubmitted, this, std::placeholders::_1));
 	EntityManager::instance()->findEntityOfType<Player>()->DeathEvent.add(std::bind(&InputField::disable, inputField));
@@ -126,21 +138,21 @@ void GameplayManager::initInputField()
 
 #pragma endregion
 
-GameplayManager::GameplayManager(sf::RenderWindow* window) : scoreManager(ScoreManager())
+GameplayManager::GameplayManager(Gameplay* gameplay, sf::RenderWindow* window) : scoreManager(ScoreManager())
 {
+	this->gameplay = gameplay;
+
 	cameraShake.connectWindow(window);
-
 	initGraphics();
-
 	reset();
 }
 
 void GameplayManager::bindExitAction(Gameplay *game)
 {
-	pauseController.OnExitRequested.add(std::bind([](Gameplay *game)
+	pauseController.OnExitRequested.add(std::bind([](Gameplay *gameplay)
 	{
-		game->isRunning = false;
-	}, game));
+		gameplay->isRunning = false;
+	}, gameplay));
 }
 
 void GameplayManager::reset()
@@ -162,13 +174,22 @@ void GameplayManager::reset()
 
 void GameplayManager::feed(const sf::Event& event)
 {
-	if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::R)
+	/*if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::R)
 	{
 		reset();
-	}
+	}*/
 
-	inputField->feed(event);
-	pauseController.feed(event);
+	if (gameplay->state == Gameplay::State::On) {
+		inputField->feed(event);
+		pauseController.feed(event);
+	}
+	else
+	{
+		if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
+		{
+			gameplay->isRunning = false;
+		}
+	}
 }
 
 void GameplayManager::update(const Time::TimeData &timeData)

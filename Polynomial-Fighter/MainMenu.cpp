@@ -12,11 +12,11 @@ void MainMenu::handleMenuEvents(sf::Keyboard::Key key)
 		break;
 	case sf::Keyboard::A:
 		animator->rotateRingRight();
-		SoundManager::instance()->playSound(Assets::SOUND_CLICK);
+		playVerticalSound(Assets::SOUND_CLICK, SoundManager::menuSoundShift);
 		break;
 	case sf::Keyboard::D:
 		animator->rotateRingLeft();
-		SoundManager::instance()->playSound(Assets::SOUND_CLICK);
+		playVerticalSound(Assets::SOUND_CLICK, -SoundManager::menuSoundShift);
 		break;
 	case sf::Keyboard::Space:
 	case sf::Keyboard::Return:
@@ -30,6 +30,7 @@ void MainMenu::handleMenuEvents(sf::Keyboard::Key key)
 			state = State::TO_GAME;
 			stopWatch->reset(900, true);
 			stopWatch->OnTime.add(std::bind(&MainMenu::onGame, this));
+			SoundManager::instance()->playSound(Assets::SOUND_GAME_LOAD);
 		}
 		break;
 		case GUIRingOptions::Option::HOW_TO:
@@ -72,11 +73,11 @@ void MainMenu::handleHighScoreKeys(sf::Keyboard::Key key)
 	{
 	case sf::Keyboard::W:
 		animator->moveHighscoresUp();
-		SoundManager::instance()->playSound(Assets::SOUND_CLICK);
+		SoundManager::instance()->playSound(Assets::SOUND_ROLLING_LIST_MOVE);
 		break;
 	case sf::Keyboard::S:
 		animator->moveHighscoresDown();
-		SoundManager::instance()->playSound(Assets::SOUND_CLICK);
+		SoundManager::instance()->playSound(Assets::SOUND_ROLLING_LIST_MOVE);
 		break;
 	case sf::Keyboard::Escape:
 		animator->setMenu(false);
@@ -93,11 +94,11 @@ void MainMenu::handleHowToKeys(sf::Keyboard::Key key)
 	{
 	case sf::Keyboard::W:
 		animator->moveHowToUp();
-		SoundManager::instance()->playSound(Assets::SOUND_CLICK);
+		SoundManager::instance()->playSound(Assets::SOUND_ROLLING_LIST_MOVE);
 		break;
 	case sf::Keyboard::S:
 		animator->moveHowToDown();
-		SoundManager::instance()->playSound(Assets::SOUND_CLICK);
+		SoundManager::instance()->playSound(Assets::SOUND_ROLLING_LIST_MOVE);
 		break;
 	case sf::Keyboard::Escape:
 		animator->setMenu(false);
@@ -114,11 +115,11 @@ void MainMenu::handleAuthorsKeys(sf::Keyboard::Key key)
 	{
 	case sf::Keyboard::W:
 		animator->moveAuthorsUp();
-		SoundManager::instance()->playSound(Assets::SOUND_CLICK);
+		SoundManager::instance()->playSound(Assets::SOUND_ROLLING_LIST_MOVE);
 		break;
 	case sf::Keyboard::S:
 		animator->moveAuthorsDown();
-		SoundManager::instance()->playSound(Assets::SOUND_CLICK);
+		SoundManager::instance()->playSound(Assets::SOUND_ROLLING_LIST_MOVE);
 		break;
 	case sf::Keyboard::Escape:
 		animator->setMenu(false);
@@ -136,6 +137,15 @@ void MainMenu::handleEvents()
 	sf::Event event;
 	while (window->pollEvent(event))
 	{
+		/*sf::Listener::setPosition(GameData::WINDOW_SIZE.x*0.5f, 0.0f, GameData::WINDOW_SIZE.y*0.5f);
+		if (event.type == sf::Event::MouseButtonPressed)
+		{
+			if (event.mouseButton.button == sf::Mouse::Right) {
+				auto v = sf::Vector2f(event.mouseButton.x, event.mouseButton.y);
+				SoundManager::instance()->playSound(Assets::SOUND_EXPLOSION_SHORT, v);
+			}
+		}*/
+
 		if (event.type == sf::Event::Closed) {
 			window->close();
 			return;
@@ -207,6 +217,15 @@ void MainMenu::onGame()
 	state = State::MENU;
 }
 
+void MainMenu::playVerticalSound(const std::string& sound, float soundShift)
+{
+	sf::Vector2f position = {
+		GameData::WINDOW_SIZE.x*(0.5f + soundShift),
+		GameData::WINDOW_SIZE.y*0.5f
+	};
+	SoundManager::instance()->playSound(sound, position);
+}
+
 MainMenu::MainMenu(sf::RenderWindow* window)
 {
 	this->window = window;
@@ -216,6 +235,7 @@ MainMenu::MainMenu(sf::RenderWindow* window)
 
 	stopWatch = new StopWatch();
 	animator = new GUIAnimator(this);
+	sf::Listener::setPosition(GameData::WINDOW_SIZE.x*0.5f, 0, GameData::WINDOW_SIZE.y*0.5f);
 
 	isRunning = true;
 	state = State::SPLASH;

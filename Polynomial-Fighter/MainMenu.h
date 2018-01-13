@@ -41,6 +41,7 @@ private:
 
 	void onGame();
 
+	void playVerticalSound(const std::string& sound, float soundShift);
 public:
 	State state;
 

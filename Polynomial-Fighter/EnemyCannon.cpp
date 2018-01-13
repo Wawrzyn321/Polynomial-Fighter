@@ -17,7 +17,7 @@ void EnemyCannon::shoot()
 
 		std::string s = Assets::SOUND_ENEMY_SHOOT;
 		s[Assets::SOUND_ENEMY_SHOOT_REPLACE] = '0' + RandomGenerator::getInt(1, 3);
-		SoundManager::instance()->playSound(s);
+		SoundManager::instance()->playSound(s, enemyReference->getPosition());
 	}
 }
 

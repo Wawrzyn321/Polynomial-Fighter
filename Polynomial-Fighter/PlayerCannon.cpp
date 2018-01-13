@@ -63,6 +63,7 @@ void PlayerCannon::addAfterAppendText(int targetsAdded) const
 	{
 		caption = "Miss";
 		color = sf::Color(255, 233, 233);
+		SoundManager::instance()->playSound(Assets::SOUND_MISS);
 	}
 	else if (targetsAdded == 1)
 	{

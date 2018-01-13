@@ -29,7 +29,7 @@ public:
 
 	void updateStageNo(unsigned stageNo, unsigned pointsStageFinished = 0);
 
-	void showFinalScore();
+	void updateScoreToFinal();
 
 	void reset();
 

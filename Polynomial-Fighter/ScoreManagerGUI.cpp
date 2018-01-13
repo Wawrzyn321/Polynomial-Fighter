@@ -60,7 +60,7 @@ void ScoreManagerGUI::updateStageNo(unsigned stageNo, unsigned pointsToAdd)
 	updateScoreText();
 }
 
-void ScoreManagerGUI::showFinalScore()
+void ScoreManagerGUI::updateScoreToFinal()
 {
 	currentPoints = float(targetPoints);
 }

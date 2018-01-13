@@ -20,6 +20,7 @@ SoundManager * SoundManager::instance()
     {
         sInstance = new SoundManager();
         sInstance->assetManagerInstance = AssetManager::instance();
+		sInstance->assetManagerInstance->getSound(Assets::SOUND_CLICK);
     }
 
     return sInstance;

@@ -2,6 +2,8 @@
 #include "Utility.h"
 #include "Colors.h"
 #include "AssetManager.h"
+#include "FleetingText.h"
+#include "EntityManager.h"
 
 void PlayerHealthGUI::initGraphics(const sf::Vector2f &position, const sf::Vector2f &size)
 {
@@ -30,6 +32,20 @@ PlayerHealthGUI::PlayerHealthGUI(const sf::Vector2f &position, const sf::Vector2
 
 	initGraphics(position, size);
 	updateHealthGraphics(1.0f);
+}
+
+void PlayerHealthGUI::addHealth(float healthToAdd)
+{
+	float previousHealth = health;
+	health = clamp(health + healthToAdd, health, maxHealth);
+	if (previousHealth < health)
+	{
+		sf::Vector2f position = text.getPosition() - sf::Vector2f(GameData::WINDOW_SIZE.x*0.04f, GameData::WINDOW_SIZE.y*0.04f);
+		auto ft = std::make_shared<FleetingText>("+" + to_stringWithPrecision(healthToAdd, 1),
+			position, Colors::THIRD, unsigned(GameData::WINDOW_SIZE.x*0.03f));
+		ft->run(0.001f, { 0, -0.03f });
+		EntityManager::instance()->addEntity(ft);
+	}
 }
 
 void PlayerHealthGUI::setMaximumHealth(float maxHealth)

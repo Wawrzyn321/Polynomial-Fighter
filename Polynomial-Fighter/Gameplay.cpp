@@ -46,10 +46,11 @@ Gameplay::Gameplay(sf::RenderWindow* window)
 	Time::Timer::instance()->reset();
 
 	em = EntityManager::instance();
-	gameplayManager = new GameplayManager(window);
+	gameplayManager = new GameplayManager(this, window);
 	gameplayManager->bindExitAction(this);
 
 	isRunning = true;
+	state = State::On;
 }
 
 void Gameplay::mainLoop()

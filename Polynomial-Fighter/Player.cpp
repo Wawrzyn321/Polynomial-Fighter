@@ -26,12 +26,14 @@ void Player::updateRotation(float deltaTime)
 	if (abs(minAngleDifference(shape.getRotation(), targetRotation))>min_difference)
 	{
 		rotateTowards(shape, targetRotation, deltaTime*speed);
+		SoundManager::instance()->setListenerDirection(shape.getRotation() + 90);
 	}
 	else if (!rotationEventInvoked)
 	{
 		rotationEventInvoked = true;
 		shape.setRotation(targetRotation);
 		FinishedRotatingEvent(targetRotation);
+		SoundManager::instance()->setListenerDirection(shape.getRotation() + 90);
 	}
 }
 
@@ -44,6 +46,7 @@ Player::Player(const sf::Vector2f& position)
 	collisionRadius = playerCollisionRadius;
 	isAlive = true;
 
+	SoundManager::instance()->setListenerDirection(0);
 	FinishedRotatingEvent.clear();
 	DeathEvent.clear();
 
@@ -106,7 +109,8 @@ void Player::addHealthCapacity(float additionalCapacity, bool showFleetingText)
 
 void Player::heal(float healthPoints)
 {
-	health += healthPoints;
+	health = clamp(health + healthPoints, health, maxHealth);
+	healthGUI->addHealth(healthPoints);
 }
 
 #pragma region ITransformable
@@ -120,6 +124,7 @@ void Player::setPosition(const sf::Vector2f &position)
 {
 	shape.setPosition(position);
 	cannon->setPosition(position);
+	sf::Listener::setPosition(position.x, 0, position.y);
 }
 
 #pragma endregion
@@ -159,7 +164,7 @@ void Player::receiveDamage(float damage, float bonusDamageMultiplier)
 		isAlive = false;
 		collisionsEnabled = false;
 		ParticleMaster::addPlayerDestroyedParticles(getPosition(), bonusDamageMultiplier);
-		SoundManager::instance()->playSound(Assets::EXPLOSION_LONG);
+		SoundManager::instance()->playSound(Assets::SOUND_EXPLOSION_LONG);
 	}
 }
 
@@ -172,7 +177,7 @@ void Player::receiveDamage(float damage, const sf::Vector2f &incoming, float bon
 	receiveDamage(damage, bonusDamageMultiplier);
 
 	std::string s = Assets::SOUND_PLAYER_HIT;
-	s[Assets::SOUND_PLAYER_HIT_REPLACE] = RandomGenerator::getInt(1, 2);
+	s[Assets::SOUND_PLAYER_HIT_REPLACE] = '0' + RandomGenerator::getInt(1, 2);
 	SoundManager::instance()->playSound(s);
 }
 

@@ -4,6 +4,13 @@
 
 class EntityManager;
 class Gameplay {
+public:
+	enum class State
+	{
+		On,
+		Finished,
+	};
+private:
 	EntityManager* em;
 	GameplayManager *gameplayManager;
 	sf::RenderWindow* window;
@@ -14,6 +21,7 @@ class Gameplay {
 
 	void draw() const;
 public:
+	State state;
 	bool isRunning;
 	Gameplay(sf::RenderWindow* window);
 

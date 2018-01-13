@@ -134,6 +134,7 @@
     <ClCompile Include="AdvancedParticleSystem.cpp" />
     <ClCompile Include="AuthorsList.cpp" />
     <ClCompile Include="Colors.cpp" />
+    <ClCompile Include="FinalScreen.cpp" />
     <ClCompile Include="PauseController.cpp" />
     <ClCompile Include="TextsProvider.h" />
     <ClCompile Include="HighscoresList.cpp" />
@@ -195,6 +196,7 @@
     <ClInclude Include="AdvancedParticleSystem.h" />
     <ClInclude Include="AdvancedParticleSystemData.h" />
     <ClInclude Include="AuthorsList.h" />
+    <ClInclude Include="FinalScreen.h" />
     <ClInclude Include="HighscoresList.h" />
     <ClInclude Include="HighscoresService.h" />
     <ClInclude Include="HowToList.h" />
