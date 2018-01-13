@@ -4,6 +4,7 @@
 #include "EntityManager.h"
 #include "SoundManager.h"
 #include "Player.h"
+#include "AssetManager.h"
 
 void EnemyCannon::shoot()
 {
@@ -14,7 +15,9 @@ void EnemyCannon::shoot()
 		b->setTarget(player, bulletSpeed);
 		EntityManager::instance()->addEntity(b);
 
-		SoundManager::instance()->playSound(GameData::SOUND_ENEMY_SHOOT);
+		std::string s = Assets::SOUND_ENEMY_SHOOT;
+		s[Assets::SOUND_ENEMY_SHOOT_REPLACE] = '0' + RandomGenerator::getInt(1, 3);
+		SoundManager::instance()->playSound(s);
 	}
 }
 

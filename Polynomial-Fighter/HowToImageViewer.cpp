@@ -11,7 +11,7 @@ void HowToImageViewer::loadImages()
 	};
 	for (unsigned i = 0; i < names.size(); i++)
 	{	
-		textures[i] = AssetManager::instance()->getTexture(GameData::PATH_TO_HOW_TO + names[i]);
+		textures[i] = AssetManager::instance()->getTexture(Assets::PATH_TO_HOW_TO + names[i]);
 	}
 }
 

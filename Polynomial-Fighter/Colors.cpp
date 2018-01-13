@@ -2,6 +2,7 @@
 #include "Utility.h"
 #include <fstream>
 #include "GameData.h"
+#include "AssetManager.h"
 
 sf::Color Colors::FIRST;
 sf::Color Colors::SECOND;
@@ -19,7 +20,7 @@ sf::Color Colors::textColor;
 
 void Colors::load()
 {
-	std::fstream pIn = std::fstream(GameData::PATH_TO_RESOURCES + GameData::PATH_TO_COLOR_SCHEME);
+	std::fstream pIn = std::fstream(Assets::PATH_TO_RESOURCES + Assets::PATH_TO_COLOR_SCHEME);
 	if (pIn.good())
 	{
 		int r, g, b;

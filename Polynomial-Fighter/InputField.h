@@ -6,7 +6,7 @@
 #include "AssetManager.h"
 #include "Timer.h"
 #include "Delegate.h"
-#include "Colors.h"
+#include "PauseController.h"
 
 class InputField : public sf::Drawable
 {
@@ -16,6 +16,7 @@ class InputField : public sf::Drawable
 	sf::Vector2f size;
 	sf::Vector2f position;
 	std::shared_ptr<sf::Font> font;
+	PauseController *pauseController;
 
 	void initGraphics();
 
@@ -28,7 +29,7 @@ public:
 	Delegate<const std::string&> OnTextSubmitted;
 	bool interactable{};
 	InputField(){}
-	InputField(const sf::Vector2f &position, const sf::Vector2f &size);
+	InputField(const sf::Vector2f &position, const sf::Vector2f &size, PauseController *pauseController);
 
 	void feed(const sf::Event &event);
 

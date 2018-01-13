@@ -4,6 +4,7 @@
 #include "EntityManager.h"
 #include "Colors.h"
 #include "AssetManager.h"
+#include "SoundManager.h"
 
 MunitionContainer::MunitionContainer(const sf::Vector2f& position, const sf::Vector2f& size)
 {
@@ -64,6 +65,7 @@ void MunitionContainer::addRounds(int roundsToAdd)
 	currentNumberOfRounds = clamp(currentNumberOfRounds + roundsToAdd, 0, maxNumberOfRounds);
 	refreshUI();
 	addFleetingText("+" + std::to_string(roundsToAdd), color_addRounds);
+	SoundManager::instance()->playSound(Assets::SOUND_ADD_ROUNDS);
 }
 
 void MunitionContainer::removeRounds(int roundsToRemove)

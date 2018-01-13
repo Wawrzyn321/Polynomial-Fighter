@@ -1,5 +1,6 @@
 #include "PauseController.h"
 #include "AssetManager.h"
+#include "SoundManager.h"
 
 void PauseController::initGraphics()
 {
@@ -63,6 +64,7 @@ void PauseController::switchPause()
 	else 
 	{
 		mode = Mode::PAUSING;
+		SoundManager::instance()->playSound(Assets::SOUND_PAUSE);
 	}
 }
 

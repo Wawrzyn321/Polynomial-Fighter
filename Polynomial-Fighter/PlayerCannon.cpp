@@ -8,6 +8,7 @@
 #include "FleetingText.h"
 #include "ReductionWave.h"
 #include "SoundManager.h"
+#include "AssetManager.h"
 
 void PlayerCannon::updateState()
 {
@@ -51,7 +52,7 @@ void PlayerCannon::shoot()
 	EntityManager::instance()->addEntity(sb);
 	updateState();
 
-	SoundManager::instance()->playSound(GameData::SOUND_PLAYER_SHOOT);
+	SoundManager::instance()->playSound(Assets::SOUND_PLAYER_SHOOT);
 }
 
 void PlayerCannon::addAfterAppendText(int targetsAdded) const
@@ -155,19 +156,23 @@ void PlayerCannon::appendTargets(const std::vector<int>& values, const std::vect
 			origin + sf::Vector2f(0, -20), sf::Color(255, 233, 233), 20);
 		ft->run(0.001f, { RandomGenerator::getFloat(-0.01f, 0.01f), -0.03f }, 0);
 		EntityManager::instance()->addEntity(ft);
+
+		SoundManager::instance()->playSound(Assets::SOUND_NO_ROUNDS);
 	}
 }
 
-void PlayerCannon::reduce(int divisor, const std::vector<std::shared_ptr<Entity>>& enemies)
+void PlayerCannon::reduce(int divisor, const std::vector<std::shared_ptr<Entity>>& enemies) const
 {
 	if(divisor != 0)
 	{
 		auto rw = std::make_shared<ReductionWave>(playerReference->getPosition(), divisor, enemies);
 		EntityManager::instance()->addEntity(rw);
+		SoundManager::instance()->playSound(Assets::SOUND_WAVE);
 	}
 	else
 	{
 		Debug::PrintFormatted("PlayerCannon::reduce: divisior = 0, tu powinny dziac sie rzeczy\n");
+		SoundManager::instance()->playSound(Assets::SOUND_DIV_0);
 	}
 }
 

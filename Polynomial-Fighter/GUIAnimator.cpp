@@ -8,6 +8,7 @@
 #include "HighscoresList.h"
 #include "HowToList.h"
 #include "TextsProvider.h"
+#include "SoundManager.h"
 
 void GUIAnimator::initGraphics()
 {
@@ -77,15 +78,19 @@ void GUIAnimator::setSplash() const
 	ring->state = GUIRing::State::TO_MINOR;
 	title->state = TitleText::State::SPLASH;
 	optionsRing->setVisible(false, false);
+	SoundManager::instance()->playSound(Assets::SOUND_MENU_BACK);
 }
 
-void GUIAnimator::setMenu(bool resetCurrentOption) const
+void GUIAnimator::setMenu(bool resetCurrentOption, bool playSound) const
 {
 	ring->state = GUIRing::State::TO_MAJOR;
 	title->state = TitleText::State::MENU;
 	optionsRing->setVisible(true, resetCurrentOption);
 	optionsRing->isTransitioningToGame = false;
 	howToViewer->hideAll();
+	if (playSound) {
+		SoundManager::instance()->playSound(Assets::SOUND_CLICK);
+	}
 }
 
 void GUIAnimator::setEmptyCenter() const

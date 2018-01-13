@@ -41,10 +41,11 @@ void InputField::updateCursorPosition()
 	cursor.setPosition(text.getPosition().x + text.getGlobalBounds().width, text.getPosition().y + size.y*0.64f);
 }
 
-InputField::InputField(const sf::Vector2f &position, const sf::Vector2f &size)
+InputField::InputField(const sf::Vector2f &position, const sf::Vector2f &size, PauseController *pauseController)
 {
 	this->size = size;
 	this->position = position;
+	this->pauseController = pauseController;
 
 	initGraphics();
 	OnTextSubmitted.clear();
@@ -54,7 +55,7 @@ InputField::InputField(const sf::Vector2f &position, const sf::Vector2f &size)
 
 void InputField::feed(const sf::Event &event)
 {
-	if (!interactable) return;
+	if (!interactable || pauseController->isPaused()) return;
 
 	if (event.type == sf::Event::TextEntered) {
 

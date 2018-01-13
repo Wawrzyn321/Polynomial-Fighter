@@ -1,6 +1,6 @@
 #include "HighscoresService.h"
-#include "Debug.h"
 #include <fstream>
+#include "AssetManager.h"
 
 std::vector<unsigned> HighscoreService::loadedScores;
 bool HighscoreService::scoresAreLoaded = false;
@@ -11,7 +11,7 @@ HighscoreService::HighscoreService()
 
 void HighscoreService::loadHighScores()
 {
-	std::fstream fIn = std::fstream(GameData::PATH_TO_RESOURCES + GameData::PATH_TO_SAVE, std::ios::in);
+	std::fstream fIn = std::fstream(Assets::PATH_TO_RESOURCES + Assets::PATH_TO_SAVE, std::ios::in);
 	if (fIn.good()) {
 		unsigned i = 0;
 		while (!fIn.eof() && i < maxScoresCount)
@@ -35,7 +35,7 @@ void HighscoreService::loadHighScores()
 
 void HighscoreService::saveHighScores()
 {
-	std::fstream fOut = std::fstream(GameData::PATH_TO_RESOURCES + GameData::PATH_TO_SAVE, std::ios::out);
+	std::fstream fOut = std::fstream(Assets::PATH_TO_RESOURCES + Assets::PATH_TO_SAVE, std::ios::out);
 	for (unsigned score : loadedScores)
 	{
 		fOut << score << std::endl;

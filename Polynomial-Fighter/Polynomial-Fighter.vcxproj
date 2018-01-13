@@ -255,6 +255,12 @@
     <ClInclude Include="Timer.h" />
     <ClInclude Include="Utility.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\img\icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="res\img\resource.rc" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

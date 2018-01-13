@@ -4,6 +4,7 @@
 #include "EnemyCannon.h"
 #include "ParticleMaster.h"
 #include "AssetManager.h"
+#include "SoundManager.h"
 
 void Enemy::initComponents(float angle, PolynomialProductForm pff)
 {
@@ -121,10 +122,14 @@ void Enemy::receiveDamage(float damage, const sf::Vector2f &incoming, float bonu
 	if (polynomial->getDeg() != 0) {
 		ParticleMaster::addEnemyHitParticles(getPosition(), incoming, bonusDamageMultiplier);
 		cannon->resetAccumulator();
+		std::string s = Assets::SOUND_ENEMY_HIT;
+		s[Assets::SOUND_ENEMY_HIT_REPLACE] = '0' + RandomGenerator::getInt(1, 2);
+		SoundManager::instance()->playSound(s);
 	}
 	else
 	{
 		ParticleMaster::addEnemyDestroyedParticles(getPosition(), bonusDamageMultiplier);
+		SoundManager::instance()->playSound(Assets::EXPLOSION_SHORT);
 	}
 }
 

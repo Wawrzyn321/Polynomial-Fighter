@@ -1,7 +1,6 @@
 #include "MainMenu.h"
 #include "Timer.h"
 #include "SoundManager.h"
-#include "Debug.h"
 
 void MainMenu::handleMenuEvents(sf::Keyboard::Key key)
 {
@@ -13,9 +12,11 @@ void MainMenu::handleMenuEvents(sf::Keyboard::Key key)
 		break;
 	case sf::Keyboard::A:
 		animator->rotateRingRight();
+		SoundManager::instance()->playSound(Assets::SOUND_CLICK);
 		break;
 	case sf::Keyboard::D:
 		animator->rotateRingLeft();
+		SoundManager::instance()->playSound(Assets::SOUND_CLICK);
 		break;
 	case sf::Keyboard::Space:
 	case sf::Keyboard::Return:
@@ -51,10 +52,15 @@ void MainMenu::handleMenuEvents(sf::Keyboard::Key key)
 			state = State::EXITING;
 			stopWatch->reset(800, true);
 			stopWatch->OnTime.add(std::bind(&MainMenu::exitGame, this));
+			SoundManager::instance()->playSound(Assets::SOUND_EXIT);
 			break;
 		case GUIRingOptions::Option::SOUND:
 			SoundManager::instance()->isOn = !SoundManager::instance()->isOn;
 			animator->setSound(SoundManager::instance()->isOn);
+			if(SoundManager::instance()->isOn)
+			{
+				SoundManager::instance()->playSound(Assets::SOUND_SOUND_ON);
+			}
 			break;
 		}
 	}
@@ -66,14 +72,17 @@ void MainMenu::handleHighScoreKeys(sf::Keyboard::Key key)
 	{
 	case sf::Keyboard::W:
 		animator->moveHighscoresUp();
+		SoundManager::instance()->playSound(Assets::SOUND_CLICK);
 		break;
 	case sf::Keyboard::S:
 		animator->moveHighscoresDown();
+		SoundManager::instance()->playSound(Assets::SOUND_CLICK);
 		break;
 	case sf::Keyboard::Escape:
 		animator->setMenu(false);
 		animator->setHighscoresVisibles(false);
 		state = State::MENU;
+		SoundManager::instance()->playSound(Assets::SOUND_MENU_BACK);
 		break;
 	}
 }
@@ -84,14 +93,17 @@ void MainMenu::handleHowToKeys(sf::Keyboard::Key key)
 	{
 	case sf::Keyboard::W:
 		animator->moveHowToUp();
+		SoundManager::instance()->playSound(Assets::SOUND_CLICK);
 		break;
 	case sf::Keyboard::S:
 		animator->moveHowToDown();
+		SoundManager::instance()->playSound(Assets::SOUND_CLICK);
 		break;
 	case sf::Keyboard::Escape:
 		animator->setMenu(false);
 		animator->setHowToVisible(false);
 		state = State::MENU;
+		SoundManager::instance()->playSound(Assets::SOUND_MENU_BACK);
 		break;
 	}
 }
@@ -102,14 +114,17 @@ void MainMenu::handleAuthorsKeys(sf::Keyboard::Key key)
 	{
 	case sf::Keyboard::W:
 		animator->moveAuthorsUp();
+		SoundManager::instance()->playSound(Assets::SOUND_CLICK);
 		break;
 	case sf::Keyboard::S:
 		animator->moveAuthorsDown();
+		SoundManager::instance()->playSound(Assets::SOUND_CLICK);
 		break;
 	case sf::Keyboard::Escape:
 		animator->setMenu(false);
 		animator->setAuthorsVisible(false);
 		state = State::MENU;
+		SoundManager::instance()->playSound(Assets::SOUND_MENU_BACK);
 		break;
 	}
 }
@@ -188,13 +203,14 @@ void MainMenu::onGame()
 	Gameplay g = Gameplay(window);
 	g.mainLoop();
 
-	animator->setMenu(true);
+	animator->setMenu(true, false);
 	state = State::MENU;
 }
 
 MainMenu::MainMenu(sf::RenderWindow* window)
 {
 	this->window = window;
+	window->setIcon(32, 32, AssetManager::instance()->getTexture(Assets::ICON)->copyToImage().getPixelsPtr());
 
 	Time::Timer::instance()->reset();
 

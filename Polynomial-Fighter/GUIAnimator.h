@@ -34,7 +34,7 @@ public:
 
 	void setSplash() const;
 
-	void setMenu(bool resetCurrentOption) const;
+	void setMenu(bool resetCurrentOption, bool playSound = true) const;
 
 	void setEmptyCenter() const;
 

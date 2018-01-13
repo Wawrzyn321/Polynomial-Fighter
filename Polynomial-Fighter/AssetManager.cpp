@@ -25,7 +25,7 @@ AssetManager::TexturePointer AssetManager::getTexture(const std::string &filenam
     {
         TexturePointer texture = std::make_shared<sf::Texture>();
 
-        if (!texture->loadFromFile(GameData::PATH_TO_RESOURCES + GameData::PATH_TO_IMAGES + filename))
+        if (!texture->loadFromFile(Assets::PATH_TO_RESOURCES + Assets::PATH_TO_IMAGES + filename))
         {
             Debug::PrintFormatted("AssetManager::getTexture: cannot load texture %!", filename);
             return texture;
@@ -50,7 +50,7 @@ AssetManager::FontPointer AssetManager::getFont(const std::string &filename)
     {
         FontPointer font = std::make_shared<sf::Font>();
 
-        if (!font->loadFromFile(GameData::PATH_TO_RESOURCES + GameData::PATH_TO_FONTS + filename))
+        if (!font->loadFromFile(Assets::PATH_TO_RESOURCES + Assets::PATH_TO_FONTS + filename))
         {
             Debug::PrintFormatted("AssetManager::getFont: cannot load font %!", filename);
             return font;
@@ -75,7 +75,7 @@ AssetManager::SoundBufferPointer AssetManager::getSound(const std::string &filen
     {
         SoundBufferPointer soundBuffer = std::make_shared<sf::SoundBuffer>();
 
-        if (!soundBuffer->loadFromFile(GameData::PATH_TO_RESOURCES + GameData::PATH_TO_SOUNDS + filename))
+        if (!soundBuffer->loadFromFile(Assets::PATH_TO_RESOURCES + Assets::PATH_TO_SOUNDS + filename))
         {
             Debug::PrintFormatted("AssetManager::getSound: cannot load sound %!", filename);
             return soundBuffer;
@@ -90,5 +90,5 @@ AssetManager::SoundBufferPointer AssetManager::getSound(const std::string &filen
 
 AssetManager::FontPointer AssetManager::getDefaultFont()
 {
-    return getFont(GameData::FONT_REGULAR);
+    return getFont(Assets::FONT_REGULAR);
 }

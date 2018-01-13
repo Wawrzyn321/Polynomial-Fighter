@@ -14,7 +14,6 @@ void hideConsole()
 int main()
 {
 	Colors::load();
-
 	hideConsole();
 	
 	sf::RenderWindow window(sf::VideoMode(static_cast<unsigned int>(GameData::WINDOW_SIZE.x),

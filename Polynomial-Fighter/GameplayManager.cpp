@@ -9,6 +9,7 @@
 #include "Gameplay.h"
 #include "Colors.h"
 #include "RandomGenerator.h"
+#include "AssetManager.h"
 
 void GameplayManager::startNextLevel()
 {
@@ -74,7 +75,7 @@ void GameplayManager::PlayerDestroyed()
 
 	scoreManager.showFinalScore(allDestroyedEnemies);
 
-	SoundManager::instance()->playSound(GameData::SOUND_GAME_FAILURE);
+	SoundManager::instance()->playSound(Assets::SOUND_FAILED);
 }
 
 #pragma endregion

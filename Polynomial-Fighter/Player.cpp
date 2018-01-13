@@ -6,6 +6,7 @@
 #include "ParticleMaster.h"
 #include "FleetingText.h"
 #include "AssetManager.h"
+#include "SoundManager.h"
 
 void Player::initGraphics()
 {
@@ -158,6 +159,7 @@ void Player::receiveDamage(float damage, float bonusDamageMultiplier)
 		isAlive = false;
 		collisionsEnabled = false;
 		ParticleMaster::addPlayerDestroyedParticles(getPosition(), bonusDamageMultiplier);
+		SoundManager::instance()->playSound(Assets::EXPLOSION_LONG);
 	}
 }
 
@@ -168,6 +170,10 @@ void Player::receiveDamage(float damage, const sf::Vector2f &incoming, float bon
 		ParticleMaster::addPlayerHitParticles(getPosition(), incoming, bonusDamageMultiplier);
 	}
 	receiveDamage(damage, bonusDamageMultiplier);
+
+	std::string s = Assets::SOUND_PLAYER_HIT;
+	s[Assets::SOUND_PLAYER_HIT_REPLACE] = RandomGenerator::getInt(1, 2);
+	SoundManager::instance()->playSound(s);
 }
 
 #pragma endregion
