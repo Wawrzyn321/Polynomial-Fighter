@@ -19,7 +19,7 @@ public:
 	static float menuSoundShift;
 	bool isOn = true;
 
-	void playSound(const std::string& bufferName, const sf::Vector2f position);
+	void playSound(const std::string& bufferName, const sf::Vector2f &position);
 
 	void playSound(const std::string &bufferName);
 

@@ -25,10 +25,11 @@ int main()
 
 	while(window.getSize().x > 100 && window.isOpen())
 	{
-		float x = float(window.getSize().x);
+		auto size = window.getSize();
+		float x = float(size.x);
 		window.setSize({
 			unsigned(lerp(x, 0.0f, 0.001f)),
-			unsigned(lerp(float(window.getSize().y), 0.0f, 0.001f))
+			unsigned(lerp(float(size.y), 0.0f, 0.001f))
 		});
 	}
 

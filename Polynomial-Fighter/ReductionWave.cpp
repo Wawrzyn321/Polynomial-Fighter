@@ -21,12 +21,14 @@ void ReductionWave::checkDistance()
 			enemies.erase(enemies.begin() + i);
 		}
 		else {
-			float sqrD = squaredDistance(enemies[i].lock()->getPosition(), getPosition());
+			auto enemy = enemies[i].lock();
+			assert(enemy);
+			float sqrD = squaredDistance(enemy->getPosition(), getPosition());
 			if (sqrD < shape.getRadius()*shape.getRadius())
 			{
-				if (enemies[i].lock()->getPolynomial()->canBeReducedBy(divisor))
+				if (enemy->getPolynomial()->canBeReducedBy(divisor))
 				{
-					enemies[i].lock()->getPolynomial()->reduceCoefficientsBy(divisor);
+					enemy->getPolynomial()->reduceCoefficientsBy(divisor);
 				}
 				enemies.erase(enemies.begin() + i);
 			}

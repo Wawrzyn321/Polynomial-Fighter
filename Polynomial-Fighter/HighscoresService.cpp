@@ -19,7 +19,7 @@ void HighscoreService::loadHighScores()
 			std::string t;
 			fIn >> t;
 
-			if (t == "") continue;
+			if (t.empty()) continue;
 
 			try {
 				int p = stoi(t);

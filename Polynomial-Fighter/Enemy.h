@@ -32,13 +32,13 @@ private:
 
 	unsigned originalDegree{};
 
-	void initComponents(float angle, PolynomialProductForm pff);
+	void initComponents(float angle, const PolynomialProductForm &pff);
 public:
 	Delegate<unsigned> DeathEvent;
 
 	Enemy();
 
-	void init(const sf::Vector2f& position, const sf::Vector2f& playerPosition, float speed, PolynomialProductForm pff);
+	void init(const sf::Vector2f& position, const sf::Vector2f& playerPosition, float speed, const PolynomialProductForm &pff);
 
 	std::shared_ptr<EnemyPolynomialAdapter> &getPolynomial();
 

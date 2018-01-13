@@ -7,7 +7,7 @@
 #include "SoundManager.h"
 #include "Player.h"
 
-void Enemy::initComponents(float angle, PolynomialProductForm pff)
+void Enemy::initComponents(float angle, const PolynomialProductForm &pff)
 {
 	const unsigned textSize = 20;
 
@@ -30,7 +30,7 @@ Enemy::Enemy()
 	DeathEvent.clear();
 }
 
-void Enemy::init(const sf::Vector2f& position, const sf::Vector2f &playerPosition, float speed, PolynomialProductForm pff)
+void Enemy::init(const sf::Vector2f& position, const sf::Vector2f &playerPosition, float speed, const PolynomialProductForm &pff)
 {
 	this->playerPosition = playerPosition;
 	this->name = PolynomialMultipler::generalForm(pff).toString();
