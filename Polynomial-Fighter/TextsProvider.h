@@ -35,6 +35,7 @@ namespace TextsProvider
 		"UI/UX Designer\n           P.W.",
 		"Copy-paste Executive\n                 P.W.",
 		"   Chief testing officers\nHalamix2, Janczar, Noras",
+		"Special thanks\n          Klux",
 	};
 }
 

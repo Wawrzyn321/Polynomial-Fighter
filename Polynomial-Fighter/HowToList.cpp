@@ -16,6 +16,12 @@ HowToList::HowToList(const sf::Vector2f& center, HowToImageViewer* howToViewer)
 
 void HowToList::initTexts(const std::vector<std::string> &texts)
 {
+	for (RollingListEntry* e : entries)
+	{
+		delete e;
+	}
+	entries.clear();
+
 	for (unsigned i = 0; i < texts.size(); i++)
 	{
 		entries.push_back(new RollingListEntry(sf::Text(texts[i], *font, fontSize), center));

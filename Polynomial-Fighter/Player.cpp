@@ -7,6 +7,7 @@
 #include "FleetingText.h"
 #include "AssetManager.h"
 #include "SoundManager.h"
+#include "EasterEgg.h"
 
 void Player::initGraphics()
 {
@@ -68,11 +69,30 @@ void Player::setTargetPosition(const sf::Vector2f& position)
 
 void Player::processConsoleInput(const RequestValue& value, const std::vector<std::shared_ptr<Entity>> &enemies) const
 {
-	if (value.message == RH_Codes::ROOTS) {
+	if (value.message == RH_Codes::ROOTS)
+	{
 		cannon->appendTargets(value.result, enemies);
 	}
-	else if (value.message == RH_Codes::DIVISOR) {
+	else if (value.message == RH_Codes::DIVISOR)
+	{
 		cannon->reduce(value.result[0], enemies);
+	}
+	else if (value.message == RH_Codes::DIVISION_BY_ZERO && !EasterEgg::hasAlreadyDoneThat)
+	{
+		SoundManager::instance()->playSound(Assets::SOUND_DIV_0);
+		auto ft = std::make_shared<FleetingText>("You shouldn't have done that...",
+		sf::Vector2f(
+			GameData::WINDOW_SIZE.x*0.7f,
+			GameData::WINDOW_SIZE.y*0.8f
+		),
+			sf::Color::Red,
+			unsigned(GameData::WINDOW_SIZE.x*0.04f));
+
+		ft->run(0.0009f, { 0, -0.01f }, 0.1f, false);
+		EntityManager::instance()->addEntity(ft);
+
+		EasterEgg::hasAlreadyDoneThat = true;
+		EasterEgg::modifyHowTo();
 	}
 	else if (value.message != RH_Codes::EMPTY) {
 		//Debug::PrintErrorFormatted("Player::processConsoleInput: Bad value.message!: <%>\n", value.message);

@@ -238,6 +238,7 @@ RequestValue ListStringHandler::handleImplementation(const std::string& input) c
 	}
 }
 
+
 bool DivisorStringHandler::canHandleRequest(const std::string& input) const
 {
 	return input.size() > 1 &&

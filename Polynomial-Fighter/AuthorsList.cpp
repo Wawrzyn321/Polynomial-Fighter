@@ -14,12 +14,12 @@ AuthorsList::AuthorsList(const sf::Vector2f& center)
 
 void AuthorsList::initTexts(const std::vector<std::string> &texts)
 {
-	for (RollingListEntry* t : entries)
+	for (RollingListEntry* e : entries)
 	{
-		//czy to nie wywali czegos w powietrze?
-		delete t;
+		delete e;
 	}
 	entries.clear();
+
 	if (texts.size() == 0)
 	{
 		entries.push_back(new RollingListEntry(

@@ -6,6 +6,7 @@
 
 class HowToImageViewer : public sf::Drawable
 {
+	friend class EasterEgg;
 	std::array<AssetManager::TexturePointer, 9> textures;
 	sf::Sprite image1;
 	sf::Sprite image2;

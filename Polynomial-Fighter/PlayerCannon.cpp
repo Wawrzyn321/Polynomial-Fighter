@@ -181,11 +181,6 @@ void PlayerCannon::reduce(int divisor, const std::vector<std::shared_ptr<Entity>
 		EntityManager::instance()->addEntity(rw);
 		SoundManager::instance()->playSound(Assets::SOUND_WAVE);
 	}
-	else
-	{
-		Debug::PrintFormatted("PlayerCannon::reduce: divisior = 0, tu powinny dziac sie rzeczy\n");
-		SoundManager::instance()->playSound(Assets::SOUND_DIV_0);
-	}
 }
 
 void PlayerCannon::onRotationFinished(float angle)

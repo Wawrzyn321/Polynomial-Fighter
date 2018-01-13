@@ -9,6 +9,7 @@
 #include "HowToList.h"
 #include "TextsProvider.h"
 #include "SoundManager.h"
+#include "EasterEgg.h"
 
 void GUIAnimator::initGraphics()
 {
@@ -23,6 +24,7 @@ void GUIAnimator::initGraphics()
 	optionsRing = new GUIRingOptions(center);
 
 	howToViewer = new HowToImageViewer(center + sf::Vector2f(0, size.y*0.05f));
+	EasterEgg::setViewer(howToViewer);
 
 	highscores = new HighscoresList(center + sf::Vector2f(0, size.y*0.15f));
 	highscores->initTexts(HighscoreService::getFormattedHighscores());
@@ -136,7 +138,8 @@ void GUIAnimator::moveHighscoresDown() const
 }
 
 void GUIAnimator::setHighscoresVisibles(bool visible) const{
-	if (visible){
+	if (visible)
+	{
 		highscores->initTexts(HighscoreService::getFormattedHighscores());
 		ring->state = GUIRing::State::TO_MEDIUM;
 	}
@@ -155,10 +158,18 @@ void GUIAnimator::moveHowToDown() const
 }
 
 void GUIAnimator::setHowToVisible(bool visible) const {
-	if (visible){
+	if (visible)
+	{
 		ring->state = GUIRing::State::TO_RIGHT_MEDIUM;
 		howToViewer->show(0);
+
+		if (EasterEgg::hasAlreadyDoneThat) {
+			auto texts = TextsProvider::howTo;
+			texts.back() = "Get lost.";
+			howTo->initTexts(texts);
+		}
 	}
+
 	optionsRing->isZoomed = visible;
 	howTo->setVisible(visible);
 }
@@ -176,6 +187,13 @@ void GUIAnimator::moveAuthorsDown() const
 void GUIAnimator::setAuthorsVisible(bool visible) const {
 	if (visible) {
 		ring->state = GUIRing::State::TO_MEDIUM;
+
+		if (EasterEgg::hasAlreadyDoneThat) {
+			auto texts = TextsProvider::authors;
+			std::string t = texts.back();
+			texts.back() = t.substr(0, t.size() - 4) + "Xulk";
+			authors->initTexts(texts);
+		}
 	}
 	optionsRing->isZoomed = visible;
 	authors->setVisible(visible);
