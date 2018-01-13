@@ -45,7 +45,7 @@ void ParticleMaster::addEnemyHitParticles(const sf::Vector2f &position, const sf
 		->setMainData(1500, 15)
 		.setIntervals(100)
 		.setColors(Colors::FIRST, 0.7f, Colors::WHITE, 0.1f, 0.002f)
-		.setAsCircle(10 * modifier, 5)
+		.setAsCircle(clamp(10 * modifier, 0, 30), 5)
 		.setVelocity(0.04f * modifier, 0.1f, 0.998f)
 		.setScaling(0.998f)
 		.setDispersion(80 / modifier, -incoming)

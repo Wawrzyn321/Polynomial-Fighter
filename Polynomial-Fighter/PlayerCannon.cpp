@@ -26,9 +26,20 @@ void PlayerCannon::getNextTarget()
 {
 	assert(!targets.empty());
 	state = CannonState::WAITING_FOR_AIM;
-	currentTarget = targets.front();
-	sf::Vector2f pos = EntityManager::instance()->findEntityById(currentTarget.recipientID)->getPosition();
-	playerReference->setTargetPosition(pos);
+	std::shared_ptr<Entity> entity = {};
+	while(!entity && !targets.empty())
+	{
+		currentTarget = targets.front();
+		entity = EntityManager::instance()->findEntityById(currentTarget.recipientID);
+		if (!entity)
+		{
+			targets.pop_back();
+		}
+	}
+	if (entity) {
+		sf::Vector2f pos = entity->getPosition();
+		playerReference->setTargetPosition(pos);
+	}
 }
 
 void PlayerCannon::shoot()

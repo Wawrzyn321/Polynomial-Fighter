@@ -41,7 +41,7 @@ namespace Time {
         {
             this->timeScale = 0;
         }
-		SoundManager::instance()->setPitch(timeScale);
+		SoundManager::instance()->setPitch(this->timeScale);
     }
 
 	void Timer::reset() const

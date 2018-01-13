@@ -7,7 +7,7 @@ class EnemyPolynomialAdapter
 {
 	Enemy *enemyReference{};
 	unsigned originalDegree;
-	unsigned commonDivisor = 1;
+	int commonDivisor = 1;
 	PolynomialProductForm ppf;
 public:
 	EnemyPolynomialAdapter(Enemy *enemyReference, PolynomialProductForm pff);

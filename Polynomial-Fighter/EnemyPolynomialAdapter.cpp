@@ -8,7 +8,10 @@ EnemyPolynomialAdapter::EnemyPolynomialAdapter(Enemy * enemyReference, Polynomia
 {
 	this->enemyReference = enemyReference;
 	this->ppf = ppf;
+
+	commonDivisor = 1;
 	originalDegree = unsigned(ppf.getDeg());
+
 	enemyReference->setName(PolynomialMultipler::generalForm(ppf).toString());
 }
 
@@ -25,15 +28,17 @@ bool EnemyPolynomialAdapter::canBeReducedBy(int divisor) const
 void EnemyPolynomialAdapter::reduceCoefficientsBy(int divisor)
 {
 	auto pgf = PolynomialMultipler::generalForm(ppf);
-	bool canReduce = pgf.divideCoefficients(commonDivisor);
+	int newDivisor = commonDivisor * divisor;
+	bool canReduce = pgf.canDivideCoefficients(newDivisor);
 	if (!canReduce)
 	{
 		//Debug::PrintFormatted("Enemy::reduceBy: cannot reduce by %\n", divisor);
-		return;
 	}
-	commonDivisor *= divisor;
-	pgf.divideCoefficients(commonDivisor);
-	enemyReference->setName(pgf.toString());
+	else {
+		commonDivisor = newDivisor;
+		pgf.divideCoefficients(commonDivisor);
+		enemyReference->setName(pgf.toString());
+	}
 }
 
 int EnemyPolynomialAdapter::decreasePolynomialByRoot(int root)
