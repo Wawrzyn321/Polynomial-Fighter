@@ -36,7 +36,7 @@ void ReductionWave::checkDistance()
 	}
 }
 
-ReductionWave::ReductionWave(sf::Vector2f position, int divisor, std::vector<std::shared_ptr<Entity>> entities)
+ReductionWave::ReductionWave(const sf::Vector2f &position, int divisor, std::vector<std::shared_ptr<Entity>> entities)
 {
 	this->divisor = divisor;
 
