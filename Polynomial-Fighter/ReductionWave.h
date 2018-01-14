@@ -17,7 +17,7 @@ class ReductionWave : public Entity
 
 	void checkDistance();
 public:
-	ReductionWave(sf::Vector2f &position, int divisor, std::vector<std::shared_ptr<Entity>> enemies);
+	ReductionWave(sf::Vector2f position, int divisor, std::vector<std::shared_ptr<Entity>> enemies);
 
 	void update(const Time::TimeData& timeData) override;
 

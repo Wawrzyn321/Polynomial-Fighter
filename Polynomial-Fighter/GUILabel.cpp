@@ -3,6 +3,8 @@
 #include <utility>
 #include "Debug.h"
 #include "SoundManager.h"
+#include "AssetManager.h"
+#include "Utility.h"
 
 bool GUILabel::mouseCollideText(const sf::Vector2i &pos) {
 	sf::FloatRect bounds = text.getGlobalBounds();
@@ -14,7 +16,7 @@ bool GUILabel::mouseCollideText(const sf::Vector2i &pos) {
 
 void GUILabel::playClick()
 {
-	SoundManager::instance()->playSound(GameData::PATH_TO_RESOURCES + GameData::PATH_TO_SOUNDS + GameData::SOUND_MENU_CLICK);
+	SoundManager::instance()->playSound(Assets::PATH_TO_RESOURCES + Assets::PATH_TO_SOUNDS + Assets::SOUND_CLICK);
 }
 
 GUILabel::GUILabel(sf::Vector2f position, int fontSize, std::string caption, std::function<void(void)> function) {
