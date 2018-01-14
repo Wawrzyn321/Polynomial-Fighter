@@ -33,6 +33,8 @@ private:
 
 	void handleAuthorsKeys(sf::Keyboard::Key key);
 
+	void handleRingRotation(const sf::Event &event) const;
+
 	void handleEvents();
 
 	void update() const;
@@ -41,7 +43,6 @@ private:
 
 	void onGame();
 
-	void playVerticalSound(const std::string& sound, float soundShift);
 public:
 	State state;
 

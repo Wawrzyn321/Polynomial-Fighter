@@ -5,6 +5,14 @@
 #include "AssetManager.h"
 
 class SoundManager {
+public:
+	enum class SoundDirection
+	{
+		LEFT,
+		RIGHT,
+	};
+private:
+
 	static SoundManager* sInstance;	
 
 	std::vector<std::shared_ptr<sf::Sound>> players;
@@ -13,15 +21,17 @@ class SoundManager {
 
 	void play(std::shared_ptr<sf::Sound> sound, std::shared_ptr<sf::SoundBuffer> buffer, const sf::Vector2f& position);
 
+	static float menuSoundShift;
 public:
 	static SoundManager *instance();
 
-	static float menuSoundShift;
 	bool isOn = true;
 
 	void playSound(const std::string& bufferName, const sf::Vector2f &position);
 
 	void playSound(const std::string &bufferName);
+
+	void playSound(const std::string &bufferName, SoundDirection direction);
 
 	void setPitch(float timeScale);
 

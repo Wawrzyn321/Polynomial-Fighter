@@ -51,6 +51,25 @@ void SoundManager::playSound(const std::string &bufferName)
 	playSound(bufferName, {pos.x, pos.z});
 }
 
+void SoundManager::playSound(const std::string& bufferName, SoundDirection direction)
+{
+	float soundShift;
+	if (direction == SoundDirection::LEFT)
+	{
+		soundShift = menuSoundShift;
+	}
+	else
+	{
+		soundShift = -menuSoundShift;
+	}
+
+	sf::Vector2f position = {
+		GameData::WINDOW_SIZE.x * (0.5f + soundShift),
+		GameData::WINDOW_SIZE.y * (0.5f + soundShift)
+	};
+	playSound(bufferName, position);
+}
+
 void SoundManager::setPitch(float timeScale)
 {
 	for (auto &player : players) {

@@ -27,14 +27,14 @@ void Player::updateRotation(float deltaTime)
 	if (abs(minAngleDifference(shape.getRotation(), targetRotation))>min_difference)
 	{
 		rotateTowards(shape, targetRotation, deltaTime*speed);
-		SoundManager::instance()->setListenerDirection(shape.getRotation() + 90);
+		SoundManager::instance()->setListenerDirection(shape.getRotation() - 90);
 	}
 	else if (!rotationEventInvoked)
 	{
 		rotationEventInvoked = true;
 		shape.setRotation(targetRotation);
 		FinishedRotatingEvent(targetRotation);
-		SoundManager::instance()->setListenerDirection(shape.getRotation() + 90);
+		SoundManager::instance()->setListenerDirection(shape.getRotation() - 90);
 	}
 }
 

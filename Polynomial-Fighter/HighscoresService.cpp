@@ -73,7 +73,7 @@ bool HighscoreService::addScore(unsigned score)
 	for (i = 0; i < loadedScores.size() && score < loadedScores[i]; i++)
 	{
 	}
-	if (i == 0 || i != loadedScores.size())
+	if (i == 0 || i != maxScoresCount)
 	{
 		loadedScores.insert(loadedScores.begin() + i, score);
 		if (loadedScores.size() > maxScoresCount) {

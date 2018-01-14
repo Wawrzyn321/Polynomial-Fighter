@@ -23,8 +23,8 @@ class GameplayManager
 	CameraShake cameraShake;
 	PauseController pauseController;
 	sf::CircleShape ring;
-	Gameplay* gameplay;
-	InputField *inputField;
+	Gameplay* gameplay = nullptr;
+	InputField *inputField = nullptr;
 	std::shared_ptr<Player> player;
 
 	void startNextLevel();
