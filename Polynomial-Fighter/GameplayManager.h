@@ -6,6 +6,7 @@
 #include "CameraShake.h"
 #include "InputField.h"
 #include "PauseController.h"
+#include "FinalScreen.h"
 
 class Gameplay;
 class GameplayManager
@@ -26,6 +27,7 @@ class GameplayManager
 	Gameplay* gameplay = nullptr;
 	InputField *inputField = nullptr;
 	std::shared_ptr<Player> player;
+	std::unique_ptr<FinalScreen> finalScreen{};
 
 	void startNextLevel();
 public:

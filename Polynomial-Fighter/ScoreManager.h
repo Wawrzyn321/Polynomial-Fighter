@@ -3,7 +3,6 @@
 #include "ScoreManagerGUI.h"
 #include <memory>
 #include "Timer.h"
-#include "FinalScreen.h"
 
 class FinalScreen;
 class ScoreManager
@@ -13,7 +12,6 @@ class ScoreManager
 	unsigned stageNo{};
 
 	std::unique_ptr<ScoreManagerGUI> gui{};
-	std::unique_ptr<FinalScreen> finalScreen{};
 public:
 	ScoreManager();
 	ScoreManager(const ScoreManager &) {}
@@ -23,7 +21,7 @@ public:
 
 	void stageFinished();
 
-	void showFinalScore(unsigned destroyedEnemies);
+	void showFinalScore(unsigned destroyedEnemies) const;
 
 	void reset();
 

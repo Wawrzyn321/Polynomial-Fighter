@@ -78,10 +78,14 @@ RequestValue SingleNumberStringHandler::handleImplementation(const std::string& 
 			return { { p }, RH_Codes::OUT_OF_RANGE };
 		}
 	}
-	//stoi error
+	//stoi errors
 	catch (std::invalid_argument &invalidArgumentException)
 	{
 		return passFurther(input);
+	}
+	catch (std::out_of_range &outOfRangeException)
+	{
+		return { {}, RH_Codes::OUT_OF_INT_RANGE };
 	}
 }
 
@@ -132,10 +136,14 @@ RequestValue LHSInequalityStringHandler::handleImplementation(const std::string&
 			return { result, RH_Codes::ROOTS };
 		}
 	}
-	//stoi error
+	//stoi errors
 	catch (std::invalid_argument &invalidArgumentException)
 	{
 		return passFurther(input);
+	}
+	catch (std::out_of_range &outOfRangeException)
+	{
+		return { {}, RH_Codes::OUT_OF_INT_RANGE };
 	}
 }
 
@@ -185,10 +193,14 @@ RequestValue RHSInequalityStringHandler::handleImplementation(const std::string&
 			return { result, RH_Codes::ROOTS };
 		}
 	}
-	//stoi error
+	//stoi errors
 	catch (std::invalid_argument &invalidArgumentException)
 	{
 		return passFurther(input);
+	}
+	catch (std::out_of_range &outOfRangeException)
+	{
+		return { {}, RH_Codes::OUT_OF_INT_RANGE };
 	}
 }
 
@@ -231,10 +243,14 @@ RequestValue ListStringHandler::handleImplementation(const std::string& input) c
 		sort(v.begin(), v.end());
 		return { v, RH_Codes::ROOTS };
 	}
-	//stoi error
+	//stoi errors
 	catch (std::invalid_argument &invalidArgumentException)
 	{
 		return { {}, "Invalid character @" + std::to_string(v.size() + 1) + "!" };
+	}
+	catch (std::out_of_range &outOfRangeException)
+	{
+		return { {}, RH_Codes::OUT_OF_INT_RANGE };
 	}
 }
 
@@ -265,9 +281,13 @@ RequestValue DivisorStringHandler::handleImplementation(const std::string& input
 		//check range
 		return { { p }, RH_Codes::DIVISOR };
 	}
-	//stoi error
+	//stoi errors
 	catch (std::invalid_argument &invalidArgumentException)
 	{
 		return passFurther(input);
+	}
+	catch (std::out_of_range &outOfRangeException)
+	{
+		return { { }, RH_Codes::OUT_OF_INT_RANGE };
 	}
 }

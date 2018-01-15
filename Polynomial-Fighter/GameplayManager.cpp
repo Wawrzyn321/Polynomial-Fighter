@@ -84,9 +84,12 @@ void GameplayManager::PlayerDestroyed()
 		enemy->setState(Enemy::State::STOPPED);
 	}
 
+	gameplay->state = Gameplay::State::SHOWING_HIGHSCORE;
+
 	pauseController.forceSwitchTo(false);
-	gameplay->state = Gameplay::State::Finished;
 	scoreManager.showFinalScore(allDestroyedEnemies);
+	finalScreen = std::make_unique<FinalScreen>(points, allDestroyedEnemies, currentStage);
+
 	SoundManager::instance()->playSound(Assets::SOUND_FAILED);
 }
 
@@ -166,6 +169,7 @@ void GameplayManager::reset()
 	EntityManager::instance()->clear();
 	Time::Timer::instance()->setTimeScale(1.0f);
 	scoreManager.reset();
+	finalScreen.release();
 
 	initPlayer();
 	initSpawner();
@@ -174,20 +178,33 @@ void GameplayManager::reset()
 
 void GameplayManager::feed(const sf::Event& event)
 {
-	/*if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::R)
-	{
-		reset();
-	}*/
-
-	if (gameplay->state == Gameplay::State::On) {
+	if (gameplay->state == Gameplay::State::ON) {
 		inputField->feed(event);
 		pauseController.feed(event);
 	}
-	else
+	else if (gameplay->state == Gameplay::State::SHOWING_HIGHSCORE)
 	{
-		if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
+		if (event.type == sf::Event::KeyPressed && !isAuxiliaryKey(event.key))
 		{
-			gameplay->isRunning = false;
+			gameplay->state = Gameplay::State::PROMPTING_NEXT;
+			finalScreen->state = FinalScreen::State::PROMPT;
+		}
+	}
+	else if(gameplay->state == Gameplay::State::PROMPTING_NEXT)
+	{
+		if (event.type == sf::Event::KeyPressed)
+		{
+			switch(event.key.code)
+			{
+			case sf::Keyboard::Escape:
+				gameplay->isRunning = false;
+				gameplay->state = Gameplay::State::EXITING;
+				break;
+			case sf::Keyboard::Space:
+			case sf::Keyboard::Return:
+				reset();
+				gameplay->state = Gameplay::State::ON;
+			}
 		}
 	}
 }
@@ -201,6 +218,9 @@ void GameplayManager::update(const Time::TimeData &timeData)
 	inputField->update(timeData);
 	cameraShake.update(timeData);
 	pauseController.update(timeData);
+	if (finalScreen) {
+		finalScreen->update(timeData);
+	}
 }
 
 void GameplayManager::draw(sf::RenderTarget& target, sf::RenderStates states) const
@@ -211,10 +231,13 @@ void GameplayManager::draw(sf::RenderTarget& target, sf::RenderStates states) co
 	if (inputField != nullptr) {
 		inputField->draw(target, states);
 	}
+	if (finalScreen) {
+		target.draw(*finalScreen, states);
+	}
 }
 
 GameplayManager::~GameplayManager()
 {
 	delete inputField;
+	finalScreen.release();
 }
-

@@ -7,8 +7,10 @@ class Gameplay {
 public:
 	enum class State
 	{
-		On,
-		Finished,
+		ON,
+		SHOWING_HIGHSCORE,
+		PROMPTING_NEXT,
+		EXITING,
 	};
 private:
 	EntityManager* em;
@@ -23,6 +25,7 @@ private:
 public:
 	State state;
 	bool isRunning;
+
 	Gameplay(sf::RenderWindow* window);
 
 	void mainLoop();

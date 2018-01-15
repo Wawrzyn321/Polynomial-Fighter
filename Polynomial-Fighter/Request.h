@@ -15,6 +15,7 @@ namespace RH_Codes
 	const std::string ROOTS = "Roots";
 	const std::string DIVISOR = "Divisor";
 	const std::string EMPTY = "Empty";
+	const std::string OUT_OF_INT_RANGE = "Out of range of int!";
 	//custom ones are also allowed
 }
 

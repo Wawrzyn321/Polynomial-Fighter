@@ -36,12 +36,11 @@ void ScoreManager::stageFinished()
 }
 
 
-void ScoreManager::showFinalScore(unsigned destroyedEnemies)
+void ScoreManager::showFinalScore(unsigned destroyedEnemies) const
 {
 	HighscoreService::addScore(points);
 
 	gui->updateScoreToFinal();
-	finalScreen = std::make_unique<FinalScreen>(points, destroyedEnemies, stageNo);
 }
 
 void ScoreManager::reset()
@@ -49,21 +48,14 @@ void ScoreManager::reset()
 	enemiesKilledCount = 0;
 	points = 0;
 	gui->reset();
-	finalScreen.reset();
 }
 
 void ScoreManager::update(const Time::TimeData &timeData) const
 {
 	gui->update(timeData);
-	if (finalScreen) {
-		finalScreen->update(timeData);
-	}
 }
 
 void ScoreManager::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	target.draw(*gui, states);
-	if (finalScreen) {
-		target.draw(*finalScreen, states);
-	}
 }

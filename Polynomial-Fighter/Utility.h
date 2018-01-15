@@ -36,6 +36,8 @@ sf::Vector2f getPointOnIntRect(const sf::FloatRect& bounds, float verticalAngle,
 
 sf::Color colorWithAlpha(const sf::Color &color, int alpha);
 
+bool isAuxiliaryKey(const sf::Event::KeyEvent &key);
+
 #pragma region Template functions
 
 template <typename T, typename R>

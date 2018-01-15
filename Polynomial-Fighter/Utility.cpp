@@ -152,3 +152,8 @@ sf::Color colorWithAlpha(const sf::Color &color, int alpha)
 {
 	return sf::Color(color.r, color.g, color.b, alpha);
 }
+
+bool isAuxiliaryKey(const sf::Event::KeyEvent &key)
+{
+	return key.alt || key.shift || key.control;
+}

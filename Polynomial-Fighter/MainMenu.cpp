@@ -62,17 +62,17 @@ void MainMenu::handleMenuEvents(const sf::Event::KeyEvent& key)
 	}
 }
 
-void MainMenu::handleSplashEvents(const sf::Event::KeyEvent& key){
-	if (!key.alt && !key.shift) {
+void MainMenu::handleSplashEvents(const sf::Event::KeyEvent &keyEvent){
+	if (!isAuxiliaryKey(keyEvent)) {
 		animator->setMenu(true, false);
 		state = State::MENU;
 		SoundManager::instance()->playSound(Assets::SOUND_MENU_LOAD);
 	}
 }
 
-void MainMenu::handleHighScoreKeys(const sf::Event::KeyEvent& key)
+void MainMenu::handleHighScoreKeys(const sf::Event::KeyEvent &keyEvent)
 {
-	switch (key.code)
+	switch (keyEvent.code)
 	{
 	case sf::Keyboard::W:
 	case sf::Keyboard::Up:
@@ -91,9 +91,9 @@ void MainMenu::handleHighScoreKeys(const sf::Event::KeyEvent& key)
 	}
 }
 
-void MainMenu::handleHowToKeys(const sf::Event::KeyEvent& key)
+void MainMenu::handleHowToKeys(const sf::Event::KeyEvent &keyEvent)
 {
-	switch (key.code)
+	switch (keyEvent.code)
 	{
 	case sf::Keyboard::W:
 	case sf::Keyboard::Up:
@@ -112,9 +112,9 @@ void MainMenu::handleHowToKeys(const sf::Event::KeyEvent& key)
 	}
 }
 
-void MainMenu::handleAuthorsKeys(const sf::Event::KeyEvent& key)
+void MainMenu::handleAuthorsKeys(const sf::Event::KeyEvent &keyEvent)
 {
-	switch (key.code)
+	switch (keyEvent.code)
 	{
 	case sf::Keyboard::W:
 	case sf::Keyboard::Up:

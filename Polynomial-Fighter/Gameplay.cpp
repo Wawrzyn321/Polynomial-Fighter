@@ -50,7 +50,7 @@ Gameplay::Gameplay(sf::RenderWindow* window)
 	gameplayManager->bindExitAction(this);
 
 	isRunning = true;
-	state = State::On;
+	state = State::ON;
 }
 
 void Gameplay::mainLoop()
