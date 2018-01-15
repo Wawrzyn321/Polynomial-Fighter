@@ -4,6 +4,7 @@
 const std::string Assets::FONT_REGULAR = "Aleo-Regular.otf";
 const std::string Assets::FONT_ITALIC = "Aleo-Italic.otf";
 const std::string Assets::FONT_MONOSPACE = "monofonto.ttf";
+const std::string Assets::FONT_LATO = "Lato-Light.ttf";
 
 const std::string Assets::PATH_TO_RESOURCES = "res/";
 const std::string Assets::PATH_TO_IMAGES = "img/";
@@ -37,6 +38,7 @@ const std::string Assets::SOUND_EXPLOSION_SHORT = "explosion_short.ogg";
 const std::string Assets::SOUND_GAME_LOAD = "game_load.ogg";
 const std::string Assets::SOUND_ROLLING_LIST_MOVE = "rolling_list_move.ogg";
 const std::string Assets::SOUND_MISS = "miss.ogg";
+const std::string Assets::SOUND_MENU_LOAD = "menu_load.ogg";
 
 AssetManager * AssetManager::sInstance = nullptr;
 
@@ -127,5 +129,5 @@ AssetManager::SoundBufferPointer AssetManager::getSound(const std::string &filen
 
 AssetManager::FontPointer AssetManager::getDefaultFont()
 {
-    return getFont(Assets::FONT_REGULAR);
+    return getFont(Assets::FONT_LATO);
 }

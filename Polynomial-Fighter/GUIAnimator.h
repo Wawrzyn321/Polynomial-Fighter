@@ -10,6 +10,7 @@ class HowToImageViewer;
 class AuthorsList;
 class HighscoresList;
 class HowToList;
+class FlashingText;
 class GUIAnimator
 {
 	GUIRing *ring;
@@ -21,6 +22,7 @@ class GUIAnimator
 	HighscoresList *highscores;
 	HowToList *howTo;
 	AuthorsList *authors;
+	FlashingText* pressAnyKeyText;
 
 	void initGraphics();
 public:
@@ -42,9 +44,9 @@ public:
 
 	void setToGame() const;
 
-	void rotateRingLeft() const;
-
 	void rotateRingRight() const;
+
+	void rotateRingLeft() const;
 
 	void moveHighscoresUp() const;
 

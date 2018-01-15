@@ -14,12 +14,15 @@ void EnemySpawner::spawnEnemy()
 		return;
 	}
 
-    auto deg = clamp(difficultyLevel + 1, unsigned(1), GameData::MAX_POLYNOMINAL_DEGREE);
-	auto valuesRange = clamp(difficultyLevel + 1, unsigned(1), GameData::MAX_POLYNOMINAL_VALUE);
+	unsigned maxDeg = clamp(difficultyLevel + 1, unsigned(1), GameData::MAX_POLYNOMINAL_DEGREE);
+	unsigned maxValuesRange = clamp(difficultyLevel + 1, unsigned(1), GameData::MAX_POLYNOMINAL_VALUE);
+	unsigned deg = RandomGenerator::getInt(1, maxDeg);
+	unsigned valuesRange = RandomGenerator::getInt(1, maxValuesRange);
+
 	PolynomialProductForm pff = PolynomialGenerator::generatePolynomial(deg, valuesRange);
 	sf::Vector2f position = getPointOnIntRect(bounds, 12, 25);
 
-	float speed = 0.1f + difficultyLevel*0.01f;
+	float speed = 0.07f + deg*0.011f;
 	auto e = std::make_shared<Enemy>(Enemy());
 	e->init(position, playerReference->getPosition(), speed, pff);
 	e->DeathEvent.add(std::bind(&GameplayManager::EnemyDestroyed, managerReference, std::placeholders::_1));

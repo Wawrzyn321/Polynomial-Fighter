@@ -2,9 +2,9 @@
 #include "Timer.h"
 #include "SoundManager.h"
 
-void MainMenu::handleMenuEvents(sf::Keyboard::Key key)
+void MainMenu::handleMenuEvents(const sf::Event::KeyEvent& key)
 {
-	switch (key)
+	switch (key.code)
 	{
 	case sf::Keyboard::Escape:
 		animator->setSplash();
@@ -62,15 +62,25 @@ void MainMenu::handleMenuEvents(sf::Keyboard::Key key)
 	}
 }
 
-void MainMenu::handleHighScoreKeys(sf::Keyboard::Key key)
+void MainMenu::handleSplashEvents(const sf::Event::KeyEvent& key){
+	if (!key.alt && !key.shift) {
+		animator->setMenu(true, false);
+		state = State::MENU;
+		SoundManager::instance()->playSound(Assets::SOUND_MENU_LOAD);
+	}
+}
+
+void MainMenu::handleHighScoreKeys(const sf::Event::KeyEvent& key)
 {
-	switch (key)
+	switch (key.code)
 	{
 	case sf::Keyboard::W:
+	case sf::Keyboard::Up:
 		animator->moveHighscoresUp();
 		SoundManager::instance()->playSound(Assets::SOUND_ROLLING_LIST_MOVE);
 		break;
 	case sf::Keyboard::S:
+	case sf::Keyboard::Down:
 		animator->moveHighscoresDown();
 		SoundManager::instance()->playSound(Assets::SOUND_ROLLING_LIST_MOVE);
 		break;
@@ -83,15 +93,17 @@ void MainMenu::handleHighScoreKeys(sf::Keyboard::Key key)
 	}
 }
 
-void MainMenu::handleHowToKeys(sf::Keyboard::Key key)
+void MainMenu::handleHowToKeys(const sf::Event::KeyEvent& key)
 {
-	switch (key)
+	switch (key.code)
 	{
 	case sf::Keyboard::W:
+	case sf::Keyboard::Up:
 		animator->moveHowToUp();
 		SoundManager::instance()->playSound(Assets::SOUND_ROLLING_LIST_MOVE);
 		break;
 	case sf::Keyboard::S:
+	case sf::Keyboard::Down:
 		animator->moveHowToDown();
 		SoundManager::instance()->playSound(Assets::SOUND_ROLLING_LIST_MOVE);
 		break;
@@ -104,15 +116,17 @@ void MainMenu::handleHowToKeys(sf::Keyboard::Key key)
 	}
 }
 
-void MainMenu::handleAuthorsKeys(sf::Keyboard::Key key)
+void MainMenu::handleAuthorsKeys(const sf::Event::KeyEvent& key)
 {
-	switch (key)
+	switch (key.code)
 	{
 	case sf::Keyboard::W:
+	case sf::Keyboard::Up:
 		animator->moveAuthorsUp();
 		SoundManager::instance()->playSound(Assets::SOUND_ROLLING_LIST_MOVE);
 		break;
 	case sf::Keyboard::S:
+	case sf::Keyboard::Down:
 		animator->moveAuthorsDown();
 		SoundManager::instance()->playSound(Assets::SOUND_ROLLING_LIST_MOVE);
 		break;
@@ -134,20 +148,22 @@ void MainMenu::handleRingRotation(const sf::Event &event) const
 	if (event.type == sf::Event::KeyPressed && !lock) {
 		switch (key) {
 		case sf::Keyboard::A:
-			animator->rotateRingRight();
-			SoundManager::instance()->playSound(Assets::SOUND_CLICK, SoundManager::SoundDirection::RIGHT);
+		case sf::Keyboard::Left:
+			animator->rotateRingLeft();
+			SoundManager::instance()->playSound(Assets::SOUND_CLICK, SoundManager::SoundDirection::LEFT);
 			lock = true;
 			break;
 		case sf::Keyboard::D:
-			animator->rotateRingLeft();
-			SoundManager::instance()->playSound(Assets::SOUND_CLICK, SoundManager::SoundDirection::LEFT);
+		case sf::Keyboard::Right:
+			animator->rotateRingRight();
+			SoundManager::instance()->playSound(Assets::SOUND_CLICK, SoundManager::SoundDirection::RIGHT);
 			lock = true;
 			break;
 		}
 	}
 	else if (event.type == sf::Event::KeyReleased)
 	{
-		if (key == sf::Keyboard::A || key == sf::Keyboard::D) {
+		if (key == sf::Keyboard::A || key == sf::Keyboard::D || key == sf::Keyboard::Left || key == sf::Keyboard::Right) {
 			lock = false;
 		}
 	}
@@ -177,25 +193,26 @@ void MainMenu::handleEvents()
 			t->setTimeScale(0);
 		}
 
-		handleRingRotation(event);
+		if (state == State::MENU) {
+			handleRingRotation(event);
+		}
 
 		if (event.type == sf::Event::KeyPressed) {
 			switch (state) {
 			case State::SPLASH:
-				animator->setMenu(true);
-				state = State::MENU;
+				handleSplashEvents(event.key);
 				break;
 			case State::MENU:
-				handleMenuEvents(event.key.code);
+				handleMenuEvents(event.key);
 				break;
 			case State::HIGHSCORES:
-				handleHighScoreKeys(event.key.code);
+				handleHighScoreKeys(event.key);
 				break;
 			case State::HOW_TO:
-				handleHowToKeys(event.key.code);
+				handleHowToKeys(event.key);
 				break;
 			case State::AUHTORS:
-				handleAuthorsKeys(event.key.code);
+				handleAuthorsKeys(event.key);
 				break;
 			}
 		}

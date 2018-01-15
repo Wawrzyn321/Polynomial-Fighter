@@ -32,7 +32,7 @@ public:
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 private:
 	const unsigned int pointsEnemyDestroyed = 50;
-	const unsigned int pointsStageFinished = 500;
+	const unsigned int pointsStageFinished = 200;
 };
 
 #endif

@@ -25,13 +25,15 @@ private:
 	StopWatch *stopWatch;
 	bool isRunning;
 
-	void handleMenuEvents(sf::Keyboard::Key key);
+	void handleMenuEvents(const sf::Event::KeyEvent& key);
 
-	void handleHighScoreKeys(sf::Keyboard::Key key);
+	void handleSplashEvents(const sf::Event::KeyEvent& key);
 
-	void handleHowToKeys(sf::Keyboard::Key key);
+	void handleHighScoreKeys(const sf::Event::KeyEvent& key);
 
-	void handleAuthorsKeys(sf::Keyboard::Key key);
+	void handleHowToKeys(const sf::Event::KeyEvent& key);
+
+	void handleAuthorsKeys(const sf::Event::KeyEvent& key);
 
 	void handleRingRotation(const sf::Event &event) const;
 

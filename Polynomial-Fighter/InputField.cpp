@@ -76,7 +76,7 @@ void InputField::feed(const sf::Event &event)
 				{
 					auto ft = std::make_shared<FleetingText>("I love you too...",
 						position+sf::Vector2f(size.x*0.5f, 0), sf::Color(255, 15, 15), 30);
-					ft->run(0.0009f, { 0, -0.04f }, 0);
+					ft->run(0.0008f, { 0, -0.04f }, 0);
 					EntityManager::instance()->addEntity(ft);
 				}
 				OnTextSubmitted.invoke(text.getString());

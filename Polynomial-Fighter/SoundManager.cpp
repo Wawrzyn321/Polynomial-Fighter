@@ -54,7 +54,7 @@ void SoundManager::playSound(const std::string &bufferName)
 void SoundManager::playSound(const std::string& bufferName, SoundDirection direction)
 {
 	float soundShift;
-	if (direction == SoundDirection::LEFT)
+	if (direction == SoundDirection::RIGHT)
 	{
 		soundShift = menuSoundShift;
 	}

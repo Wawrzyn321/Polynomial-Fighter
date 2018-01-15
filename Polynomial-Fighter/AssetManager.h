@@ -13,6 +13,7 @@ public:
 	static const std::string FONT_REGULAR;
 	static const std::string FONT_ITALIC;
 	static const std::string FONT_MONOSPACE;
+	static const std::string FONT_LATO;
 
 	static const std::string PATH_TO_RESOURCES;
 	static const std::string PATH_TO_IMAGES;
@@ -46,6 +47,7 @@ public:
 	static const std::string SOUND_GAME_LOAD;
 	static const std::string SOUND_ROLLING_LIST_MOVE;
 	static const std::string SOUND_MISS;
+	static const std::string SOUND_MENU_LOAD;
 };
 
 class AssetManager

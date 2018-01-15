@@ -6,8 +6,6 @@ class Game
 {
 	sf::RenderWindow *window = nullptr;
 
-	static void hideConsole();
-
 	void performShutdown() const;
 public:
 	Game();

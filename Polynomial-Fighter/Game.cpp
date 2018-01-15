@@ -3,12 +3,9 @@
 #include "Colors.h"
 #include "Utility.h"
 
-void Game::hideConsole()
-{
 #ifdef  _WIN32
-#pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
+//#pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
 #endif
-}
 
 void Game::performShutdown() const
 {
@@ -26,13 +23,16 @@ void Game::performShutdown() const
 Game::Game()
 {
 	Colors::load();
-	//hideConsole();
 }
 
 void Game::run()
 {
+	sf::ContextSettings settings;
+	settings.antialiasingLevel = 8;
+
 	window = new sf::RenderWindow(sf::VideoMode(static_cast<unsigned int>(GameData::WINDOW_SIZE.x),
-		static_cast<unsigned int>(GameData::WINDOW_SIZE.y)), "Polynomial Fighter");
+		static_cast<unsigned int>(GameData::WINDOW_SIZE.y)), "Polynomial Fighter", 
+		sf::Style::Close | sf::Style::None, settings);
 
 	window->setFramerateLimit(120);
 

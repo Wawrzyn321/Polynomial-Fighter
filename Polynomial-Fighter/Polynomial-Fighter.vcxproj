@@ -138,6 +138,7 @@
     <ClCompile Include="FinalScreen.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="PauseController.cpp" />
+    <ClCompile Include="FlashingText.cpp" />
     <ClCompile Include="TextsProvider.h" />
     <ClCompile Include="HighscoresList.cpp" />
     <ClCompile Include="HighscoresService.cpp" />
@@ -200,6 +201,7 @@
     <ClInclude Include="AuthorsList.h" />
     <ClInclude Include="EasterEgg.h" />
     <ClInclude Include="FinalScreen.h" />
+    <ClInclude Include="FlashingText.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="HighscoresList.h" />
     <ClInclude Include="HighscoresService.h" />

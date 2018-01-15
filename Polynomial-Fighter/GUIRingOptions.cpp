@@ -116,13 +116,13 @@ void GUIRingOptions::setExiting()
 	isExiting = true;
 }
 
-void GUIRingOptions::switchLeft()
+void GUIRingOptions::switchRight()
 {
 	currentOption = (currentOption + 1) % buttons.size();
 	isUpdatngRotation = true;
 }
 
-void GUIRingOptions::switchRight()
+void GUIRingOptions::switchLeft()
 {
 	currentOption--;
 	if (currentOption<0)

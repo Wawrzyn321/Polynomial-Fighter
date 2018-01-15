@@ -49,9 +49,9 @@ public:
 
 	void setExiting();
 
-	void switchLeft();
-
 	void switchRight();
+
+	void switchLeft();
 
 	void setVisible(bool isVisible, bool resetCurrentOption);
 
