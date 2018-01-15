@@ -2,9 +2,20 @@
 #include "Colors.h"
 #include "Utility.h"
 #include <cassert>
+#include "SoundManager.h"
+
+void RollingList::runDelayGuard(float interval) const
+{
+	delayGuard->reset(interval, true);
+}
 
 void RollingList::layNEntriesOut()
 {
+	if (currentlyCentered + 2 == entries.size())
+	{
+		showLastChild = true;
+	}
+	
 	int indexDec = currentlyCentered - 1;
 	if (indexDec < 0)
 	{
@@ -78,22 +89,52 @@ void RollingList::updateTargets(int delta)
 	}
 }
 
-void RollingList::moveUp()
+RollingList::RollingList()
 {
-	currentlyCentered--;
-	if (currentlyCentered < 0)
-	{
-		currentlyCentered = unsigned(entries.size()) - 1;
-	}
-	state = State::MOVING;
-	updateTargets(-1);
+	delayGuard = new StopWatch();
 }
 
-void RollingList::moveDown()
+bool RollingList::moveUp()
 {
-	currentlyCentered = (currentlyCentered + 1) % entries.size();
-	state = State::MOVING;
-	updateTargets(1);
+	if (!showLastChild && currentlyCentered == 0)
+	{
+		entries[0]->text.setPosition(center + sf::Vector2f(0.0f, -oneEntryShift));
+		SoundManager::instance()->playSound(Assets::SOUND_ROLLING_LIST_MOVE);
+		return false;
+	}
+
+	if (delayGuard->isRunning == false) {
+		currentlyCentered--;
+		if (currentlyCentered < 0)
+		{
+			currentlyCentered = unsigned(entries.size()) - 1;
+		}
+		state = State::MOVING;
+		updateTargets(-1);
+		runDelayGuard(defaultGuardInterval);
+		SoundManager::instance()->playSound(Assets::SOUND_ROLLING_LIST_MOVE);
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+bool RollingList::moveDown()
+{
+	if (delayGuard->isRunning == false) {
+		currentlyCentered = (currentlyCentered + 1) % entries.size();
+		state = State::MOVING;
+		updateTargets(1);
+		runDelayGuard(defaultGuardInterval);
+		SoundManager::instance()->playSound(Assets::SOUND_ROLLING_LIST_MOVE);
+		return true;
+	}
+	else
+	{
+		return false;
+	}
 }
 
 void RollingList::setVisible(bool visible, bool resetCurrentlyCentered)
@@ -106,22 +147,26 @@ void RollingList::setVisible(bool visible, bool resetCurrentlyCentered)
 	updateTargets();
 }
 
-void RollingList::update(float deltaTime)
+void RollingList::update(const Time::TimeData &timeData)
 {
 	if (state != State::IDLE)
 	{
+		float deltaTime = timeData.getScaledDeltaTimeInMili();
 		for (RollingListEntry* t : entries)
 		{
 			t->update(deltaTime);
 		}
 	}
+	delayGuard->update(timeData);
 }
 
 void RollingList::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-	for (RollingListEntry* t : entries)
+	bool lastChild = entries.size() <= 2 || showLastChild;
+	size_t l = entries.size() - 1 + lastChild;
+	for (size_t i = 0; i < l; i++)
 	{
-		target.draw(t->text, states);
+		target.draw(entries[i]->text, states);
 	}
 }
 
@@ -131,4 +176,5 @@ RollingList::~RollingList()
 	{
 		delete t;
 	}
+	delete delayGuard;
 }

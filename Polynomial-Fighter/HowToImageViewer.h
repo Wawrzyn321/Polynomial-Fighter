@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include <array>
 #include "AssetManager.h"
+#include "Timer.h"
 
 class HowToImageViewer : public sf::Drawable
 {
@@ -23,7 +24,7 @@ public:
 
 	void show(int index);
 
-	void update(float deltaTime);
+	void update(const Time::TimeData& timeData);
 
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 };

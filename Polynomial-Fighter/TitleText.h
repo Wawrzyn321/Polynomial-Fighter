@@ -2,10 +2,7 @@
 #define ANIMATED_TEXT_H
 #include <SFML/Graphics.hpp>
 #include <memory>
-
-namespace Time {
-	struct TimeData;
-}
+#include "Timer.h"
 
 class TitleText : public sf::Drawable
 {
@@ -24,13 +21,15 @@ private:
 
 	sf::Text text;
 	std::shared_ptr<sf::Font> font;
+
+	void handleMovement(float deltaTime);
 public:
 	State state;
 	TitleText(const std::string &caption, const sf::Vector2f& position, unsigned fontSize);
 
 	void setStateValues(const sf::Vector2f& pos1, const sf::Vector2f& pos2);
 
-	void update(float deltaTime);
+	void update(const Time::TimeData& timeData);
 
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 

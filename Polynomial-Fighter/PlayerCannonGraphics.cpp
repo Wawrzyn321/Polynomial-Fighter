@@ -32,6 +32,11 @@ void PlayerCannonGraphics::setShoot(const sf::Vector2f &position, float rotation
 	rotationAngleModifier = startingRotationAngleModifier;
 }
 
+void PlayerCannonGraphics::setFillColor(const sf::Color& color)
+{
+	cannon.setFillColor(color);
+}
+
 void PlayerCannonGraphics::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	target.draw(cannon, states);

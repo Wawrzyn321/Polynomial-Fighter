@@ -6,7 +6,7 @@ void PauseController::initGraphics()
 {
 	font = AssetManager::instance()->getDefaultFont();
 
-	pauseText = sf::Text("          Paused\n\nPress 'Esc' to exit.", *font, fontSize);
+	pauseText = sf::Text("        Paused\n\nPress 'Esc' to exit.", *font, fontSize);
 	centerTextOrigin(pauseText);
 	pauseText.setPosition(GameData::WINDOW_SIZE.x*0.5f, GameData::WINDOW_SIZE.y*0.49f);
 	pauseText.setFillColor(currentColor.toColor());
@@ -108,9 +108,6 @@ void PauseController::feed(const sf::Event& event)
 	}
 	if (event.type == sf::Event::LostFocus) {
 		forceSwitchTo(true);
-	}
-	else if (event.type == sf::Event::GainedFocus) {
-		forceSwitchTo(false);
 	}
 	if (event.type == sf::Event::MouseWheelMoved)
 	{

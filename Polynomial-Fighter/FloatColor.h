@@ -83,6 +83,20 @@ public:
 		os << color.x << " " << color.y << " " << color.z << " " << color.w;
 		return os;
 	}
+
+	static FloatColor lerp(const FloatColor &from, const FloatColor &to, float t, bool clampT = false)
+	{
+		if (clampT)
+		{
+			t = clamp01(t);
+		}
+		return {
+			from.x + (to.x - from.x)*t,
+			from.y + (to.y - from.y)*t,
+			from.z + (to.z - from.z)*t,
+			from.w + (to.w - from.w)*t
+		};
+	}
 };
 
 #endif

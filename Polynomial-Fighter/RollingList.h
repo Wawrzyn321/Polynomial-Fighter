@@ -4,6 +4,7 @@
 #include "RollingListEntry.h"
 #include <memory>
 #include "GameData.h"
+#include "StopWatch.h"
 
 class RollingList : public sf::Drawable
 {
@@ -13,6 +14,9 @@ public:
 		HIDING,
 		MOVING,
 	};
+private:
+	StopWatch *delayGuard = nullptr;
+	void runDelayGuard(float interval) const;
 protected:
 	State state{};
 	std::vector<RollingListEntry*> entries;
@@ -25,16 +29,19 @@ protected:
 	void updateTargets(int delta = 0);
 
 public:
+	bool showLastChild = true;
+
+	RollingList();
 
 	virtual void initTexts(const std::vector<std::string> &texts) = 0;
 
-	virtual void moveUp();
+	virtual bool moveUp();
 
-	virtual void moveDown();
+	virtual bool moveDown();
 
 	void setVisible(bool visible, bool resetCurrentlyCentered = true);
 
-	void update(float deltaTime);
+	void update(const Time::TimeData &timeData);
 
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
@@ -44,6 +51,8 @@ protected:
 	const float oneEntryShift = GameData::WINDOW_SIZE.x*0.02f;
 	const float twoEntriesShift = GameData::WINDOW_SIZE.x*0.05f;
 	const float twoEntriesMultiplier = 0.2f;
+private:
+	const float defaultGuardInterval = 200;
 };
 
 #endif

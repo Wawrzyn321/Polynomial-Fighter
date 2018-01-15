@@ -25,6 +25,8 @@ class InputField : public sf::Drawable
 	void updateCursorPosition();
 
 	const int characterLimit = 11;
+
+	void heartEasterEgg();
 public:
 	Delegate<const std::string&> OnTextSubmitted;
 	bool interactable{};

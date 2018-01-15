@@ -12,9 +12,9 @@ public:
 
 	void initTexts(const std::vector<std::string> &texts) override;
 
-	void moveUp() override;
+	bool moveUp() override;
 
-	void moveDown() override;
+	bool moveDown() override;
 private:
 	const unsigned fontSize = unsigned(GameData::WINDOW_SIZE.x*0.045f);
 };

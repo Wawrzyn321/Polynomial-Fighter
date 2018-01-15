@@ -20,7 +20,7 @@ void Enemy::initComponents(float angle, const PolynomialProductForm &pff)
 
 	polynomial = std::make_shared<EnemyPolynomialAdapter>(this, pff);
 
-	cannon = std::make_unique<EnemyCannon>(this, int(polynomial->getOriginalDegree()));
+	cannon = std::make_unique<EnemyCannon>(this);
 }
 
 Enemy::Enemy()

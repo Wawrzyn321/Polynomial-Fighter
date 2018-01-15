@@ -55,13 +55,13 @@ void HowToImageViewer::show(int index)
 	currentImageIndex = index;
 }
 
-void HowToImageViewer::update(float deltaTime)
+void HowToImageViewer::update(const Time::TimeData& timeData)
 {
+	float deltaTime = timeData.getScaledDeltaTimeInMili();
 	deltaTime = clamp01(deltaTime);
-	deltaTime *= 0.1f;
 
-	float newAlpha1 = lerp(float(image1.getColor().a), float(alpha1), deltaTime);
-	float newAlpha2 = lerp(float(image2.getColor().a), float(alpha2), deltaTime);
+	float newAlpha1 = lerp(float(image1.getColor().a), float(alpha1), deltaTime *0.1f);
+	float newAlpha2 = lerp(float(image2.getColor().a), float(alpha2), deltaTime*0.1f);
 	setAlpha(image1, int(newAlpha1));
 	setAlpha(image2, int(newAlpha2));
 }

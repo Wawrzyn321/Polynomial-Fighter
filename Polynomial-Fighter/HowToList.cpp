@@ -31,15 +31,20 @@ void HowToList::initTexts(const std::vector<std::string> &texts)
 	updateTargets();
 }
 
-void HowToList::moveUp()
+bool HowToList::moveUp()
 {
-	RollingList::moveUp();
-	howToViewer->show(currentlyCentered);
+	if (RollingList::moveUp()) {
+		howToViewer->show(currentlyCentered);
+		return true;
+	}
+	return false;
 }
 
-void HowToList::moveDown()
+bool HowToList::moveDown()
 {
-	RollingList::moveDown();
-	howToViewer->show(currentlyCentered);
-
+	if (RollingList::moveDown()) {
+		howToViewer->show(currentlyCentered);
+		return true;
+	}
+	return false;
 }

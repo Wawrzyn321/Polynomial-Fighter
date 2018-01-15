@@ -9,12 +9,15 @@ class PlayerCannonGraphics : public sf::Drawable
 	sf::Text cannon;
 	std::shared_ptr<sf::Font> font;
 	float rotationAngleModifier{};
+
 public:
 	PlayerCannonGraphics();
 
 	sf::Vector2f computeMuzzleShift() const;
 
 	void setShoot(const sf::Vector2f &position, float rotation);
+
+	void setFillColor(const sf::Color& color);
 
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 

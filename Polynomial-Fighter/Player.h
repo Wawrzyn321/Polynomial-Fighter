@@ -23,6 +23,9 @@ class Player : public Entity, public IDamageable
 
 	float targetRotation = 0;
 	bool rotationEventInvoked{};
+
+	void flashing(const Time::TimeData &timeData);
+
 	void initGraphics();
 
 	void updateRotation(float deltaTime);
@@ -65,7 +68,7 @@ private:
 	const unsigned fontSize = 24;
 	sf::Vector2f healthGUIPosition = { GameData::WINDOW_SIZE.x*0.03f, GameData::WINDOW_SIZE.y*0.89f };
 	sf::Vector2f healthGUISize = { GameData::WINDOW_SIZE.x*0.3f, GameData::WINDOW_SIZE.y*0.08f };
-
+	const float healthFlashingRatio = 0.15f;
 };
 
 #endif

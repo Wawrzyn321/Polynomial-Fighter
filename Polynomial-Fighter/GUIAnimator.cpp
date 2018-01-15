@@ -15,9 +15,9 @@
 void GUIAnimator::initGraphics()
 {
 	sf::Vector2f size = { float(GameData::WINDOW_SIZE.x) , float(GameData::WINDOW_SIZE.y) };
-	sf::Vector2f center = { size.x*0.5f,size.y*0.5f };
-
-	title = new TitleText("Polynomial\n  Fighter", center, unsigned(size.y*0.14f));
+	sf::Vector2f center = { size.x*0.5f,size.y*0.5f }; 
+	
+	title = new TitleText("Polynomial\n   Fighter", center, unsigned(size.y*0.14f));
 	title->setStateValues(center, { center.x, size.y*0.16f });
 
 	ring = new GUIRing(center);
@@ -32,13 +32,15 @@ void GUIAnimator::initGraphics()
 
 	howTo = new HowToList(center + sf::Vector2f(size.x*0.2f, size.y*0.15f), howToViewer);
 	howTo->initTexts(TextsProvider::howTo);
+	howTo->showLastChild = false;
 
 	highscores = new HighscoresList(center + sf::Vector2f(0, size.y*0.15f));
 	highscores->initTexts(HighscoreService::getFormattedHighscores());
 
 	authors = new AuthorsList(center + sf::Vector2f(0, size.y*0.15f));
 	authors->initTexts(TextsProvider::authors);
-
+	authors->showLastChild = false;
+	
 	pressAnyKeyText = new FlashingText("Press any key", { size.x*0.5f, size.y*0.9f }, unsigned(size.x*0.04f));
 	pressAnyKeyText->state = FlashingText::State::TO_POS_1;
 	pressAnyKeyText->setStateValues({ size.x*0.5f, size.y*0.8f }, { size.x*0.5f, size.y*1.1f });
@@ -54,15 +56,13 @@ GUIAnimator::GUIAnimator(MainMenu* menuReference)
 
 void GUIAnimator::update(const Time::TimeData& timeData) const
 {
-	float deltaTime = timeData.getScaledDeltaTimeInMili();
-
-	ring->update(deltaTime);
-	title->update(deltaTime);
-	optionsRing->update(deltaTime);
-	highscores->update(deltaTime);
-	howTo->update(deltaTime);
-	howToViewer->update(deltaTime);
-	authors->update(deltaTime);
+	ring->update(timeData);
+	title->update(timeData);
+	optionsRing->update(timeData);
+	highscores->update(timeData);
+	howTo->update(timeData);
+	howToViewer->update(timeData);
+	authors->update(timeData);
 	pressAnyKeyText->update(timeData);
 }
 
@@ -132,11 +132,13 @@ void GUIAnimator::setToGame() const
 void GUIAnimator::rotateRingRight() const
 {
 	optionsRing->switchRight();
+	SoundManager::instance()->playSound(Assets::SOUND_CLICK, SoundManager::SoundDirection::RIGHT);
 }
 
 void GUIAnimator::rotateRingLeft() const
 {
 	optionsRing->switchLeft();
+	SoundManager::instance()->playSound(Assets::SOUND_CLICK, SoundManager::SoundDirection::LEFT);
 }
 
 void GUIAnimator::moveHighscoresUp() const

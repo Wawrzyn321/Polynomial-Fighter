@@ -4,6 +4,11 @@
 #include "Colors.h"
 #include "SoundManager.h"
 
+void FinalScreen::playDrummies()
+{ 
+	SoundManager::instance()->playSound(Assets::SOUND_FAILED);
+}
+
 void FinalScreen::initGraphics()
 {
 	float x = float(GameData::WINDOW_SIZE.x);
@@ -86,9 +91,12 @@ void FinalScreen::update(const Time::TimeData& timeData)
 			killedText.setFillColor(Colors::SECOND);
 			whatExitText.setFillColor(Colors::SECOND);
 
-			SoundManager::instance()->playSound(Assets::SOUND_FAILED);
+			stopWatch.OnTime.add(std::bind(&FinalScreen::playDrummies, this));
+			stopWatch.reset(400, true);
 		}
 	}
+
+	stopWatch.update(timeData);
 }
 
 void FinalScreen::draw(sf::RenderTarget& target, sf::RenderStates states) const

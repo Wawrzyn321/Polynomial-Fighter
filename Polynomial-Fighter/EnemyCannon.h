@@ -8,12 +8,11 @@ class EnemyCannon
 	float reloadTime{};
 
 	Enemy *enemyReference{};
-	float bonusBulletDamage{};
 
-	void shoot();
+	void shoot() const;
 
 public:
-	EnemyCannon(Enemy *enemyReference, int polynomialDegree);
+	EnemyCannon(Enemy *enemyReference);
 
 	void update(float deltaTime);
 

@@ -53,6 +53,8 @@ public:
 
 	void setPosition(const sf::Vector2f& position) const;
 
+	void setFillColor(const sf::Color& color) const;
+
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
 	void update(float deltaTime);

@@ -4,6 +4,7 @@
 #include "GameData.h"
 #include "FleetingText.h"
 #include "EntityManager.h"
+#include "EasterEgg.h"
 
 void InputField::initGraphics()
 {
@@ -41,6 +42,24 @@ void InputField::updateCursorPosition()
 	cursor.setPosition(text.getPosition().x + text.getGlobalBounds().width, text.getPosition().y + size.y*0.64f);
 }
 
+void InputField::heartEasterEgg()
+{
+	if (!EasterEgg::hasAlreadyDoneThat)
+	{
+		auto ft = std::make_shared<FleetingText>("I love you too...",
+			position + sf::Vector2f(size.x*0.5f, 0), sf::Color(255, 15, 15), 30);
+		ft->run(0.0008f, { 0, -0.04f }, 0);
+		EntityManager::instance()->addEntity(ft);
+	}
+	else
+	{
+		auto ft = std::make_shared<FleetingText>("Not anymore...",
+			position + sf::Vector2f(size.x*0.5f, 0), sf::Color(250, 15, 15), 30);
+		ft->run(0.0009f, { 0, -0.05f }, 0);
+		EntityManager::instance()->addEntity(ft);
+	}
+}
+
 InputField::InputField(const sf::Vector2f &position, const sf::Vector2f &size, PauseController *pauseController)
 {
 	this->size = size;
@@ -74,11 +93,9 @@ void InputField::feed(const sf::Event &event)
 			{
 				if (currentText == "<3")
 				{
-					auto ft = std::make_shared<FleetingText>("I love you too...",
-						position+sf::Vector2f(size.x*0.5f, 0), sf::Color(255, 15, 15), 30);
-					ft->run(0.0008f, { 0, -0.04f }, 0);
-					EntityManager::instance()->addEntity(ft);
+					heartEasterEgg();
 				}
+
 				OnTextSubmitted.invoke(text.getString());
 				clear();
 			}

@@ -6,11 +6,12 @@
 #include "Player.h"
 #include "AssetManager.h"
 
-void EnemyCannon::shoot()
+void EnemyCannon::shoot() const
 {
 	auto player = EntityManager::instance()->findEntityOfType<Player>();
 
 	if (player && player->getAlive()) {
+		float bonusBulletDamage = 0.8f + enemyReference->getPolynomial()->getDeg()*0.1f;
 		auto b = std::make_shared<SimpleBullet>(enemyReference->getPosition(), bulletRadius, baseBulletDamage, bonusBulletDamage);
 		b->setTarget(player, bulletSpeed);
 		EntityManager::instance()->addEntity(b);
@@ -21,13 +22,12 @@ void EnemyCannon::shoot()
 	}
 }
 
-EnemyCannon::EnemyCannon(Enemy *enemyReference, int polynomialDegree)
+EnemyCannon::EnemyCannon(Enemy *enemyReference)
 {
 	this->enemyReference = enemyReference;
 
 	accumulator = 0;
-	reloadTime = baseReloadTime - polynomialDegree * 100;
-	bonusBulletDamage = 1.0f + polynomialDegree*0.1f;
+	reloadTime = baseReloadTime - enemyReference->getPolynomial()->getOriginalDegree() * 100;
 }
 
 void EnemyCannon::update(float deltaTime)

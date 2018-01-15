@@ -4,6 +4,10 @@
 #include "GameData.h"
 #include <memory>
 
+namespace Time {
+	struct TimeData;
+}
+
 class GUIRingOptions : public sf::Drawable
 {
 public:
@@ -45,7 +49,7 @@ public:
 
 	void handleColoring(float deltaTime);
 
-	void update(float deltaTime);
+	void update(const Time::TimeData& timeData);
 
 	void setExiting();
 

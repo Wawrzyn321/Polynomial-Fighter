@@ -12,8 +12,10 @@ GUIRing::GUIRing(const sf::Vector2f &center)
 	shape.setPosition(center);
 }
 
-void GUIRing::update(float deltaTime)
+void GUIRing::update(const Time::TimeData& timeData)
 {
+	float deltaTime = timeData.getScaledDeltaTimeInMili();
+
 	RingValues *vals = nullptr;
 	switch (state) {
 	case State::TO_MINOR:

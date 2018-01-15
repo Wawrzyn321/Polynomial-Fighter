@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include "GameData.h"
 #include "Utility.h"
+#include "Timer.h"
 
 struct RingValues
 {
@@ -67,7 +68,7 @@ public:
 
 	GUIRing(const sf::Vector2f &center);
 
-	void update(float deltaTime);
+	void update(const Time::TimeData& timeData);
 
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 private:

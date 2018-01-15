@@ -42,7 +42,7 @@ void GameplayManager::EnemySpawned(unsigned id)
 
 void GameplayManager::EnemyDestroyed(unsigned id)
 {
-	const float healAmount = 0.1f;
+	const float healAmount = 0.2f;
 
 	if (player->getAlive()) {
 		auto e = EntityManager::instance()->findEntityById(id);
@@ -52,7 +52,7 @@ void GameplayManager::EnemyDestroyed(unsigned id)
 		player->heal(enemy->getPolynomial()->getOriginalDegree()*healAmount);
 	}
 
-	cameraShake.shake(2, 70);
+	cameraShake.shake(3, 80);
 	enemiesAlive--;
 	allDestroyedEnemies++;
 	if (enemiesAlive == 0 && alreadySpawnedEnemies == targetEnemiesNumber)
@@ -73,7 +73,7 @@ void GameplayManager::TextSubmitted(const std::string &text) const
 
 void GameplayManager::PlayerDestroyed()
 {
-	cameraShake.shake(5, 150);
+	cameraShake.shake(8, 200);
 	spawner.isActive = false;
 
 	std::vector<std::shared_ptr<Entity>> entities = EntityManager::instance()->findEntitiesByTag(GameData::TAG_ENEMY);

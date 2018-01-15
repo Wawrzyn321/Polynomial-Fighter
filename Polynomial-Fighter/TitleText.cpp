@@ -2,6 +2,32 @@
 #include "Utility.h"
 #include "AssetManager.h"
 #include "Colors.h"
+#include "Timer.h"
+
+void TitleText::handleMovement(float deltaTime)
+{
+	sf::Vector2f dest;
+	if (state == State::UP)
+	{
+		dest = { text.getPosition().x, -GameData::WINDOW_SIZE.y*0.2f };
+	}
+	else if (state == State::EXITING || state == State::SPLASH)
+	{
+		dest = pos1;
+	}
+	else
+	{
+		dest = pos2;
+	}
+	sf::Vector2f pos = lerp(text.getPosition(), dest, deltaTime*lerpSpeed);
+	text.setPosition(pos);
+
+	if (abs(dest.x - pos.x) < vector2Threshold && abs(dest.y - pos.y) < vector2Threshold && state != State::EXITING)
+	{
+		text.setPosition(dest);
+		state = State::IDLE;
+	}
+}
 
 TitleText::TitleText(const std::string& caption, const sf::Vector2f &position, unsigned fontSize)
 {
@@ -20,35 +46,15 @@ void TitleText::setStateValues(const sf::Vector2f &pos1, const sf::Vector2f &pos
 	this->pos2 = pos2;
 }
 
-void TitleText::update(float deltaTime)
+void TitleText::update(const Time::TimeData& timeData)
 {
+	float deltaTime = timeData.getScaledDeltaTimeInMili();
+
 	if (state != State::IDLE) {
-
-		sf::Vector2f dest;
-		if (state == State::UP)
-		{
-			dest = {text.getPosition().x, -GameData::WINDOW_SIZE.y*0.2f};
-		}
-		else if (state == State::EXITING || state == State::SPLASH)
-		{
-			dest = pos1;
-		}
-		else
-		{
-			dest = pos2;
-		}
-		sf::Vector2f pos = lerp(text.getPosition(), dest, deltaTime*lerpSpeed);
-
-		text.setPosition(pos);
-		
-		if(abs(dest.x - pos.x) < vector2Threshold && abs(dest.y - pos.y) < vector2Threshold && state != State::EXITING)
-		{
-			text.setPosition(dest);
-			state = State::IDLE;
-		}
+		handleMovement(deltaTime);
 	}
 
-	if(state == State::EXITING)
+	if (state == State::EXITING)
 	{
 		sf::Vector2f scale = lerp(text.getScale(), { 0,0 }, deltaTime*0.01f);
 		text.setScale(scale);

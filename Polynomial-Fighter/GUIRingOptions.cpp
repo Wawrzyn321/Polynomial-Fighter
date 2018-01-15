@@ -96,8 +96,10 @@ void GUIRingOptions::handleColoring(float deltaTime)
 	}
 }
 
-void GUIRingOptions::update(float deltaTime)
+void GUIRingOptions::update(const Time::TimeData& timeData)
 {
+	float deltaTime = timeData.getScaledDeltaTimeInMili();
+
 	handleDistanceMoving(deltaTime);
 
 	if (isUpdatngRotation)

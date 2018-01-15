@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include <memory>
 #include "Timer.h"
+#include "StopWatch.h"
 
 class FinalScreen : public sf::Drawable
 {
@@ -14,11 +15,14 @@ class FinalScreen : public sf::Drawable
 	sf::Text killedText;
 	sf::Text whatExitText;
 	std::shared_ptr<sf::Font> font;
+	StopWatch stopWatch;
 
 	bool isFadingIn;
 	unsigned score;
 	unsigned killedEnemies;
 	unsigned stageNo;
+
+	void playDrummies();
 
 	void initGraphics();
 public:

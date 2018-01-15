@@ -9,10 +9,28 @@
 #include "SoundManager.h"
 #include "EasterEgg.h"
 
+void Player::flashing(const Time::TimeData &timeData)
+{
+	FloatColor color = shape.getFillColor();
+
+	if (health / maxHealth < healthFlashingRatio) {
+		float sinValue = sinf(timeData.elapsedTime.asSeconds() * 3.0f);
+		color = FloatColor::lerp(FloatColor(Colors::WHITE), FloatColor(Colors::FOURTH), 0.75f + sinValue*0.25f);
+	}
+	else
+	{
+		color = color.lerpTo(FloatColor(Colors::WHITE), timeData.getScaledDeltaTimeInMili());
+	}
+
+	shape.setFillColor(color.toColor());
+	cannon->setFillColor(color.toColor());
+}
+
 void Player::initGraphics()
 {
 	font = AssetManager::instance()->getDefaultFont();
 	shape = sf::Text("(x)", *font, fontSize);
+	shape.setFillColor(Colors::WHITE);
 	centerTextOrigin(shape);
 
 	healthGUI = std::make_unique<PlayerHealthGUI>(
@@ -158,6 +176,7 @@ void Player::update(const Time::TimeData &timeData)
 	if (isAlive) {
 		updateRotation(deltaTime);
 		cannon->update(deltaTime);
+		flashing(timeData);
 	}
 }
 

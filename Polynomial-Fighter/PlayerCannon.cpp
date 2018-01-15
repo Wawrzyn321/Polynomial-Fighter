@@ -200,6 +200,11 @@ void PlayerCannon::setPosition(const sf::Vector2f &position) const
 	graphics->setPosition(position);
 }
 
+void PlayerCannon::setFillColor(const sf::Color& color) const
+{
+	graphics->setFillColor(color);
+}
+
 void PlayerCannon::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	munitionContainer->draw(target, states);

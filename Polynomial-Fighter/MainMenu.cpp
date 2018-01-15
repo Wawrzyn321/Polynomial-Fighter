@@ -77,12 +77,10 @@ void MainMenu::handleHighScoreKeys(const sf::Event::KeyEvent& key)
 	case sf::Keyboard::W:
 	case sf::Keyboard::Up:
 		animator->moveHighscoresUp();
-		SoundManager::instance()->playSound(Assets::SOUND_ROLLING_LIST_MOVE);
 		break;
 	case sf::Keyboard::S:
 	case sf::Keyboard::Down:
 		animator->moveHighscoresDown();
-		SoundManager::instance()->playSound(Assets::SOUND_ROLLING_LIST_MOVE);
 		break;
 	case sf::Keyboard::Escape:
 		animator->setMenu(false, false);
@@ -100,12 +98,10 @@ void MainMenu::handleHowToKeys(const sf::Event::KeyEvent& key)
 	case sf::Keyboard::W:
 	case sf::Keyboard::Up:
 		animator->moveHowToUp();
-		SoundManager::instance()->playSound(Assets::SOUND_ROLLING_LIST_MOVE);
 		break;
 	case sf::Keyboard::S:
 	case sf::Keyboard::Down:
 		animator->moveHowToDown();
-		SoundManager::instance()->playSound(Assets::SOUND_ROLLING_LIST_MOVE);
 		break;
 	case sf::Keyboard::Escape:
 		animator->setMenu(false, false);
@@ -123,12 +119,10 @@ void MainMenu::handleAuthorsKeys(const sf::Event::KeyEvent& key)
 	case sf::Keyboard::W:
 	case sf::Keyboard::Up:
 		animator->moveAuthorsUp();
-		SoundManager::instance()->playSound(Assets::SOUND_ROLLING_LIST_MOVE);
 		break;
 	case sf::Keyboard::S:
 	case sf::Keyboard::Down:
 		animator->moveAuthorsDown();
-		SoundManager::instance()->playSound(Assets::SOUND_ROLLING_LIST_MOVE);
 		break;
 	case sf::Keyboard::Escape:
 		animator->setMenu(false, false);
@@ -141,30 +135,28 @@ void MainMenu::handleAuthorsKeys(const sf::Event::KeyEvent& key)
 
 void MainMenu::handleRingRotation(const sf::Event &event) const
 {
-	static bool lock = false;
+	static bool keyLock = false;
 
 	sf::Keyboard::Key key = event.key.code;
 
-	if (event.type == sf::Event::KeyPressed && !lock) {
+	if (event.type == sf::Event::KeyPressed && !keyLock) {
 		switch (key) {
 		case sf::Keyboard::A:
 		case sf::Keyboard::Left:
 			animator->rotateRingLeft();
-			SoundManager::instance()->playSound(Assets::SOUND_CLICK, SoundManager::SoundDirection::LEFT);
-			lock = true;
+			keyLock = true;
 			break;
 		case sf::Keyboard::D:
 		case sf::Keyboard::Right:
 			animator->rotateRingRight();
-			SoundManager::instance()->playSound(Assets::SOUND_CLICK, SoundManager::SoundDirection::RIGHT);
-			lock = true;
+			keyLock = true;
 			break;
 		}
 	}
 	else if (event.type == sf::Event::KeyReleased)
 	{
 		if (key == sf::Keyboard::A || key == sf::Keyboard::D || key == sf::Keyboard::Left || key == sf::Keyboard::Right) {
-			lock = false;
+			keyLock = false;
 		}
 	}
 }
