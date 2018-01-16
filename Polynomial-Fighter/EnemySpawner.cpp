@@ -22,7 +22,7 @@ void EnemySpawner::spawnEnemy()
 	PolynomialProductForm pff = PolynomialGenerator::generatePolynomial(deg, valuesRange);
 	sf::Vector2f position = getPointOnIntRect(bounds, 12, 25);
 
-	float speed = 0.07f + deg*0.011f;
+	float speed = 0.08f - deg*0.004f;
 	auto e = std::make_shared<Enemy>(Enemy());
 	e->init(position, playerReference->getPosition(), speed, pff);
 	e->DeathEvent.add(std::bind(&GameplayManager::EnemyDestroyed, managerReference, std::placeholders::_1));

@@ -16,6 +16,7 @@ class EnemySpawner
 	GameplayManager *managerReference{};
 	float interval{};
 	unsigned difficultyLevel{};
+
 	void spawnEnemy();
 
 	float calculateInterval() const;

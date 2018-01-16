@@ -87,7 +87,7 @@ void GameplayManager::PlayerDestroyed()
 	gameplay->state = Gameplay::State::SHOWING_HIGHSCORE;
 
 	pauseController.forceSwitchTo(false);
-	scoreManager.showFinalScore(allDestroyedEnemies);
+	scoreManager.showFinalScore();
 	finalScreen = std::make_unique<FinalScreen>(points, allDestroyedEnemies, currentStage);
 
 	SoundManager::instance()->playSound(Assets::SOUND_FAILED);
@@ -117,7 +117,7 @@ void GameplayManager::initSpawner()
 }
 
 void GameplayManager::initPlayer() {
-	player = std::make_shared<Player>(sf::Vector2f(GameData::WINDOW_SIZE.x*0.5f, GameData::WINDOW_SIZE.y*0.5f));
+	player = std::make_shared<Player>(GameData::WINDOW_CENTER);
 	player->DeathEvent.add(std::bind(&GameplayManager::PlayerDestroyed, this));
 	EntityManager::instance()->addEntity(player, true);
 }
@@ -169,7 +169,7 @@ void GameplayManager::reset()
 	EntityManager::instance()->clear();
 	Time::Timer::instance()->setTimeScale(1.0f);
 	scoreManager.reset();
-	finalScreen.release();
+	finalScreen.reset();
 
 	initPlayer();
 	initSpawner();
@@ -211,7 +211,7 @@ void GameplayManager::feed(const sf::Event& event)
 
 void GameplayManager::update(const Time::TimeData &timeData)
 {
-	assert(EntityManager::instance()->findEntitiesByTag(GameData::TAG_PLAYER, true).size() == 1);
+	//assert(EntityManager::instance()->findEntitiesByTag(GameData::TAG_PLAYER, true).size() == 1);
 
 	spawner.update(timeData);
 	scoreManager.update(timeData);
@@ -221,6 +221,11 @@ void GameplayManager::update(const Time::TimeData &timeData)
 	if (finalScreen) {
 		finalScreen->update(timeData);
 	}
+}
+
+void GameplayManager::earlyDraw(sf::RenderTarget& target, sf::RenderStates states) const
+{
+	scoreManager.earlyDraw(target, states);
 }
 
 void GameplayManager::draw(sf::RenderTarget& target, sf::RenderStates states) const
@@ -239,5 +244,5 @@ void GameplayManager::draw(sf::RenderTarget& target, sf::RenderStates states) co
 GameplayManager::~GameplayManager()
 {
 	delete inputField;
-	finalScreen.release();
+	finalScreen.reset();
 }

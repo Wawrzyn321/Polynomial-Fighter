@@ -15,7 +15,9 @@ class HighscoreService
 	static void saveHighScores();
 public:
 
-	static std::vector<std::string> getFormattedHighscores();
+	static std::tuple<unsigned, unsigned> getMinMaxHighscore(bool forceUpdate = false);
+
+	static std::vector<std::string> getFormattedHighscores(bool forceUpdate = false);
 
 	static bool addScore(unsigned score);
 };

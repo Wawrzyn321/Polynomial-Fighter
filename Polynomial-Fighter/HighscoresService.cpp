@@ -43,9 +43,29 @@ void HighscoreService::saveHighScores()
 	fOut.close();
 }
 
-std::vector<std::string> HighscoreService::getFormattedHighscores()
+
+std::tuple<unsigned, unsigned> HighscoreService::getMinMaxHighscore(bool forceUpdate)
 {
-	if (!scoresAreLoaded)
+	if (!scoresAreLoaded || forceUpdate)
+	{
+		loadHighScores();
+	}
+	if (loadedScores.size() == 0)
+	{
+		return { 0,0 };
+	}
+	else
+	{
+		return {
+			loadedScores[0],
+			loadedScores.back()
+		};
+	}
+}
+
+std::vector<std::string> HighscoreService::getFormattedHighscores(bool forceUpdate)
+{
+	if (!scoresAreLoaded || forceUpdate)
 	{
 		loadHighScores();
 	}

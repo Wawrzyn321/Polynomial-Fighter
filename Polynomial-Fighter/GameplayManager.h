@@ -53,6 +53,8 @@ public:
 
 	void update(const Time::TimeData &timeData);
 
+	void earlyDraw(sf::RenderTarget& target, sf::RenderStates states = sf::RenderStates::Default) const;
+	
 	void draw(sf::RenderTarget& target, sf::RenderStates states = sf::RenderStates::Default) const;
 
 	~GameplayManager();

@@ -260,7 +260,7 @@ MainMenu::MainMenu(sf::RenderWindow* window)
 
 	stopWatch = new StopWatch();
 	animator = new GUIAnimator(this);
-	sf::Listener::setPosition(GameData::WINDOW_SIZE.x*0.5f, 0, GameData::WINDOW_SIZE.y*0.5f);
+	sf::Listener::setPosition(GameData::WINDOW_CENTER.x, 0, GameData::WINDOW_CENTER.y);
 
 	isRunning = true;
 	state = State::SPLASH;

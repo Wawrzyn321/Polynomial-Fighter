@@ -15,17 +15,18 @@ class ScoreManager
 public:
 	ScoreManager();
 	ScoreManager(const ScoreManager &) {}
-	ScoreManager &operator=(const ScoreManager& sm) { return *this; }
 
 	void onEnemyKilled(unsigned id);
 
 	void stageFinished();
 
-	void showFinalScore(unsigned destroyedEnemies) const;
+	void showFinalScore() const;
 
 	void reset();
 
 	void update(const Time::TimeData& timeData) const;
+
+	void earlyDraw(sf::RenderTarget& target, const sf::RenderStates& states) const;
 
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 private:

@@ -32,6 +32,9 @@ void Gameplay::update() const
 void Gameplay::draw() const
 {
 	window->clear(Colors::screenBackgroundColor);
+
+	gameplayManager->earlyDraw(*window);
+
 	em->draw(*window);
 
 	gameplayManager->draw(*window);

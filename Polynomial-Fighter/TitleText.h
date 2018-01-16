@@ -1,5 +1,5 @@
-#ifndef ANIMATED_TEXT_H
-#define ANIMATED_TEXT_H
+#ifndef TITLE_TEXT_H
+#define TITLE_TEXT_H
 #include <SFML/Graphics.hpp>
 #include <memory>
 #include "Timer.h"

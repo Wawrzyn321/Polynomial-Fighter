@@ -1,10 +1,9 @@
 #include "ScoreManager.h"
 #include "Timer.h"
-#include "GameData.h"
 #include <cassert>
-#include "EntityManager.h"
-#include "Enemy.h"
 #include "HighscoresService.h"
+#include "Enemy.h"
+#include "EntityManager.h"
 
 ScoreManager::ScoreManager()
 {
@@ -14,7 +13,7 @@ ScoreManager::ScoreManager()
 	gui = std::make_unique<ScoreManagerGUI>(
 		sf::Vector2f(GameData::WINDOW_SIZE.x*0.67f, GameData::WINDOW_SIZE.y*0.03f),
 		sf::Vector2f(GameData::WINDOW_SIZE.x*0.3f, GameData::WINDOW_SIZE.y*0.08f));
-	gui->updateStageNo(1);
+	gui->stageFinished(1);
 }
 
 void ScoreManager::onEnemyKilled(unsigned id)
@@ -32,11 +31,12 @@ void ScoreManager::stageFinished()
 {
 	points += pointsStageFinished;
 	stageNo++;
-	gui->updateStageNo(stageNo, pointsStageFinished);
+	gui->setTargetPoints(pointsStageFinished, true);
+	gui->stageFinished(stageNo);
 }
 
 
-void ScoreManager::showFinalScore(unsigned destroyedEnemies) const
+void ScoreManager::showFinalScore() const
 {
 	HighscoreService::addScore(points);
 
@@ -53,6 +53,11 @@ void ScoreManager::reset()
 void ScoreManager::update(const Time::TimeData &timeData) const
 {
 	gui->update(timeData);
+}
+
+void ScoreManager::earlyDraw(sf::RenderTarget& target, const sf::RenderStates& states) const
+{
+	gui->earlyDraw(target, states);
 }
 
 void ScoreManager::draw(sf::RenderTarget& target, sf::RenderStates states) const

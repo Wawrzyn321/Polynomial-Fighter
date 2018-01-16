@@ -16,6 +16,7 @@ namespace GameData {
 	const std::string NAME_PARTICLE_SYSTEM = "Particle System";
 
 	const sf::Vector2i WINDOW_SIZE = sf::Vector2i(1024, 768);
+	const sf::Vector2f WINDOW_CENTER = {WINDOW_SIZE.x*0.5f, WINDOW_SIZE.y*0.5f};
 	const sf::IntRect DEFAULT_BOUNDS = sf::IntRect({ 0,0 }, WINDOW_SIZE);;
 
 	const float fillingSpeed = 0.05f;
