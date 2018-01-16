@@ -1,10 +1,10 @@
 #include "EasterEgg.h"
 #include "HowToImageViewer.h"
 
-HowToImageViewer* EasterEgg::viewer = nullptr;
+std::shared_ptr<HowToImageViewer> EasterEgg::viewer = nullptr;
 bool EasterEgg::hasAlreadyDoneThat = false;
 
-void EasterEgg::setViewer(HowToImageViewer* v)
+void EasterEgg::setViewer(const std::shared_ptr<HowToImageViewer> &v)
 {
 	viewer = v;
 }

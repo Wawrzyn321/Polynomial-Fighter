@@ -18,9 +18,11 @@ void Enemy::initComponents(float angle, const PolynomialProductForm &pff)
 	caption = std::make_unique<PowerfulText>(PolynomialMultipler::generalForm(pff).toString(), AssetManager::instance()->getDefaultFont(), textSize);
 	caption->center();
 
-	polynomial = std::make_shared<EnemyPolynomialAdapter>(this, pff);
+	std::shared_ptr<Enemy> myPointer = std::shared_ptr<Enemy>(this);
 
-	cannon = std::make_unique<EnemyCannon>(this);
+	polynomial = std::make_shared<EnemyPolynomialAdapter>(myPointer, pff);
+
+	cannon = std::make_unique<EnemyCannon>(myPointer);
 }
 
 Enemy::Enemy()

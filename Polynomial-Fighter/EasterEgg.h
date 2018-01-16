@@ -1,12 +1,13 @@
 #ifndef EASTER_EGG_H
 #define EASTER_EGG_H
+#include <memory>
 
 class HowToImageViewer;
 class EasterEgg
 {
-	static HowToImageViewer *viewer;
+	static std::shared_ptr<HowToImageViewer> viewer;
 public:
-	static void setViewer(HowToImageViewer *v);
+	static void setViewer(const std::shared_ptr<HowToImageViewer> &v);
 
 	static bool hasAlreadyDoneThat;
 
