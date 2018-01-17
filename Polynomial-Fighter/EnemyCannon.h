@@ -1,6 +1,5 @@
 #ifndef ENEMY_CANNON_H
 #define ENEMY_CANNON_H
-#include <memory>
 
 class Enemy;
 class EnemyCannon
@@ -8,12 +7,12 @@ class EnemyCannon
 	float accumulator{};
 	float reloadTime{};
 
-	std::shared_ptr<Enemy> enemyReference{};
+	Enemy *enemyReference{};
 
 	void shoot() const;
 
 public:
-	EnemyCannon(const std::shared_ptr<Enemy> &enemyReference);
+	EnemyCannon(Enemy *enemyReference);
 
 	void update(float deltaTime);
 

@@ -1,9 +1,10 @@
 #include "EnemyPolynomialAdapter.h"
 #include "PolynomialProductForm.h"
+#include "Debug.h"
 #include "PolynomialMultipler.h"
 #include "Enemy.h"
 
-EnemyPolynomialAdapter::EnemyPolynomialAdapter(const std::shared_ptr<Enemy> &enemyReference, PolynomialProductForm ppf)
+EnemyPolynomialAdapter::EnemyPolynomialAdapter(Enemy * enemyReference, PolynomialProductForm ppf)
 {
 	this->enemyReference = enemyReference;
 	this->ppf = ppf;

@@ -25,7 +25,7 @@ void GUIAnimator::initGraphics()
 	optionsRing = new GUIRingOptions(center);
 
 	howToViewer = new HowToImageViewer(center + sf::Vector2f(0, size.y*0.05f));
-	EasterEgg::setViewer(std::make_shared<HowToImageViewer>(*howToViewer));
+	EasterEgg::setViewer(howToViewer);
 
 	highscores = new HighscoresList(center + sf::Vector2f(0, size.y*0.15f));
 	highscores->initTexts(HighscoreService::getFormattedHighscores());

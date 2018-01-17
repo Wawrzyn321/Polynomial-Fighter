@@ -22,7 +22,7 @@ void EnemyCannon::shoot() const
 	}
 }
 
-EnemyCannon::EnemyCannon(const std::shared_ptr<Enemy> &enemyReference)
+EnemyCannon::EnemyCannon(Enemy *enemyReference)
 {
 	this->enemyReference = enemyReference;
 
