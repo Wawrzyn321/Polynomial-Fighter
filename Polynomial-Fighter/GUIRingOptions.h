@@ -2,11 +2,9 @@
 #define GUI_OPTIONS_RING_H
 #include <array>
 #include "GameData.h"
+#include "Timer.h"
+#include "TextArrows.h"
 #include <memory>
-
-namespace Time {
-	struct TimeData;
-}
 
 class GUIRingOptions : public sf::Drawable
 {
@@ -30,6 +28,8 @@ private:
 
 	std::shared_ptr<sf::Font> font;
 	std::array<sf::Text*, 6> buttons;
+
+	TextArrows *arrows;
 
 	float commonRotation = 0;
 	int currentOption = 0;

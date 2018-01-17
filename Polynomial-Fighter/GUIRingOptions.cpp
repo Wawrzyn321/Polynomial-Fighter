@@ -31,6 +31,8 @@ GUIRingOptions::GUIRingOptions(const sf::Vector2f &center)
 		buttons[i]->setPosition({ center.x, 0 });
 		buttons[i]->setRotation(i * 360.0f / buttons.size());
 	}
+
+	arrows = new TextArrows(fontSize);
 }
 
 void GUIRingOptions::handleDistanceMoving(float deltaTime)
@@ -110,7 +112,7 @@ void GUIRingOptions::update(const Time::TimeData& timeData)
 	{
 		handleColoring(deltaTime);
 	}
-	
+	arrows->update(timeData);
 }
 
 void GUIRingOptions::setExiting()
@@ -122,16 +124,18 @@ void GUIRingOptions::switchRight()
 {
 	currentOption = (currentOption + 1) % buttons.size();
 	isUpdatngRotation = true;
+	arrows->updateBounds(buttons[currentOption]);
 }
 
 void GUIRingOptions::switchLeft()
 {
 	currentOption--;
-	if (currentOption<0)
+	if (currentOption < 0)
 	{
 		currentOption = int(buttons.size()) - 1;
 	}
 	isUpdatngRotation = true;
+	arrows->updateBounds(buttons[currentOption]);
 }
 
 void GUIRingOptions::setVisible(bool isVisible, bool resetCurrentOption)
@@ -143,6 +147,10 @@ void GUIRingOptions::setVisible(bool isVisible, bool resetCurrentOption)
 			currentOption = 0;
 		}
 		isUpdatngRotation = true;
+		arrows->updateBounds(buttons[currentOption]);
+	}
+	else{
+		arrows->updateBounds(-GameData::WINDOW_SIZE.x*0.2f, GameData::WINDOW_SIZE.x*1.2f);
 	}
 }
 
@@ -162,6 +170,7 @@ void GUIRingOptions::draw(sf::RenderTarget& target, sf::RenderStates states) con
 	{
 		target.draw(*b, states);
 	}
+	target.draw(*arrows, states);
 }
 
 GUIRingOptions::~GUIRingOptions()
@@ -170,4 +179,5 @@ GUIRingOptions::~GUIRingOptions()
 	{
 		delete b;
 	}
+	delete arrows;
 }

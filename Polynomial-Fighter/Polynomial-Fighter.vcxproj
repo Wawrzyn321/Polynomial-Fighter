@@ -139,6 +139,7 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="PauseController.cpp" />
     <ClCompile Include="FlashingText.cpp" />
+    <ClCompile Include="TextArrows.cpp" />
     <ClCompile Include="TextsProvider.h" />
     <ClCompile Include="HighscoresList.cpp" />
     <ClCompile Include="HighscoresService.cpp" />
@@ -211,6 +212,7 @@
     <ClInclude Include="RollingList.h" />
     <ClInclude Include="RollingListEntry.h" />
     <ClInclude Include="StopWatch.h" />
+    <ClInclude Include="TextArrows.h" />
     <ClInclude Include="TitleText.h" />
     <ClInclude Include="APSBuilder.h" />
     <ClInclude Include="BulletBase.h" />
