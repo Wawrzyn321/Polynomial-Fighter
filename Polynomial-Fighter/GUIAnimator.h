@@ -32,8 +32,6 @@ public:
 
 	void draw(sf::RenderTarget& target, sf::RenderStates states = sf::RenderStates::Default) const;
 
-	GUIRingOptions::Option getRingOption() const;
-
 	void setSplash() const;
 
 	void setMenu(bool resetCurrentOption, bool playSound = true) const;
@@ -43,6 +41,8 @@ public:
 	void setExiting() const;
 
 	void setToGame() const;
+
+	GUIRingOptions::Option getRingOption() const;
 
 	void rotateRingRight() const;
 
@@ -54,17 +54,23 @@ public:
 
 	void setHighscoresVisibles(bool visible) const;
 
+	void resetHighscoresGuard() const;
+
 	void moveHowToUp() const;
 
 	void moveHowToDown() const;
 
 	void setHowToVisible(bool visible) const;
 
+	void resetHowToGuard() const;
+
 	void moveAuthorsUp() const;
 
 	void moveAuthorsDown() const;
 
 	void setAuthorsVisible(bool visible) const;
+
+	void resetAuthorsGuard() const;
 
 	void setSound(bool isOn) const;
 

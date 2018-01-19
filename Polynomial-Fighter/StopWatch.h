@@ -17,6 +17,8 @@ public:
 
 	void reset(float interval, bool run);
 
+	void stop();
+
 	sf::Vector2f getPosition() const override;
 
 	void setPosition(const sf::Vector2f& position) override;

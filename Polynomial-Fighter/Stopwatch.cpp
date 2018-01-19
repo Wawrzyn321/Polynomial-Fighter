@@ -24,6 +24,11 @@ void StopWatch::reset(float interval, bool run)
 	accumulator = 0;
 }
 
+void StopWatch::stop()
+{
+	isRunning = 0;
+}
+
 sf::Vector2f StopWatch::getPosition() const
 {
 	return {};

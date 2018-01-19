@@ -37,6 +37,8 @@ private:
 
 	void handleRingRotation(const sf::Event &event) const;
 
+	void handleRollingListsReleasedEvents(const sf::Event::KeyEvent& key) const;
+
 	void handleEvents();
 
 	void update() const;

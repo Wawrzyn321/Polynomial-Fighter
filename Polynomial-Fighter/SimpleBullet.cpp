@@ -45,7 +45,10 @@ void SimpleBullet::setTarget(const std::shared_ptr<Entity> &recipient, float spe
 
 	sf::Vector2f currentTargetPosition = recipient->getPosition();
 	velocity = vectorNormalize(currentTargetPosition - getPosition()) * speed;
-	trail = ParticleMaster::addEnemyTrail(*dynamic_cast<Entity*>(this));
+	Entity* EntityFromThis = dynamic_cast<Entity*>(this);
+	if (EntityFromThis) {
+		trail = ParticleMaster::addEnemyTrail(*EntityFromThis);
+	}
 }
 
 sf::Vector2f SimpleBullet::getPosition() const

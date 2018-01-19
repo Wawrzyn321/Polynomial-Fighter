@@ -41,7 +41,7 @@ void ScoreManagerGUI::updateStageText(const Time::TimeData& timeData)
 		float newX = lerp(stageText.getScale().x, 0.0f, timeData.getScaledDeltaTimeInMili()*scalingSpeed);
 		stageText.setScale(newX, 1);
 
-		if (abs(newX < stageScalingThreshold))
+		if (abs(newX) < stageScalingThreshold)
 		{
 			stageText.setString(std::to_string(unsigned(stageNo)));
 			stageTextState = EthericalTextState::AUG;
@@ -53,9 +53,9 @@ void ScoreManagerGUI::updateStageText(const Time::TimeData& timeData)
 		float newX = lerp(stageText.getScale().x, 1.0f, timeData.getScaledDeltaTimeInMili()*scalingSpeed);
 		stageText.setScale(newX, 1);
 
-		if (abs(newX < stageScalingThreshold))
+		if (abs(newX) < stageScalingThreshold)
 
-			if (abs(stageText.getScale().x - 1 < stageScalingThreshold))
+			if (abs(stageText.getScale().x - 1) < stageScalingThreshold)
 			{
 				stageText.setScale(1, 1);
 				stageTextState = EthericalTextState::IDLE;
@@ -179,6 +179,8 @@ void ScoreManagerGUI::reset()
 	scoreText.setString("Points: " + std::to_string(unsigned(currentPoints)));
 	centerTextOrigin(scoreText);
 	scoreText.setPosition(scoreTextPosition);
+
+	stageText.setString("1");
 
 	flashingNewHighscoreText.reset();
 	flashingBestHighscoreText.reset();

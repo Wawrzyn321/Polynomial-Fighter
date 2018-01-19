@@ -137,6 +137,11 @@ bool RollingList::moveDown()
 	}
 }
 
+void RollingList::stopKeyboardGuard() const
+{
+	delayGuard->stop();
+}
+
 void RollingList::setVisible(bool visible, bool resetCurrentlyCentered)
 {
 	state = visible ? State::MOVING : State::HIDING;

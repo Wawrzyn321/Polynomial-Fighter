@@ -27,6 +27,7 @@ Enemy::Enemy()
 {
 	this->name = "Unnamed Enemy";
 	tag = GameData::TAG_ENEMY;
+	state = State::CLOSING_IN;
 	DeathEvent.clear();
 }
 

@@ -16,7 +16,7 @@ class InputField : public sf::Drawable
 	sf::Vector2f size;
 	sf::Vector2f position;
 	std::shared_ptr<sf::Font> font;
-	PauseController *pauseController;
+	PauseController *pauseController = nullptr;
 
 	void initGraphics();
 

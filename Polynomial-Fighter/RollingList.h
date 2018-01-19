@@ -38,6 +38,7 @@ public:
 	virtual bool moveUp();
 
 	virtual bool moveDown();
+	void stopKeyboardGuard() const;
 
 	void setVisible(bool visible, bool resetCurrentlyCentered = true);
 

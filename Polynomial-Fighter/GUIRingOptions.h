@@ -51,6 +51,8 @@ public:
 
 	void update(const Time::TimeData& timeData);
 
+	void setTransitioningToGame();
+
 	void setExiting();
 
 	void switchRight();

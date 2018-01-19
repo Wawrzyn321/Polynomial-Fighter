@@ -161,6 +161,25 @@ void MainMenu::handleRingRotation(const sf::Event &event) const
 	}
 }
 
+void MainMenu::handleRollingListsReleasedEvents(const sf::Event::KeyEvent& key) const
+{
+	if (key.code == sf::Keyboard::Up || key.code == sf::Keyboard::W ||
+		key.code == sf::Keyboard::Down || key.code == sf::Keyboard::S)
+	{
+		switch (state) {
+		case State::HIGHSCORES:
+			animator->resetHighscoresGuard();
+			break;
+		case State::HOW_TO:
+			animator->resetHowToGuard();
+			break;
+		case State::AUHTORS:
+			animator->resetAuthorsGuard();
+			break;
+		}
+	}
+}
+
 void MainMenu::handleEvents()
 {
 	auto t = Time::Timer::instance();
@@ -168,15 +187,6 @@ void MainMenu::handleEvents()
 	sf::Event event;
 	while (window->pollEvent(event))
 	{
-		/*sf::Listener::setPosition(GameData::WINDOW_SIZE.x*0.5f, 0.0f, GameData::WINDOW_SIZE.y*0.5f);
-		if (event.type == sf::Event::MouseButtonPressed)
-		{
-			if (event.mouseButton.button == sf::Mouse::Right) {
-				auto v = sf::Vector2f(event.mouseButton.x, event.mouseButton.y);
-				SoundManager::instance()->playSound(Assets::SOUND_EXPLOSION_SHORT, v);
-			}
-		}*/
-
 		if (event.type == sf::Event::Closed) {
 			window->close();
 			return;
@@ -208,21 +218,13 @@ void MainMenu::handleEvents()
 				break;
 			}
 		}
+		if (event.type == sf::Event::KeyReleased) {
+			handleRollingListsReleasedEvents(event.key);
+		}
 
 		if (event.type == sf::Event::GainedFocus) {
 			t->setTimeScale(1);
 		}
-		/*if (event.type == sf::Event::MouseWheelMoved)
-		{
-			t->setTimeScale(t->getTimeScale() + event.mouseWheel.delta*0.1f);
-		}
-		if (event.type == sf::Event::MouseButtonPressed)
-		{
-			if (event.mouseButton.button == sf::Mouse::Middle)
-			{
-				t->setTimeScale(1);
-			}
-		}*/
 	}
 }
 

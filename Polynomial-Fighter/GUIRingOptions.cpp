@@ -115,6 +115,12 @@ void GUIRingOptions::update(const Time::TimeData& timeData)
 	arrows->update(timeData);
 }
 
+void GUIRingOptions::setTransitioningToGame()
+{
+	isTransitioningToGame = true;
+	arrows->updateBounds(-GameData::WINDOW_SIZE.x * 0.2f, GameData::WINDOW_SIZE.x * 1.2f);
+}
+
 void GUIRingOptions::setExiting()
 {
 	isExiting = true;

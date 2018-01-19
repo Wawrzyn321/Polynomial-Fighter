@@ -78,10 +78,7 @@ void GUIAnimator::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	target.draw(*pressAnyKeyText, states);
 }
 
-GUIRingOptions::Option GUIAnimator::getRingOption() const
-{
-	return optionsRing->getCurrentOption();
-}
+#pragma region Common
 
 void GUIAnimator::setSplash() const
 {
@@ -126,7 +123,16 @@ void GUIAnimator::setToGame() const
 {
 	title->state = TitleText::State::UP;
 	ring->state = GUIRing::State::TO_GAME;
-	optionsRing->isTransitioningToGame = true;
+	optionsRing->setTransitioningToGame();
+}
+
+#pragma endregion
+
+#pragma region Ring
+
+GUIRingOptions::Option GUIAnimator::getRingOption() const
+{
+	return optionsRing->getCurrentOption();
 }
 
 void GUIAnimator::rotateRingRight() const
@@ -141,6 +147,10 @@ void GUIAnimator::rotateRingLeft() const
 	SoundManager::instance()->playSound(Assets::SOUND_CLICK, SoundManager::SoundDirection::LEFT);
 }
 
+#pragma endregion
+
+#pragma region Highscores
+
 void GUIAnimator::moveHighscoresUp() const
 {
 	highscores->moveUp();
@@ -151,7 +161,7 @@ void GUIAnimator::moveHighscoresDown() const
 	highscores->moveDown();
 }
 
-void GUIAnimator::setHighscoresVisibles(bool visible) const{
+void GUIAnimator::setHighscoresVisibles(bool visible) const {
 	if (visible)
 	{
 		highscores->initTexts(HighscoreService::getFormattedHighscores());
@@ -160,6 +170,15 @@ void GUIAnimator::setHighscoresVisibles(bool visible) const{
 	optionsRing->isZoomed = visible;
 	highscores->setVisible(visible);
 }
+
+void GUIAnimator::resetHighscoresGuard() const
+{
+	highscores->stopKeyboardGuard();
+}
+
+#pragma endregion
+
+#pragma region HowTo
 
 void GUIAnimator::moveHowToUp() const
 {
@@ -188,6 +207,14 @@ void GUIAnimator::setHowToVisible(bool visible) const {
 	howTo->setVisible(visible);
 }
 
+void GUIAnimator::resetHowToGuard() const
+{
+	howTo->stopKeyboardGuard();
+}
+#pragma endregion
+
+#pragma region Authors
+
 void GUIAnimator::moveAuthorsUp() const
 {
 	authors->moveUp();
@@ -212,6 +239,13 @@ void GUIAnimator::setAuthorsVisible(bool visible) const {
 	optionsRing->isZoomed = visible;
 	authors->setVisible(visible);
 }
+
+void GUIAnimator::resetAuthorsGuard() const
+{
+	authors->stopKeyboardGuard();
+}
+
+#pragma endregion
 
 void GUIAnimator::setSound(bool isOn) const
 {

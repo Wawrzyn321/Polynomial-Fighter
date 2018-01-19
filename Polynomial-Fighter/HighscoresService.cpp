@@ -11,6 +11,7 @@ HighscoreService::HighscoreService()
 
 void HighscoreService::loadHighScores()
 {
+	loadedScores.clear();
 	std::fstream fIn = std::fstream(Assets::PATH_TO_RESOURCES + Assets::PATH_TO_SAVE, std::ios::in);
 	if (fIn.good()) {
 		unsigned i = 0;
@@ -25,7 +26,7 @@ void HighscoreService::loadHighScores()
 				int p = stoi(t);
 				loadedScores.push_back(unsigned(p));
 			}
-			catch (std::invalid_argument) {}
+			catch (std::invalid_argument&) {}
 			i++;
 		}
 		fIn.close();
@@ -93,7 +94,7 @@ bool HighscoreService::addScore(unsigned score)
 	for (i = 0; i < loadedScores.size() && score < loadedScores[i]; i++)
 	{
 	}
-	if (i == 0 || i != maxScoresCount)
+	if (i != maxScoresCount)
 	{
 		loadedScores.insert(loadedScores.begin() + i, score);
 		if (loadedScores.size() > maxScoresCount) {
