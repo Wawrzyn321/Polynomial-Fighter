@@ -39,6 +39,7 @@ const std::string Assets::SOUND_GAME_LOAD = "game_load.ogg";
 const std::string Assets::SOUND_ROLLING_LIST_MOVE = "rolling_list_move.ogg";
 const std::string Assets::SOUND_MISS = "miss.ogg";
 const std::string Assets::SOUND_MENU_LOAD = "menu_load.ogg";
+const std::string Assets::SOUND_ZLOWIESZCZY = "halamazlowieszczy.ogg";
 
 AssetManager * AssetManager::sInstance = nullptr;
 

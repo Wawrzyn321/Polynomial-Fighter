@@ -96,14 +96,16 @@ RollingList::RollingList()
 
 bool RollingList::moveUp()
 {
-	if (!showLastChild && currentlyCentered == 0)
-	{
-		entries[0]->text.setPosition(center + sf::Vector2f(0.0f, -oneEntryShift));
-		SoundManager::instance()->playSound(Assets::SOUND_ROLLING_LIST_MOVE);
-		return false;
-	}
-
 	if (delayGuard->isRunning == false) {
+
+		if (!showLastChild && currentlyCentered == 0)
+		{
+			entries[0]->text.setPosition(center + sf::Vector2f(0.0f, -oneEntryShift));
+			runDelayGuard(defaultGuardInterval);
+			SoundManager::instance()->playSound(Assets::SOUND_ROLLING_LIST_MOVE);
+			return false;
+		}
+
 		currentlyCentered--;
 		if (currentlyCentered < 0)
 		{

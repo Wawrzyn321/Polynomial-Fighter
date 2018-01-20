@@ -35,6 +35,10 @@ void ScoreManager::stageFinished()
 	gui->stageFinished(stageNo);
 }
 
+unsigned ScoreManager::getPoints() const
+{
+	return points;
+}
 
 void ScoreManager::showFinalScore() const
 {

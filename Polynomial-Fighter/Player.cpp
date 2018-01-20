@@ -98,6 +98,7 @@ void Player::processConsoleInput(const RequestValue& value, const std::vector<st
 	else if (value.message == RH_Codes::DIVISION_BY_ZERO && !EasterEgg::hasAlreadyDoneThat)
 	{
 		SoundManager::instance()->playSound(Assets::SOUND_DIV_0);
+		SoundManager::instance()->playSound(Assets::SOUND_ZLOWIESZCZY);
 		auto ft = std::make_shared<FleetingText>("You shouldn't have done that...",
 		sf::Vector2f(
 			GameData::WINDOW_SIZE.x*0.7f,

@@ -12,7 +12,6 @@ class Gameplay;
 class GameplayManager
 {
 	unsigned currentStage{};
-	unsigned points{};
 
 	unsigned targetEnemiesNumber{};
 	unsigned alreadySpawnedEnemies{};

@@ -185,13 +185,9 @@ void PlayerCannon::reduce(int divisor, const std::vector<std::shared_ptr<Entity>
 
 void PlayerCannon::onRotationFinished(float angle)
 {
-	if (munitionContainer->canShoot() != 0) {
+	if (targets.size() != 0) {
 		state = CannonState::WAITING_FOR_RELOAD;
 		reloadAccumulator = 0;
-	}
-	else
-	{
-		targets = std::vector<DesignatedTarget>();
 	}
 }
 

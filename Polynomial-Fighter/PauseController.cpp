@@ -38,13 +38,15 @@ void PauseController::handleColorChange(const sf::Color& color, float deltaTime)
 	pauseText.setFillColor(currentColor.toColor());
 
 	float colorDifference = currentColor.calculateMaxDifference(color, true);
+	checkThreshold(colorDifference);
+
+	if (mode == Mode::PAUSED || mode == Mode::NONE) return;
+
 	if (mode == Mode::UNPAUSING)
 	{
 		colorDifference = 1 - colorDifference;
 	}
-
 	Time::Timer::instance()->setTimeScale(colorDifference);
-	checkThreshold(colorDifference);
 }
 
 PauseController::PauseController()
@@ -106,10 +108,10 @@ void PauseController::feed(const sf::Event& event)
 			}
 		}
 	}
-	if (event.type == sf::Event::LostFocus) {
+	if (event.type == sf::Event::LostFocus && !isPaused()) {
 		forceSwitchTo(true);
 	}
-	if (event.type == sf::Event::MouseWheelMoved)
+	/*if (event.type == sf::Event::MouseWheelMoved)
 	{
 		Time::Timer *t = Time::Timer::instance();
 		t->setTimeScale(t->getTimeScale() + event.mouseWheel.delta*0.1f);
@@ -124,7 +126,7 @@ void PauseController::feed(const sf::Event& event)
 		{
 			Time::Timer::instance()->setTimeScale(1);
 		}
-	}
+	}*/
 }
 
 void PauseController::update(const Time::TimeData& timeData)

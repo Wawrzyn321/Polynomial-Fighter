@@ -88,7 +88,7 @@ void GameplayManager::PlayerDestroyed()
 
 	pauseController.forceSwitchTo(false);
 	scoreManager.showFinalScore();
-	finalScreen = std::make_unique<FinalScreen>(points, allDestroyedEnemies, currentStage);
+	finalScreen = std::make_unique<FinalScreen>(scoreManager.getPoints(), allDestroyedEnemies, currentStage);
 
 	SoundManager::instance()->playSound(Assets::SOUND_FAILED);
 }
@@ -161,10 +161,10 @@ void GameplayManager::bindExitAction(Gameplay *game)
 void GameplayManager::reset()
 {
 	currentStage = 0;
-	points = 0;
 	enemiesAlive = 0;
 	targetEnemiesNumber = (currentStage + 1) * 3;
 	alreadySpawnedEnemies = 0;
+	allDestroyedEnemies = 0;
 
 	EntityManager::instance()->clear();
 	Time::Timer::instance()->setTimeScale(1.0f);

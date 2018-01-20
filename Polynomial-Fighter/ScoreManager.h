@@ -20,6 +20,8 @@ public:
 
 	void stageFinished();
 
+	unsigned getPoints() const;
+
 	void showFinalScore() const;
 
 	void reset();

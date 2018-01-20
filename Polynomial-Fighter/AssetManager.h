@@ -48,6 +48,7 @@ public:
 	static const std::string SOUND_ROLLING_LIST_MOVE;
 	static const std::string SOUND_MISS;
 	static const std::string SOUND_MENU_LOAD;
+	static const std::string SOUND_ZLOWIESZCZY;
 };
 
 class AssetManager
