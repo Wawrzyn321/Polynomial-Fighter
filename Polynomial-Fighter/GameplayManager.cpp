@@ -91,6 +91,8 @@ void GameplayManager::PlayerDestroyed()
 	finalScreen = std::make_unique<FinalScreen>(scoreManager.getPoints(), allDestroyedEnemies, currentStage);
 
 	SoundManager::instance()->playSound(Assets::SOUND_FAILED);
+
+	inputLock = StopWatch(endGameDelay, true);
 }
 
 #pragma endregion
@@ -182,28 +184,30 @@ void GameplayManager::feed(const sf::Event& event)
 		inputField->feed(event);
 		pauseController.feed(event);
 	}
-	else if (gameplay->state == Gameplay::State::SHOWING_HIGHSCORE)
-	{
-		if (event.type == sf::Event::KeyPressed && !isAuxiliaryKey(event.key))
+	if (inputLock.isRunning == false) {
+		if (gameplay->state == Gameplay::State::SHOWING_HIGHSCORE)
 		{
-			gameplay->state = Gameplay::State::PROMPTING_NEXT;
-			finalScreen->state = FinalScreen::State::PROMPT;
-		}
-	}
-	else if(gameplay->state == Gameplay::State::PROMPTING_NEXT)
-	{
-		if (event.type == sf::Event::KeyPressed)
-		{
-			switch(event.key.code)
+			if (event.type == sf::Event::KeyPressed && !isAuxiliaryKey(event.key))
 			{
-			case sf::Keyboard::Escape:
-				gameplay->isRunning = false;
-				gameplay->state = Gameplay::State::EXITING;
-				break;
-			case sf::Keyboard::Space:
-			case sf::Keyboard::Return:
-				reset();
-				gameplay->state = Gameplay::State::ON;
+				gameplay->state = Gameplay::State::PROMPTING_NEXT;
+				finalScreen->state = FinalScreen::State::PROMPT;
+			}
+		}
+		else if (gameplay->state == Gameplay::State::PROMPTING_NEXT)
+		{
+			if (event.type == sf::Event::KeyPressed)
+			{
+				switch (event.key.code)
+				{
+				case sf::Keyboard::Escape:
+					gameplay->isRunning = false;
+					gameplay->state = Gameplay::State::EXITING;
+					break;
+				case sf::Keyboard::Space:
+				case sf::Keyboard::Return:
+					reset();
+					gameplay->state = Gameplay::State::ON;
+				}
 			}
 		}
 	}
@@ -211,8 +215,6 @@ void GameplayManager::feed(const sf::Event& event)
 
 void GameplayManager::update(const Time::TimeData &timeData)
 {
-	//assert(EntityManager::instance()->findEntitiesByTag(GameData::TAG_PLAYER, true).size() == 1);
-
 	spawner.update(timeData);
 	scoreManager.update(timeData);
 	inputField->update(timeData);
@@ -221,6 +223,7 @@ void GameplayManager::update(const Time::TimeData &timeData)
 	if (finalScreen) {
 		finalScreen->update(timeData);
 	}
+	inputLock.update(timeData);
 }
 
 void GameplayManager::earlyDraw(sf::RenderTarget& target, sf::RenderStates states) const

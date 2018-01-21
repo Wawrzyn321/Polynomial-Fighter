@@ -6,7 +6,7 @@
 void ParticleMaster::addPlayerShootParticles(const sf::Vector2f& position, float rotation)
 {
 	auto aps = APSBuilder::startBuilding(position)
-		->setMainData(1000, 30)
+		->setMainData(1200, 30)
 		.setScaling(0.999f)
 		.setVelocity(0.3f, 0.4f, 0.99f)
 		.setIntervals(100)

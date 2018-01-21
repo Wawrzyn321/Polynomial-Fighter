@@ -4,7 +4,7 @@
 #include "Utility.h"
 
 #ifdef  _WIN32
-//#pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
+#pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
 #endif
 
 void Game::performShutdown() const

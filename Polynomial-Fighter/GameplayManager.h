@@ -22,6 +22,7 @@ class GameplayManager
 	ScoreManager scoreManager;
 	CameraShake cameraShake;
 	PauseController pauseController;
+	StopWatch inputLock;
 	sf::CircleShape ring;
 	Gameplay* gameplay = nullptr;
 	InputField *inputField = nullptr;
@@ -57,6 +58,9 @@ public:
 	void draw(sf::RenderTarget& target, sf::RenderStates states = sf::RenderStates::Default) const;
 
 	~GameplayManager();
+
+private:
+	const float endGameDelay = 1000.0f;
 };
 
 

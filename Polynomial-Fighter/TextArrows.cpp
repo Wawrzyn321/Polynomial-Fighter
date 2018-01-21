@@ -11,13 +11,15 @@ TextArrows::TextArrows(unsigned fontSize)
 
 	leftArrow = sf::Text("<", *font, fontSize);
 	leftArrow.setFillColor(Colors::textLitColor);
+	leftArrow.rotate(-5);
 
 	rightArrow = sf::Text(">", *font, fontSize);
 	rightArrow.setFillColor(Colors::textLitColor);
+	leftArrow.rotate(5);
 
 	xLeft = -GameData::WINDOW_SIZE.x *0.2f;
-	xRight = -GameData::WINDOW_SIZE.x *1.2f;
-	rightArrow.setPosition(float(GameData::WINDOW_SIZE.x), GameData::WINDOW_CENTER.y);
+	xRight = GameData::WINDOW_SIZE.x *1.2f;
+	rightArrow.setPosition(xRight, yPosition);
 }
 
 void TextArrows::updateBounds(const sf::Text *text)
@@ -34,6 +36,12 @@ void TextArrows::updateBounds(float xLeft, float xRight)
 {
 	this->xLeft = xLeft;
 	this->xRight = xRight;
+}
+
+void TextArrows::setOuttaGame()
+{
+	this->xLeft = -GameData::WINDOW_SIZE.x * 0.2f;
+	this->xRight = GameData::WINDOW_SIZE.x * 1.2f;
 }
 
 void TextArrows::update(const Time::TimeData& timeData)

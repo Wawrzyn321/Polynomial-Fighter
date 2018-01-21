@@ -21,9 +21,12 @@ public:
 
 	void updateBounds(float xLeft, float xRight);
 
+	void setOuttaGame();
+
 	void update(const Time::TimeData& time_data);
 
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+
 private:
 	const float yPosition = GameData::WINDOW_SIZE.y*0.47f;
 };

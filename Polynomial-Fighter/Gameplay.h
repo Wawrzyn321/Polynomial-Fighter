@@ -28,7 +28,7 @@ public:
 
 	Gameplay(sf::RenderWindow* window);
 
-	void mainLoop();
+	void mainLoop() const;
 
 	~Gameplay();
 };

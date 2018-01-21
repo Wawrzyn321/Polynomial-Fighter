@@ -5,8 +5,6 @@
 
 void Gameplay::handleEvents() const
 {
-	auto t = Time::Timer::instance();
-
 	sf::Event event;
 	while (window->pollEvent(event))
 	{
@@ -56,7 +54,7 @@ Gameplay::Gameplay(sf::RenderWindow* window)
 	state = State::ON;
 }
 
-void Gameplay::mainLoop()
+void Gameplay::mainLoop() const
 {
 	while (isRunning && window->isOpen())
 	{

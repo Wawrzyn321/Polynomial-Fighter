@@ -118,12 +118,13 @@ void GUIRingOptions::update(const Time::TimeData& timeData)
 void GUIRingOptions::setTransitioningToGame()
 {
 	isTransitioningToGame = true;
-	arrows->updateBounds(-GameData::WINDOW_SIZE.x * 0.2f, GameData::WINDOW_SIZE.x * 1.2f);
+	arrows->setOuttaGame();
 }
 
 void GUIRingOptions::setExiting()
 {
 	isExiting = true;
+	arrows->setOuttaGame();
 }
 
 void GUIRingOptions::switchRight()
@@ -156,7 +157,7 @@ void GUIRingOptions::setVisible(bool isVisible, bool resetCurrentOption)
 		arrows->updateBounds(buttons[currentOption]);
 	}
 	else{
-		arrows->updateBounds(-GameData::WINDOW_SIZE.x*0.2f, GameData::WINDOW_SIZE.x*1.2f);
+		arrows->setOuttaGame();
 	}
 }
 
