@@ -124,7 +124,10 @@ void PlayerCannon::addRounds(int roundsToAdd) const
 void PlayerCannon::appendTargets(const std::vector<int>& values, const std::vector<std::shared_ptr<Entity>> &enemies)
 {
 	auto shuffledValues = values;
-	std::random_shuffle(shuffledValues.begin(), shuffledValues.end());
+
+	std::random_device rd;
+	std::mt19937 g(rd());
+	std::shuffle(shuffledValues.begin(), shuffledValues.end(), g);
 
 	int targetsAdded = 0;
 	auto size = int(shuffledValues.size());
