@@ -17,6 +17,6 @@ SFML version: 2.5.1
 
 ## Videos
 
-* ![main menu](./assets/main.mp4)
-* ![gameplay ](./assets/play.mp4)
-* ![how to play](./assets/how.mp4)
+* [main menu](./assets/main.mp4)
+* [gameplay ](./assets/play.mp4)
+* [how to play](./assets/how.mp4)
