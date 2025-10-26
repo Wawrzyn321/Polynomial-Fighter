@@ -56,7 +56,7 @@ class AdvancedParticleSystem : public Entity
 	int spawnedParticles{};
 	int aliveParticlesCount{};
 
-	AdvancedParticleSystem* finishBuilding();
+	AdvancedParticleSystem *finishBuilding();
 
 	void onLiveEnded();
 
@@ -66,6 +66,7 @@ class AdvancedParticleSystem : public Entity
 	void handleWaitingForRevival(float deltaTime);
 	void handleUpdatingParticles(const Time::TimeData &timeData);
 	void handleSpawning(float deltaTime);
+
 public:
 	explicit AdvancedParticleSystem(const sf::Vector2f &position);
 
@@ -77,10 +78,10 @@ public:
 
 	void update(const Time::TimeData &timeData) override;
 	void onDestroy() override;
-	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+	void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 
 	void setPosition(const sf::Vector2f &position) override;
 	sf::Vector2f getPosition() const override;
 };
 
-#endif ADVANCED_PARTICLE_SYSTEM_H
+#endif // ADVANCED_PARTICLE_SYSTEM_H
