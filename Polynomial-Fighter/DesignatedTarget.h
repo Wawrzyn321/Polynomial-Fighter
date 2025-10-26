@@ -3,7 +3,7 @@
 
 struct DesignatedTarget
 {
-	unsigned recipientID{};
+	unsigned long recipientID{};
 	int root{};
 
 	bool operator==(const DesignatedTarget &other) const
