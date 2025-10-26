@@ -1,0 +1,35 @@
+name: "Build"
+
+on:
+  push:
+  pull_request:
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+      fail-fast: false
+    runs-on: ${{ matrix.os }}
+    name: "Build on ${{ matrix.os }}"
+    steps:
+      - name: Install Linux Dependencies
+        if: runner.os == 'Linux'
+        run: sudo apt-get update && sudo apt-get install libxrandr-dev libxcursor-dev libudev-dev libopenal-dev libflac-dev libvorbis-dev libgl1-mesa-dev libegl1-mesa-dev libfreetype-dev
+
+      - uses: actions/checkout@v5
+      - name: "Setup cmake build"
+        run: |
+          cmake -B build -DCMAKE_BUILD_TYPE=Release
+      - name: "Build"
+        run: |
+          cmake --build build -j$(nproc --all)
+      - name: "upload artifact"
+        uses: actions/upload-artifact@v5
+        with:
+          name: executable-${{ matrix.os }}
+          path: build/Polynomial_Fighter
