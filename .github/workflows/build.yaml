@@ -26,9 +26,16 @@ jobs:
           cmake -B build -DCMAKE_BUILD_TYPE=Release
       - name: "Build"
         run: |
-          cmake --build build -j$(nproc --all)
+          cmake --build build -j$(nproc --all) --config Release
       - name: "upload artifact"
+        if: runner.os != 'Windows'
         uses: actions/upload-artifact@v5
         with:
           name: executable-${{ matrix.os }}
           path: build/bin/polynomial_fighter
+      - name: "upload artifact"
+        if: runner.os == 'Windows'
+        uses: actions/upload-artifact@v5
+        with:
+          name: executable-${{ matrix.os }}
+          path: build/bin/Release/polynomial_fighter
